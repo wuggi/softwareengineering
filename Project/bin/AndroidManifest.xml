@@ -23,13 +23,10 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
             android:name="de.Psychologie.socialintelligence.PopPollActivity"
             android:label="@string/title_activity_pop_poll" >
-=======
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week" >
->>>>>>> fc2ebe9b3128bb4a3a5cbef125c8a9af17ee7413
         </activity>
     </application>
 
