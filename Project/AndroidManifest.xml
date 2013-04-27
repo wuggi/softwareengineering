@@ -28,6 +28,7 @@
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week" >
         </activity>
+        <activity android:name="Week" android:label="@string/title_activity_week"></activity>
     </application>
 
 </manifest>
