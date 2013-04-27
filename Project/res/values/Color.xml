@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="checkButton">#00FF7F</color>
+    <color name="uncheckedButton">#8B0000</color>
+    
+</resources>
