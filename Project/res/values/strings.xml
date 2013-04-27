@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="anleitung">Bitte erstellen sie ihr Passwort nach folgendem Muster:</string>
+    <string name="title_activity_pop_poll">PopPollActivity</string>
     <string name="title_activity_week">Week</string>
-    <string name="time_slot">Bitte wählen Sie Ihre Time-Slots\n</string>
-    <string name="title_activity_pop_poll"/>
-
-
-
+    <string name="time_slot">Bitte wählen Sie Ihre Time-Slots</string>
 </resources>
