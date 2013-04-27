@@ -3,12 +3,8 @@
 
     <string name="app_name">SocialIntelligence</string>
     <string name="action_settings">Settings</string>
-    <string name="anleitung">Bitte erstellen sie ihr Passwort nach folgendem Muster:</string>
-    <string name="title_activity_week">Week</string>
-    <string name="time_slot">Bitte wählen Sie Ihre Time-Slots\n</string>
-    <string name="Anleitung">Code - Verschlüsselung:\n\n1. Dritter Buchstabe des Vornamens deiner Mutter\n2. Dritter Buchstabe des Vornamens deines Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
-    <string name="title_activity_pop_poll"/>
-
-
+    <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens deiner Mutter\n2. Dritter Buchstabe des Vornamens deines Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
+    <string name="Willkommen">Willkommen,</string>
+    <string name="Willkommen_2">Bitte geb hier deinen Code ein.</string>
 
 </resources>
