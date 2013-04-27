@@ -39,7 +39,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp"
-        android:text="Weiter" />
+        android:text="Weiter"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView3"
