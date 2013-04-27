@@ -17,20 +17,19 @@ public class SQLHandler extends SQLiteOpenHelper {
 	/////////////////////////////////////////////////////////////
 	
 	private static final String tabCreateUser = "CREATE TABLE IF NOT EXISTS user ( " +
-												"ID INT NOT NULL AUTO_INCREMENT, " +
+												"ID INTEGER AUTOINCREMENT NOT NULL, " +
 												"code VARCHAR(5) NOT NULL, " +
 												"PRIMARY KEY (ID))";
 	
 	private static final String tabCreatePoll = "CREATE TABLE IF NOT EXISTS poll ( " +
-												"ID INT NOT NULL AUTO_INCREMENT , " +
+												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , " +
 												"date DATE NULL , " +
 												"alarm TIME NULL , " +
 												"answer TIME NULL , " +
 												"break CHAR NULL , " +
-												"contact INT NULL , " +
-												"hour INT NULL , " +
-												"minute INT NULL ," +
-												"PRIMARY KEY (`ID`))";
+												"contact INTEGER NULL , " +
+												"hour INTEGER NULL , " +
+												"minute INTEGER NULL)";
 
 	/////////////////////////////////////////////////////////////
 	//// FIRST PROCESS
