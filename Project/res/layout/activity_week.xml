@@ -30,33 +30,28 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="09:00"
-                tools:ignore="HardcodedText" />
+                android:text="09:00" />
 
             <Button
                 android:id="@+id/timeslot2"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10:00"
-                tools:ignore="HardcodedText" />
+                android:text="10:00" />
 
             <Button
                 android:id="@+id/timeslot3"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="11:00"
-                tools:ignore="HardcodedText" />
+                android:text="11:00" />
 
             <Button
                 android:id="@+id/timeslot4"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12:00"
-                tools:ignore="HardcodedText" />
-
+                android:text="12:00" />
         </TableRow>
 
         <TableRow
@@ -69,8 +64,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13:00"
-                tools:ignore="HardcodedText" />
+                android:text="13:00" />
 
             <Button
                 android:id="@+id/timeslot6"
