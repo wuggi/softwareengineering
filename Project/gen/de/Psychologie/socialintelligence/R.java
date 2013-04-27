@@ -26,7 +26,7 @@ public final class R {
     public static final class id {
         public static final int LinearLayout2=0x7f080005;
         public static final int action_settings=0x7f080019;
-        public static final int button1=0x7f080002;
+        public static final int btnWeiter=0x7f080002;
         public static final int editText1=0x7f080000;
         public static final int tableRow1=0x7f080006;
         public static final int tableRow2=0x7f08000b;
