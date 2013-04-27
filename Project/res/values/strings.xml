@@ -7,5 +7,7 @@
     <string name="title_activity_week">Week</string>
     <string name="hello_world">Hello world!</string>
     <string name="time_slot">Bitte wählen Sie Ihre Time-Slots</string>
+    <string name="Anleitung">Code - Verschlüsselung:\n\n1. Dritter Buchstabe des Vornamens deiner Mutter\n2. Dritter Buchstabe des Vornamens deines Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
+
 
 </resources>
