@@ -3,6 +3,7 @@
 
     <string name="app_name">SocialIntelligence</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="anleitung">Bitte erstellen sie ihr Passwort nach folgendem Muster:</string>
+    
 
 </resources>
