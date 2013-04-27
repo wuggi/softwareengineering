@@ -5,10 +5,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
-<<<<<<< HEAD
-=======
+
 import android.view.View;
->>>>>>> upstream/master
 import android.widget.Button;
 
 public class Week extends Activity {
@@ -37,11 +35,10 @@ public class Week extends Activity {
 		timeslot13=(Button)findViewById(R.id.timeslot13);
 		timeslot14=(Button)findViewById(R.id.timeslot14);
 		timeslot15=(Button)findViewById(R.id.timeslot15);
+
 		
-<<<<<<< HEAD
 		
-		
-=======
+
 //		timeslot1.setOnClickListener(new OnClickListener() {
 //			
 //			@Override
@@ -74,7 +71,7 @@ public class Week extends Activity {
 			break;
 			
 		}
->>>>>>> upstream/master
+
 	}
 
 	@Override
