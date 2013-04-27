@@ -28,58 +28,32 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-<<<<<<< HEAD
-        public static final int LinearLayout2=0x7f090002;
-        public static final int action_settings=0x7f090016;
+        public static final int LinearLayout2=0x7f090005;
+        public static final int action_settings=0x7f090019;
+        public static final int btnWeiter=0x7f090003;
         public static final int editText1=0x7f090001;
-        public static final int tableRow1=0x7f090003;
-        public static final int tableRow2=0x7f090008;
-        public static final int tableRow3=0x7f09000c;
-        public static final int tableRow4=0x7f090011;
+        public static final int tableRow1=0x7f090006;
+        public static final int tableRow2=0x7f09000b;
+        public static final int tableRow3=0x7f09000f;
+        public static final int tableRow4=0x7f090014;
         public static final int textView1=0x7f090000;
-        public static final int timeslot1=0x7f090004;
-        public static final int timeslot10=0x7f09000f;
-        public static final int timeslot11=0x7f090010;
-        public static final int timeslot12=0x7f090012;
-        public static final int timeslot13=0x7f090013;
-        public static final int timeslot14=0x7f090014;
-        public static final int timeslot15=0x7f090015;
-        public static final int timeslot2=0x7f090005;
-        public static final int timeslot3=0x7f090006;
-        public static final int timeslot4=0x7f090007;
-        public static final int timeslot5=0x7f090009;
-        public static final int timeslot6=0x7f09000a;
-        public static final int timeslot7=0x7f09000b;
-        public static final int timeslot8=0x7f09000d;
-        public static final int timeslot9=0x7f09000e;
-=======
-        public static final int LinearLayout2=0x7f080005;
-        public static final int action_settings=0x7f080019;
-        public static final int btnWeiter=0x7f080002;
-        public static final int editText1=0x7f080000;
-        public static final int tableRow1=0x7f080006;
-        public static final int tableRow2=0x7f08000b;
-        public static final int tableRow3=0x7f08000f;
-        public static final int tableRow4=0x7f080014;
-        public static final int textView1=0x7f080004;
-        public static final int textView2=0x7f080001;
-        public static final int textView3=0x7f080003;
-        public static final int timeslot1=0x7f080007;
-        public static final int timeslot10=0x7f080012;
-        public static final int timeslot11=0x7f080013;
-        public static final int timeslot12=0x7f080015;
-        public static final int timeslot13=0x7f080016;
-        public static final int timeslot14=0x7f080017;
-        public static final int timeslot15=0x7f080018;
-        public static final int timeslot2=0x7f080008;
-        public static final int timeslot3=0x7f080009;
-        public static final int timeslot4=0x7f08000a;
-        public static final int timeslot5=0x7f08000c;
-        public static final int timeslot6=0x7f08000d;
-        public static final int timeslot7=0x7f08000e;
-        public static final int timeslot8=0x7f080010;
-        public static final int timeslot9=0x7f080011;
->>>>>>> 48ed9838ef6f187f8162ad74abb826a0606f911e
+        public static final int textView2=0x7f090002;
+        public static final int textView3=0x7f090004;
+        public static final int timeslot1=0x7f090007;
+        public static final int timeslot10=0x7f090012;
+        public static final int timeslot11=0x7f090013;
+        public static final int timeslot12=0x7f090015;
+        public static final int timeslot13=0x7f090016;
+        public static final int timeslot14=0x7f090017;
+        public static final int timeslot15=0x7f090018;
+        public static final int timeslot2=0x7f090008;
+        public static final int timeslot3=0x7f090009;
+        public static final int timeslot4=0x7f09000a;
+        public static final int timeslot5=0x7f09000c;
+        public static final int timeslot6=0x7f09000d;
+        public static final int timeslot7=0x7f09000e;
+        public static final int timeslot8=0x7f090010;
+        public static final int timeslot9=0x7f090011;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -93,12 +67,14 @@ public final class R {
     }
     public static final class string {
         public static final int Anleitung=0x7f060006;
-        public static final int action_settings=0x7f060001;
-        public static final int anleitung=0x7f060002;
-        public static final int app_name=0x7f060000;
-        public static final int time_slot=0x7f060005;
-        public static final int title_activity_pop_poll=0x7f060003;
-        public static final int title_activity_week=0x7f060004;
+        public static final int Willkommen=0x7f060007;
+        public static final int Willkommen_2=0x7f060008;
+        public static final int action_settings=0x7f060005;
+        public static final int anleitung=0x7f060000;
+        public static final int app_name=0x7f060004;
+        public static final int time_slot=0x7f060003;
+        public static final int title_activity_pop_poll=0x7f060001;
+        public static final int title_activity_week=0x7f060002;
     }
     public static final class style {
         /** 
