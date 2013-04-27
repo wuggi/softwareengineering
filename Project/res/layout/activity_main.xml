@@ -18,16 +18,6 @@
         android:text="@string/Willkommen"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/btnWeiter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:text="Weiter"
-        tools:ignore="HardcodedText" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -64,5 +54,15 @@
         android:text="@string/Anleitung"
         android:textSize="14sp"
         android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btnWeiter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:text="Weiter"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
