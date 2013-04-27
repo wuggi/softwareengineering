@@ -3,6 +3,7 @@ package de.Psychologie.socialintelligence;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 
@@ -18,5 +19,6 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
 
 }
