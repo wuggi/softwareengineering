@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="@string/Anleitung"
+        android:text="@string/Anltitle_activity_pop_polltitle_activity_pop_polltitle_activity_pop_polleitung"
         android:textStyle="normal" />
 
     <EditText
