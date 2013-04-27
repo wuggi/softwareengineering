@@ -17,7 +17,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	/////////////////////////////////////////////////////////////
 	
 	private static final String tabCreateUser = "CREATE TABLE IF NOT EXISTS user ( " +
-												"ID INT NOT NULL AUTO_INCREMENT, " +
+												"ID INT NOT NULL, " +
 												"code VARCHAR(5) NOT NULL, " +
 												"PRIMARY KEY (ID))";
 	
@@ -67,6 +67,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		
 		//content Typ, to import String code as table value
 		ContentValues cv = new ContentValues();
+		cv.put("ID",1);
 		cv.put("code", code);
 		
 		db.insert("user", "code", cv);
