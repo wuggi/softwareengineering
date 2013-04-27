@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="de.Psychologie.socialintelligence.PopPollActivity"
+            android:label="@string/title_activity_pop_poll" >
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week" >
         </activity>
