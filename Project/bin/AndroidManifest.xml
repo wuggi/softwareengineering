@@ -28,7 +28,18 @@
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week" >
         </activity>
+<<<<<<< HEAD
+        <activity
+            android:name="de.Psychologie.socialintelligence.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.Settings"
+            android:label="@string/title_activity_settings" >
+        </activity>
+=======
         <activity android:name="Week" android:label="@string/title_activity_week"></activity>
+>>>>>>> upstream/master
     </application>
 
 </manifest>
