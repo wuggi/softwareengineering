@@ -2,6 +2,7 @@ package de.Psychologie.socialintelligence;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,15 +18,20 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// Weiter Button geklickt?
 		btnWeiter = (Button)findViewById(R.id.btnWeiter);
-		btnWeiter.setOnClickListener(new OnClickListener() {
-			
+		btnWeiter.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
+				// Usereingabe aus Textfeld holen
 				userCode = (EditText)findViewById(R.id.userCode);
 				String code = userCode.getText().toString();
+				// SQL Handler fuer Datenbankimport
 				SQLHandler db = new SQLHandler(MainActivity.this);
-				
+				db.addUserCode(code);
+				// zur nächsten Activity
+				startActivity(new Intent(MainActivity.this,Week.class));
 			}
 		});
 	}
