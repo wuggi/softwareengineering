@@ -23,7 +23,8 @@
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@color/uncheckedButton" >
 
             <Button
                 android:id="@+id/timeslot1"
@@ -57,7 +58,8 @@
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@color/uncheckedButton" >
 
             <Button
                 android:id="@+id/timeslot5"
@@ -87,8 +89,8 @@
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
+            android:layout_height="wrap_content"
+            android:background="@color/uncheckedButton" >
             
              <Button
                 android:id="@+id/timeslot8"
@@ -125,7 +127,8 @@
         <TableRow
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@color/uncheckedButton" >
 
             <Button
                 android:id="@+id/timeslot12"

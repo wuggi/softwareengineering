@@ -2,15 +2,18 @@ package de.Psychologie.socialintelligence;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TableRow;
 
 public class Week extends Activity {
 	
 	Button timeslot1,timeslot2,timeslot3,timeslot4,timeslot5,timeslot6,timeslot7,timeslot8;
 	Button timeslot9,timeslot10,timeslot11,timeslot12,timeslot13,timeslot14,timeslot15;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,15 +36,16 @@ public class Week extends Activity {
 		timeslot14=(Button)findViewById(R.id.timeslot14);
 		timeslot15=(Button)findViewById(R.id.timeslot15);
 		
-//		timeslot1.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				this.
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		})
+
+		
+		timeslot1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				timeslot1.setBackgroundColor(getResources().getColor(R.color.checkButton));
+			}
+		});
+	   
 //		
 //		
 //		OnClickListener selectButton = new OnClickListener() {
