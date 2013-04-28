@@ -38,8 +38,7 @@
         android:ems="10"
         android:gravity="center_vertical|center"
         android:inputType="textCapCharacters"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        android:maxLength="5"
+        android:digits="abcdefghijklmnopqrstuvwxyzäöüABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ"
         android:textSize="35sp"
         android:textStyle="normal" />
 
