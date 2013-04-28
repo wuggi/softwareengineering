@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		btnWeiter.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// Usereingabe aus Textfeld holen und alles groß machen
+				// Usereingabe aus Textfeld holen und alles groï¿½ machen
 				String code = userCode.getText().toString().toUpperCase();
 				// SQL Handler fuer Datenbankimport
 				SQLHandler db = new SQLHandler(MainActivity.this);
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-
+ 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

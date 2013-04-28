@@ -10,19 +10,18 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
 	/////////////////////////////////////////////////////////////
 	
 	private static final String tabCreateUser = "CREATE TABLE IF NOT EXISTS user ( " +
-												"ID INTEGER AUTOINCREMENT NOT NULL, " +
-												"code VARCHAR(5) NOT NULL, " +
-												"PRIMARY KEY (ID))";
+												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+												"code VARCHAR(5) NOT NULL)";
 	
 	private static final String tabCreatePoll = "CREATE TABLE IF NOT EXISTS poll ( " +
-												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , " +
+												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 												"date DATE NULL , " +
 												"alarm TIME NULL , " +
 												"answer TIME NULL , " +
