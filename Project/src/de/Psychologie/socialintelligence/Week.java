@@ -2,8 +2,6 @@ package de.Psychologie.socialintelligence;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
