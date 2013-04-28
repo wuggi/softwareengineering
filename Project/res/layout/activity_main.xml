@@ -38,8 +38,8 @@
         android:ems="10"
         android:gravity="center_vertical|center"
         android:inputType="textCapCharacters"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:maxLength="5"
-        android:textAllCaps="false"
         android:textSize="35sp"
         android:textStyle="normal" />
 
@@ -50,6 +50,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="23sp"
+        android:enabled="false"
         android:text="Weiter"
         tools:ignore="HardcodedText" />
 
@@ -57,9 +58,10 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnWeiter"
-        android:layout_alignLeft="@+id/userCode"
-        android:layout_marginBottom="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/userCode"
+        android:layout_marginTop="16dp"
         android:text="@string/Anleitung"
         android:textSize="14sp"
         android:textStyle="normal" />

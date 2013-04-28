@@ -3,6 +3,8 @@ package de.Psychologie.socialintelligence;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,19 +20,36 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		userCode = (EditText)findViewById(R.id.userCode);
+		userCode.addTextChangedListener(new TextWatcher() {
+			@Override  
+			public void afterTextChanged(Editable arg0) {
+		         enableSubmitIfReady();
+		      }
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {			
+			}
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {			
+			}
+		    });
+		
+		
 		
 		// Weiter Button geklickt?
 		btnWeiter = (Button)findViewById(R.id.btnWeiter);
 		btnWeiter.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// Usereingabe aus Textfeld holen
-				userCode = (EditText)findViewById(R.id.userCode);
-				String code = userCode.getText().toString();
+				// Usereingabe aus Textfeld holen und alles groﬂ machen
+				String code = userCode.getText().toString().toUpperCase();
 				// SQL Handler fuer Datenbankimport
 				SQLHandler db = new SQLHandler(MainActivity.this);
 				db.addUserCode(code);
-				// zur n√§chsten Activity
+				// zur naechsten Activity
 				startActivity(new Intent(MainActivity.this,Week.class));
 			}
 		});
@@ -43,5 +62,15 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	//Aktiviert weiter button
+	public void enableSubmitIfReady() {
+		
+	    boolean isReady =userCode.getText().toString().length()==5;
+	    if (isReady) {
+	    	btnWeiter.setEnabled(true);
+	   } else {
+		   btnWeiter.setEnabled(false);
+	    }
+	}	
 
 }
