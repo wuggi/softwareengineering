@@ -23,19 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/ringtone"
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Klingelton"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Button
-                android:id="@+id/ringtone_button"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="auswählen" />
+                android:contentDescription="@android:string/copyUrl" />
 
         </TableRow>
 
@@ -48,14 +40,18 @@
                 android:id="@+id/snooze"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Snooze"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editText1"
-                android:layout_width="wrap_content"
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" >
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="time"
+                android:text="@string/sleeptime" >
 
                 <requestFocus />
             </EditText>
@@ -66,12 +62,7 @@
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-        </TableRow>
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
         </TableRow>
     </TableLayout>
 
