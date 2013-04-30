@@ -16,6 +16,62 @@
         android:layout_height="wrap_content"
         android:text="@string/time_slot" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/mon"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="@dimen/small_padding"
+            android:layout_margin="@dimen/small_padding"
+            android:text="@string/bntMonday"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/tue"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bntTuesday" />
+        <Button
+            android:id="@+id/wed"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bntWednesday" />
+        <Button
+            android:id="@+id/thur"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bntThursday" />
+        <Button
+            android:id="@+id/fri"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bntFriday" />
+        <Button
+            android:id="@+id/sat"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bntSaturday" />
+
+        <Button
+            android:id="@+id/sun"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bntSunday"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
