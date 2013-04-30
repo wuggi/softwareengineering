@@ -19,6 +19,9 @@ public class Week extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_week);
 
+		// Kein TAB-Menü erforderlich, da immer der selbe Kontext existiert
+		// Eine Zeile mit Wochentagen anklicken und Buttons zurück setzen, jeweils abspeichern
+		
 		// fetch Buttons
 		timeslot1 = (Button) findViewById(R.id.timeslot1);
 		timeslot2 = (Button) findViewById(R.id.timeslot2);
