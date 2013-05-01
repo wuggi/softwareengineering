@@ -13,16 +13,17 @@ public class Week extends Activity {
 			timeslot7, timeslot8;
 	Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13,
 			timeslot14, timeslot15;
+	Button mon, tue, wed, thur, fri, sat, sun;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_week);
 
-		// Kein TAB-Menü erforderlich, da immer der selbe Kontext existiert
-		// Eine Zeile mit Wochentagen anklicken und Buttons zurück setzen, jeweils abspeichern
+		// Kein TAB-Menï¿½ erforderlich, da immer der selbe Kontext existiert
+		// Eine Zeile mit Wochentagen anklicken und Buttons zurï¿½ck setzen, jeweils abspeichern
 		
-		// fetch Buttons
+		// fetch Buttons times
 		timeslot1 = (Button) findViewById(R.id.timeslot1);
 		timeslot2 = (Button) findViewById(R.id.timeslot2);
 		timeslot3 = (Button) findViewById(R.id.timeslot3);
@@ -38,7 +39,16 @@ public class Week extends Activity {
 		timeslot13 = (Button) findViewById(R.id.timeslot13);
 		timeslot14 = (Button) findViewById(R.id.timeslot14);
 		timeslot15 = (Button) findViewById(R.id.timeslot15);
-
+		
+		// fetch Buttons week
+		mon = (Button) findViewById(R.id.mon);
+		tue = (Button) findViewById(R.id.tue);
+		wed = (Button) findViewById(R.id.wed);
+		thur = (Button) findViewById(R.id.thur);
+		fri = (Button) findViewById(R.id.fri);
+		sat = (Button) findViewById(R.id.sat);
+		sun = (Button) findViewById(R.id.sun);
+		
 		// Row1
 		enableButtonRow1(timeslot1,1);
 		enableButtonRow1(timeslot2,1);
@@ -58,45 +68,7 @@ public class Week extends Activity {
 		enableButtonRow1(timeslot13,4);
 		enableButtonRow1(timeslot14,4);
 		enableButtonRow1(timeslot15,4);
-
-
-		// timeslot1.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// disableRow1();
-		// timeslot1.setBackgroundColor(getResources().getColor(R.color.checkButton));
-		// }
-		// });
-
-		//
-		//
-		// OnClickListener selectButton = new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(DialogInterface dialog, int which) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// };
 	}
-
-	public void buttonHandler(final View view) {
-		switch (view.getId()) {
-		case R.id.timeslot1:
-			timeslot1.setBackgroundColor(getResources().getColor(
-					R.color.checkButton));
-			timeslot2.setBackgroundColor(getResources().getColor(
-					R.color.uncheckedButton));
-			timeslot3.setBackgroundColor(getResources().getColor(
-					R.color.uncheckedButton));
-			timeslot4.setBackgroundColor(getResources().getColor(
-					R.color.uncheckedButton));
-			break;
-
-		}
-	}
-
 	
 	private void enableButtonRow1(final Button bnt, final int row) {
 		bnt.setOnClickListener(new OnClickListener() {
