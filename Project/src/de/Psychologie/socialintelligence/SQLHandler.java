@@ -80,7 +80,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// MAIN Activitiy
 	
 	boolean getSnooze(){
-		SQLiteDatabase db= this.getReadableDatabase();
+		//SQLiteDatabase db= this.getReadableDatabase();
 		
 		
 		return false;
