@@ -10,19 +10,18 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
 	/////////////////////////////////////////////////////////////
 	
 	private static final String tabCreateUser = "CREATE TABLE IF NOT EXISTS user ( " +
-												"ID INTEGER AUTOINCREMENT NOT NULL, " +
-												"code VARCHAR(5) NOT NULL, " +
-												"PRIMARY KEY (ID))";
+												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+												"code VARCHAR(5) NOT NULL)";
 	
 	private static final String tabCreatePoll = "CREATE TABLE IF NOT EXISTS poll ( " +
-												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , " +
+												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 												"date DATE NULL , " +
 												"alarm TIME NULL , " +
 												"answer TIME NULL , " +
@@ -30,7 +29,19 @@ public class SQLHandler extends SQLiteOpenHelper {
 												"contact INTEGER NULL , " +
 												"hour INTEGER NULL , " +
 												"minute INTEGER NULL)";
+	
+	private static final String tabCreateTime = "CREATE TABLE IF NOT EXISTS time ( " +
+												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+												"day INTEGER NULL, " +
+												"time TEXT NULL)";
 
+	private static final String tabCreateStatus = "CREATE TABLE IF NOT EXISTS status ( " +
+												  "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+												  "snooze INTEGER NULL, " +
+												  "startDay INTEGER NULL)";
+												  
+			
+			
 	/////////////////////////////////////////////////////////////
 	//// FIRST PROCESS
 	/////////////////////////////////////////////////////////////
@@ -44,9 +55,13 @@ public class SQLHandler extends SQLiteOpenHelper {
 		if(BuildConfig.DEBUG){
 			Log.v("SQL",tabCreateUser);
 			Log.v("SQL",tabCreatePoll);
+			Log.v("SQL",tabCreateTime);
+			Log.v("SQL",tabCreateStatus);
 		}
 		db.execSQL(tabCreateUser);
 		db.execSQL(tabCreatePoll);
+		db.execSQL(tabCreateTime);
+		db.execSQL(tabCreateStatus);
 	}
 	
 	
@@ -54,11 +69,23 @@ public class SQLHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS user");
 		db.execSQL("DROP TABLE IF EXISTS poll");
+		db.execSQL("DROP TABLE IF EXISTS time");
+		db.execSQL("DROP TABLE IF EXISTS status");
 	}
 	
 	/////////////////////////////////////////////////////////////
 	//// Query
 	/////////////////////////////////////////////////////////////
+	
+	// MAIN Activitiy
+	
+	boolean getSnooze(){
+		//SQLiteDatabase db= this.getReadableDatabase();
+		
+		
+		return false;
+	}
+	
 	
 	// add User Code
 	void addUserCode(String code){
@@ -70,6 +97,24 @@ public class SQLHandler extends SQLiteOpenHelper {
 		
 		db.insert("user", "code", cv);
 		db.close();
+	}
+	
+	// add Week times
+	void addDayTime(int day,String time){
+		if(day<7 && day>0){
+			SQLiteDatabase db= this.getWritableDatabase();
+			
+			ContentValues cv = new ContentValues();
+			cv.put("day",day);
+			//time in HH:MM:SS
+			time += ":00";
+			cv.put("time", time);
+			
+			db.insert("time", null, cv);
+			db.close();
+		}
+		
+		
 	}
 	
 }
@@ -87,23 +132,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 	  PRIMARY KEY (`ID`) )
 	ENGINE = InnoDB;
 
-
-	-- -----------------------------------------------------
-	-- Table `mydb`.`times`
-	-- -----------------------------------------------------
-	CREATE  TABLE IF NOT EXISTS `mydb`.`times` (
-	  `ID` INT NOT NULL AUTO_INCREMENT ,
-	  `day` CHAR NULL ,
-	  `time` TIME NULL ,
-	  PRIMARY KEY (`ID`) )
-	ENGINE = InnoDB;
-
-	USE `mydb` ;
-
-
-	SET SQL_MODE=@OLD_SQL_MODE;
-	SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-	SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 */
 	
 

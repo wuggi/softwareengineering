@@ -6,5 +6,6 @@
     <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens deiner Mutter\n2. Dritter Buchstabe des Vornamens deines Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
     <string name="Willkommen">Willkommen,</string>
     <string name="Willkommen_2">Bitte geb hier deinen Code ein.</string>
+    <string name="sleeptime">00:15</string>
 
 </resources>

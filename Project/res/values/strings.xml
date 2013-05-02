@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="anleitung">Bitte erstellen sie ihr Passwort nach folgendem Muster:</string>
     <string name="title_activity_pop_poll">PopPollActivity</string>
     <string name="title_activity_week">Week</string>
-    <string name="time_slot">Bitte wählen Sie Ihre Time-Slots</string>
+    <string name="time_slot">Bitte wählen Sie Ihre Time-Slots\n</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="bntMonday">Mo</string>
+    <string name="bntTuesday">Di</string>
+    <string name="bntWednesday">Mi</string>
+    <string name="bntThursday">Do</string>
+    <string name="bntFriday">Fr</string>
+	<string name="bntSaturday">Sa</string>
+	<string name="bntSunday">So</string>
+	<string name="notSaved">Für diesen Tag noch keine Auswahl gespeichert</string>
+    <string name="timeSaved">Ihre Zeiten wurden gespeichert</string>
+
 </resources>

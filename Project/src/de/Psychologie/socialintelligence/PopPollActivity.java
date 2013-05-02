@@ -14,7 +14,8 @@ import android.view.Menu;
 
 public class PopPollActivity extends Activity {
 
-	@SuppressLint("NewApi")
+	@SuppressWarnings("deprecation")
+	@SuppressLint({ "NewApi", "Wakelock" })
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
