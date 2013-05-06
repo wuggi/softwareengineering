@@ -2,6 +2,7 @@ package de.Psychologie.socialintelligence;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -36,8 +37,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 												"time TEXT NULL)";
 
 	private static final String tabCreateStatus = "CREATE TABLE IF NOT EXISTS status ( " +
-												  "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-												  "snooze INTEGER NULL, " +
+												  "ID INTEGER PRIMARY KEY NOT NULL, " +
+												  "snoozeActiv INTEGER NULL, " +	
+												  "snoozeTime INTEGER NULL, " + 
 												  "startDay INTEGER NULL)";
 												  
 			
@@ -62,6 +64,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.execSQL(tabCreatePoll);
 		db.execSQL(tabCreateTime);
 		db.execSQL(tabCreateStatus);
+		// Default: ID, snooze deaktiv, snooze 10minutes, Starttag
+		db.execSQL("INPUT INTO status VALUES (1,0,10,NULL)");
 	}
 	
 	
@@ -80,10 +84,23 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// MAIN Activitiy
 	
 	boolean getSnooze(){
+<<<<<<< HEAD
+		SQLiteDatabase db= this.getReadableDatabase();
+		boolean snoozeActiv = false;
+		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
+		while(c.moveToNext()){
+			// prüfen, ob Snooze gesetzt
+		    if(c.getInt(0)== 1){
+		    	snoozeActiv = true;
+		    }
+		}
+		return snoozeActiv;
+=======
 		//SQLiteDatabase db= this.getReadableDatabase();
 		
 		
 		return false;
+>>>>>>> origin/master
 	}
 	
 	
@@ -115,6 +132,19 @@ public class SQLHandler extends SQLiteOpenHelper {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	/*
+	public Cursor getUserByID(int id){
+		 SQLiteDatabase db=this.getReadableDatabase();
+		 return db.rawQuery("SELECT ID as _id, name FROM "+tabUser+
+			" WHERE ID="+id, null);
+	}
+	*/
+	
+
+	
+>>>>>>> 9e3cef2b82999438e2ae9d4a4ab0ad84638b2335
 	
 	
 }
