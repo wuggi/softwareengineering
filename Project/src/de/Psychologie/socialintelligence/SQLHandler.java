@@ -113,9 +113,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 			db.insert("time", null, cv);
 			db.close();
 		}
-		
-		
 	}
+	
+	
 	
 }
 	
