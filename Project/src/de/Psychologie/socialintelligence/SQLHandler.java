@@ -84,6 +84,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// MAIN Activitiy
 	
 	boolean getSnooze(){
+<<<<<<< HEAD
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean snoozeActiv = false;
 		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
@@ -94,6 +95,12 @@ public class SQLHandler extends SQLiteOpenHelper {
 		    }
 		}
 		return snoozeActiv;
+=======
+		//SQLiteDatabase db= this.getReadableDatabase();
+		
+		
+		return false;
+>>>>>>> origin/master
 	}
 	
 	

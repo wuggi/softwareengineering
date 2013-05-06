@@ -15,5 +15,7 @@
     <string name="bntFriday">Fr</string>
 	<string name="bntSaturday">Sa</string>
 	<string name="bntSunday">So</string>
+	<string name="notSaved">Für diesen Tag noch keine Auswahl gespeichert</string>
+    <string name="timeSaved">Ihre Zeiten wurden gespeichert</string>
 
 </resources>

@@ -17,46 +17,60 @@
         android:text="@string/time_slot" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" 
+        android:layout_marginBottom="10dp">
 
         <Button
             android:id="@+id/mon"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntMonday" />
+            android:text="@string/bntMonday" 
+            android:layout_margin="1dp"
+            android:minWidth="30dp"/>
 
         <Button
             android:id="@+id/tue"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntTuesday" />
+            android:text="@string/bntTuesday"
+            android:layout_margin="1dp"
+            android:minWidth="30dp" />
         <Button
             android:id="@+id/wed"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntWednesday" />
+            android:text="@string/bntWednesday"
+            android:layout_margin="1dp"
+            android:minWidth="30dp" />
         <Button
             android:id="@+id/thur"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntThursday" />
+            android:text="@string/bntThursday"
+            android:layout_margin="1dp"
+            android:minWidth="30dp" />
         <Button
             android:id="@+id/fri"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntFriday" />
+            android:text="@string/bntFriday"
+            android:layout_margin="1dp"
+            android:minWidth="30dp" />
         <Button
             android:id="@+id/sat"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntSaturday" />
+            android:text="@string/bntSaturday"
+            android:layout_margin="1dp"
+            android:minWidth="30dp" />
 
         <Button
             android:id="@+id/sun"
@@ -64,7 +78,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bntSunday"
-            android:textAlignment="center" />
+            android:layout_margin="1dp"
+            android:textAlignment="center"
+            android:minWidth="30dp" />
 
     </LinearLayout>
 
@@ -76,14 +92,14 @@
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/uncheckedButton" >
+            android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/timeslot1"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="09:00" />
 
             <Button
@@ -91,6 +107,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="10:00" />
 
             <Button
@@ -98,6 +115,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="11:00" />
 
             <Button
@@ -105,20 +123,21 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="12:00" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/uncheckedButton" >
+            android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/timeslot5"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="13:00" />
 
             <Button
@@ -126,6 +145,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="14:00" />
 
             <Button
@@ -133,6 +153,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="15:00" />
 
            
@@ -142,14 +163,14 @@
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/uncheckedButton" >
+            android:layout_height="wrap_content" >
             
              <Button
                 android:id="@+id/timeslot8"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="16:00" />
             
             
@@ -158,6 +179,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="17:00" />
 
             <Button
@@ -165,6 +187,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="18:00" />
 
             <Button
@@ -172,6 +195,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="19:00" />
 
           
@@ -180,14 +204,14 @@
         <TableRow
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/uncheckedButton" >
+            android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/timeslot12"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="20:00" />
 
             <Button
@@ -195,6 +219,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="21:00" />
 
             <Button
@@ -202,6 +227,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="22:00" />
 
             <Button
@@ -209,10 +235,19 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
                 android:text="23:00" />
 
         </TableRow>
 
     </TableLayout>
+    
+    <TextView
+        android:id="@+id/savedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notSaved" 
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
