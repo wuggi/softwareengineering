@@ -6,20 +6,20 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class Week extends Activity {
 
-	Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5, timeslot6,
-			timeslot7, timeslot8;
-	Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13,
-			timeslot14, timeslot15;
+	Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5, timeslot6, timeslot7, timeslot8;
+	Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13, timeslot14, timeslot15;
 	Button mon, tue, wed, thur, fri, sat, sun;
-	
-	// aktiven Wochentag speichern
-	activeDayButton activeDay = new activeDayButton();
-	// aktive Zeiten speichern
-	activeTimeButtons activeTimes = new activeTimeButtons();
+	Button saveWeek;
+	// Zeitslots verwalten
+	Button[] ButtonHandler = new Button[15];
+	// Tage verwalten
+	Day week[] = new Day[7];
+	// aktueller Tag
+	Day currentDay;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +27,37 @@ public class Week extends Activity {
 		setContentView(R.layout.activity_week);
 
 		// Buttons definieren
-		
 		// fetch Buttons times
 		timeslot1 = (Button) findViewById(R.id.timeslot1);
+		ButtonHandler[0] = timeslot1;
 		timeslot2 = (Button) findViewById(R.id.timeslot2);
+		ButtonHandler[1] = timeslot2;
 		timeslot3 = (Button) findViewById(R.id.timeslot3);
+		ButtonHandler[2] = timeslot3;
 		timeslot4 = (Button) findViewById(R.id.timeslot4);
+		ButtonHandler[3] = timeslot4;
 		timeslot5 = (Button) findViewById(R.id.timeslot5);
+		ButtonHandler[4] = timeslot5;
 		timeslot6 = (Button) findViewById(R.id.timeslot6);
+		ButtonHandler[5] = timeslot6;
 		timeslot7 = (Button) findViewById(R.id.timeslot7);
+		ButtonHandler[6] = timeslot7;
 		timeslot8 = (Button) findViewById(R.id.timeslot8);
+		ButtonHandler[7] = timeslot8;
 		timeslot9 = (Button) findViewById(R.id.timeslot9);
+		ButtonHandler[8] = timeslot9;
 		timeslot10 = (Button) findViewById(R.id.timeslot10);
+		ButtonHandler[9] = timeslot10;
 		timeslot11 = (Button) findViewById(R.id.timeslot11);
+		ButtonHandler[10] = timeslot11;
 		timeslot12 = (Button) findViewById(R.id.timeslot12);
+		ButtonHandler[11] = timeslot12;
 		timeslot13 = (Button) findViewById(R.id.timeslot13);
+		ButtonHandler[12] = timeslot13;
 		timeslot14 = (Button) findViewById(R.id.timeslot14);
+		ButtonHandler[13] = timeslot14;
 		timeslot15 = (Button) findViewById(R.id.timeslot15);
+		ButtonHandler[14] = timeslot15;
 		
 		// fetch Buttons week
 		mon = (Button) findViewById(R.id.mon);
@@ -54,7 +68,10 @@ public class Week extends Activity {
 		sat = (Button) findViewById(R.id.sat);
 		sun = (Button) findViewById(R.id.sun);
 		
-		// Methoden bei Klick hinterlegen
+		//////
+		// Methoden OnClick
+		//////
+		
 		
 		// Week
 		enableButton(mon, 0);
@@ -91,69 +108,120 @@ public class Week extends Activity {
 		
 		// Alle deaktivieren
 		disableWeek();
-		disableRow1();
-		disableRow2();
-		disableRow3();
-		disableRow4();
+		disableAllTimeSlots();
+		
+		// Disable all
+		enableAllTimes(false);
 		
 		
-		
+		//////
+		// save Week
+		//////
+
+		saveWeek = (Button) findViewById(R.id.saveWeek);
+		saveWeek.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// Datenbankverbindung aufbauen
+				SQLHandler db = new SQLHandler(Week.this);
+				// jeden Wochentag durchgehen
+				for (int i = 0; i < week.length; i++) {
+					// wurde Wochentag gesetzt?
+					if(week[i] != null){
+						// wurden alle Zeiten für den Wochentag gesetzt?
+						if(week[i].existAllTimes()){
+							// alle Zeitslots wählen
+							for (int j = 0; j < week[i].getTimeSlots().length; j++) {
+								// Wochentag und Zeitslot in Datenbank schreiben
+								db.addDayTime(week[i].getWeekID(), week[i].getTimeSlots()[j]);
+							}	
+						} else {
+							// TODO: Meldung ausgeben, Zeiten setzen
+						}
+					}
+				}
+				// Datenbankverbindung schließen
+				db.close();
+				
+			}
+		});
 	}
 	
 	
-
+/*
+	// week
+	disableWeek();
+	// Wochentag angeklickt?
+	if(activeDay.existButton()){
+		// alle Zeiten gewählt?	
+		if(activeTimes.existTimes()){
+			// Daten abspeichern (Tag und Zeit)
+			SQLHandler db = new SQLHandler(Week.this);
+			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime1());
+			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime2());
+			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime3());
+			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime4());
+			
+			// Ausgabe für den User
+			showMessage(true);
+		}
+	}
+	// neuen Button aktiv setzen
+	activeDay.setButton(bnt.getId());
+*/	
+	
+	
 	
 	
 	// aktiviert nur den selektierten Button, alle anderen in der Zeile werden disabled
 	private void enableButton(final Button bnt, final int row) {
 		bnt.setOnClickListener(new OnClickListener() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				switch (row) {
 				case 0:
-					// week
 					disableWeek();
-					// Wochentag angeklickt?
-					if(activeDay.existButton()){
-						// alle Zeiten gewählt?	
-						if(activeTimes.existTimes()){
-							// Daten abspeichern (Tag und Zeit)
-							SQLHandler db = new SQLHandler(Week.this);
-							db.addDayTime(activeDay.getDayNum(), activeTimes.getTime1());
-							db.addDayTime(activeDay.getDayNum(), activeTimes.getTime2());
-							db.addDayTime(activeDay.getDayNum(), activeTimes.getTime3());
-							db.addDayTime(activeDay.getDayNum(), activeTimes.getTime4());
-							
-							// Ausgabe für den User
-							showMessage(true);
+					// existiert Tag bereits?
+					if(existDay(bnt.getId())){
+						// Auswahl zurücksetzen
+						disableAllTimeSlots();
+						// dann setze alle Timeslots
+						for (int i = 0; i < 4; i++) {
+							if(week[Day.getWeekIDfromViewID(bnt.getId())].getTimeSlotsButton()[i] != null){
+								setButtonSelect(week[Day.getWeekIDfromViewID(bnt.getId())].getTimeSlotsButton()[i]);
+							}
 						}
+						//TODO currentDay setzen
+						//TODO es wird ein DayHandler benötigt!!!
+					} else {
+						addDay(bnt.getId());
 					}
-					// neuen Button aktiv setzen
-					activeDay.setButton(bnt.getId());
+					enableAllTimes(true);
 					break;
 				case 1:
 					disableRow1();
-					activeTimes.setTime(1, bnt.getText().toString());
+					currentDay.setTime1(bnt);
 					break;
 				case 2:
 					disableRow2();
-					activeTimes.setTime(2, bnt.getText().toString());
+					currentDay.setTime2(bnt);
 					break;
 				case 3:
 					disableRow3();
-					activeTimes.setTime(3, bnt.getText().toString());
+					currentDay.setTime3(bnt);
 					break;
 				case 4:
 					disableRow4();
-					activeTimes.setTime(4, bnt.getText().toString());
+					currentDay.setTime4(bnt);
 					break;
 
 				default:
 					break;
 				}
 
-				bnt.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+				// Button wählen (grün)
+				setButtonSelect(bnt);
 			}
 		});
 
@@ -170,6 +238,11 @@ public class Week extends Activity {
 	////////////////////////////////////////
 	// Private Methoden
 	////////////////////////////////////////
+	private void enableAllTimes(boolean enable){
+		for (int i = 0; i < ButtonHandler.length; i++) {
+			ButtonHandler[i].setEnabled(enable);
+		}
+	}
 	
 	@SuppressWarnings("deprecation")
 	private void disableWeek(){
@@ -218,21 +291,131 @@ public class Week extends Activity {
 		timeslot15.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red));
 	}
 	
+	@SuppressWarnings("deprecation")
+	private void setButtonSelect(Button bnt){
+		bnt.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+	}
+	
+	private void disableAllTimeSlots(){
+		disableRow1();
+		disableRow2();
+		disableRow3();
+		disableRow4();
+	}
+	
+	private void addDay(int rID){
+		// aktuellen Tag erstellen
+		currentDay = new Day(rID);
+		// der Woche hinzufügen
+		week[currentDay.getWeekID()] = currentDay;
+	}
+	
+	// prüft, ob Tag bereits gesetzt ist
+	private boolean existDay(int rID){
+		boolean res = false;
+		for (int i = 0; i < week.length; i++) {
+			if(week[i] != null){
+				if(week[i].getViewID() == rID){
+					res = true;
+				}
+			}
+		}
+		return res;
+	}
+	
+	
+	/*
 	private void showMessage(boolean show){
 		TextView message = (TextView) findViewById(R.id.savedTime);
 		if(show){
 			message.setText(getResources().getString(R.string.timeSaved));
 		} else {
 			message.setText(getResources().getString(R.string.notSaved));
-		}
-		
-		
+		}	
 	}
+	*/
 
 	////////////////////////////////////////
 	// Private Klassen
 	////////////////////////////////////////
+
 	
+	private static class Day{
+		private int rID;
+		private int weekID;
+		private String[] timeSlots = new String[4];
+		private Button[] timeSlotsButton = new Button[4];
+		
+		Day(int rID){
+			this.rID = rID;
+			this.weekID = Day.getWeekIDfromViewID(rID);
+		}
+		
+		public static int getWeekIDfromViewID(int rID){
+			switch (rID) {
+			case R.id.mon:
+				return 0;
+			case R.id.tue:
+				return 1;
+			case R.id.wed:
+				return 2;
+			case R.id.thur:
+				return 3;
+			case R.id.fri:
+				return 4;
+			case R.id.sat:
+				return 5;
+			case R.id.sun:
+				return 6;
+			default:
+				// for compiler
+				return 99;			
+			}
+		}
+		
+		public int getWeekID(){
+			return this.weekID;
+		}
+		
+		public void setTime1(Button time) {
+			this.timeSlots[0] = time.getText().toString();
+			this.timeSlotsButton[0] = time;
+		}
+		public void setTime2(Button time) {
+			this.timeSlots[1] = time.getText().toString();
+			this.timeSlotsButton[1] = time;
+		}		
+		public void setTime3(Button time) {
+			this.timeSlots[2] = time.getText().toString();
+			this.timeSlotsButton[2] = time;
+		}		
+		public void setTime4(Button time) {
+			this.timeSlots[3] = time.getText().toString();
+			this.timeSlotsButton[3] = time;
+		}
+		
+		public boolean existAllTimes(){
+			return timeSlots[0].length() > 0 &&
+				   timeSlots[1].length() > 0 &&
+				   timeSlots[2].length() > 0 &&
+				   timeSlots[3].length() > 0;
+		}
+		
+		public String[] getTimeSlots(){
+			return timeSlots;
+		}
+		
+		public int getViewID(){
+			return rID;
+		}
+		
+		public Button[] getTimeSlotsButton(){
+			return timeSlotsButton;
+		}
+	}
+	
+	
+	/*
 	// aktiver Wochentag
 	private class activeDayButton {
 		private boolean activ = false;
@@ -326,7 +509,7 @@ public class Week extends Activity {
 		}
 		
 	}
-	
+	*/
 
 
 }

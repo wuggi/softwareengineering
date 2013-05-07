@@ -17,5 +17,6 @@
 	<string name="bntSunday">So</string>
 	<string name="notSaved">Für diesen Tag noch keine Auswahl gespeichert</string>
     <string name="timeSaved">Ihre Zeiten wurden gespeichert</string>
+    <string name="bntWeekSave">Woche speichern</string>
 
 </resources>

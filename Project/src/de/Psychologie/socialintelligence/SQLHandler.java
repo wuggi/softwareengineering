@@ -11,7 +11,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 4;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
@@ -65,7 +65,12 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.execSQL(tabCreateTime);
 		db.execSQL(tabCreateStatus);
 		// Default: ID, snooze deaktiv, snooze 10minutes, Starttag
-		db.execSQL("INPUT INTO status VALUES (1,0,10,NULL)");
+		ContentValues values = new ContentValues();
+		values.put("ID", 1);
+		values.put("snoozeActiv", 0);	// nicht aktiv
+		values.put("snoozeTime", 10);	// 10 Minuten
+		values.put("startDay", 0);		// Montag
+		db.insert("status", null, values);
 	}
 	
 	
@@ -75,39 +80,47 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS poll");
 		db.execSQL("DROP TABLE IF EXISTS time");
 		db.execSQL("DROP TABLE IF EXISTS status");
+		
+		onCreate(db);
 	}
 	
 	/////////////////////////////////////////////////////////////
 	//// Query
 	/////////////////////////////////////////////////////////////
 	
-	// MAIN Activitiy
-	
-	boolean getSnooze(){
-<<<<<<< HEAD
+	// Wartezeit auslesen 
+	public boolean getSnooze(){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean snoozeActiv = false;
 		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
-		while(c.moveToNext()){
+		if(c != null){
+			c.moveToFirst();
 			// prüfen, ob Snooze gesetzt
-		    if(c.getInt(0)== 1){
+		    if(c.getInt(0) == 1){
 		    	snoozeActiv = true;
 		    }
 		}
 		return snoozeActiv;
-=======
-		//SQLiteDatabase db= this.getReadableDatabase();
-		
-		
-		return false;
->>>>>>> origin/master
+	}
+	
+	// Wartezeit setzen
+	public void setSnooze(boolean activ){
+		SQLiteDatabase db= this.getWritableDatabase();
+		// bool umwandeln
+		int value = activ?1:0;
+		// values als cv
+		ContentValues cv = new ContentValues();
+		cv.put("snoozeActiv", value);
+		// Datenbankupdate
+		db.update("status", cv, "ID = 1", null);
 	}
 	
 	
 	// add User Code
-	void addUserCode(String code){
+	public void addUserCode(String code){
 		SQLiteDatabase db= this.getWritableDatabase();
 		
+		Log.v("code",code);
 		//content Typ, to import String code as table value
 		ContentValues cv = new ContentValues();
 		cv.put("code", code);
@@ -116,9 +129,22 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	public boolean existUserCode(){
+		SQLiteDatabase db= this.getReadableDatabase();
+		boolean exist = false;
+		Cursor c = db.rawQuery("SELECT COUNT(*) FROM user",null);
+		if(c != null){
+			c.moveToFirst();
+			if(c.getInt(0) > 0){
+				exist = true;
+			}
+		}
+		return exist;
+	}
+	
 	// add Week times
 	void addDayTime(int day,String time){
-		if(day<7 && day>0){
+		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();
 			
 			ContentValues cv = new ContentValues();
@@ -132,8 +158,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
+
 	/*
 	public Cursor getUserByID(int id){
 		 SQLiteDatabase db=this.getReadableDatabase();
@@ -142,9 +167,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	*/
 	
-
-	
->>>>>>> 9e3cef2b82999438e2ae9d4a4ab0ad84638b2335
 	
 	
 }

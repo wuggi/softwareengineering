@@ -46,7 +46,7 @@ public final class R {
         public static final int menu_settings=0x7f090026;
         public static final int mon=0x7f09000e;
         public static final int sat=0x7f090013;
-        public static final int savedTime=0x7f090025;
+        public static final int saveWeek=0x7f090025;
         public static final int settings=0x7f090006;
         public static final int snooze=0x7f09000a;
         public static final int spinner1=0x7f090008;
@@ -91,12 +91,12 @@ public final class R {
         public static final int week=0x7f080003;
     }
     public static final class string {
-        public static final int Anleitung=0x7f060012;
-        public static final int Willkommen=0x7f060013;
-        public static final int Willkommen_2=0x7f060014;
-        public static final int action_settings=0x7f060011;
+        public static final int Anleitung=0x7f060013;
+        public static final int Willkommen=0x7f060014;
+        public static final int Willkommen_2=0x7f060015;
+        public static final int action_settings=0x7f060012;
         public static final int anleitung=0x7f060000;
-        public static final int app_name=0x7f060010;
+        public static final int app_name=0x7f060011;
         public static final int bntFriday=0x7f06000b;
         public static final int bntMonday=0x7f060007;
         public static final int bntSaturday=0x7f06000c;
@@ -104,10 +104,11 @@ public final class R {
         public static final int bntThursday=0x7f06000a;
         public static final int bntTuesday=0x7f060008;
         public static final int bntWednesday=0x7f060009;
+        public static final int bntWeekSave=0x7f060010;
         public static final int hello_world=0x7f060004;
         public static final int menu_settings=0x7f060005;
         public static final int notSaved=0x7f06000e;
-        public static final int sleeptime=0x7f060015;
+        public static final int sleeptime=0x7f060016;
         public static final int timeSaved=0x7f06000f;
         public static final int time_slot=0x7f060003;
         public static final int title_activity_pop_poll=0x7f060001;
