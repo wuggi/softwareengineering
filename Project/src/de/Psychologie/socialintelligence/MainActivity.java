@@ -19,12 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
-
-	private static final int RESULT_SETTINGS = 1;
 	private Button btnWeiter;
 	private EditText userCode;
-
-	private String ring;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +75,7 @@ public class MainActivity extends Activity {
 
 		}
 	}
-
+/*
 	// TODO: Löschen da nurnoch zum Start
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,6 +117,7 @@ public class MainActivity extends Activity {
 
 		ring = sharedPrefs.getString("ringtone", "");
 	}
+	*/
 
 	// Aktiviert weiter button
 	protected void enableSubmitIfReady() {

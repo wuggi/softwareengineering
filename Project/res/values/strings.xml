@@ -2,12 +2,11 @@
 <resources>
 
     <string name="anleitung">Bitte erstellen sie ihr Passwort nach folgendem Muster:</string>
-    <string name="title_activity_pop_poll">PopPollActivity</string>
-    <string name="title_activity_week">Week</string>
+    <string name="title_activity_pop_poll">Umfrage</string>
+    <string name="title_activity_week">Zeitenauswahl</string>
     <string name="time_slot">Bitte wählen Sie Ihre Time-Slots\n</string>
     <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Einstellungen</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">SocialIntelligence</string>
     <string name="bntMonday">Mo</string>
     <string name="bntTuesday">Di</string>
     <string name="bntWednesday">Mi</string>
