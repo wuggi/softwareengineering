@@ -33,7 +33,7 @@
             android:label="@string/title_activity_week" >
         </activity>
         <activity
-            android:name="de.Psychologie.socialintelligence.Settings"
+            android:name="de.Psychologie.socialintelligence.UserSettingActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

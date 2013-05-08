@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_settings" >
+        <Preference
+            android:key="button_week"
+            android:title="@string/weekButton" >
+        </Preference>
+
+        <RingtonePreference
+            android:key="ringtone"
+            android:persistent="true"
+            android:ringtoneType="all"
+            android:selectable="true"
+            android:showDefault="true"
+            android:showSilent="false"
+            android:summary="@string/settings_ringtone2"
+            android:title="@string/settings_ringtone" />
+    </PreferenceCategory>
+
+    <PreferenceScreen android:title="@string/settings_admin" >
+        <Preference
+            android:key="button_password_change"
+            android:title="@string/settings_password_change" >
+        </Preference>
+        <Preference
+            android:key="button_export_email"
+            android:title="@string/settings_export_email" >
+        </Preference>
+        <Preference
+            android:key="button_export"
+            android:title="@string/settings_export" >
+        </Preference>
+    </PreferenceScreen>
+
+</PreferenceScreen>
