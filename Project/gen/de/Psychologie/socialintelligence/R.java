@@ -101,20 +101,25 @@ public final class R {
         public static final int hello_world=0x7f070004;
         public static final int menu_settings=0x7f070005;
         public static final int notSaved=0x7f07000e;
-        public static final int settings_admin=0x7f07001a;
-        public static final int settings_export=0x7f07001e;
-        public static final int settings_export_email=0x7f07001d;
-        public static final int settings_password_change=0x7f07001c;
-        public static final int settings_ringtone=0x7f070017;
-        public static final int settings_ringtone2=0x7f070018;
-        public static final int settings_ringtone_dialog=0x7f070019;
+        public static final int settings_about=0x7f070020;
+        public static final int settings_admin=0x7f07001b;
+        public static final int settings_export=0x7f07001f;
+        public static final int settings_export_email=0x7f07001e;
+        public static final int settings_other=0x7f070017;
+        public static final int settings_password_change=0x7f07001d;
+        public static final int settings_ringtone=0x7f070018;
+        public static final int settings_ringtone2=0x7f070019;
+        public static final int settings_ringtone_dialog=0x7f07001a;
         public static final int settings_settings=0x7f070016;
+        public static final int settings_sleeptime=0x7f070021;
+        public static final int settings_sleeptime2=0x7f070022;
+        public static final int settings_volume=0x7f070023;
         public static final int timeSaved=0x7f07000f;
         public static final int time_slot=0x7f070003;
         public static final int title_activity_pop_poll=0x7f070001;
         public static final int title_activity_settings=0x7f070006;
         public static final int title_activity_week=0x7f070002;
-        public static final int weekButton=0x7f07001b;
+        public static final int weekButton=0x7f07001c;
     }
     public static final class style {
         /** 

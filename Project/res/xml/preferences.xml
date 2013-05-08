@@ -3,11 +3,13 @@
 
     <PreferenceCategory android:title="@string/settings_settings" >
         <Preference
+            android:icon="@android:drawable/ic_menu_today"
             android:key="button_week"
             android:title="@string/weekButton" >
         </Preference>
 
         <RingtonePreference
+            android:icon="@android:drawable/ic_lock_silent_mode_off"
             android:key="ringtone"
             android:persistent="true"
             android:ringtoneType="all"
@@ -16,21 +18,42 @@
             android:showSilent="false"
             android:summary="@string/settings_ringtone2"
             android:title="@string/settings_ringtone" />
-    </PreferenceCategory>
 
-    <PreferenceScreen android:title="@string/settings_admin" >
+        <EditTextPreference
+            android:key="Sleeptime"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:summary="@string/settings_sleeptime2"
+            android:title="@string/settings_sleeptime" />
+
         <Preference
-            android:key="button_password_change"
-            android:title="@string/settings_password_change" >
+            android:key="button_volume"
+            android:icon="@android:drawable/ic_lock_silent_mode_off"
+            android:title="@string/settings_volume" >
         </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_other" >
+        <PreferenceScreen
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/settings_admin" >
+            <Preference
+                android:key="button_password_change"
+                android:title="@string/settings_password_change" >
+            </Preference>
+            <Preference
+                android:key="button_export_email"
+                android:title="@string/settings_export_email" >
+            </Preference>
+            <Preference
+                android:key="button_export"
+                android:title="@string/settings_export" >
+            </Preference>
+        </PreferenceScreen>
+
         <Preference
-            android:key="button_export_email"
-            android:title="@string/settings_export_email" >
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:key="about"
+            android:title="@string/settings_about" >
         </Preference>
-        <Preference
-            android:key="button_export"
-            android:title="@string/settings_export" >
-        </Preference>
-    </PreferenceScreen>
+    </PreferenceCategory>
 
 </PreferenceScreen>

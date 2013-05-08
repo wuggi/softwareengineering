@@ -7,13 +7,18 @@
     <string name="Willkommen">Willkommen,</string>
     <string name="Willkommen_2">Bitte geb hier deinen Code ein.</string>
     <string name="settings_settings">Einstellungen</string>
+    <string name="settings_other">Sonstiges</string>
     <string name="settings_ringtone">Klingelton</string>
     <string name="settings_ringtone2">Wähle deinen Klingelton</string>
     <string name="settings_ringtone_dialog">Klingelton</string>
     <string name="settings_admin">Administrator Einstellungen</string>
     <string name="weekButton">Zeiten einstellen</string>
     <string name="settings_password_change">Passwort ändern</string>
-    <string name="settings_export_email">Export als Email</string>
-    <string name="settings_export">Export als ..</string>
+    <string name="settings_export_email">Export per Email</string>
+    <string name="settings_export">Export als CSV</string>
+    <string name="settings_about">Über</string>
+    <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
+    <string name="settings_sleeptime2">5 Minuten</string>
+    <string name="settings_volume">Lautstärke</string>
 
 </resources>
