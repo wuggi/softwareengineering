@@ -2,10 +2,12 @@ package de.Psychologie.socialintelligence;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.database.Cursor;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Week extends Activity {
 
@@ -106,6 +108,8 @@ public class Week extends Activity {
 		// start Activity
 		//////
 		
+		
+		
 		// Alle deaktivieren
 		disableWeek();
 		disableAllTimeSlots();
@@ -120,30 +124,13 @@ public class Week extends Activity {
 
 		saveWeek = (Button) findViewById(R.id.saveWeek);
 		saveWeek.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				// Datenbankverbindung aufbauen
-				SQLHandler db = new SQLHandler(Week.this);
-				// jeden Wochentag durchgehen
-				for (int i = 0; i < week.length; i++) {
-					// wurde Wochentag gesetzt?
-					if(week[i] != null){
-						// wurden alle Zeiten für den Wochentag gesetzt?
-						if(week[i].existAllTimes()){
-							// alle Zeitslots wählen
-							for (int j = 0; j < week[i].getTimeSlots().length; j++) {
-								// Wochentag und Zeitslot in Datenbank schreiben
-								db.addDayTime(week[i].getWeekID(), week[i].getTimeSlots()[j]);
-							}	
-						} else {
-							// TODO: Meldung ausgeben, Zeiten setzen
-						}
-					}
+				// Daten in Datenbank überführen
+				if(!writeWeekToDatabase()){
+					// Fehlermeldung ausgeben
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_SHORT).show();
 				}
-				// Datenbankverbindung schließen
-				db.close();
-				
 			}
 		});
 	}
@@ -181,22 +168,20 @@ public class Week extends Activity {
 			public void onClick(View v) {
 				switch (row) {
 				case 0:
+					// korrekten Wochentag markieren
 					disableWeek();
-					// existiert Tag bereits?
-					if(existDay(bnt.getId())){
-						// Auswahl zurücksetzen
-						disableAllTimeSlots();
+					// Auswahl zurücksetzen
+					disableAllTimeSlots();
+					// existiert Tag bereits?					
+					if(existDay(bnt.getId())){	
 						// dann setze alle Timeslots
-						
-						// TODO: outsourcing, interne Variablen oder DB holen
 						for (int i = 0; i < 4; i++) {
 							if(week[Day.getWeekIDfromViewID(bnt.getId())].getTimeSlotsButton()[i] != null){
 								setButtonSelect(week[Day.getWeekIDfromViewID(bnt.getId())].getTimeSlotsButton()[i]);
 							}
 						}
-						//TODO currentDay setzen
-						//currentDay = week[]
-						//TODO es wird ein DayHandler benötigt!!!
+						//aktuellen Tag merken
+						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
 					} else {
 						addDay(bnt.getId());
 					}
@@ -318,17 +303,51 @@ public class Week extends Activity {
 		return res;
 	}
 	
-	
-	/*
-	private void showMessage(boolean show){
-		TextView message = (TextView) findViewById(R.id.savedTime);
-		if(show){
-			message.setText(getResources().getString(R.string.timeSaved));
-		} else {
-			message.setText(getResources().getString(R.string.notSaved));
-		}	
+	// TODO:
+	private boolean writeWeekToDatabase(){
+		// Datenbankverbindung aufbauen
+		SQLHandler db = new SQLHandler(Week.this);
+		// jeden Wochentag durchgehen
+		for (int i = 0; i < week.length; i++) {
+			// wurde Wochentag gesetzt?
+			if(week[i] != null){
+				// wurden alle Zeiten für den Wochentag gesetzt?
+				if(week[i].existAllTimes()){
+					// alle Zeitslots wählen
+					for (int j = 0; j < week[i].getTimeSlots().length; j++) {
+						// Wochentag und Zeitslot in Datenbank schreiben
+						db.addDayTime(week[i].getWeekID(), week[i].getTimeSlots()[j]);
+					}	
+				} else {
+					// es wurden nicht für jeden Tag 4 Zeitslots gewählt
+					return false;
+				}
+			}
+		}
+		// Datenbankverbindung schließen
+		db.close();
+		// Import ist erfolgreich
+		return true;
 	}
-	*/
+	
+	private void getWeekFromDatabase(){
+		// Datenbankverbindung aufbauen
+		SQLHandler db = new SQLHandler(Week.this);
+		Cursor cur = db.getDayTime();
+		if(cur != null){
+			if(cur.moveToFirst()){
+				do{
+					cur.getInt(0);
+					cur.getString(1);
+				}while(cur.moveToNext());
+			}
+		}
+		
+	}
+	
+	
+	// Methode die Daten aus der Datenbank holt und in Klasse Day überträgt
+	// Methode die Daten in die Datenbank überführt
 
 	////////////////////////////////////////
 	// Private Klassen

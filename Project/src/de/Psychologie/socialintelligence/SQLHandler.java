@@ -177,7 +177,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// add Week times
-	void addDayTime(int day,String time){
+	// TODO: Wenn vorhanden, Update
+	public void addDayTime(int day,String time){
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();
 			
@@ -187,10 +188,23 @@ public class SQLHandler extends SQLiteOpenHelper {
 			time += ":00";
 			cv.put("time", time);
 			
-			db.insert("time", null, cv);
+			// import
+			//db.insert("time", null, cv);
+			
+			// TODO: import oder update Leider erst ab API 8 unterstützt :(
+			db.insertWithOnConflict("time", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
 			db.close();
 		}
 	}
+	
+	public Cursor getDayTime(){
+		SQLiteDatabase db=this.getReadableDatabase();
+		Cursor cur=db.rawQuery("SELECT day,time from time",null);
+		return cur;
+	}
+	
+	// TODO: Es wird eine Methode benötigt, welche gesetzte Tage löscht, wenn dieser in der Vergangenheit liegt.
+	
 
 	/*
 	public Cursor getUserByID(int id){
