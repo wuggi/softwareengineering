@@ -187,12 +187,15 @@ public class Week extends Activity {
 						// Auswahl zurücksetzen
 						disableAllTimeSlots();
 						// dann setze alle Timeslots
+						
+						// TODO: outsourcing, interne Variablen oder DB holen
 						for (int i = 0; i < 4; i++) {
 							if(week[Day.getWeekIDfromViewID(bnt.getId())].getTimeSlotsButton()[i] != null){
 								setButtonSelect(week[Day.getWeekIDfromViewID(bnt.getId())].getTimeSlotsButton()[i]);
 							}
 						}
 						//TODO currentDay setzen
+						//currentDay = week[]
 						//TODO es wird ein DayHandler benötigt!!!
 					} else {
 						addDay(bnt.getId());

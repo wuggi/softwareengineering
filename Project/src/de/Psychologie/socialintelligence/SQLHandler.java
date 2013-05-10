@@ -84,6 +84,16 @@ public class SQLHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	// TODO: nur für Testzwecke, später löschen!
+	public void deleteDB(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS user");
+		db.execSQL("DROP TABLE IF EXISTS poll");
+		db.execSQL("DROP TABLE IF EXISTS time");
+		db.execSQL("DROP TABLE IF EXISTS status");
+		onCreate(db);
+	}
+	
 	/////////////////////////////////////////////////////////////
 	//// Query
 	/////////////////////////////////////////////////////////////
