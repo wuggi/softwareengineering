@@ -88,8 +88,15 @@ public class SQLHandler extends SQLiteOpenHelper {
 	//// Query
 	/////////////////////////////////////////////////////////////
 	
+<<<<<<< HEAD
 	// Wartezeit aktiv?
 	public boolean getSnoozeActiv(){
+=======
+	// Wartezeit auslesen 
+	// MAIN Activitiy
+	
+	public boolean getSnooze(){
+>>>>>>> f82993803612994feea23070f0b72f43ba544d4d
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean snoozeActiv = false;
 		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
@@ -113,6 +120,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
 	}
+<<<<<<< HEAD
 	
 	// Wartezeit holen & setzen
 	public int getSnoozeTime(){
@@ -137,6 +145,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
 	}
+=======
+>>>>>>> f82993803612994feea23070f0b72f43ba544d4d
 	
 	
 	// add User Code
