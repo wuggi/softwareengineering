@@ -88,8 +88,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	//// Query
 	/////////////////////////////////////////////////////////////
 	
-	// Wartezeit auslesen 
-	public boolean getSnooze(){
+	// Wartezeit aktiv?
+	public boolean getSnoozeActiv(){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean snoozeActiv = false;
 		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
@@ -103,14 +103,37 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return snoozeActiv;
 	}
 	
-	// Wartezeit setzen
-	public void setSnooze(boolean activ){
+	public void setSnoozeActiv(boolean activ){
 		SQLiteDatabase db= this.getWritableDatabase();
 		// bool umwandeln
 		int value = activ?1:0;
 		// values als cv
 		ContentValues cv = new ContentValues();
 		cv.put("snoozeActiv", value);
+		// Datenbankupdate
+		db.update("status", cv, "ID = 1", null);
+	}
+	
+	// Wartezeit holen & setzen
+	public int getSnoozeTime(){
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT snoozeTime FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			// prüfen, ob Snooze gesetzt
+		    return c.getInt(0);
+		} else {
+			return -1;
+		}
+	}
+	
+	public void setSnoozeTime(int value){
+		SQLiteDatabase db= this.getWritableDatabase();
+		// nur positive Zeiten
+		value = value>0?value:15;
+		// values als cv
+		ContentValues cv = new ContentValues();
+		cv.put("snoozeTime", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
 	}
@@ -157,8 +180,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 			db.close();
 		}
 	}
-	
-}
 
 	/*
 	public Cursor getUserByID(int id){
@@ -168,7 +189,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	*/
 	
-
+	
+}
 	
 /*
 

@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SocialIntelligence</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Umfrage Einstellungen</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens deiner Mutter\n2. Dritter Buchstabe des Vornamens deines Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
     <string name="Willkommen">Willkommen,</string>
     <string name="Willkommen_2">Bitte geb hier deinen Code ein.</string>
-    <string name="sleeptime">00:15</string>
+    <string name="settings_settings">Einstellungen</string>
+    <string name="settings_other">Sonstiges</string>
+    <string name="settings_ringtone">Klingelton</string>
+    <string name="settings_ringtone2">Wähle deinen Klingelton</string>
+    <string name="settings_ringtone_dialog">Klingelton</string>
+    <string name="settings_admin">Administrator Einstellungen</string>
+    <string name="weekButton">Zeiten einstellen</string>
+    <string name="settings_password_change">Passwort ändern</string>
+    <string name="settings_export_email">Export per Email</string>
+    <string name="settings_export">Export als CSV</string>
+    <string name="settings_about">Über</string>
+    <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
+    <string name="settings_sleeptime2">5 Minuten</string>
+    <string name="settings_volume">Lautstärke</string>
 
 </resources>
