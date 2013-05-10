@@ -106,6 +106,7 @@ public final class R {
         public static final int settings_export_email=0x7f07001e;
         public static final int settings_other=0x7f070017;
         public static final int settings_password_change=0x7f07001d;
+        public static final int settings_reset=0x7f070024;
         public static final int settings_ringtone=0x7f070018;
         public static final int settings_ringtone2=0x7f070019;
         public static final int settings_ringtone_dialog=0x7f07001a;

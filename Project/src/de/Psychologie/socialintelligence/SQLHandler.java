@@ -1,13 +1,16 @@
 package de.Psychologie.socialintelligence;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.util.Log;
 
-
+//TODO: nur zu Testzwecken
+@TargetApi(Build.VERSION_CODES.FROYO)
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";

@@ -20,5 +20,6 @@
     <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
     <string name="settings_sleeptime2">5 Minuten</string>
     <string name="settings_volume">Lautstärke</string>
+    <string name="settings_reset">Komplette DB löschen!</string>
 
 </resources>
