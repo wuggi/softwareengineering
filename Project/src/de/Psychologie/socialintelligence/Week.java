@@ -119,6 +119,8 @@ public class Week extends Activity {
 		
 		// Zeitdaten aus der Datenbank holen
 		if(getWeekFromDatabase()){
+			// Zeiten wählbar
+			enableAllTimes(true);
 			// Woche auslesen
 			for (int i = 0; i < week.length; i++) {
 				if(week[i] != null){
