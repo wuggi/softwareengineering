@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/title_activity_settings">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/title_activity_settings" >
 
     <PreferenceCategory android:title="@string/settings_settings" >
         <Preference
@@ -19,15 +20,20 @@
             android:summary="@string/settings_ringtone2"
             android:title="@string/settings_ringtone" />
 
-        <EditTextPreference
-            android:key="Sleeptime"
+        <ListPreference
+            android:defaultValue="2"
+            android:dialogTitle="@string/settings_sleeptime"
+            android:entries="@array/settings_sleeptimes2"
+            android:entryValues="@array/settings_sleeptimes"
             android:icon="@android:drawable/ic_menu_preferences"
+            android:key="Sleeptime"
+            android:negativeButtonText="@string/cancel"
             android:summary="@string/settings_sleeptime2"
             android:title="@string/settings_sleeptime" />
 
         <Preference
-            android:key="button_volume"
             android:icon="@android:drawable/ic_lock_silent_mode_off"
+            android:key="button_volume"
             android:title="@string/settings_volume" >
         </Preference>
     </PreferenceCategory>
@@ -55,7 +61,7 @@
 
         <Preference
             android:icon="@android:drawable/ic_menu_info_details"
-            android:key="about"
+            android:key="button_about"
             android:title="@string/settings_about" >
         </Preference>
     </PreferenceCategory>

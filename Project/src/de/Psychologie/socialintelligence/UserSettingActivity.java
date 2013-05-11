@@ -1,8 +1,12 @@
 package de.Psychologie.socialintelligence;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 
 public class UserSettingActivity extends PreferenceActivity {
@@ -35,7 +39,32 @@ public class UserSettingActivity extends PreferenceActivity {
 						return true;
 					}
 				});
-
+		Preference button_about = (Preference) findPreference("button_about");
+		button_about
+				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {
+						AlertDialog ad = new AlertDialog.Builder(UserSettingActivity.this).create();  
+						ad.setCancelable(false); // This blocks the 'BACK' button  
+						ad.setMessage(getResources().getString(R.string.message_about));
+						ad.setButton("OK", new DialogInterface.OnClickListener() {  
+						    @Override  
+						    public void onClick(DialogInterface dialog, int which) {  
+						        dialog.dismiss();                      
+						    }  
+						});  
+						ad.show(); 
+						return true;
+					}
+				});
+		ListPreference myPreference = (ListPreference) findPreference("Sleeptime");
+		myPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		    @Override
+		    public boolean onPreferenceChange(Preference preference, Object newValue) {
+		            preference.setSummary(((String)newValue)+"\tMinuten");		        
+				return true;
+		    }
+		});
 	}
 	@Override
 	public void onBackPressed() {
@@ -45,4 +74,6 @@ public class UserSettingActivity extends PreferenceActivity {
 		else
 			super.onBackPressed();
 	}
+	
+	
 }
