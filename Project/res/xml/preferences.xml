@@ -47,6 +47,10 @@
                 android:key="button_export"
                 android:title="@string/settings_export" >
             </Preference>
+            <Preference
+                android:key="button_reset"
+                android:title="@string/settings_reset" >
+            </Preference>
         </PreferenceScreen>
 
         <Preference

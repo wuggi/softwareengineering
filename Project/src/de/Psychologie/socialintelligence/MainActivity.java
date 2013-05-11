@@ -7,6 +7,13 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+>>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -70,49 +77,18 @@ public class MainActivity extends Activity {
 
 		}
 	}
-/*
-	// TODO: Löschen da nurnoch zum Start
+
+    //menü taste deaktiviert ansonsten das Blinken der texteingabe
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_settings, menu);
-		return true;
+	public boolean onKeyDown(int keycode, KeyEvent e) {
+	    switch(keycode) {
+	        case KeyEvent.KEYCODE_MENU:
+	            
+	            return true;
+	    }
+
+	    return super.onKeyDown(keycode, e);
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-
-		case R.id.menu_settings:
-			Intent i = new Intent(this, UserSettingActivity.class);
-			startActivityForResult(i, RESULT_SETTINGS);
-			break;
-
-		}
-		return true;
-	}
-
-	// Wird aufgerufen falls Result_settings>=0
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		switch (requestCode) {
-		case RESULT_SETTINGS:
-			saveUserSettings();
-			break;
-
-		}
-
-	}
-
-	protected void saveUserSettings() {
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		ring = sharedPrefs.getString("ringtone", "");
-	}
-	*/
 
 	// Aktiviert weiter button
 	protected void enableSubmitIfReady() {
