@@ -7,13 +7,7 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-<<<<<<< HEAD
-=======
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;

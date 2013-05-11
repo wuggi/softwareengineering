@@ -1,11 +1,6 @@
 package de.Psychologie.socialintelligence;
-
-import java.util.List;
-
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
@@ -76,20 +71,11 @@ public class Week extends Activity {
 		fri = (Button) findViewById(R.id.fri);
 		sat = (Button) findViewById(R.id.sat);
 		sun = (Button) findViewById(R.id.sun);
-<<<<<<< HEAD
-		
+
 		////////////////////////////////////////////////////////////////////////
 		// Methoden OnClick
 		////////////////////////////////////////////////////////////////////////
-		
-		
-=======
 
-		// ////
-		// Methoden OnClick
-		// ////
-
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 		// Week
 		enableButton(mon, 0);
 		enableButton(tue, 0);
@@ -114,7 +100,6 @@ public class Week extends Activity {
 		enableButton(timeslot10, 3);
 		enableButton(timeslot11, 3);
 		// Row4
-<<<<<<< HEAD
 		enableButton(timeslot12,4);
 		enableButton(timeslot13,4);
 		enableButton(timeslot14,4);
@@ -153,30 +138,10 @@ public class Week extends Activity {
 			}
 		} 
 		
+		
 		////////////////////////////////////////////////////////////////////////
 		// save Week
 		////////////////////////////////////////////////////////////////////////
-=======
-		enableButton(timeslot12, 4);
-		enableButton(timeslot13, 4);
-		enableButton(timeslot14, 4);
-		enableButton(timeslot15, 4);
-
-		// ////
-		// start Activity
-		// ////
-
-		// Alle deaktivieren
-		disableWeek();
-		disableAllTimeSlots();
-
-		// Disable all
-		enableAllTimes(false);
-
-		// ////
-		// save Week
-		// ////
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 
 		saveWeek = (Button) findViewById(R.id.saveWeek);
 		saveWeek.setOnClickListener(new OnClickListener() {
@@ -185,42 +150,12 @@ public class Week extends Activity {
 				// Daten in Datenbank überführen
 				if (!writeWeekToDatabase()) {
 					// Fehlermeldung ausgeben
-<<<<<<< HEAD
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
-=======
-					Toast.makeText(
-							getApplicationContext(),
-							getResources().getString(
-									R.string.txtWeekErrorTimeSlots),
-							Toast.LENGTH_SHORT).show();
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 				}
 			}
 		});
 	}
-<<<<<<< HEAD
 	
-	////////////////////////////////////////////////////////////////////////
-	// Private Methoden
-	////////////////////////////////////////////////////////////////////////
-	
-	// aktiviert nur den selektierten Button, alle anderen in der Zeile werden disabled
-=======
-
-	/*
-	 * // week disableWeek(); // Wochentag angeklickt?
-	 * if(activeDay.existButton()){ // alle Zeiten gewählt?
-	 * if(activeTimes.existTimes()){ // Daten abspeichern (Tag und Zeit)
-	 * SQLHandler db = new SQLHandler(Week.this);
-	 * db.addDayTime(activeDay.getDayNum(), activeTimes.getTime1());
-	 * db.addDayTime(activeDay.getDayNum(), activeTimes.getTime2());
-	 * db.addDayTime(activeDay.getDayNum(), activeTimes.getTime3());
-	 * db.addDayTime(activeDay.getDayNum(), activeTimes.getTime4());
-	 * 
-	 * // Ausgabe für den User showMessage(true); } } // neuen Button aktiv
-	 * setzen activeDay.setButton(bnt.getId());
-	 */
-
 	@Override
 	public void onBackPressed() {
 		// Falls aufgerufen von Codeeingabe soll bei zurück die Settingsactivity
@@ -232,12 +167,14 @@ public class Week extends Activity {
 			this.finish();
 		}		
 		super.onBackPressed();
-
 	}
+
+	////////////////////////////////////////////////////////////////////////
+	// Private Methoden
+	////////////////////////////////////////////////////////////////////////
 
 	// aktiviert nur den selektierten Button, alle anderen in der Zeile werden
 	// disabled
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 	private void enableButton(final Button bnt, final int row) {
 		bnt.setOnClickListener(new OnClickListener() {
 			@Override
@@ -295,14 +232,7 @@ public class Week extends Activity {
 
 	}
 
-<<<<<<< HEAD
-	private void enableAllTimes(boolean enable){
-=======
-	// //////////////////////////////////////
-	// Private Methoden
-	// //////////////////////////////////////
 	private void enableAllTimes(boolean enable) {
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 		for (int i = 0; i < ButtonHandler.length; i++) {
 			ButtonHandler[i].setEnabled(enable);
 		}
@@ -379,16 +309,10 @@ public class Week extends Activity {
 	}
 
 	@SuppressWarnings("deprecation")
-<<<<<<< HEAD
 	private void setButtonSelect(Button bnt){
 		if(bnt != null){
 			bnt.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
 		}
-=======
-	private void setButtonSelect(Button bnt) {
-		bnt.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_green));
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 	}
 
 	private void disableAllTimeSlots() {
@@ -427,13 +351,9 @@ public class Week extends Activity {
 			// wurde Wochentag gesetzt?
 			if (week[i] != null) {
 				// wurden alle Zeiten für den Wochentag gesetzt?
-<<<<<<< HEAD
 				if(week[i].existAllTimes()){
 					// alten Tag löschen
 					db.deleteDay(week[i].getWeekID());
-=======
-				if (week[i].existAllTimes()) {
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 					// alle Zeitslots wählen
 					for (int j = 0; j < week[i].getTimeSlots().length; j++) {
 						// Wochentag und Zeitslot in Datenbank schreiben
@@ -452,7 +372,6 @@ public class Week extends Activity {
 		// Import ist erfolgreich
 		return true;
 	}
-<<<<<<< HEAD
 	
 	private boolean getWeekFromDatabase(){
 		// Datenbankverbindung aufbauen
@@ -484,45 +403,14 @@ public class Week extends Activity {
 	// Private Klassen
 	////////////////////////////////////////////////////////////////////////
 
-	private static class Day{
-=======
-
-	private void getWeekFromDatabase() {
-		// Datenbankverbindung aufbauen
-		SQLHandler db = new SQLHandler(Week.this);
-		Cursor cur = db.getDayTime();
-		if (cur != null) {
-			if (cur.moveToFirst()) {
-				do {
-					cur.getInt(0);
-					cur.getString(1);
-				} while (cur.moveToNext());
-			}
-		}
-
-	}
-
-	// Methode die Daten aus der Datenbank holt und in Klasse Day überträgt
-	// Methode die Daten in die Datenbank überführt
-
-	// //////////////////////////////////////
-	// Private Klassen
-	// //////////////////////////////////////
-
 	private static class Day {
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 		private int rID;
 		private int weekID;
 		private String[] timeSlots = new String[4];
 		private Button[] timeSlotsButton = new Button[4];
-<<<<<<< HEAD
 		private int timeSlotID;
 		
-		Day(int rID){
-=======
-
 		Day(int rID) {
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 			this.rID = rID;
 			this.weekID = Day.getWeekIDfromViewID(rID);
 			this.timeSlotID = 0;
@@ -549,7 +437,6 @@ public class Week extends Activity {
 				return 99;
 			}
 		}
-<<<<<<< HEAD
 		
 		public static int getViewIDfromWeekID(int wID){
 			switch (wID) {
@@ -573,13 +460,7 @@ public class Week extends Activity {
 			}
 		}
 		
-		
-		
-		public int getWeekID(){
-=======
-
 		public int getWeekID() {
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 			return this.weekID;
 		}
 
@@ -602,32 +483,16 @@ public class Week extends Activity {
 			this.timeSlots[3] = time.getText().toString();
 			this.timeSlotsButton[3] = time;
 		}
-<<<<<<< HEAD
 		
 		public boolean existAllTimes(){
 			return  timeSlots[0] != null &&
 					timeSlots[1] != null &&
 					timeSlots[2] != null &&
 					timeSlots[3] != null;
-			
-			/*
-			return timeSlots[0].length() > 0 &&
-				   timeSlots[1].length() > 0 &&
-				   timeSlots[2].length() > 0 &&
-				   timeSlots[3].length() > 0;
-				   */
-=======
-
-		public boolean existAllTimes() {
-			return timeSlots[0].length() > 0 && timeSlots[1].length() > 0
-					&& timeSlots[2].length() > 0 && timeSlots[3].length() > 0;
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 		}
-
 		public String[] getTimeSlots() {
 			return timeSlots;
 		}
-<<<<<<< HEAD
 		
 		public void setTimeSlots(String time, Button[] handler){
 			// Zeit von HH:mm:ss in HH:mm umwandeln
@@ -645,11 +510,7 @@ public class Week extends Activity {
 			}
 		}
 		
-		public int getViewID(){
-=======
-
 		public int getViewID() {
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 			return rID;
 		}
 
@@ -657,8 +518,7 @@ public class Week extends Activity {
 			return timeSlotsButton;
 		}
 	}
-<<<<<<< HEAD
-=======
+
 
 	/*
 	 * // aktiver Wochentag private class activeDayButton { private boolean
@@ -698,6 +558,4 @@ public class Week extends Activity {
 	 * 
 	 * }
 	 */
-
->>>>>>> d7cba261b926ead064dba59ae0e820e35e213d82
 }
