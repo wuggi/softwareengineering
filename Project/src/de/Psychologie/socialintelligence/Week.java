@@ -3,7 +3,6 @@ package de.Psychologie.socialintelligence;
 import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,8 +26,10 @@ public class Week extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_week);
-
+		
+		////////////////////////////////////////////////////////////////////////
 		// Buttons definieren
+		////////////////////////////////////////////////////////////////////////
 		// fetch Buttons times
 		timeslot1 = (Button) findViewById(R.id.timeslot1);
 		ButtonHandler[0] = timeslot1;
@@ -70,9 +71,9 @@ public class Week extends Activity {
 		sat = (Button) findViewById(R.id.sat);
 		sun = (Button) findViewById(R.id.sun);
 		
-		//////
+		////////////////////////////////////////////////////////////////////////
 		// Methoden OnClick
-		//////
+		////////////////////////////////////////////////////////////////////////
 		
 		
 		// Week
@@ -104,23 +105,40 @@ public class Week extends Activity {
 		enableButton(timeslot14,4);
 		enableButton(timeslot15,4);
 		
-		//////
+		////////////////////////////////////////////////////////////////////////
 		// start Activity
-		//////
+		////////////////////////////////////////////////////////////////////////
 		
-		
-		
+		// Standardeinstellungen
 		// Alle deaktivieren
 		disableWeek();
 		disableAllTimeSlots();
-		
 		// Disable all
 		enableAllTimes(false);
 		
 		
-		//////
+		// Zeitdaten aus der Datenbank holen
+		if(getWeekFromDatabase()){
+			// Woche auslesen
+			for (int i = 0; i < week.length; i++) {
+				if(week[i] != null){
+					// Wochentage zurücksetzen
+					disableWeek();
+					// aktuellen Wochentag makieren
+					setButtonSelect((Button) findViewById(Day.getViewIDfromWeekID(i)));
+					// Zeitslots zurücksetzen
+					disableAllTimeSlots();
+					for (int j = 0; j < week[i].getTimeSlotsButton().length; j++) {
+						// setze Zeitslots für diesen Tag
+						setButtonSelect(week[i].getTimeSlotsButton()[j]);
+					}
+				}
+			}
+		} 
+		
+		////////////////////////////////////////////////////////////////////////
 		// save Week
-		//////
+		////////////////////////////////////////////////////////////////////////
 
 		saveWeek = (Button) findViewById(R.id.saveWeek);
 		saveWeek.setOnClickListener(new OnClickListener() {
@@ -129,37 +147,15 @@ public class Week extends Activity {
 				// Daten in Datenbank überführen
 				if(!writeWeekToDatabase()){
 					// Fehlermeldung ausgeben
-					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
 	}
 	
-	
-/*
-	// week
-	disableWeek();
-	// Wochentag angeklickt?
-	if(activeDay.existButton()){
-		// alle Zeiten gewählt?	
-		if(activeTimes.existTimes()){
-			// Daten abspeichern (Tag und Zeit)
-			SQLHandler db = new SQLHandler(Week.this);
-			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime1());
-			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime2());
-			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime3());
-			db.addDayTime(activeDay.getDayNum(), activeTimes.getTime4());
-			
-			// Ausgabe für den User
-			showMessage(true);
-		}
-	}
-	// neuen Button aktiv setzen
-	activeDay.setButton(bnt.getId());
-*/	
-	
-	
-	
+	////////////////////////////////////////////////////////////////////////
+	// Private Methoden
+	////////////////////////////////////////////////////////////////////////
 	
 	// aktiviert nur den selektierten Button, alle anderen in der Zeile werden disabled
 	private void enableButton(final Button bnt, final int row) {
@@ -184,6 +180,7 @@ public class Week extends Activity {
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
 					} else {
 						addDay(bnt.getId());
+						// TODO: currentDay??
 					}
 					enableAllTimes(true);
 					break;
@@ -214,10 +211,7 @@ public class Week extends Activity {
 		});
 
 	}
-	
-	////////////////////////////////////////
-	// Private Methoden
-	////////////////////////////////////////
+
 	private void enableAllTimes(boolean enable){
 		for (int i = 0; i < ButtonHandler.length; i++) {
 			ButtonHandler[i].setEnabled(enable);
@@ -273,7 +267,9 @@ public class Week extends Activity {
 	
 	@SuppressWarnings("deprecation")
 	private void setButtonSelect(Button bnt){
-		bnt.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+		if(bnt != null){
+			bnt.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+		}
 	}
 	
 	private void disableAllTimeSlots(){
@@ -313,6 +309,8 @@ public class Week extends Activity {
 			if(week[i] != null){
 				// wurden alle Zeiten für den Wochentag gesetzt?
 				if(week[i].existAllTimes()){
+					// alten Tag löschen
+					db.deleteDay(week[i].getWeekID());
 					// alle Zeitslots wählen
 					for (int j = 0; j < week[i].getTimeSlots().length; j++) {
 						// Wochentag und Zeitslot in Datenbank schreiben
@@ -320,6 +318,7 @@ public class Week extends Activity {
 					}	
 				} else {
 					// es wurden nicht für jeden Tag 4 Zeitslots gewählt
+					db.close();
 					return false;
 				}
 			}
@@ -330,39 +329,47 @@ public class Week extends Activity {
 		return true;
 	}
 	
-	private void getWeekFromDatabase(){
+	private boolean getWeekFromDatabase(){
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
 		Cursor cur = db.getDayTime();
+		int check = 0;
 		if(cur != null){
 			if(cur.moveToFirst()){
 				do{
-					cur.getInt(0);
-					cur.getString(1);
+					// Tag erstellen, wenn noch nicht existent
+					if(!existDay(Day.getViewIDfromWeekID(cur.getInt(0)))){
+						week[cur.getInt(0)] = new Day(Day.getViewIDfromWeekID(cur.getInt(0)));
+					}
+					// Zeitslots setzen, alle Buttons werden übergeben
+					week[cur.getInt(0)].setTimeSlots(cur.getString(1), ButtonHandler);
+					// check
+					check++;
 				}while(cur.moveToNext());
 			}
 		}
+		cur.close();
+		db.close();
+		
+		return check>3;
 		
 	}
-	
-	
-	// Methode die Daten aus der Datenbank holt und in Klasse Day überträgt
-	// Methode die Daten in die Datenbank überführt
 
-	////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
 	// Private Klassen
-	////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
 
-	
 	private static class Day{
 		private int rID;
 		private int weekID;
 		private String[] timeSlots = new String[4];
 		private Button[] timeSlotsButton = new Button[4];
+		private int timeSlotID;
 		
 		Day(int rID){
 			this.rID = rID;
 			this.weekID = Day.getWeekIDfromViewID(rID);
+			this.timeSlotID = 0;
 		}
 		
 		public static int getWeekIDfromViewID(int rID){
@@ -387,6 +394,30 @@ public class Week extends Activity {
 			}
 		}
 		
+		public static int getViewIDfromWeekID(int wID){
+			switch (wID) {
+			case 0:
+				return R.id.mon;
+			case 1:
+				return R.id.tue;
+			case 2:
+				return R.id.wed;
+			case 3:
+				return R.id.thur;
+			case 4:
+				return R.id.fri;
+			case 5:
+				return R.id.sat;
+			case 6:
+				return R.id.sun;
+			default:
+				// for compiler
+				return 99;			
+			}
+		}
+		
+		
+		
 		public int getWeekID(){
 			return this.weekID;
 		}
@@ -409,14 +440,37 @@ public class Week extends Activity {
 		}
 		
 		public boolean existAllTimes(){
+			return  timeSlots[0] != null &&
+					timeSlots[1] != null &&
+					timeSlots[2] != null &&
+					timeSlots[3] != null;
+			
+			/*
 			return timeSlots[0].length() > 0 &&
 				   timeSlots[1].length() > 0 &&
 				   timeSlots[2].length() > 0 &&
 				   timeSlots[3].length() > 0;
+				   */
 		}
 		
 		public String[] getTimeSlots(){
 			return timeSlots;
+		}
+		
+		public void setTimeSlots(String time, Button[] handler){
+			// Zeit von HH:mm:ss in HH:mm umwandeln
+			time = time.substring(0,5);
+			// prüfen, ob ein Button den Zeittext enthält
+			for (int i = 0; i < handler.length; i++) {
+				if(handler[i].getText().toString().compareTo(time) == 0){
+					// Zeit abspeichern
+					this.timeSlots[this.timeSlotID] = time;
+					// zugehörigen Button speichern
+					this.timeSlotsButton[this.timeSlotID] = handler[i];
+					//this.timeSlotID = (this.timeSlotID+1)%4;
+					this.timeSlotID++;
+				}
+			}
 		}
 		
 		public int getViewID(){
@@ -427,103 +481,4 @@ public class Week extends Activity {
 			return timeSlotsButton;
 		}
 	}
-	
-	
-	/*
-	// aktiver Wochentag
-	private class activeDayButton {
-		private boolean activ = false;
-		private int bntID;
-		
-		public void setButton(int checkBnt){
-			activ = true;
-			bntID = checkBnt;
-		}
-		
-		public boolean existButton(){
-			return activ;
-		}
-		
-		
-		public int getDayNum(){
-			switch (bntID) {
-			case R.id.mon:
-				return 1;
-			case R.id.tue:
-				return 2;
-			case R.id.wed:
-				return 3;
-			case R.id.thur:
-				return 4;
-			case R.id.fri:
-				return 5;
-			case R.id.sat:
-				return 6;
-			case R.id.sun:
-				return 7;
-			default:
-				// for compiler
-				return 99;
-			}
-		}
-	}
-	
-	// aktive Timeslots
-	private class activeTimeButtons {
-		private boolean activRow1 = false;
-		private String timeRow1;
-		private boolean activRow2 = false;
-		private String timeRow2;
-		private boolean activRow3 = false;
-		private String timeRow3;
-		private boolean activRow4 = false;
-		private String timeRow4;
-		
-		public void setTime(int row, String time){
-			switch (row) {
-			case 1:
-				activRow1 = true;
-				timeRow1 = time;
-				break;
-			case 2:
-				activRow2 = true;
-				timeRow2 = time;
-				break;
-			case 3:
-				activRow3 = true;
-				timeRow3 = time;
-				break;
-			case 4:
-				activRow4 = true;
-				timeRow4 = time;
-				break;
-			default:
-				break;
-			}
-		}
-		
-		public boolean existTimes(){
-			return (activRow1 && activRow2 && activRow3 && activRow4);
-		}
-		
-		public String getTime1(){
-			return timeRow1;
-		}
-		
-		public String getTime2(){
-			return timeRow2;
-		}
-		
-		public String getTime3(){
-			return timeRow3;
-		}
-		
-		public String getTime4(){
-			return timeRow4;
-		}
-		
-	}
-	*/
-
-
 }

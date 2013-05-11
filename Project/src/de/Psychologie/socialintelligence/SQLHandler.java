@@ -10,8 +10,8 @@ import android.util.Log;
 
 public class SQLHandler extends SQLiteOpenHelper {
  
-	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final String DATABASE_NAME = "socialintelligence.sql";
+	private static final int DATABASE_VERSION = 2;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
@@ -124,6 +124,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeActiv", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
+		db.close();
 	}
 	
 	// Wartezeit holen & setzen
@@ -148,6 +149,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeTime", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
+		db.close();
 	}
 	
 	// add User Code
@@ -173,6 +175,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 				exist = true;
 			}
 		}
+		db.close();
 		return exist;
 	}
 	
@@ -186,13 +189,19 @@ public class SQLHandler extends SQLiteOpenHelper {
 			cv.put("day",day);
 			//time in HH:MM:SS
 			time += ":00";
-			cv.put("time", time);
-			
+			cv.put("time", time);			
 			// import
-			//db.insert("time", null, cv);
+			db.insert("time", null, cv);
 			
-			// TODO: import oder update Leider erst ab API 8 unterstützt :(
-			db.insertWithOnConflict("time", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+			db.close();
+		}
+	}
+	
+	public void deleteDay(int day){
+		if(day<7 && day>=0){
+			SQLiteDatabase db= this.getWritableDatabase();		
+			// Tag löschen
+			db.delete("time", "day="+day, null);		
 			db.close();
 		}
 	}

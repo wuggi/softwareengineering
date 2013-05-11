@@ -17,5 +17,5 @@
 	<string name="notSaved">Für diesen Tag noch keine Auswahl gespeichert</string>
     <string name="timeSaved">Ihre Zeiten wurden gespeichert</string>
     <string name="bntWeekSave">Woche speichern</string>
-	<string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag, 4 Zeitslots!</string>
+	<string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
 </resources>
