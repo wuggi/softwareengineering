@@ -342,7 +342,6 @@ public class Week extends Activity {
 		return res;
 	}
 
-	// TODO:
 	private boolean writeWeekToDatabase() {
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
@@ -518,44 +517,4 @@ public class Week extends Activity {
 			return timeSlotsButton;
 		}
 	}
-
-
-	/*
-	 * // aktiver Wochentag private class activeDayButton { private boolean
-	 * activ = false; private int bntID;
-	 * 
-	 * public void setButton(int checkBnt){ activ = true; bntID = checkBnt; }
-	 * 
-	 * public boolean existButton(){ return activ; }
-	 * 
-	 * 
-	 * public int getDayNum(){ switch (bntID) { case R.id.mon: return 1; case
-	 * R.id.tue: return 2; case R.id.wed: return 3; case R.id.thur: return 4;
-	 * case R.id.fri: return 5; case R.id.sat: return 6; case R.id.sun: return
-	 * 7; default: // for compiler return 99; } } }
-	 * 
-	 * // aktive Timeslots private class activeTimeButtons { private boolean
-	 * activRow1 = false; private String timeRow1; private boolean activRow2 =
-	 * false; private String timeRow2; private boolean activRow3 = false;
-	 * private String timeRow3; private boolean activRow4 = false; private
-	 * String timeRow4;
-	 * 
-	 * public void setTime(int row, String time){ switch (row) { case 1:
-	 * activRow1 = true; timeRow1 = time; break; case 2: activRow2 = true;
-	 * timeRow2 = time; break; case 3: activRow3 = true; timeRow3 = time; break;
-	 * case 4: activRow4 = true; timeRow4 = time; break; default: break; } }
-	 * 
-	 * public boolean existTimes(){ return (activRow1 && activRow2 && activRow3
-	 * && activRow4); }
-	 * 
-	 * public String getTime1(){ return timeRow1; }
-	 * 
-	 * public String getTime2(){ return timeRow2; }
-	 * 
-	 * public String getTime3(){ return timeRow3; }
-	 * 
-	 * public String getTime4(){ return timeRow4; }
-	 * 
-	 * }
-	 */
 }
