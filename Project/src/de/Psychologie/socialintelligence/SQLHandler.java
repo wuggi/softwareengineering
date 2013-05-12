@@ -183,7 +183,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// add Week times
-	// TODO: Wenn vorhanden, Update
 	public void addDayTime(int day,String time){
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();

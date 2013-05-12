@@ -1,6 +1,8 @@
 package de.Psychologie.socialintelligence;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
@@ -22,6 +24,8 @@ public class Week extends Activity {
 	Day week[] = new Day[7];
 	// aktueller Tag
 	Day currentDay;
+	// Ansicht gespeichert
+	boolean saveAllTimeSlots = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +132,7 @@ public class Week extends Activity {
 					disableWeek();
 					// aktuellen Wochentag makieren
 					setButtonSelect((Button) findViewById(Day.getViewIDfromWeekID(i)));
+					currentDay = week[i];
 					// Zeitslots zurücksetzen
 					disableAllTimeSlots();
 					for (int j = 0; j < week[i].getTimeSlotsButton().length; j++) {
@@ -151,6 +156,10 @@ public class Week extends Activity {
 				if (!writeWeekToDatabase()) {
 					// Fehlermeldung ausgeben
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
+				} else {
+					// Alle Einstellungen erfolgreich gespeichert
+					saveAllTimeSlots = true;
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -158,15 +167,38 @@ public class Week extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		// Falls aufgerufen von Codeeingabe soll bei zurück die Settingsactivity
-		// aufgerufen werden
-		// sonst normal zurück zu settings
-
-		if (this.isTaskRoot()){
-			this.startActivity(new Intent(Week.this, UserSettingActivity.class));
-			this.finish();
-		}		
-		super.onBackPressed();
+		// wurde alles gespeichert?
+		if(saveAllTimeSlots){
+			// go back to Settingsactivity
+      		if (Week.this.isTaskRoot()){
+       			Week.this.startActivity(new Intent(Week.this, UserSettingActivity.class));
+       			Week.this.finish();
+       		}		
+       		Week.super.onBackPressed();
+		} else {
+			// Änderungen verwerfen?
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(getResources().getString(R.string.txtWeekSaveTitle));
+	        builder.setMessage(getResources().getString(R.string.txtWeekSaveQuestion))
+	               .setCancelable(false)
+	               .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	           				// go back to Settingsactivity
+	                 		if (Week.this.isTaskRoot()){
+	                  			Week.this.startActivity(new Intent(Week.this, UserSettingActivity.class));
+	                  			Week.this.finish();
+	                  		}		
+	                  		Week.super.onBackPressed();
+	                   }
+	               })
+	               .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                	   dialog.cancel();
+	                   }
+	               });
+	        AlertDialog alert = builder.create();
+	        alert.show();    
+        }
 	}
 
 	////////////////////////////////////////////////////////////////////////
