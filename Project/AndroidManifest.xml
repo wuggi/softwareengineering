@@ -17,13 +17,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="de.Psychologie.socialintelligence.MainActivity"
-<<<<<<< HEAD
             android:screenOrientation="portrait"
-=======
             android:label="@string/Main_Name"
->>>>>>> b6531349c44de77376a8e09e1840b4586eeb261a
-            android:noHistory="true"
-            android:screenOrientation="portrait" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +28,6 @@
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.PopPollActivity"
-<<<<<<< HEAD
             android:screenOrientation="portrait"
             android:label="@string/title_activity_pop_poll" >
         </activity>
@@ -44,21 +39,7 @@
         <activity
             android:name="de.Psychologie.socialintelligence.UserSettingActivity"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_settings" >
-=======
-            android:label="@string/title_activity_pop_poll"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="de.Psychologie.socialintelligence.Week"
-            android:label="@string/title_activity_week"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="de.Psychologie.socialintelligence.UserSettingActivity"
-            android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait" >
->>>>>>> b6531349c44de77376a8e09e1840b4586eeb261a
+            android:label="@string/title_activity_settings"  >
         </activity>
     </application>
 
