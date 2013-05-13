@@ -111,13 +111,15 @@ public final class R {
         public static final int bntWeekSave=0x7f08000c;
         public static final int cancel=0x7f08002a;
         public static final int hello_world=0x7f080003;
-        public static final int message_about=0x7f08002b;
+        public static final int message_about=0x7f080030;
         public static final int settings_about=0x7f080024;
         public static final int settings_admin=0x7f08001f;
         public static final int settings_export=0x7f080023;
         public static final int settings_export_email=0x7f080022;
         public static final int settings_other=0x7f08001b;
         public static final int settings_password_change=0x7f080021;
+        public static final int settings_password_new_text=0x7f08002f;
+        public static final int settings_password_new_title=0x7f08002e;
         public static final int settings_reset=0x7f080028;
         public static final int settings_ringtone=0x7f08001c;
         public static final int settings_ringtone2=0x7f08001d;
@@ -126,9 +128,12 @@ public final class R {
         public static final int settings_sleeptime=0x7f080025;
         public static final int settings_sleeptime2=0x7f080026;
         public static final int settings_volume=0x7f080027;
+        public static final int title_about=0x7f08002d;
         public static final int title_activity_pop_poll=0x7f080001;
         public static final int title_activity_settings=0x7f080004;
         public static final int title_activity_week=0x7f080002;
+        public static final int title_password_entry=0x7f08002b;
+        public static final int title_password_entry_text=0x7f08002c;
         public static final int txtNo=0x7f080013;
         public static final int txtTime_slot=0x7f08000d;
         public static final int txtWeekErrorTimeSlots=0x7f08000e;
@@ -167,6 +172,7 @@ public final class R {
         public static final int AppTheme=0x7f090001;
     }
     public static final class xml {
-        public static final int preferences=0x7f040000;
+        public static final int adminpreferences=0x7f040000;
+        public static final int preferences=0x7f040001;
     }
 }

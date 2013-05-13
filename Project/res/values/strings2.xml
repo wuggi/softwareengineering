@@ -24,6 +24,11 @@
     <string name="settings_reset">Komplette DB löschen!</string>
     <string name="OK">OK</string>
     <string name="cancel">Abbrechen</string>
-    <string name="message_about">Über SocialIntelligence\n\nEntwickler:\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
+    <string name="title_password_entry">Passwort</string>
+    <string name="title_password_entry_text">Diese Einstellungen sind Passwortgeschützt, bitte geben Sie ihr Passwort ein:</string>
+    <string name="title_about">Über SocialIntelligence</string>
+    <string name="settings_password_new_title">Neues Passwort</string>
+    <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>
+    <string name="message_about">Entwickler:\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
 
 </resources>
