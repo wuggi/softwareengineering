@@ -214,6 +214,56 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return cur;
 	}
 	
+	public boolean existDayTime(int day,String time){
+		SQLiteDatabase db= this.getReadableDatabase();
+		boolean exist = false;
+		Cursor c = db.rawQuery("SELECT COUNT(*) FROM time WHERE day="+day+" AND time ='"+time+"'",null);
+		if(c != null){
+			c.moveToFirst();
+			if(c.getInt(0) > 0){
+				exist = true;
+			}
+		}
+		db.close();
+		return exist;
+	}
+	
+	
+	// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
+	public String getNextTimeFromDayTime(int day,String time){
+		String res = "00:00:00";
+		if(existDayTime(day,time)){
+			SQLiteDatabase db= this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT time FROM time " +
+								   "WHERE day = "+day+" " +
+								   "AND ID = 1+(SELECT ID " +
+								    			 "FROM time " +
+								    			 "WHERE day="+day+" " +
+								    			 "AND time ='"+time+"')",null);
+			if(c != null){
+				c.moveToFirst();
+				res = c.getString(0);
+			}
+			db.close();
+			return res;
+		} else {
+			return res;
+		}
+	}
+	
+	public String getFirstTimeFromDay(int day){
+		String res = "00:00:00";
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT time FROM user WHERE day='"+day+"' ORDER BY ID",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		db.close();
+		return res;
+	}
+	
+	
 	// TODO: Es wird eine Methode benötigt, welche gesetzte Tage löscht, wenn dieser in der Vergangenheit liegt.
 	
 
