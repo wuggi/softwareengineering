@@ -25,7 +25,7 @@ public class Week extends Activity {
 	// aktueller Tag
 	Day currentDay;
 	// Ansicht gespeichert
-	boolean saveAllTimeSlots = false;
+	boolean saveAllTimeSlots = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -238,18 +238,22 @@ public class Week extends Activity {
 					break;
 				case 1:
 					disableRow1();
+					saveAllTimeSlots = false;
 					currentDay.setTime1(bnt);
 					break;
 				case 2:
 					disableRow2();
+					saveAllTimeSlots = false;
 					currentDay.setTime2(bnt);
 					break;
 				case 3:
 					disableRow3();
+					saveAllTimeSlots = false;
 					currentDay.setTime3(bnt);
 					break;
 				case 4:
 					disableRow4();
+					saveAllTimeSlots = false;
 					currentDay.setTime4(bnt);
 					break;
 

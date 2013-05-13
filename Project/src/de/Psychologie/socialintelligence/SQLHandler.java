@@ -71,7 +71,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("ID", 1);
 		values.put("snoozeActiv", 0);	// nicht aktiv
-		values.put("snoozeTime", 10);	// 10 Minuten
+		values.put("snoozeTime", 5);	// 5 Minuten
 		values.put("startDay", 0);		// Montag
 		db.insert("status", null, values);
 	}
