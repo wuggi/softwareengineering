@@ -111,7 +111,7 @@ public final class R {
         public static final int bntWeekSave=0x7f08000c;
         public static final int cancel=0x7f08002a;
         public static final int hello_world=0x7f080003;
-        public static final int message_about=0x7f08002b;
+        public static final int message_about=0x7f08002c;
         public static final int settings_about=0x7f080024;
         public static final int settings_admin=0x7f08001f;
         public static final int settings_export=0x7f080023;
@@ -126,6 +126,7 @@ public final class R {
         public static final int settings_sleeptime=0x7f080025;
         public static final int settings_sleeptime2=0x7f080026;
         public static final int settings_volume=0x7f080027;
+        public static final int title_about=0x7f08002b;
         public static final int title_activity_pop_poll=0x7f080001;
         public static final int title_activity_settings=0x7f080004;
         public static final int title_activity_week=0x7f080002;

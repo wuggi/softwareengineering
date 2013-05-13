@@ -50,6 +50,8 @@ public class UserSettingActivity extends PreferenceActivity {
 					public boolean onPreferenceClick(Preference arg0) {
 						AlertDialog ad = new AlertDialog.Builder(
 								UserSettingActivity.this).create();
+						ad.setTitle(getResources().getString(
+								R.string.title_about));
 						ad.setCancelable(false); // This blocks the 'BACK'
 													// button
 						ad.setMessage(getResources().getString(
