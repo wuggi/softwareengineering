@@ -10,15 +10,16 @@
         </Preference>
 
         <RingtonePreference
+            android:defaultValue="1"
             android:icon="@android:drawable/ic_lock_silent_mode_off"
             android:key="ringtone"
             android:persistent="true"
             android:ringtoneType="all"
             android:selectable="true"
-        	android:theme="@style/android:Theme.Light"
             android:showDefault="true"
             android:showSilent="false"
             android:summary="@string/settings_ringtone2"
+            android:theme="@style/android:Theme.Light"
             android:title="@string/settings_ringtone" />
 
         <ListPreference
@@ -29,6 +30,7 @@
             android:icon="@android:drawable/ic_menu_preferences"
             android:key="Sleeptime"
             android:negativeButtonText="@string/cancel"
+            android:persistent="true"
             android:summary="@string/settings_sleeptime2"
             android:title="@string/settings_sleeptime" />
 
@@ -39,32 +41,15 @@
         </Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_other" >
-        <PreferenceScreen
-            android:icon="@android:drawable/ic_menu_manage"
-            android:title="@string/settings_admin" >
-            <Preference
-                android:key="button_password_change"
-                android:title="@string/settings_password_change" >
-            </Preference>
-            <Preference
-                android:key="button_export_email"
-                android:title="@string/settings_export_email" >
-            </Preference>
-            <Preference
-                android:key="button_export"
-                android:title="@string/settings_export" >
-            </Preference>
-            <Preference
-                android:key="button_reset"
-                android:title="@string/settings_reset" >
-            </Preference>
-        </PreferenceScreen>
 
-        <Preference
+        <Preference android:icon="@android:drawable/ic_menu_info_details" android:key="button_admin_settings" android:title="test_admin">
+        </Preference><Preference
             android:icon="@android:drawable/ic_menu_info_details"
             android:key="button_about"
             android:title="@string/settings_about" >
         </Preference>
+
+        
     </PreferenceCategory>
 
 </PreferenceScreen>
