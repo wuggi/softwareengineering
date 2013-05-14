@@ -42,17 +42,19 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout2=0x7f0b0005;
-        public static final int action_settings=0x7f0b0026;
+        public static final int action_settings=0x7f0b0028;
         public static final int btnWeiter=0x7f0b0004;
+        public static final int editText1=0x7f0b0021;
+        public static final int editText2=0x7f0b0022;
         public static final int fri=0x7f0b000a;
-        public static final int menu_settings=0x7f0b0025;
+        public static final int menu_settings=0x7f0b0027;
         public static final int mon=0x7f0b0006;
         public static final int sat=0x7f0b000b;
         public static final int saveWeek=0x7f0b0020;
-        public static final int seekBarPrefBarContainer=0x7f0b0024;
-        public static final int seekBarPrefUnitsLeft=0x7f0b0023;
-        public static final int seekBarPrefUnitsRight=0x7f0b0021;
-        public static final int seekBarPrefValue=0x7f0b0022;
+        public static final int seekBarPrefBarContainer=0x7f0b0026;
+        public static final int seekBarPrefUnitsLeft=0x7f0b0025;
+        public static final int seekBarPrefUnitsRight=0x7f0b0023;
+        public static final int seekBarPrefValue=0x7f0b0024;
         public static final int sun=0x7f0b000c;
         public static final int tableRow1=0x7f0b000d;
         public static final int tableRow2=0x7f0b0012;
@@ -85,7 +87,8 @@ public final class R {
         public static final int activity_main=0x7f030000;
         public static final int activity_pop_poll=0x7f030001;
         public static final int activity_week=0x7f030002;
-        public static final int seek_bar_preference=0x7f030003;
+        public static final int preferences_two_passwords=0x7f030003;
+        public static final int seek_bar_preference=0x7f030004;
     }
     public static final class menu {
         public static final int activity_settings=0x7f0a0000;
@@ -110,18 +113,23 @@ public final class R {
         public static final int bntWednesday=0x7f080007;
         public static final int bntWeekSave=0x7f08000c;
         public static final int cancel=0x7f08002a;
-        public static final int false_password=0x7f08002e;
+        public static final int false_password=0x7f080033;
         public static final int hello_world=0x7f080003;
-        public static final int message_about=0x7f080032;
-        public static final int salt=0x7f08002d;
+        public static final int message_about=0x7f080037;
+        public static final int password_changed=0x7f080032;
+        public static final int password_mismatch=0x7f080031;
+        public static final int preferences_password_change1=0x7f08002c;
+        public static final int preferences_password_change2=0x7f08002d;
+        public static final int salt=0x7f080030;
+        public static final int save=0x7f08002b;
         public static final int settings_about=0x7f080024;
         public static final int settings_admin=0x7f08001f;
         public static final int settings_export=0x7f080023;
         public static final int settings_export_email=0x7f080022;
         public static final int settings_other=0x7f08001b;
         public static final int settings_password_change=0x7f080021;
-        public static final int settings_password_new_text=0x7f080031;
-        public static final int settings_password_new_title=0x7f080030;
+        public static final int settings_password_new_text=0x7f080036;
+        public static final int settings_password_new_title=0x7f080035;
         public static final int settings_reset=0x7f080028;
         public static final int settings_ringtone=0x7f08001c;
         public static final int settings_ringtone2=0x7f08001d;
@@ -130,12 +138,12 @@ public final class R {
         public static final int settings_sleeptime=0x7f080025;
         public static final int settings_sleeptime2=0x7f080026;
         public static final int settings_volume=0x7f080027;
-        public static final int std_PW=0x7f08002c;
-        public static final int title_about=0x7f08002f;
+        public static final int std_PW=0x7f08002f;
+        public static final int title_about=0x7f080034;
         public static final int title_activity_pop_poll=0x7f080001;
         public static final int title_activity_settings=0x7f080004;
         public static final int title_activity_week=0x7f080002;
-        public static final int title_password_entry=0x7f08002b;
+        public static final int title_password_entry=0x7f08002e;
         public static final int txtNo=0x7f080013;
         public static final int txtTime_slot=0x7f08000d;
         public static final int txtWeekErrorTimeSlots=0x7f08000e;

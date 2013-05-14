@@ -18,6 +18,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.InputType;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -104,14 +105,13 @@ public class UserSettingActivity extends PreferenceActivity {
 					@Override
 					public boolean onPreferenceClick(final Preference arg0) {
 						
-						AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
+						final AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
 						builder.setTitle(getResources().getString(R.string.title_password_entry));
 						final EditText input = new EditText(UserSettingActivity.this); 
 					    final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserSettingActivity.this);
-						
+											    					 			    
 						input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-						builder.setView(input);
-				        builder.setCancelable(false)
+						builder.setView(input)
 				               .setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
 				           			//Passwortüberprüfung mit Salt
@@ -130,9 +130,21 @@ public class UserSettingActivity extends PreferenceActivity {
 				                   public void onClick(DialogInterface dialog, int id) {				                	   
 				                	   dialog.cancel();
 				                   }
-				               });
-				        AlertDialog alert = builder.create();
-				        alert.show();
+				               }); 
+				        
+						final AlertDialog dialog = builder.create();   
+						
+					      //show keyboard
+						    input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+						        @Override
+						        public void onFocusChange(View v, boolean hasFocus) {
+						            if (hasFocus) {
+						                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+						            }
+						        }
+						    });
+						    
+				        dialog.show();
 						return true;
 					}
 				});

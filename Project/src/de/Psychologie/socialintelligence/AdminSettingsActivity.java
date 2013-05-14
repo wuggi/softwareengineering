@@ -1,6 +1,7 @@
 package de.Psychologie.socialintelligence;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +13,11 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class AdminSettingsActivity extends PreferenceActivity {
@@ -35,46 +40,41 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});		
 		
-		
-		Preference button_password_change = (Preference) findPreference("password");
-		button_password_change
+		Preference button_password_change2 = (Preference) findPreference("password");
+		button_password_change2
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(final Preference arg0) {
 						
-						AlertDialog.Builder builder = new AlertDialog.Builder(AdminSettingsActivity.this);
-						builder.setTitle(getResources().getString(R.string.title_password_entry));
-						final EditText input = new EditText(AdminSettingsActivity.this);
-						//final EditText input2 = new EditText(AdminSettingsActivity.this);
-						// input2.setInputType(InputType.TYPE_CLASS_TEXT |
-						// InputType.TYPE_TEXT_VARIATION_PASSWORD);
-						/*
-						  Context context = mapView.getContext(); LinearLayout
-						  layout = new LinearLayout(context);
-						  layout.setOrientation(LinearLayout.VERTICAL);
-						  
-						  final EditText titleBox = new EditText(context);
-						  titleBox.setHint("Title"); layout.addView(titleBox);
-						  
-						  final EditText descriptionBox = new
-						  EditText(context);
-						  descriptionBox.setHint("Description");
-						  layout.addView(descriptionBox);
-						  
-						  dialog.setView(layout);
-						 */
+						LayoutInflater factory = LayoutInflater.from(AdminSettingsActivity.this);
+
+						//text_entry is an Layout XML file containing two text field to display in alert dialog
+						final View textEntryView = factory.inflate(R.layout.preferences_two_passwords, null);
+
+						final EditText input1 = (EditText) textEntryView.findViewById(R.id.editText1);
+						final EditText input2 = (EditText) textEntryView.findViewById(R.id.editText2);
+
+
+						final AlertDialog.Builder alert = new AlertDialog.Builder(AdminSettingsActivity.this);
 						
-						input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-						builder.setView(input);
+						alert.setTitle(getResources().getString(R.string.settings_password_change)).setView(textEntryView);
 						
-				        builder.setCancelable(false)
-				               .setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
+						alert.setPositiveButton(getResources().getString(R.string.save), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
-				                	// Salt and hash the imput and write it manuelly to the preferences
-				       				final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(AdminSettingsActivity.this);
-				       				SharedPreferences.Editor editor = settings.edit();
-				       				editor.putString("password", UserSettingActivity.MD5((input.getText().toString()) + getResources().getString(R.string.salt)));
-				       				editor.commit();				                	
+				                	   if (input1.getText().toString().equals(input2.getText().toString())){
+				                		   // Salt and hash the imput and write it manuelly to the preferences
+					       					final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(AdminSettingsActivity.this);
+					       					SharedPreferences.Editor editor = settings.edit();
+					       					editor.putString("password", UserSettingActivity.MD5((input1.getText().toString()) + getResources().getString(R.string.salt)));
+					       					editor.commit();
+					       					Toast.makeText(getApplicationContext(),getResources().getString(R.string.password_changed), Toast.LENGTH_SHORT).show();	
+				                	   }
+				                	   else
+				                	   {
+				                		   //Passwort erneut eingeben
+					   						Toast.makeText(getApplicationContext(),getResources().getString(R.string.password_mismatch), Toast.LENGTH_SHORT).show();
+					   						onPreferenceClick(arg0);
+				                	   }
 				                   }
 				               })
 				               .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -82,12 +82,24 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				                	   dialog.cancel();
 				                   }
 				               });
-				        AlertDialog alert = builder.create();
-				        alert.show();
+
+				        
+						final AlertDialog dialog = alert.create();   
+						
+					      //show keyboard
+						    input1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+						        @Override
+						        public void onFocusChange(View v, boolean hasFocus) {
+						            if (hasFocus) {
+						                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+						            }
+						        }
+						    });
+						    
+				        dialog.show();
 						return true;
 					}
 				});
-		
 		
 	}
 };
