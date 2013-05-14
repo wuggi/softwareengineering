@@ -1,14 +1,21 @@
 package de.Psychologie.socialintelligence;
 
+import java.util.Calendar;
+import java.util.Date;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,13 +25,80 @@ public class MainActivity extends Activity {
 	private Button btnWeiter;
 	private EditText userCode;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// Falls nicht erster Start(oder zurrueckgesetzt)
+		// TODO: können die zwei Zeilen weg?
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);	
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+	               WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(MainActivity.this);
+		
+		// Zeit und Datum holen
+		Calendar cal = Calendar.getInstance();
+		
+		// TODO: Zeitzone setzen
+		// zwecks Sommerzeit +2
+		int timeZone = 2;
+		
+		// Wochentag ist in Android: Sonntag = 1, in unserer Datenbank ist Montag = 0,
+		// daher muss (Wochentag+5) mod 7 erfolgen.
+        int currentDay = (cal.get(Calendar.DAY_OF_WEEK)+5)%7;
 
+        // Stunde auslesen
+        int currentHour = cal.get(Calendar.HOUR_OF_DAY)+timeZone;
+        // Minute und Sekunde ist Standardmäßig auf 00 gesetzt.
+        // folgender String beschreibt Zeitformat
+        String timeInDatabase = String.valueOf(currentHour)+":00:00";
+        
+        // Wurde die App automatisch gestartet?
+        if(db.existDayTime(currentDay, timeInDatabase)){
+        	// nächsten Alarm ermitteln
+        	// Tag wählen
+        	int nextDay;
+        	String nextTime;
+        	if(currentHour > 19){
+        		// nach 19 Uhr ist letzter Zeitslot, der nächste Termin muss am folgenden Tag sein
+        		nextDay = (currentDay+1)%7;
+        		// erste Zeit vom nächsten Tag holen
+        		nextTime = db.getFirstTimeFromDay(nextDay);
+        	} else {
+        		nextDay = currentDay;
+        		nextTime = db.getNextTimeFromDayTime(currentDay, timeInDatabase);
+        	}
+        	
+        	if(nextTime == "00:00:00"){
+        		//TODO: Error
+        		// setzen Sie Zeiten für den nächsten Tag
+        	}
+        	
+        	// Stunde auslesen
+        	int nextHour = Integer.valueOf(nextTime.substring(0, 2));
+        	
+        	// nächsten Alarm setzen
+        	// TODO: Veraltet GregorianCalendar nehmen
+        	Date alarm = cal.getTime();
+        	alarm.setDate(nextDay);
+        	alarm.setHours(nextHour);
+        	cal.setTime(alarm);
+        	
+        	// Aufruf setzen
+            Intent intent = new Intent(this, MainActivity.class);
+            // 10000 ist einmalige Nummer für den Alarm
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
+            
+            // Weiterleiten zur Umfrage-Activity
+            startActivity(new Intent(MainActivity.this,PopPollActivity.class));
+			this.finish();
+        }
+	
+		
+		// Falls nicht erster Start(oder zurrueckgesetzt)
 		if (db.existUserCode()) {
 			startActivity(new Intent(MainActivity.this,
 					UserSettingActivity.class));
