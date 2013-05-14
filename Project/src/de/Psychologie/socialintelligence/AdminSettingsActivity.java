@@ -101,5 +101,14 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});
 		
+
+		
+		
+	}
+	@Override
+	public void onBackPressed(){
+		finish();
+ 		overridePendingTransition(0, 0);
+ 		startActivity(new Intent(AdminSettingsActivity.this, UserSettingActivity.class));
 	}
 };

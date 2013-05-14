@@ -117,7 +117,13 @@ public class UserSettingActivity extends PreferenceActivity {
 				           			//Passwortüberprüfung mit Salt
 				                	//Falls kein PW gesetzt ist, ist das standart PW: 
 				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
+				                 		//TODO: schönere lösung für langsamer bildaufbau??
+				                 		//finish();
+				                 		//InputMethodManager inputMethodManager = (InputMethodManager)  UserSettingActivity.getSystemService(UserSettingActivity.INPUT_METHOD_SERVICE);
+				                 	    //inputMethodManager.hideSoftInputFromWindow(UserSettingActivity.this.getCurrentFocus().getWindowToken(), 0);
+
 				                 		startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
+				                 		overridePendingTransition(0, 0);
 				                  		}	
 				                   else
 				                   {				                	   
