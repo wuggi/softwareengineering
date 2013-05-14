@@ -42,12 +42,11 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout2=0x7f0b0005;
-        public static final int action_settings=0x7f0b0027;
+        public static final int action_settings=0x7f0b0026;
         public static final int btnWeiter=0x7f0b0004;
         public static final int fri=0x7f0b000a;
-        public static final int menu_settings=0x7f0b0026;
+        public static final int menu_settings=0x7f0b0025;
         public static final int mon=0x7f0b0006;
-        public static final int password=0x7f0b0025;
         public static final int sat=0x7f0b000b;
         public static final int saveWeek=0x7f0b0020;
         public static final int seekBarPrefBarContainer=0x7f0b0024;
