@@ -1,9 +1,15 @@
 package de.Psychologie.socialintelligence;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class AdminSettingsActivity extends PreferenceActivity {
 
@@ -24,16 +30,20 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						return true;
 					}
 				});
-		Preference button_password_change = (Preference) findPreference("button_password_change");
+		Preference button_password_change = (Preference) findPreference("password");
+		
 		button_password_change
-
 		.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference,
-					Object newValue) {
-
-				// Salt and hash the imput and return it
-				return true;
+					Object newValue) {			
+				// Salt and hash the imput and write it manuelly to the preferences
+				final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(AdminSettingsActivity.this);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("password", UserSettingActivity.MD5(((String) newValue) + getResources().getString(R.string.salt)));
+				editor.commit();
+				//Dont change it to newValue
+				return false;
 			}
 		});
 	}

@@ -41,15 +41,16 @@
         </Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_other" >
-
-        <Preference android:icon="@android:drawable/ic_menu_info_details" android:key="button_admin_settings" android:title="test_admin">
-        </Preference><Preference
+        <Preference
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:key="button_admin_settings"
+            android:title="@string/settings_admin" >
+        </Preference>
+        <Preference
             android:icon="@android:drawable/ic_menu_info_details"
             android:key="button_about"
             android:title="@string/settings_about" >
         </Preference>
-
-        
     </PreferenceCategory>
 
 </PreferenceScreen>

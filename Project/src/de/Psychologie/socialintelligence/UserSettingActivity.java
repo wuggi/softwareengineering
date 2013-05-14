@@ -3,8 +3,10 @@ package de.Psychologie.socialintelligence;
 import java.security.MessageDigest;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,8 +15,13 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.text.InputType;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
@@ -95,30 +102,37 @@ public class UserSettingActivity extends PreferenceActivity {
 		button_admin_settings
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
-					public boolean onPreferenceClick(Preference arg0) {
+					public boolean onPreferenceClick(final Preference arg0) {
 						
 						AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
 						builder.setTitle(getResources().getString(R.string.title_password_entry));
 						final EditText input = new EditText(UserSettingActivity.this); 
+					    final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserSettingActivity.this);
+						
+						input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 						builder.setView(input);
-				        builder.setMessage(getResources().getString(R.string.title_password_entry_text))
-				               .setCancelable(false)
+				        builder.setCancelable(false)
 				               .setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
-				           				// Passwortüberprüfung mit Salt
-				                 		//if (MD5(input.toString()+"wro3to!1lEgl!p#iap6o8vl6@lech+a+")==" "){
-										//	startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
-				                  		//}		
-										startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
+				           			//Passwortüberprüfung mit Salt
+				                	//Falls kein PW gesetzt ist, ist das standart PW: 
+				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
+				                 		startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
+				                  		}	
+				                   else
+				                   {				                	   
+				   						Toast.makeText(getApplicationContext(),getResources().getString(R.string.false_password), Toast.LENGTH_SHORT).show();
+				   						onPreferenceClick(arg0);
+				                   }
 				                   }
 				               })
 				               .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-				                   public void onClick(DialogInterface dialog, int id) {
+				                   public void onClick(DialogInterface dialog, int id) {				                	   
 				                	   dialog.cancel();
 				                   }
 				               });
 				        AlertDialog alert = builder.create();
-				        alert.show(); 
+				        alert.show();
 						return true;
 					}
 				});
@@ -134,7 +148,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	}
 	
 	// MD5 Funktion für Passwörter
-	public String MD5(String md5) {
+	public static String MD5(String md5) {
 		try {
 			java.security.MessageDigest md = java.security.MessageDigest
 					.getInstance("MD5");

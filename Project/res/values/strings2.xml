@@ -25,7 +25,9 @@
     <string name="OK">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="title_password_entry">Passwort</string>
-    <string name="title_password_entry_text">Diese Einstellungen sind Passwortgeschützt, bitte geben Sie ihr Passwort ein:</string>
+    <string name="std_PW">Sommer</string>
+    <string name="salt">jl#1i$Q3awrO!ql4tia5=et</string>
+    <string name="false_password">Falsches Passwort</string>
     <string name="title_about">Über SocialIntelligence</string>
     <string name="settings_password_new_title">Neues Passwort</string>
     <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>

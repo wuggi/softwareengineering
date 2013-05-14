@@ -5,11 +5,10 @@
     <EditTextPreference
         android:dialogMessage="@string/settings_password_new_text"
         android:dialogTitle="@string/settings_password_new_title"
-        android:key="button_password_change"
+        android:key="password"
         android:negativeButtonText="@string/cancel"
-        android:persistent="true"
         android:positiveButtonText="@string/OK"
-        android:title="@string/settings_password_change" />
+        android:title="@string/settings_password_change" android:persistent="true"/>
 
     <Preference
         android:key="button_export_email"
