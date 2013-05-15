@@ -26,6 +26,33 @@ import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
+	@Override
+	protected void onStart() {
+	super.onStart();
+
+	// Set Ringtonepreference summary to chosen title
+	// Get the xml/prefx.xml preferences
+	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+	
+	String ringtonename = prefs.getString("ringtone",	"DEFAULT_RINGTONE_URI");
+	Preference ringtonepref = (Preference) findPreference("ringtone");
+	
+	//Get real song title
+	Uri ringtoneUri = Uri.parse((String) ringtonename);
+	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+	String name = ringtone.getTitle(UserSettingActivity.this);
+	
+	ringtonepref.setSummary(name);
+	
+	// Set Sleeptime summary to chosen time		
+	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
+	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
+	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
+	
+	}
+
+
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +121,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
 						preference
-								.setSummary(((String) newValue) + "\tMinuten");
+								.setSummary(((String) newValue) + " \tMinuten");
 						return true;
 					}
 				});
@@ -117,11 +144,7 @@ public class UserSettingActivity extends PreferenceActivity {
 				           			//Passwortüberprüfung mit Salt
 				                	//Falls kein PW gesetzt ist, ist das standart PW: 
 				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
-				                 		//TODO: schönere lösung für langsamer bildaufbau??
-				                 		//finish();
-				                 		//InputMethodManager inputMethodManager = (InputMethodManager)  UserSettingActivity.getSystemService(UserSettingActivity.INPUT_METHOD_SERVICE);
-				                 	    //inputMethodManager.hideSoftInputFromWindow(UserSettingActivity.this.getCurrentFocus().getWindowToken(), 0);
-
+				                        finish();
 				                 		startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
 				                 		overridePendingTransition(0, 0);
 				                  		}	

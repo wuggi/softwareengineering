@@ -31,7 +31,6 @@
             android:key="Sleeptime"
             android:negativeButtonText="@string/cancel"
             android:persistent="true"
-            android:summary="@string/settings_sleeptime2"
             android:title="@string/settings_sleeptime" />
 
         <Preference
