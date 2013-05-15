@@ -220,19 +220,22 @@ public class SQLHandler extends SQLiteOpenHelper {
 		Cursor c = db.rawQuery("SELECT COUNT(*) FROM time WHERE day="+day+" AND time ='"+time+"'",null);
 		if(c != null){
 			c.moveToFirst();
+			Log.v("test",String.valueOf(c.getInt(0)));
 			if(c.getInt(0) > 0){
 				exist = true;
 			}
 		}
 		db.close();
+		Log.v("test",String.valueOf(exist));
 		return exist;
 	}
 	
 	
-	// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
+	
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
 		if(existDayTime(day,time)){
+			// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
 			SQLiteDatabase db= this.getReadableDatabase();
 			Cursor c = db.rawQuery("SELECT time FROM time " +
 								   "WHERE day = "+day+" " +
@@ -247,6 +250,17 @@ public class SQLHandler extends SQLiteOpenHelper {
 			db.close();
 			return res;
 		} else {
+			// TODO: else Pfad klappt immer, if nicht notwendig!
+			// SELECT time FROM time WHERE day = 1 AND time(time) > time('18:00:00')
+			SQLiteDatabase db= this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT time FROM time " +
+								   "WHERE day = "+day+" " +
+								   "AND time(time) > time('"+time+"')",null);
+			if(c != null){
+				c.moveToFirst();
+				res = c.getString(0);
+			}
+			db.close();
 			return res;
 		}
 	}
