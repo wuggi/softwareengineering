@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.util.Log;
 
 // TODO: dies ist keine Activity!! Es benötigt lediglich 3 Methoden von dieser!
-public class Alarm extends Activity {
+public class Alarm{
 
 	private Calendar cal;
 	// Wochentag
@@ -22,8 +22,10 @@ public class Alarm extends Activity {
 	// Stunde 24er Format
 	private int currentHour;
 	// Alarmzeiten in Datenbank
-	String curruentAlarmTime;
+	String currentAlarmTime;
 	String nextAlarmTime;
+	
+	Activity source;
 	
 
 	
@@ -32,10 +34,10 @@ public class Alarm extends Activity {
 	
 	// prüfen ist Alarm gesetzt, sonst nächsten Alarm aktivieren
 	
-	Alarm(){
+	Alarm(Activity source){
 		// Zeit und Datum holen
 		cal = Calendar.getInstance();
-		
+		this.source = source;
 		// Wochentag ist in Android: Sonntag = 1, in unserer Datenbank ist Montag = 0,
 		// daher muss (Wochentag+5) mod 7 erfolgen.
 		currentWeekDay = (cal.get(Calendar.DAY_OF_WEEK)+5)%7;
@@ -48,12 +50,11 @@ public class Alarm extends Activity {
 		
 		currentHour = cal.get(Calendar.HOUR_OF_DAY);
 		int currentMinute = cal.get(Calendar.MINUTE);
-		// TODO: IF nicht notwendig, else reicht
-		if(currentMinute < 2){
-			curruentAlarmTime = String.valueOf(currentHour)+":00:00";
-		} else {
-			curruentAlarmTime = String.valueOf(currentHour)+":"+String.valueOf(currentMinute)+":00";
-		}
+
+
+		// Zeit setzen, mit Aufbau 00:00:00
+		currentAlarmTime = withNull(currentHour)+":"+withNull(currentMinute)+":00";
+		
 	}
 	
 	// setzen nächsten oder ersten Alarm
@@ -64,13 +65,14 @@ public class Alarm extends Activity {
 	@SuppressWarnings("deprecation")
 	public boolean setNextAlarm(boolean firstAlarm){
 		int lastHour = firstAlarm?23:19;
-		
+		Log.v("test",String.valueOf(lastHour));
 		boolean res = false;
 		// Datenbank Verbindung aufbauen
-		SQLHandler db = new SQLHandler(Alarm.this);
+		SQLHandler db = new SQLHandler(source);
+		Log.v("test",String.valueOf(db.existUserCode()));
 		// nächster Alarm
 		Date alarmDay;
-		
+		Log.v("test",String.valueOf(currentHour));
 		// Aktuelle Zeit im letzen Slot des Tages, dann ist es nach 19 Uhr
 		if(currentHour > lastHour){
 			// erste Zeit vom nächsten Wochentag holen
@@ -78,7 +80,8 @@ public class Alarm extends Activity {
 			alarmDay = nextDate;
 		} else {
 			// für Heute existiert noch eine Alarmzeit
-			nextAlarmTime = db.getNextTimeFromDayTime(currentWeekDay, curruentAlarmTime);
+			Log.v("test",currentAlarmTime);
+			nextAlarmTime = db.getNextTimeFromDayTime(currentWeekDay, currentAlarmTime);
 			alarmDay = currentDate;
 		}
 		
@@ -89,6 +92,7 @@ public class Alarm extends Activity {
 			alarmDay.setHours(Integer.valueOf(nextAlarmTime.substring(0,2)));
 			alarmDay.setMinutes(0);
 			alarmDay.setSeconds(5);
+			Log.v("test",alarmDay.toString());
 
 			// nächsten Alarm setzen
         	cal.setTime(alarmDay);
@@ -104,7 +108,7 @@ public class Alarm extends Activity {
 	// setze Snooze in Minuten
 	public void setSnooze(int snoozeTime){
 		// Datenbank Verbindung aufbauen
-		SQLHandler db = new SQLHandler(Alarm.this);
+		SQLHandler db = new SQLHandler(source);
 		// nächster Alarm
 		cal.setTime(currentDate);
 		cal.add(Calendar.MINUTE, snoozeTime);
@@ -116,14 +120,24 @@ public class Alarm extends Activity {
 		return currentWeekDay;
 	}
 	
+	private String withNull(int time){
+		String res;
+		if(time < 10){
+			res = "0"+String.valueOf(time);
+		} else {
+			res = String.valueOf(time);
+		}
+		return res;
+	}
+	
 	private void startAlarm(){
     	// bei Alarmstart die Umfrage aufrufen
     	// TODO: oder eine Zwischen-Activtiy starten, die lediglich Snooze setzt.
     	// Damit der Start durch den Alarm klar ist
-        Intent intent = new Intent(this, PopPollActivity.class);
+        Intent intent = new Intent(source, PopPollActivity.class);
         // 10000 ist einmalige Nummer für den Alarm
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager am = (AlarmManager)source.getSystemService(Activity.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
 	}
 	
@@ -133,13 +147,13 @@ public class Alarm extends Activity {
 	public boolean appStartByAlarm(){
 		boolean res = false;
 		// Datenbank Verbindung aufbauen
-		SQLHandler db = new SQLHandler(Alarm.this);
+		SQLHandler db = new SQLHandler(source);
 		
 		// existiert aktuelle Zeit in der Datenbank, dann wurde es durch den 
 		// Alarm gestartet
 		Log.v("test",String.valueOf(currentWeekDay));
-		Log.v("test",curruentAlarmTime);
-		if(db.existDayTime(currentWeekDay, curruentAlarmTime)){
+		Log.v("test",currentAlarmTime);
+		if(db.existDayTime(currentWeekDay, currentAlarmTime)){
 			res = true;
 		}
 		

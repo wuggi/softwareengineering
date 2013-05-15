@@ -79,7 +79,7 @@ public class Week extends Activity {
 		sun = (Button) findViewById(R.id.sun);
 		
 		// Alarm erzeugen
-		alarm = new Alarm();
+		alarm = new Alarm(this);
 
 		////////////////////////////////////////////////////////////////////////
 		// Methoden OnClick
@@ -169,7 +169,7 @@ public class Week extends Activity {
 					// Alle Einstellungen erfolgreich gespeichert
 					saveAllTimeSlots = true;
 					// Alarm setzen
-					//alarm.setNextAlarm();
+					alarm.setNextAlarm(true);
 					// Meldung ausgeben
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
 				}
