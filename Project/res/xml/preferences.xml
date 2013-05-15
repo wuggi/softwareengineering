@@ -10,7 +10,7 @@
         </Preference>
 
         <RingtonePreference
-            android:defaultValue="1"
+            android:defaultValue="@string/settings_ringtone2"
             android:icon="@android:drawable/ic_lock_silent_mode_off"
             android:key="ringtone"
             android:persistent="true"

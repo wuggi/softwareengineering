@@ -34,7 +34,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	// Get the xml/prefx.xml preferences
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	
-	String ringtonename = prefs.getString("ringtone",	"DEFAULT_RINGTONE_URI");
+	String ringtonename = prefs.getString("ringtone",	"@string/settings_ringtone2");
 	Preference ringtonepref = (Preference) findPreference("ringtone");
 	
 	//Get real song title
