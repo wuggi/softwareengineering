@@ -1,9 +1,6 @@
 package de.Psychologie.socialintelligence;
 
-import java.security.MessageDigest;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,12 +17,12 @@ import android.preference.RingtonePreference;
 import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onStart() {
 	super.onStart();
@@ -38,6 +35,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	Preference ringtonepref = (Preference) findPreference("ringtone");
 	
 	//Get real song title
+	//TODO: komischer Fehler!
 	Uri ringtoneUri = Uri.parse((String) ringtonename);
 	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 	String name = ringtone.getTitle(UserSettingActivity.this);
