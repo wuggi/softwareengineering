@@ -16,7 +16,7 @@ public class PopPollActivity extends Activity {
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(PopPollActivity.this);
 		
-		Alarm pollAlarm = new Alarm();
+		Alarm pollAlarm = new Alarm(this);
 		
 		// Wenn Snooze gedrück wird:
 		// int snoozeTime = hole ZEIT von JENS (in Minuten)

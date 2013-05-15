@@ -13,8 +13,8 @@ import android.util.Log;
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class SQLHandler extends SQLiteOpenHelper {
  
-	private static final String DATABASE_NAME = "socialintelligence.sql";
-	private static final int DATABASE_VERSION = 3;
+	private static final String DATABASE_NAME = "socialintelligence.db";
+	private static final int DATABASE_VERSION = 1;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
@@ -113,6 +113,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		    	snoozeActiv = true;
 		    }
 		}
+		db.close();
 		return snoozeActiv;
 	}
 	
@@ -146,6 +147,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
+		db.close();
 		return res;
 	}
 	
@@ -153,14 +155,15 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// Wartezeit holen & setzen
 	public int getSnoozeTime(){
 		SQLiteDatabase db= this.getReadableDatabase();
+		int res = -1;
 		Cursor c = db.rawQuery("SELECT snoozeTime FROM status WHERE ID=1",null);
 		if(c != null){
 			c.moveToFirst();
 			// prüfen, ob Snooze gesetzt
-		    return c.getInt(0);
-		} else {
-			return -1;
-		}
+			res =  c.getInt(0);
+		} 
+		db.close();
+		return res;
 	}
 	
 	public void setSnoozeTime(int value){
@@ -231,6 +234,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT day,time from time",null);
+		db.close();
 		return cur;
 	}
 	
@@ -254,25 +258,27 @@ public class SQLHandler extends SQLiteOpenHelper {
 	
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
-		if(existDayTime(day,time)){
-			// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
-			SQLiteDatabase db= this.getReadableDatabase();
-			Cursor c = db.rawQuery("SELECT time FROM time " +
-								   "WHERE day = "+day+" " +
-								   "AND ID = 1+(SELECT ID " +
-								    			 "FROM time " +
-								    			 "WHERE day="+day+" " +
-								    			 "AND time ='"+time+"')",null);
-			if(c != null){
-				c.moveToFirst();
-				res = c.getString(0);
-			}
-			db.close();
-			return res;
-		} else {
+//		if(existDayTime(day,time)){
+//			// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
+//			SQLiteDatabase db= this.getReadableDatabase();
+//			Cursor c = db.rawQuery("SELECT time FROM time " +
+//								   "WHERE day = "+day+" " +
+//								   "AND ID = 1+(SELECT ID " +
+//								    			 "FROM time " +
+//								    			 "WHERE day="+day+" " +
+//								    			 "AND time ='"+time+"')",null);
+//			if(c != null){
+//				c.moveToFirst();
+//				res = c.getString(0);
+//			}
+//			db.close();
+//			return res;
+//		} else {
 			// TODO: else Pfad klappt immer, if nicht notwendig!
 			// SELECT time FROM time WHERE day = 1 AND time(time) > time('18:00:00')
-			SQLiteDatabase db= this.getReadableDatabase();
+			Log.v("test","DB-Zeit "+time);
+			Log.v("test","Tag "+String.valueOf(day));
+			SQLiteDatabase db = this.getReadableDatabase();
 			Cursor c = db.rawQuery("SELECT time FROM time " +
 								   "WHERE day = "+day+" " +
 								   "AND time(time) > time('"+time+"')",null);
@@ -281,8 +287,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 				res = c.getString(0);
 			}
 			db.close();
+			Log.v("test",String.valueOf(res));
 			return res;
-		}
+//		}
 	}
 	
 	public String getFirstTimeFromDay(int day){
