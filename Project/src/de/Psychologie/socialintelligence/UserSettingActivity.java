@@ -3,8 +3,10 @@ package de.Psychologie.socialintelligence;
 import java.security.MessageDigest;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,11 +15,44 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.text.InputType;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
+	@Override
+	protected void onStart() {
+	super.onStart();
+
+	// Set Ringtonepreference summary to chosen title
+	// Get the xml/prefx.xml preferences
+	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+	
+	String ringtonename = prefs.getString("ringtone",	"DEFAULT_RINGTONE_URI");
+	Preference ringtonepref = (Preference) findPreference("ringtone");
+	
+	//Get real song title
+	Uri ringtoneUri = Uri.parse((String) ringtonename);
+	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+	String name = ringtone.getTitle(UserSettingActivity.this);
+	
+	ringtonepref.setSummary(name);
+	
+	// Set Sleeptime summary to chosen time		
+	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
+	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
+	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
+	
+	}
+
+
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +121,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
 						preference
-								.setSummary(((String) newValue) + "\tMinuten");
+								.setSummary(((String) newValue) + " \tMinuten");
 						return true;
 					}
 				});
@@ -95,30 +130,50 @@ public class UserSettingActivity extends PreferenceActivity {
 		button_admin_settings
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
-					public boolean onPreferenceClick(Preference arg0) {
+					public boolean onPreferenceClick(final Preference arg0) {
 						
-						AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
+						final AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
 						builder.setTitle(getResources().getString(R.string.title_password_entry));
 						final EditText input = new EditText(UserSettingActivity.this); 
-						builder.setView(input);
-				        builder.setMessage(getResources().getString(R.string.title_password_entry_text))
-				               .setCancelable(false)
+					    final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserSettingActivity.this);
+											    					 			    
+						input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+						builder.setView(input)
 				               .setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
-				           				// Passwortüberprüfung mit Salt
-				                 		//if (MD5(input.toString()+"wro3to!1lEgl!p#iap6o8vl6@lech+a+")==" "){
-										//	startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
-				                  		//}		
-										startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
+				           			//Passwortüberprüfung mit Salt
+				                	//Falls kein PW gesetzt ist, ist das standart PW: 
+				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
+				                        finish();
+				                 		startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
+				                 		overridePendingTransition(0, 0);
+				                  		}	
+				                   else
+				                   {				                	   
+				   						Toast.makeText(getApplicationContext(),getResources().getString(R.string.false_password), Toast.LENGTH_SHORT).show();
+				   						onPreferenceClick(arg0);
+				                   }
 				                   }
 				               })
 				               .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-				                   public void onClick(DialogInterface dialog, int id) {
+				                   public void onClick(DialogInterface dialog, int id) {				                	   
 				                	   dialog.cancel();
 				                   }
-				               });
-				        AlertDialog alert = builder.create();
-				        alert.show(); 
+				               }); 
+				        
+						final AlertDialog dialog = builder.create();   
+						
+					      //show keyboard
+						    input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+						        @Override
+						        public void onFocusChange(View v, boolean hasFocus) {
+						            if (hasFocus) {
+						                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+						            }
+						        }
+						    });
+						    
+				        dialog.show();
 						return true;
 					}
 				});
@@ -134,7 +189,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	}
 	
 	// MD5 Funktion für Passwörter
-	public String MD5(String md5) {
+	public static String MD5(String md5) {
 		try {
 			java.security.MessageDigest md = java.security.MessageDigest
 					.getInstance("MD5");

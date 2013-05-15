@@ -2,15 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_admin" >
 
-    <EditTextPreference
-        android:dialogMessage="@string/settings_password_new_text"
-        android:dialogTitle="@string/settings_password_new_title"
-        android:key="button_password_change"
-        android:negativeButtonText="@string/cancel"
-        android:persistent="true"
-        android:positiveButtonText="@string/OK"
-        android:title="@string/settings_password_change" />
-
+    <Preference
+        android:key="password"
+        android:title="@string/settings_password_change" >
+    </Preference>
     <Preference
         android:key="button_export_email"
         android:title="@string/settings_export_email" >

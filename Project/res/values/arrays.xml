@@ -9,8 +9,8 @@
         <item>25</item>
     </string-array>
     <string-array name="settings_sleeptimes2">        
-        <item>2 \t\tMinuten</item>
-        <item>5 \t\tMinuten</item>
+        <item>2 \tMinuten</item>
+        <item>5 \tMinuten</item>
         <item>10 \tMinuten</item>
         <item>15 \tMinuten</item>
         <item>20 \tMinuten</item>
