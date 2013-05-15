@@ -48,7 +48,7 @@ public class Alarm extends Activity {
 		
 		currentHour = cal.get(Calendar.HOUR_OF_DAY);
 		int currentMinute = cal.get(Calendar.MINUTE);
-		// Zwei Minuten Toleranz, in der Zeit denkt APP es wurde automatisch gestartet.
+		// TODO: IF nicht notwendig, else reicht
 		if(currentMinute < 2){
 			curruentAlarmTime = String.valueOf(currentHour)+":00:00";
 		} else {
@@ -57,8 +57,14 @@ public class Alarm extends Activity {
 	}
 	
 	// setzen nächsten oder ersten Alarm
-	@SuppressWarnings("deprecation")
 	public boolean setNextAlarm(){
+		return setNextAlarm(false);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public boolean setNextAlarm(boolean firstAlarm){
+		int lastHour = firstAlarm?23:19;
+		
 		boolean res = false;
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(Alarm.this);
@@ -66,7 +72,7 @@ public class Alarm extends Activity {
 		Date alarmDay;
 		
 		// Aktuelle Zeit im letzen Slot des Tages, dann ist es nach 19 Uhr
-		if(currentHour > 19){
+		if(currentHour > lastHour){
 			// erste Zeit vom nächsten Wochentag holen
 			nextAlarmTime = db.getFirstTimeFromDay(nextWeekDay);
 			alarmDay = nextDate;
@@ -86,16 +92,8 @@ public class Alarm extends Activity {
 
 			// nächsten Alarm setzen
         	cal.setTime(alarmDay);
-			
-        	// bei Alarmstart die MainActivity aufrufen
-        	// TODO: oder eine Zwischen-Activtiy starten, die lediglich Snooze setzt.
-        	// Damit der Start durch den Alarm klar ist
-            Intent intent = new Intent(this, MainActivity.class);
-            // 10000 ist einmalige Nummer für den Alarm
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
-            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
-			
+        	startAlarm();
+        	
             // Alarm wurde erfolgreich gesetzt
 			res = true;
 		}
@@ -103,7 +101,35 @@ public class Alarm extends Activity {
 		return res;
 	}
 	
-	// TODO: damit würde die APP für die Stunden denken, es wurde automatisch gestartet
+	// setze Snooze in Minuten
+	public void setSnooze(int snoozeTime){
+		// Datenbank Verbindung aufbauen
+		SQLHandler db = new SQLHandler(Alarm.this);
+		// nächster Alarm
+		cal.setTime(currentDate);
+		cal.add(Calendar.MINUTE, snoozeTime);
+		startAlarm();
+		db.close();
+	}
+	
+	public int getCurrentWeekDay(){
+		return currentWeekDay;
+	}
+	
+	private void startAlarm(){
+    	// bei Alarmstart die Umfrage aufrufen
+    	// TODO: oder eine Zwischen-Activtiy starten, die lediglich Snooze setzt.
+    	// Damit der Start durch den Alarm klar ist
+        Intent intent = new Intent(this, PopPollActivity.class);
+        // 10000 ist einmalige Nummer für den Alarm
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
+	}
+	
+	
+	
+	// TODO: kann weg
 	public boolean appStartByAlarm(){
 		boolean res = false;
 		// Datenbank Verbindung aufbauen

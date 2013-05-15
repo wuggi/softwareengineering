@@ -14,7 +14,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.sql";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
@@ -43,9 +43,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 												  "ID INTEGER PRIMARY KEY NOT NULL, " +
 												  "snoozeActiv INTEGER NULL, " +	
 												  "snoozeTime INTEGER NULL, " + 
-												  "startDay INTEGER NULL)";
-												  
-			
+												  "lastAlarm Text NULL)";
 			
 	/////////////////////////////////////////////////////////////
 	//// FIRST PROCESS
@@ -70,9 +68,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 		// Default: ID, snooze deaktiv, snooze 10minutes, Starttag
 		ContentValues values = new ContentValues();
 		values.put("ID", 1);
-		values.put("snoozeActiv", 0);	// nicht aktiv
-		values.put("snoozeTime", 5);	// 5 Minuten
-		values.put("startDay", 0);		// Montag
+		values.put("snoozeActiv", 0);		 // nicht aktiv
+		values.put("snoozeTime", 5);		 // 5 Minuten
+		values.put("lastAlarm", "00:00:00"); // Default keine Zeit
 		db.insert("status", null, values);
 	}
 	
@@ -129,6 +127,28 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.update("status", cv, "ID = 1", null);
 		db.close();
 	}
+	
+	// letzten Alarm setzen
+	public void setLastAlarm(String lastAlarmTime){
+		SQLiteDatabase db= this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put("lastAlarm", lastAlarmTime);
+		db.update("status", cv, "ID = 1", null);
+		db.close();
+	}
+	
+	// letzen Alarm auslesen
+	public String getLastAlarm() {
+		SQLiteDatabase db= this.getReadableDatabase();
+		String res = "00:00:00";
+		Cursor c = db.rawQuery("SELECT lastAlarm FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		return res;
+	}
+	
 	
 	// Wartezeit holen & setzen
 	public int getSnoozeTime(){

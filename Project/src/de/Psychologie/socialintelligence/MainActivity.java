@@ -25,21 +25,19 @@ public class MainActivity extends Activity {
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(MainActivity.this);
 		
-		Alarm pollAlarm = new Alarm();
-		// App durch Alarm gestartet?
-		if(pollAlarm.appStartByAlarm()){
-			// neuen Alarm setzen
-			pollAlarm.setNextAlarm();
-	        //Weiterleiten zur Umfrage-Activity
-	        startActivity(new Intent(MainActivity.this,PopPollActivity.class));
+		// Alarm aktiv, Weiterleitung zur Umfrage
+		if(db.getSnoozeActiv()){
+			startActivity(new Intent(MainActivity.this,PopPollActivity.class));
+			db.close();
 			this.finish();
-		}
-	
-		// Falls nicht erster Start(oder zurrueckgesetzt)
-		if (db.existUserCode()) {
-			startActivity(new Intent(MainActivity.this,
-					UserSettingActivity.class));
+			
+		// User existiert, Weiterleitung zu Einstellungsübersicht
+		} else if (db.existUserCode()) {
+			startActivity(new Intent(MainActivity.this,UserSettingActivity.class));
+			db.close();
 			this.finish();
+
+		// erster App-Start
 		} else {
 			setContentView(R.layout.activity_main);
 
