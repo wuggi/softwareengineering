@@ -1,15 +1,19 @@
 package de.Psychologie.socialintelligence;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.util.Log;
 
-
+//TODO: nur zu Testzwecken
+@TargetApi(Build.VERSION_CODES.FROYO)
 public class SQLHandler extends SQLiteOpenHelper {
  
-	private static final String DATABASE_NAME = "socialintelligence.db";
+	private static final String DATABASE_NAME = "socialintelligence.sql";
 	private static final int DATABASE_VERSION = 2;
 	
 	/////////////////////////////////////////////////////////////
@@ -36,8 +40,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 												"time TEXT NULL)";
 
 	private static final String tabCreateStatus = "CREATE TABLE IF NOT EXISTS status ( " +
-												  "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-												  "snooze INTEGER NULL, " +
+												  "ID INTEGER PRIMARY KEY NOT NULL, " +
+												  "snoozeActiv INTEGER NULL, " +	
+												  "snoozeTime INTEGER NULL, " + 
 												  "startDay INTEGER NULL)";
 												  
 			
@@ -62,6 +67,13 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.execSQL(tabCreatePoll);
 		db.execSQL(tabCreateTime);
 		db.execSQL(tabCreateStatus);
+		// Default: ID, snooze deaktiv, snooze 10minutes, Starttag
+		ContentValues values = new ContentValues();
+		values.put("ID", 1);
+		values.put("snoozeActiv", 0);	// nicht aktiv
+		values.put("snoozeTime", 5);	// 5 Minuten
+		values.put("startDay", 0);		// Montag
+		db.insert("status", null, values);
 	}
 	
 	
@@ -71,26 +83,83 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS poll");
 		db.execSQL("DROP TABLE IF EXISTS time");
 		db.execSQL("DROP TABLE IF EXISTS status");
+		
+		onCreate(db);
+	}
+	
+	// TODO: nur für Testzwecke, später löschen!
+	public void deleteDB(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS user");
+		db.execSQL("DROP TABLE IF EXISTS poll");
+		db.execSQL("DROP TABLE IF EXISTS time");
+		db.execSQL("DROP TABLE IF EXISTS status");
+		onCreate(db);
 	}
 	
 	/////////////////////////////////////////////////////////////
 	//// Query
 	/////////////////////////////////////////////////////////////
 	
+	// Wartezeit auslesen 
 	// MAIN Activitiy
 	
-	boolean getSnooze(){
-		//SQLiteDatabase db= this.getReadableDatabase();
-		
-		
-		return false;
+	public boolean getSnoozeActiv(){
+		SQLiteDatabase db= this.getReadableDatabase();
+		boolean snoozeActiv = false;
+		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			// prÃ¼fen, ob Snooze gesetzt
+		    if(c.getInt(0) == 1){
+		    	snoozeActiv = true;
+		    }
+		}
+		return snoozeActiv;
 	}
 	
+	public void setSnoozeActiv(boolean activ){
+		SQLiteDatabase db= this.getWritableDatabase();
+		// bool umwandeln
+		int value = activ?1:0;
+		// values als cv
+		ContentValues cv = new ContentValues();
+		cv.put("snoozeActiv", value);
+		// Datenbankupdate
+		db.update("status", cv, "ID = 1", null);
+		db.close();
+	}
+	
+	// Wartezeit holen & setzen
+	public int getSnoozeTime(){
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT snoozeTime FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			// prÃ¼fen, ob Snooze gesetzt
+		    return c.getInt(0);
+		} else {
+			return -1;
+		}
+	}
+	
+	public void setSnoozeTime(int value){
+		SQLiteDatabase db= this.getWritableDatabase();
+		// nur positive Zeiten
+		value = value>0?value:15;
+		// values als cv
+		ContentValues cv = new ContentValues();
+		cv.put("snoozeTime", value);
+		// Datenbankupdate
+		db.update("status", cv, "ID = 1", null);
+		db.close();
+	}
 	
 	// add User Code
-	void addUserCode(String code){
+	public void addUserCode(String code){
 		SQLiteDatabase db= this.getWritableDatabase();
 		
+		Log.v("code",code);
 		//content Typ, to import String code as table value
 		ContentValues cv = new ContentValues();
 		cv.put("code", code);
@@ -99,23 +168,113 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	public boolean existUserCode(){
+		SQLiteDatabase db= this.getReadableDatabase();
+		boolean exist = false;
+		Cursor c = db.rawQuery("SELECT COUNT(*) FROM user",null);
+		if(c != null){
+			c.moveToFirst();
+			if(c.getInt(0) > 0){
+				exist = true;
+			}
+		}
+		db.close();
+		return exist;
+	}
+	
 	// add Week times
-	void addDayTime(int day,String time){
-		if(day<7 && day>0){
+	public void addDayTime(int day,String time){
+		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();
 			
 			ContentValues cv = new ContentValues();
 			cv.put("day",day);
 			//time in HH:MM:SS
 			time += ":00";
-			cv.put("time", time);
-			
+			cv.put("time", time);			
+			// import
 			db.insert("time", null, cv);
+			
 			db.close();
 		}
-		
-		
 	}
+	
+	public void deleteDay(int day){
+		if(day<7 && day>=0){
+			SQLiteDatabase db= this.getWritableDatabase();		
+			// Tag löschen
+			db.delete("time", "day="+day, null);		
+			db.close();
+		}
+	}
+	
+	public Cursor getDayTime(){
+		SQLiteDatabase db=this.getReadableDatabase();
+		Cursor cur=db.rawQuery("SELECT day,time from time",null);
+		return cur;
+	}
+	
+	public boolean existDayTime(int day,String time){
+		SQLiteDatabase db= this.getReadableDatabase();
+		boolean exist = false;
+		Cursor c = db.rawQuery("SELECT COUNT(*) FROM time WHERE day="+day+" AND time ='"+time+"'",null);
+		if(c != null){
+			c.moveToFirst();
+			if(c.getInt(0) > 0){
+				exist = true;
+			}
+		}
+		db.close();
+		return exist;
+	}
+	
+	
+	// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
+	public String getNextTimeFromDayTime(int day,String time){
+		String res = "00:00:00";
+		if(existDayTime(day,time)){
+			SQLiteDatabase db= this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT time FROM time " +
+								   "WHERE day = "+day+" " +
+								   "AND ID = 1+(SELECT ID " +
+								    			 "FROM time " +
+								    			 "WHERE day="+day+" " +
+								    			 "AND time ='"+time+"')",null);
+			if(c != null){
+				c.moveToFirst();
+				res = c.getString(0);
+			}
+			db.close();
+			return res;
+		} else {
+			return res;
+		}
+	}
+	
+	public String getFirstTimeFromDay(int day){
+		String res = "00:00:00";
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT time FROM user WHERE day='"+day+"' ORDER BY ID",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		db.close();
+		return res;
+	}
+	
+	
+	// TODO: Es wird eine Methode benötigt, welche gesetzte Tage löscht, wenn dieser in der Vergangenheit liegt.
+	
+
+	/*
+	public Cursor getUserByID(int id){
+		 SQLiteDatabase db=this.getReadableDatabase();
+		 return db.rawQuery("SELECT ID as _id, name FROM "+tabUser+
+			" WHERE ID="+id, null);
+	}
+	*/
+	
 	
 }
 	

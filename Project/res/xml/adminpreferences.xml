@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_admin" >
+
+    <Preference
+        android:key="password"
+        android:title="@string/settings_password_change" >
+    </Preference>
+    <Preference
+        android:key="button_export_email"
+        android:title="@string/settings_export_email" >
+    </Preference>
+    <Preference
+        android:key="button_export"
+        android:title="@string/settings_export" >
+    </Preference>
+    <Preference
+        android:key="button_reset"
+        android:title="@string/settings_reset" >
+    </Preference>
+
+</PreferenceScreen>

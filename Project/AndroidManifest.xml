@@ -10,12 +10,16 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" android:hardwareAccelerated="true" android:debuggable="true">
+        android:label="@string/Main_Name"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme" android:persistent="true" android:debuggable="true">
         <activity
             android:name="de.Psychologie.socialintelligence.MainActivity"
-            android:label="@string/app_name" >
+            android:screenOrientation="portrait"
+            android:label="@string/Main_Name"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,17 +28,23 @@
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.PopPollActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_pop_poll" >
-            android:name="de.Psychologie.socialintelligence.Week"
-            android:label="@string/title_activity_week" >
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.Week"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_week" >
         </activity>
         <activity
-            android:name="de.Psychologie.socialintelligence.Settings"
-            android:label="@string/title_activity_settings" >
+            android:name="de.Psychologie.socialintelligence.UserSettingActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_settings"  >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.AdminSettingsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/settings_admin"  >
         </activity>
     </application>
 

@@ -14,80 +14,82 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time_slot" />
+        android:text="@string/txtTime_slot" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" 
-        android:layout_marginBottom="10dp">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp" >
 
         <Button
             android:id="@+id/mon"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntMonday" 
-            android:layout_margin="1dp"
-            android:minWidth="30dp"/>
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntMonday" />
 
         <Button
             android:id="@+id/tue"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntTuesday"
-            android:layout_margin="1dp"
-            android:minWidth="30dp" />
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntTuesday" />
+
         <Button
             android:id="@+id/wed"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntWednesday"
-            android:layout_margin="1dp"
-            android:minWidth="30dp" />
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntWednesday" />
+
         <Button
             android:id="@+id/thur"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntThursday"
-            android:layout_margin="1dp"
-            android:minWidth="30dp" />
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntThursday" />
+
         <Button
             android:id="@+id/fri"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntFriday"
-            android:layout_margin="1dp"
-            android:minWidth="30dp" />
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntFriday" />
+
         <Button
             android:id="@+id/sat"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntSaturday"
-            android:layout_margin="1dp"
-            android:minWidth="30dp" />
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntSaturday" />
 
         <Button
             android:id="@+id/sun"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bntSunday"
-            android:layout_margin="1dp"
-            android:textAlignment="center"
-            android:minWidth="30dp" />
-
+            android:layout_marginBottom="1dp"
+            android:minWidth="30dp"
+            android:text="@string/bntSunday" />
     </LinearLayout>
 
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -155,26 +157,22 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:text="15:00" />
-
-           
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            
-             <Button
+
+            <Button
                 android:id="@+id/timeslot8"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:text="16:00" />
-            
-            
-             <Button
+
+            <Button
                 android:id="@+id/timeslot9"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
@@ -197,8 +195,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:text="19:00" />
-
-          
         </TableRow>
 
         <TableRow
@@ -237,17 +233,21 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:text="23:00" />
-
         </TableRow>
-
     </TableLayout>
-    
-    <TextView
-        android:id="@+id/savedTime"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/notSaved" 
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/saveWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/bntWeekSave" />
+    </RelativeLayout>
 
 </LinearLayout>
