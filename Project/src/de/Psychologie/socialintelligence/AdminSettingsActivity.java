@@ -30,6 +30,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						SQLHandler db = new SQLHandler(
 								AdminSettingsActivity.this);
 						db.deleteDB();
+						//db.close();
 						return true;
 					}
 				});		

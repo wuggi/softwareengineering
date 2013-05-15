@@ -35,16 +35,12 @@ public class UserSettingActivity extends PreferenceActivity {
 	Preference ringtonepref = (Preference) findPreference("ringtone");
 	
 	//Get real song title
-<<<<<<< HEAD
 	//TODO: komischer Fehler!
 	Uri ringtoneUri = Uri.parse((String) ringtonename);
-=======
-	/*Uri ringtoneUri = Uri.parse((String) ringtonename);
->>>>>>> 28c8a21d32c2147dca54bdf4a5559589c69f6b9e
 	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 	String name = ringtone.getTitle(UserSettingActivity.this);
-	*/
-	//ringtonepref.setSummary(name);
+	
+	ringtonepref.setSummary(name);
 	
 	// Set Sleeptime summary to chosen time		
 	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
