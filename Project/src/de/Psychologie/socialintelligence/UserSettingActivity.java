@@ -31,12 +31,24 @@ public class UserSettingActivity extends PreferenceActivity {
 	// Get the xml/prefx.xml preferences
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	
-	String ringtonename = prefs.getString("ringtone",	"@string/settings_ringtone2");
+	String ringtonename = prefs.getString("ringtone", "");
 	Preference ringtonepref = (Preference) findPreference("ringtone");
+	Uri ringtoneUri;
 	
 	//Get real song title
 	//TODO: komischer Fehler!
-	Uri ringtoneUri = Uri.parse((String) ringtonename);
+	if (ringtonename == ""){
+		// Standart wird gesetzt, falls noch keiner da
+		// 4=Alarm, 7=All, 2=Notification, 1=Ringtone
+		ringtoneUri=RingtoneManager.getDefaultUri(4); 	
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("ringtone", ringtoneUri.toString());
+		editor.commit();
+	}
+	else
+		ringtoneUri = Uri.parse((String) ringtonename);
+	
+	
 	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 	String name = ringtone.getTitle(UserSettingActivity.this);
 	
@@ -99,11 +111,10 @@ public class UserSettingActivity extends PreferenceActivity {
 		ringtonepref
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 					@Override
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
+					public boolean onPreferenceChange(Preference preference,Object newValue) {
+						
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						Ringtone ringtone = RingtoneManager.getRingtone(
-								UserSettingActivity.this, ringtoneUri);
+						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 						String name = ringtone.getTitle(UserSettingActivity.this);
 
 						preference.setSummary( name);
