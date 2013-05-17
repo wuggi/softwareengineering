@@ -24,7 +24,8 @@ public class Alarm{
 	// Alarmzeiten in Datenbank
 	String currentAlarmTime;
 	String nextAlarmTime;
-	
+	// Activity. welche den Alarm nutzen möchte
+	// TODO: sehr unschön...
 	Activity source;
 	
 
