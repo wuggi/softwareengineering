@@ -2,5 +2,10 @@
 <resources>
     <color name="checkButton">#00FF7F</color>
     <color name="uncheckedButton">#8B0000</color>
-    
+    <color name="greenstart">#01ef7f</color>
+    <color name="greenend">#01bc64</color>
+    <color name="greenstroke">#01bc64</color>
+    <color name="redstart">#ef7f01</color>
+    <color name="redend">#d67201</color>
+    <color name="redstroke">#d67201</color>    
 </resources>
