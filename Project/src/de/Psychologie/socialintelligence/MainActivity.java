@@ -26,16 +26,22 @@ public class MainActivity extends Activity {
 		SQLHandler db = new SQLHandler(MainActivity.this);
 		
 		// Alarm aktiv, Weiterleitung zur Umfrage
-		if(db.getSnoozeActiv()){
+		
+
+		/////////////////////////////////////////////////////////////
+		////      getSnoozeActiv    DEAKTIVIERT!!
+		/////////////////////////////////////////////////////////////
+		
+		if(db.getSnoozeActiv() & 1==0){
 			startActivity(new Intent(MainActivity.this,PopPollActivity.class));
-			db.close();
-			this.finish();
+			//db.close();
+			finish();
 			
 		// User existiert, Weiterleitung zu Einstellungsübersicht
 		} else if (db.existUserCode()) {
 			startActivity(new Intent(MainActivity.this,UserSettingActivity.class));
-			db.close();
-			this.finish();
+			//db.close();
+			finish();
 
 		// erster App-Start
 		} else {
@@ -72,6 +78,7 @@ public class MainActivity extends Activity {
 					// SQL Handler fuer Datenbankimport
 					SQLHandler db = new SQLHandler(MainActivity.this);
 					db.addUserCode(code);
+					//db.close();
 					// zur naechsten Activity
 					startActivity(new Intent(MainActivity.this, Week.class));
 					finish();

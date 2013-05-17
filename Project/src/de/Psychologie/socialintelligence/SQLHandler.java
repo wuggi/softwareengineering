@@ -113,7 +113,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		    	snoozeActiv = true;
 		    }
 		}
-		db.close();
+		//db.close();
 		return snoozeActiv;
 	}
 	
@@ -126,7 +126,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeActiv", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
-		db.close();
+		//db.close();
 	}
 	
 	// letzten Alarm setzen
@@ -135,7 +135,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put("lastAlarm", lastAlarmTime);
 		db.update("status", cv, "ID = 1", null);
-		db.close();
+		//db.close();
 	}
 	
 	// letzen Alarm auslesen
@@ -147,7 +147,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
-		db.close();
+		//db.close();
 		return res;
 	}
 	
@@ -162,7 +162,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			// prÃ¼fen, ob Snooze gesetzt
 			res =  c.getInt(0);
 		} 
-		db.close();
+		//db.close();
 		return res;
 	}
 	
@@ -175,7 +175,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeTime", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
-		db.close();
+		//db.close();
 	}
 	
 	// add User Code
@@ -188,7 +188,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("code", code);
 		
 		db.insert("user", "code", cv);
-		db.close();
+		//db.close();
 	}
 	
 	public boolean existUserCode(){
@@ -201,7 +201,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 				exist = true;
 			}
 		}
-		db.close();
+		//db.close();
 		return exist;
 	}
 	
@@ -218,7 +218,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			// import
 			db.insert("time", null, cv);
 			
-			db.close();
+			//db.close();
 		}
 	}
 	
@@ -227,14 +227,14 @@ public class SQLHandler extends SQLiteOpenHelper {
 			SQLiteDatabase db= this.getWritableDatabase();		
 			// Tag löschen
 			db.delete("time", "day="+day, null);		
-			db.close();
+			//db.close();
 		}
 	}
 	
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT day,time from time",null);
-		db.close();
+		//db.close();
 		return cur;
 	}
 	
@@ -249,7 +249,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 				exist = true;
 			}
 		}
-		db.close();
+		//db.close();
 		Log.v("test",String.valueOf(exist));
 		return exist;
 	}
@@ -286,7 +286,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 				c.moveToFirst();
 				res = c.getString(0);
 			}
-			db.close();
+			//db.close();
 			Log.v("test",String.valueOf(res));
 			return res;
 //		}
@@ -300,7 +300,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
-		db.close();
+		//db.close();
 		return res;
 	}
 	

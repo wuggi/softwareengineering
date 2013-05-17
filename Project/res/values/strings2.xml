@@ -20,7 +20,7 @@
     <string name="settings_about">Über</string>
     <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
     <string name="settings_volume">Lautstärke</string>
-    <string name="settings_reset">Komplette DB löschen!</string>
+    <string name="settings_reset">Nutzerdaten löschen</string>
     <string name="OK">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="save">Speichern</string>
@@ -34,6 +34,8 @@
     <string name="false_password">Falsches Passwort</string>
     <string name="title_about">Über SocialIntelligence</string>
     <string name="settings_password_new_title">Neues Passwort</string>
+    <string name="settings_deleteDB">Nutzerdaten Löschen</string>
+    <string name="settings_deleteDB2">Wollen Sie die gesammelten Nutzerdaten von dem Gerät löschen?</string>
     <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>
     <string name="message_about">Entwickler:\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
 

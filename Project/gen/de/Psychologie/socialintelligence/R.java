@@ -39,6 +39,12 @@ public final class R {
         public static final int button_green=0x7f020000;
         public static final int button_red=0x7f020001;
         public static final int ic_launcher=0x7f020002;
+        public static final int ic_menu_clock=0x7f020003;
+        public static final int ic_menu_info_details=0x7f020004;
+        public static final int ic_menu_note=0x7f020005;
+        public static final int ic_menu_preferences=0x7f020006;
+        public static final int ic_menu_today=0x7f020007;
+        public static final int ic_volume=0x7f020008;
     }
     public static final class id {
         public static final int LinearLayout2=0x7f0b0005;
@@ -115,7 +121,7 @@ public final class R {
         public static final int cancel=0x7f080029;
         public static final int false_password=0x7f080032;
         public static final int hello_world=0x7f080003;
-        public static final int message_about=0x7f080036;
+        public static final int message_about=0x7f080038;
         public static final int password_changed=0x7f080031;
         public static final int password_mismatch=0x7f080030;
         public static final int preferences_password_change1=0x7f08002b;
@@ -124,11 +130,13 @@ public final class R {
         public static final int save=0x7f08002a;
         public static final int settings_about=0x7f080024;
         public static final int settings_admin=0x7f08001f;
+        public static final int settings_deleteDB=0x7f080035;
+        public static final int settings_deleteDB2=0x7f080036;
         public static final int settings_export=0x7f080023;
         public static final int settings_export_email=0x7f080022;
         public static final int settings_other=0x7f08001b;
         public static final int settings_password_change=0x7f080021;
-        public static final int settings_password_new_text=0x7f080035;
+        public static final int settings_password_new_text=0x7f080037;
         public static final int settings_password_new_title=0x7f080034;
         public static final int settings_reset=0x7f080027;
         public static final int settings_ringtone=0x7f08001c;
