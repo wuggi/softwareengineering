@@ -64,15 +64,16 @@ public class PopPollActivity extends Activity {
 			public void onClick(View v) {
 				int hour = time.getCurrentHour();
 				int minute = time.getCurrentMinute();
+				String answerTime = (hour+":"+minute);
 				int contacts = Integer.parseInt(count.getText().toString());
 				Calendar cal = Calendar.getInstance();
-				Date date = cal.getTime();
-				//answerTime = cal.
+				String date = cal.getTime().toString();
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
+				String alarmTime=pollAlarm.currentAlarmTime;
 				String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				db.setLastAlarm(lastAlarmTime);
-			//	db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
+				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
 				
 			}
 		});
@@ -81,15 +82,13 @@ public class PopPollActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				int hour = time.getCurrentHour();
-				int minute = time.getCurrentMinute();
-				int contacts = Integer.parseInt(count.getText().toString());
 				Calendar cal = Calendar.getInstance();
-				Date date = cal.getTime();
-			//test	db.setPollEntry(date, alarmTime)
+				String date = cal.getTime().toString();
+				String alarmTime=pollAlarm.currentAlarmTime;
+			    db.setPollEntry(date, alarmTime);
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
-			//	db.setPollEntry(date, lastAlarmTime, answerTime, true, contacts, hour, minute);
+				db.setPollEntry(date,alarmTime,"-77", true, -77, -77, -77);
 				
 			}
 		});
