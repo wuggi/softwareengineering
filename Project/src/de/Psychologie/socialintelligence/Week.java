@@ -169,7 +169,12 @@ public class Week extends Activity {
 					// Alle Einstellungen erfolgreich gespeichert
 					saveAllTimeSlots = true;
 					// Alarm setzen
-					alarm.setNextAlarm(true);
+					// TODO: Wann soll er dies immer setzen?
+					SQLHandler db = new SQLHandler(Week.this);
+					if(!db.getSnoozeActiv()){
+						alarm.setNextAlarm(true);
+					}
+					db.close();
 					// Meldung ausgeben
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
 				}
