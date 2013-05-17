@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/Main_Name"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" android:persistent="true" android:debuggable="true">
+        android:theme="@style/AppTheme" android:persistent="true">
         <activity
             android:name="de.Psychologie.socialintelligence.MainActivity"
             android:screenOrientation="portrait"

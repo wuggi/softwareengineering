@@ -1,45 +1,41 @@
 package de.Psychologie.socialintelligence;
 
+import java.util.Calendar;
 
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 
 public class PopPollActivity extends Activity {
 
-	@SuppressWarnings("deprecation")
-	@SuppressLint({ "NewApi", "Wakelock" })
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// aquire wakelock
-		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-				| PowerManager.ACQUIRE_CAUSES_WAKEUP, "");
-		wl.acquire();
+		// Datenbank Verbindung aufbauen
+		SQLHandler db = new SQLHandler(PopPollActivity.this);
 		
-
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
+		Alarm pollAlarm = new Alarm(this);
 		
-		// TODO: Infos aus Datenbank holen
+		// Wenn Snooze gedrück wird:
+		// int snoozeTime = hole ZEIT von JENS (in Minuten)
+		// pollAlarm.setSnooze(snoozeTime);
+		// Snooze aktivieren
+		// db.setSnoozeActiv(true);
 		
-		try {
-	        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-	        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-	        r.play();
-	    } catch (Exception e) {}
+		// Wenn OK oder Abbrechen gedrückt wird, wird automatisch neuer Alarm gesetzt
+		// pollAlarm.setNextAlarm();
+		// Snooze deaktivieren
+		// db.setSnoozeActiv(false);
 		
-		setContentView(R.layout.activity_pop_poll);
+		
+		// Wenn OK gedrückt
+		// letzten Alarm (ist dieser momentane Alarm) setzen
+		// Calendar cal = Calendar.getInstance();
+		// String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
+		// db.setLastAlarm(lastAlarmTime);
+		
 	}
 
 	@Override

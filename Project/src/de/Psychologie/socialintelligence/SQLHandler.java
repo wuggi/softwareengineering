@@ -13,8 +13,8 @@ import android.util.Log;
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class SQLHandler extends SQLiteOpenHelper {
  
-	private static final String DATABASE_NAME = "socialintelligence.sql";
-	private static final int DATABASE_VERSION = 2;
+	private static final String DATABASE_NAME = "socialintelligence.db";
+	private static final int DATABASE_VERSION = 1;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
@@ -43,9 +43,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 												  "ID INTEGER PRIMARY KEY NOT NULL, " +
 												  "snoozeActiv INTEGER NULL, " +	
 												  "snoozeTime INTEGER NULL, " + 
-												  "startDay INTEGER NULL)";
-												  
-			
+												  "lastAlarm Text NULL)";
 			
 	/////////////////////////////////////////////////////////////
 	//// FIRST PROCESS
@@ -70,9 +68,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 		// Default: ID, snooze deaktiv, snooze 10minutes, Starttag
 		ContentValues values = new ContentValues();
 		values.put("ID", 1);
-		values.put("snoozeActiv", 0);	// nicht aktiv
-		values.put("snoozeTime", 5);	// 5 Minuten
-		values.put("startDay", 0);		// Montag
+		values.put("snoozeActiv", 0);		 // nicht aktiv
+		values.put("snoozeTime", 5);		 // 5 Minuten
+		values.put("lastAlarm", "00:00:00"); // Default keine Zeit
 		db.insert("status", null, values);
 	}
 	
@@ -115,6 +113,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		    	snoozeActiv = true;
 		    }
 		}
+		//db.close();
 		return snoozeActiv;
 	}
 	
@@ -127,20 +126,44 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeActiv", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
-		db.close();
+		//db.close();
 	}
+	
+	// letzten Alarm setzen
+	public void setLastAlarm(String lastAlarmTime){
+		SQLiteDatabase db= this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put("lastAlarm", lastAlarmTime);
+		db.update("status", cv, "ID = 1", null);
+		//db.close();
+	}
+	
+	// letzen Alarm auslesen
+	public String getLastAlarm() {
+		SQLiteDatabase db= this.getReadableDatabase();
+		String res = "00:00:00";
+		Cursor c = db.rawQuery("SELECT lastAlarm FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		//db.close();
+		return res;
+	}
+	
 	
 	// Wartezeit holen & setzen
 	public int getSnoozeTime(){
 		SQLiteDatabase db= this.getReadableDatabase();
+		int res = -1;
 		Cursor c = db.rawQuery("SELECT snoozeTime FROM status WHERE ID=1",null);
 		if(c != null){
 			c.moveToFirst();
 			// prÃ¼fen, ob Snooze gesetzt
-		    return c.getInt(0);
-		} else {
-			return -1;
-		}
+			res =  c.getInt(0);
+		} 
+		//db.close();
+		return res;
 	}
 	
 	public void setSnoozeTime(int value){
@@ -152,7 +175,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeTime", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
-		db.close();
+		//db.close();
 	}
 	
 	// add User Code
@@ -165,7 +188,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("code", code);
 		
 		db.insert("user", "code", cv);
-		db.close();
+		//db.close();
 	}
 	
 	public boolean existUserCode(){
@@ -178,7 +201,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 				exist = true;
 			}
 		}
-		db.close();
+		//db.close();
 		return exist;
 	}
 	
@@ -195,7 +218,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			// import
 			db.insert("time", null, cv);
 			
-			db.close();
+			//db.close();
 		}
 	}
 	
@@ -204,13 +227,14 @@ public class SQLHandler extends SQLiteOpenHelper {
 			SQLiteDatabase db= this.getWritableDatabase();		
 			// Tag löschen
 			db.delete("time", "day="+day, null);		
-			db.close();
+			//db.close();
 		}
 	}
 	
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT day,time from time",null);
+		//db.close();
 		return cur;
 	}
 	
@@ -220,35 +244,52 @@ public class SQLHandler extends SQLiteOpenHelper {
 		Cursor c = db.rawQuery("SELECT COUNT(*) FROM time WHERE day="+day+" AND time ='"+time+"'",null);
 		if(c != null){
 			c.moveToFirst();
+			Log.v("test",String.valueOf(c.getInt(0)));
 			if(c.getInt(0) > 0){
 				exist = true;
 			}
 		}
-		db.close();
+		//db.close();
+		Log.v("test",String.valueOf(exist));
 		return exist;
 	}
 	
 	
-	// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
+	
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
-		if(existDayTime(day,time)){
-			SQLiteDatabase db= this.getReadableDatabase();
+//		if(existDayTime(day,time)){
+//			// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
+//			SQLiteDatabase db= this.getReadableDatabase();
+//			Cursor c = db.rawQuery("SELECT time FROM time " +
+//								   "WHERE day = "+day+" " +
+//								   "AND ID = 1+(SELECT ID " +
+//								    			 "FROM time " +
+//								    			 "WHERE day="+day+" " +
+//								    			 "AND time ='"+time+"')",null);
+//			if(c != null){
+//				c.moveToFirst();
+//				res = c.getString(0);
+//			}
+//			db.close();
+//			return res;
+//		} else {
+			// TODO: else Pfad klappt immer, if nicht notwendig!
+			// SELECT time FROM time WHERE day = 1 AND time(time) > time('18:00:00')
+			Log.v("test","DB-Zeit "+time);
+			Log.v("test","Tag "+String.valueOf(day));
+			SQLiteDatabase db = this.getReadableDatabase();
 			Cursor c = db.rawQuery("SELECT time FROM time " +
 								   "WHERE day = "+day+" " +
-								   "AND ID = 1+(SELECT ID " +
-								    			 "FROM time " +
-								    			 "WHERE day="+day+" " +
-								    			 "AND time ='"+time+"')",null);
+								   "AND time(time) > time('"+time+"')",null);
 			if(c != null){
 				c.moveToFirst();
 				res = c.getString(0);
 			}
-			db.close();
+			//db.close();
+			Log.v("test",String.valueOf(res));
 			return res;
-		} else {
-			return res;
-		}
+//		}
 	}
 	
 	public String getFirstTimeFromDay(int day){
@@ -259,7 +300,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
-		db.close();
+		//db.close();
 		return res;
 	}
 	

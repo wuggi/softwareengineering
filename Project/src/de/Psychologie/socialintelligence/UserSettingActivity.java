@@ -1,9 +1,6 @@
 package de.Psychologie.socialintelligence;
 
-import java.security.MessageDigest;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,12 +17,52 @@ import android.preference.RingtonePreference;
 import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onStart() {
+	super.onStart();
+
+	// Set Ringtonepreference summary to chosen title
+	// Get the xml/prefx.xml preferences
+	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+	
+	String ringtonename = prefs.getString("ringtone", "");
+	Preference ringtonepref = (Preference) findPreference("ringtone");
+	Uri ringtoneUri;
+	
+	//Get real song title
+	//TODO: komischer Fehler!
+	if (ringtonename == ""){
+		// Standart wird gesetzt, falls noch keiner da
+		// 4=Alarm, 7=All, 2=Notification, 1=Ringtone
+		ringtoneUri=RingtoneManager.getDefaultUri(4); 	
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("ringtone", ringtoneUri.toString());
+		editor.commit();
+	}
+	else
+		ringtoneUri = Uri.parse((String) ringtonename);
+	
+	
+	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+	String name = ringtone.getTitle(UserSettingActivity.this);
+	
+	ringtonepref.setSummary(name);
+	
+	// Set Sleeptime summary to chosen time		
+	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
+	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
+	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
+	
+	}
+
+
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,11 +111,10 @@ public class UserSettingActivity extends PreferenceActivity {
 		ringtonepref
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 					@Override
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
+					public boolean onPreferenceChange(Preference preference,Object newValue) {
+						
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						Ringtone ringtone = RingtoneManager.getRingtone(
-								UserSettingActivity.this, ringtoneUri);
+						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 						String name = ringtone.getTitle(UserSettingActivity.this);
 
 						preference.setSummary( name);
@@ -94,7 +130,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
 						preference
-								.setSummary(((String) newValue) + "\tMinuten");
+								.setSummary(((String) newValue) + " \tMinuten");
 						return true;
 					}
 				});
@@ -117,11 +153,7 @@ public class UserSettingActivity extends PreferenceActivity {
 				           			//Passwortüberprüfung mit Salt
 				                	//Falls kein PW gesetzt ist, ist das standart PW: 
 				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
-				                 		//TODO: schönere lösung für langsamer bildaufbau??
-				                 		//finish();
-				                 		//InputMethodManager inputMethodManager = (InputMethodManager)  UserSettingActivity.getSystemService(UserSettingActivity.INPUT_METHOD_SERVICE);
-				                 	    //inputMethodManager.hideSoftInputFromWindow(UserSettingActivity.this.getCurrentFocus().getWindowToken(), 0);
-
+				                        finish();
 				                 		startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
 				                 		overridePendingTransition(0, 0);
 				                  		}	

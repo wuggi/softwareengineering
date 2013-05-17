@@ -1,4 +1,14 @@
 Softwareengineering
 ===================
-BUGS:
-- Settings verschwinden aus der Summary der Buttons bei neustart
+
+Known BUGS:
+- Überflüssige Abfrage bei rückgängig gemachter Wochenänderung
+
+TODO:
+- Wecker mit Umfrage
+- App Bar
+- App Icon
+- Nachholbutton im Menü
+- Ringtonepreference in Holo.Light
+- Exporte
+- Klingeltonlautstärke

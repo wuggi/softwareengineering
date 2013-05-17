@@ -1,23 +1,17 @@
 package de.Psychologie.socialintelligence;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class AdminSettingsActivity extends PreferenceActivity {
@@ -32,11 +26,30 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		button_reset
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
-					public boolean onPreferenceClick(Preference arg0) {
-						SQLHandler db = new SQLHandler(
-								AdminSettingsActivity.this);
-						db.deleteDB();
-						return true;
+					public boolean onPreferenceClick(Preference arg0) {						
+						
+						final AlertDialog.Builder builder = new AlertDialog.Builder(AdminSettingsActivity.this);
+						builder.setTitle(getResources().getString(R.string.settings_deleteDB));
+
+				        builder.setMessage(getResources().getString(R.string.settings_deleteDB2))
+				               .setCancelable(false)	 			    
+				               .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
+				                   public void onClick(DialogInterface dialog, int id) {
+										SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+										db.deleteDB();
+										//db.close();				                 	
+				                   }
+				                })
+				               .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {
+				                   public void onClick(DialogInterface dialog, int id) {				                	   
+				                	   dialog.cancel();
+				                   }
+				               }); 
+				        
+						final AlertDialog dialog = builder.create();   
+						
+				        dialog.show();
+				        return true;
 					}
 				});		
 		
@@ -63,7 +76,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				                   public void onClick(DialogInterface dialog, int id) {
 				                	   if (input1.getText().toString().equals(input2.getText().toString())){
 				                		   // Salt and hash the imput and write it manuelly to the preferences
-					       					final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(AdminSettingsActivity.this);
+					       					final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 					       					SharedPreferences.Editor editor = settings.edit();
 					       					editor.putString("password", UserSettingActivity.MD5((input1.getText().toString()) + getResources().getString(R.string.salt)));
 					       					editor.commit();
