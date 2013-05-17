@@ -12,9 +12,13 @@ public class PopPollActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_pop_poll);
 		
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(PopPollActivity.this);
+		
+		// App startet -> hinterlegten Klingelton abspielen
+		// Meldung etc. Wenn Handy gesperrt öffnet sich zwar die App, aber User bekommt nix von mit :-)
 		
 		Alarm pollAlarm = new Alarm(this);
 		
@@ -35,6 +39,10 @@ public class PopPollActivity extends Activity {
 		// Calendar cal = Calendar.getInstance();
 		// String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 		// db.setLastAlarm(lastAlarmTime);
+		//db.setPollEntry(date, alarmTime, answerTime, abort, contacts, hour, minute)
+		
+		// Wenn Abbrechen gedrückt
+		//db.setPollEntry(date, alarmTime)
 		
 	}
 
