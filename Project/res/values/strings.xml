@@ -11,17 +11,20 @@
     <string name="bntWednesday">Mi</string>
     <string name="bntThursday">Do</string>
     <string name="bntFriday">Fr</string>
-	<string name="bntSaturday">Sa</string>
-	<string name="bntSunday">So</string>
+    <string name="bntSaturday">Sa</string>
+    <string name="bntSunday">So</string>
     <string name="bntWeekSave">Woche speichern</string>
     <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten\n</string>
-	<string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
-	<string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
-	<string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zurück?</string>
-	<string name="txtWeekSaveTitle">Zeitslots verwerfen</string>
-	<string name="txtYes">Ja</string>
-	<string name="txtNo">Nein</string>
-	<string name="Umfrage_txt">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten (gestrigen) Signal um XX:XX Uhr Kontakt? Bitte schätzen Sie zusätzlich die Gesamtdauer der Kontakte ein.</string>
-	<string name="Anzahl">Anzahl:</string>
-	<string name="time">Dauer:</string>
+    <string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
+    <string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
+    <string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zurück?</string>
+    <string name="txtWeekSaveTitle">Zeitslots verwerfen</string>
+    <string name="txtYes">Ja</string>
+    <string name="txtNo">Nein</string>
+    <string name="Umfrage_txt">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten (gestrigen) Signal um XX:XX Uhr Kontakt? Bitte schätzen Sie zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="Anzahl">Anzahl:</string>
+    <string name="time">Dauer:</string>
+    <string name="title_activity_alarm_">Alarm</string>
+    <string name="alarm_msg">15:00\nUmfrage</string>
+
 </resources>

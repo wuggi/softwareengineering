@@ -48,6 +48,11 @@
             android:key="button_about"
             android:title="@string/settings_about" >
         </Preference>
+        <Preference
+            android:icon="@drawable/ic_menu_info_details"
+            android:key="button_test"
+            android:title="TEST" >
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
