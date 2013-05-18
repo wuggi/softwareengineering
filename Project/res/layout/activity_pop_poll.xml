@@ -73,31 +73,31 @@
     </TableLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp" >
 
         <Button
-            android:id="@+id/ok_button"
+            android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="Fertig" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/snooze_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Snooze" />
+            android:text="@string/snooze" />
 
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Cancel" />
+            android:text="@string/OK" />
 
     </LinearLayout>
 

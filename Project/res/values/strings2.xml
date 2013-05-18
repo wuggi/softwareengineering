@@ -24,6 +24,7 @@
     <string name="OK">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="save">Speichern</string>
+    <string name="snooze">Schlummern</string>
     <string name="preferences_password_change1">\n\tNeues Passwort:</string>
     <string name="preferences_password_change2">\n\tPasswort erneut eingeben:</string>
     <string name="title_password_entry">Passwort</string>
