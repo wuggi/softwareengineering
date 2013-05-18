@@ -177,6 +177,8 @@ public class Week extends Activity {
 					db.close();
 					// Meldung ausgeben
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
+					//Weiter zu den Einstellungen
+   			 		onBackPressed();
 				}
 			}
 		});

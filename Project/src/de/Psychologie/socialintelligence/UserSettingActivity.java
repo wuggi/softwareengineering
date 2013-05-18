@@ -36,7 +36,6 @@ public class UserSettingActivity extends PreferenceActivity {
 	Uri ringtoneUri;
 	
 	//Get real song title
-	//TODO: komischer Fehler!
 	if (ringtonename == ""){
 		// Standart wird gesetzt, falls noch keiner da
 		// 4=Alarm, 7=All, 2=Notification, 1=Ringtone
