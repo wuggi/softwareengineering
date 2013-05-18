@@ -50,30 +50,40 @@ public class PopPollActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				String time= prefs.getString("Sleeptime", "5");
+				//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
+				String time= prefs.getString("Sleeptime", "5 Minuten");
 				int snoozetime = Integer.parseInt(time);
 				pollAlarm.setSnooze(snoozetime);
 				db.setSnoozeActiv(true);
 				
 			}
 		});
-		// Wenn OK oder Abbrechen gedr�ckt wird, wird automatisch neuer Alarm gesetzt
+		
 		ok_button.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				//Gesamtdauer der Kontakte
 				int hour = time.getCurrentHour();
 				int minute = time.getCurrentMinute();
-				String answerTime = (hour+":"+minute);
+				//Anzahl der Kontakte
 				int contacts = Integer.parseInt(count.getText().toString());
 				Calendar cal = Calendar.getInstance();
-				String date = cal.getTime().toString();
-				pollAlarm.setNextAlarm();
-				db.setSnoozeActiv(false);
+				//Zeitpunkt der Antwort
+				String answerTime = cal.HOUR+":"+cal.MINUTE;
+				
+				//Datum
+				String date = cal.DAY_OF_MONTH+"."+cal.MONTH+"."+cal.YEAR;
+				//Alarmzeit
 				String alarmTime=pollAlarm.currentAlarmTime;
 				String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
+				//nächsten Alarm setzen
+				pollAlarm.setNextAlarm();
+				db.setSnoozeActiv(false);
 				db.setLastAlarm(lastAlarmTime);
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
+				
+				//if abfrage fehlt, ob nicht mehr Stunden vom letzten Alarmpunkt ausgewält wurden
 				
 			}
 		});
@@ -83,12 +93,14 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Calendar cal = Calendar.getInstance();
-				String date = cal.getTime().toString();
+				String date = cal.DAY_OF_MONTH+"."+cal.MONTH+"."+cal.YEAR;
 				String alarmTime=pollAlarm.currentAlarmTime;
-			    db.setPollEntry(date, alarmTime);
+
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
-				db.setPollEntry(date,alarmTime,"-77", true, -77, -77, -77);
+				//Werte in die DB eintragen
+				db.setPollEntry(date, alarmTime);
+				
 				
 			}
 		});
