@@ -37,7 +37,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				                   public void onClick(DialogInterface dialog, int id) {
 										SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 										db.deleteDB();
-										//db.close();				                 	
+										//db.close();
+										//Alle Einstellungen werden gelöscht
+				       					final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+				       					SharedPreferences.Editor editor = settings.edit();
+				       					editor.clear();
+				       					editor.commit();
+				       					//App wird leer wieder aufgerufen
+				       					finish();
+				       			 		overridePendingTransition(0, 0);
+				       			 		startActivity(new Intent(AdminSettingsActivity.this, MainActivity.class));
 				                   }
 				                })
 				               .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {

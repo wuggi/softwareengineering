@@ -2,11 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/title_activity_settings" >
 
-    <Preference
-        android:key="Status"
-        android:title="Verpasste Umfrage nachholen" >
-    </Preference>
-
     <PreferenceCategory android:title="@string/settings_settings" >
         <Preference
             android:icon="@drawable/ic_menu_today"
