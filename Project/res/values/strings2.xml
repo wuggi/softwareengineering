@@ -39,5 +39,6 @@
     <string name="settings_deleteDB2">Wollen Sie die gesammelten Nutzerdaten von dem Gerät löschen?</string>
     <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>
     <string name="message_about">Entwickler:\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
+    <string name="settings_export_success">CSV Datei erfolgreich erstellt.</string>
 
 </resources>

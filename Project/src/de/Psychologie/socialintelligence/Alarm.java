@@ -82,7 +82,12 @@ public class Alarm{
 		} else {
 			// für Heute existiert noch eine Alarmzeit
 			Log.v("test",currentAlarmTime);
+			
+			
+			//Fehler wenn heute kein gespeicherter eintrag nach der aktuellen Uhrzeit vorhanden ist.
+			//TODO: reparieren
 			nextAlarmTime = db.getNextTimeFromDayTime(currentWeekDay, currentAlarmTime);
+			
 			alarmDay = currentDate;
 		}
 		

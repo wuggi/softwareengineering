@@ -139,6 +139,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.insert("poll", null, cv);
 	}
 	
+	//TODO: korrekte abfrage
 	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT u.code, " +
@@ -149,7 +150,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 									  "p.contact, " +
 									  "p.hour, " +
 									  "p.minute " +
-						      "from time",null);
+						      "FROM user u, " +
+						      "poll p",null);
 		return cur;
 	}
 	
@@ -166,6 +168,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 				}while(c.moveToNext());
 			}
 		}
+		else
+			Log.i("cursor", "=null");
 		return context;
 	}
 	
@@ -259,6 +263,18 @@ public class SQLHandler extends SQLiteOpenHelper {
 		//db.close();
 	}
 	
+	// get User Code
+		public String getUserCode(){
+			SQLiteDatabase db=this.getReadableDatabase();
+			Cursor cur = db.rawQuery("SELECT code FROM user WHERE id=1",null);
+			String code=null;
+			if(cur != null){
+				cur.moveToFirst();
+				code = cur.getString(0);
+			}
+			return code;
+		}
+	
 	public boolean existUserCode(){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean exist = false;
@@ -323,7 +339,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	
-	
+	//TODO: Fehler, bei c.getString(0) kahm eine CursorIndexOutOfBoundsException
+	// Schmiert ab, wenn keine Uhrzeit gewählt wurde, die noch heute dran kommt.
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
 //		if(existDayTime(day,time)){

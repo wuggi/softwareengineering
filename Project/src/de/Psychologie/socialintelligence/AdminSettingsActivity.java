@@ -123,7 +123,20 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});
 		
-
+		Preference button_export = (Preference) findPreference("button_export");
+		button_export
+				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {						
+						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+						FileHandler file = new FileHandler(db.getUserCode()+".CSV");
+						file.createExternalFile(db.getPollCsvContext());
+						
+   						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_SHORT).show();
+   						
+				        return true;
+					}
+				});		
 		
 		
 	}

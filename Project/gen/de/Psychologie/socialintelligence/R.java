@@ -141,6 +141,7 @@ public final class R {
         public static final int settings_deleteDB2=0x7f08003c;
         public static final int settings_export=0x7f080028;
         public static final int settings_export_email=0x7f080027;
+        public static final int settings_export_success=0x7f08003f;
         public static final int settings_other=0x7f080020;
         public static final int settings_password_change=0x7f080026;
         public static final int settings_password_new_text=0x7f08003d;
