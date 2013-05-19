@@ -1,16 +1,15 @@
 package de.Psychologie.socialintelligence;
 
-import android.annotation.TargetApi;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.util.Log;
 
-//TODO: nur zu Testzwecken
-@TargetApi(Build.VERSION_CODES.FROYO)
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
@@ -263,17 +262,21 @@ public class SQLHandler extends SQLiteOpenHelper {
 		//db.close();
 	}
 	
-	// get User Code
-		public String getUserCode(){
-			SQLiteDatabase db=this.getReadableDatabase();
-			Cursor cur = db.rawQuery("SELECT code FROM user WHERE id=1",null);
-			String code=null;
-			if(cur != null){
-				cur.moveToFirst();
-				code = cur.getString(0);
+	// get User Codes
+	public String[] getUserCodes() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cur = db.rawQuery("SELECT code FROM user", null);
+		String[] codes = new String[0];
+		List<String> codelst = new ArrayList<String>();
+		if (cur != null)
+			if (cur.moveToFirst()) {
+				do {
+					codelst.add(cur.getString(0));
+				} while (cur.moveToNext());
+				codes = codelst.toArray(codes);
 			}
-			return code;
-		}
+		return codes;
+	}
 	
 	public boolean existUserCode(){
 		SQLiteDatabase db= this.getReadableDatabase();

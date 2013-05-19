@@ -50,7 +50,6 @@
                 android:text="@string/Anleitung"
                 android:textSize="14sp"
                 android:textStyle="normal" />
-
         </LinearLayout>
     </ScrollView>
 
@@ -68,7 +67,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:enabled="false"
-            android:text="@string/next" />
+            android:text="@string/next" >
+        </Button>
     </RelativeLayout>
 
 </LinearLayout>

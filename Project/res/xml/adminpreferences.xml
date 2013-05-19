@@ -11,12 +11,19 @@
         android:title="@string/settings_export_email" >
     </Preference>
     <Preference
-        android:key="button_export"
-        android:title="@string/settings_export" >
-    </Preference>
-    <Preference
         android:key="button_reset"
         android:title="@string/settings_deleteDB" >
     </Preference>
+
+    <PreferenceCategory android:title="@string/settings_email" >
+        <EditTextPreference
+            android:key="emailto"
+            android:title="@string/settings_email_to" 
+            android:persistent="true" />
+        <EditTextPreference
+            android:key="emailsubject"
+            android:title="@string/settings_email_subject" 
+            android:persistent="true" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
