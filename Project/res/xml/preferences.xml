@@ -2,11 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/title_activity_settings" >
 
-    <PreferenceCategory android:title="@string/settings_settings" >
+    <PreferenceCategory android:title="@string/action_settings" >
         <Preference
             android:icon="@drawable/ic_menu_today"
             android:key="button_week"
-            android:title="@string/weekButton" >
+            android:title="@string/title_activity_week" >
         </Preference>
 
         <RingtonePreference
@@ -17,7 +17,6 @@
             android:selectable="true"
             android:showDefault="true"
             android:showSilent="false"
-            android:summary="@string/settings_ringtone2"
             android:title="@string/settings_ringtone" />
 
         <ListPreference

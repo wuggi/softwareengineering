@@ -61,6 +61,23 @@ public class MainActivity extends Activity {
 
 				}
 			});
+			
+//			//Damit button nicht in scrollview hängt:
+//			EditText text= (EditText) findViewById(R.id.userCode);
+//					//show keyboard
+//					text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//				        @Override
+//				        public void onFocusChange(View v, boolean hasFocus) {
+//			            	Button btn_next = (Button) findViewById(R.id.btnWeiter);
+//				            if (hasFocus)
+//				            	btn_next.setVisibility(View.INVISIBLE);				                
+//				            else
+//				            	btn_next.setVisibility(View.VISIBLE);
+//				        }
+//				    });
+					
+				
+			
 
 			// Weiter Button geklickt?
 			btnWeiter = (Button) findViewById(R.id.btnWeiter);

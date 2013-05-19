@@ -14,13 +14,13 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/Main_Name"
+        android:label="@string/title_activity_settings"
         android:persistent="true"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
             android:name="de.Psychologie.socialintelligence.MainActivity"
-            android:label="@string/Main_Name"
+            android:label="@string/title_activity_settings"
             android:noHistory="true"
             android:screenOrientation="portrait" >
             <intent-filter>
