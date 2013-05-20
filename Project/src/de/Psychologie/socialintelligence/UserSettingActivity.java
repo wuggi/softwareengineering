@@ -1,9 +1,6 @@
 package de.Psychologie.socialintelligence;
 
-import java.security.MessageDigest;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,13 +15,53 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.InputType;
+import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onStart() {
+	super.onStart();
+
+	// Set Ringtonepreference summary to chosen title
+	// Get the xml/prefx.xml preferences
+	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+	
+	String ringtonename = prefs.getString("ringtone", "");
+	Preference ringtonepref = (Preference) findPreference("ringtone");
+	Uri ringtoneUri;
+	
+	//Get real song title
+	if (ringtonename == ""){
+		// Standart wird gesetzt, falls noch keiner da
+		// 4=Alarm, 7=All, 2=Notification, 1=Ringtone
+		ringtoneUri=RingtoneManager.getDefaultUri(4); 	
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("ringtone", ringtoneUri.toString());
+		editor.commit();
+	}
+	else
+		ringtoneUri = Uri.parse((String) ringtonename);
+	
+	
+	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+	String name = ringtone.getTitle(UserSettingActivity.this);
+	
+	ringtonepref.setSummary(name);
+	
+	// Set Sleeptime summary to chosen time		
+	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
+	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
+	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
+	
+	}
+
+
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +79,15 @@ public class UserSettingActivity extends PreferenceActivity {
 						return true;
 					}
 				});
-
+		Preference button_test = (Preference) findPreference("button_test");
+		button_test
+		.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				startActivity(new Intent(UserSettingActivity.this,	Alarm_Activity.class));
+				return true;
+			}
+				});
 		
 		Preference button_about = (Preference) findPreference("button_about");
 		button_about
@@ -73,11 +118,10 @@ public class UserSettingActivity extends PreferenceActivity {
 		ringtonepref
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 					@Override
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
+					public boolean onPreferenceChange(Preference preference,Object newValue) {
+						
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						Ringtone ringtone = RingtoneManager.getRingtone(
-								UserSettingActivity.this, ringtoneUri);
+						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 						String name = ringtone.getTitle(UserSettingActivity.this);
 
 						preference.setSummary( name);
@@ -93,7 +137,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
 						preference
-								.setSummary(((String) newValue) + "\tMinuten");
+								.setSummary(((String) newValue) + " \tMinuten");
 						return true;
 					}
 				});
@@ -104,20 +148,21 @@ public class UserSettingActivity extends PreferenceActivity {
 					@Override
 					public boolean onPreferenceClick(final Preference arg0) {
 						
-						AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
+						final AlertDialog.Builder builder = new AlertDialog.Builder(UserSettingActivity.this);
 						builder.setTitle(getResources().getString(R.string.title_password_entry));
 						final EditText input = new EditText(UserSettingActivity.this); 
 					    final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserSettingActivity.this);
-						
+											    					 			    
 						input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-						builder.setView(input);
-				        builder.setCancelable(false)
+						builder.setView(input)
 				               .setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
 				           			//Passwortüberprüfung mit Salt
 				                	//Falls kein PW gesetzt ist, ist das standart PW: 
 				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
+				                        finish();
 				                 		startActivity(new Intent(UserSettingActivity.this,AdminSettingsActivity.class));
+				                 		overridePendingTransition(0, 0);
 				                  		}	
 				                   else
 				                   {				                	   
@@ -130,9 +175,21 @@ public class UserSettingActivity extends PreferenceActivity {
 				                   public void onClick(DialogInterface dialog, int id) {				                	   
 				                	   dialog.cancel();
 				                   }
-				               });
-				        AlertDialog alert = builder.create();
-				        alert.show();
+				               }); 
+				        
+						final AlertDialog dialog = builder.create();   
+						
+					      //show keyboard
+						    input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+						        @Override
+						        public void onFocusChange(View v, boolean hasFocus) {
+						            if (hasFocus) {
+						                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+						            }
+						        }
+						    });
+						    
+				        dialog.show();
 						return true;
 					}
 				});

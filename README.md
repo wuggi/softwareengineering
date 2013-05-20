@@ -1,6 +1,16 @@
-softwareengineering
+Softwareengineering
 ===================
-BUGS:
-- MainActivity is in Fullscreen
-- Keine automatische Tastatur in PW_Eingabe
-- Hash steht in Admin_PW_Eingabe
+===================
+
+Known BUGS:
+===========
+- Überflüssige Abfrage bei rückgängig gemachter Wochenänderung
+
+TODO:
+=====
+- Wecker mit Umfrage
+- App Bar
+- App Icon
+- Ringtonepreference in Holo.Light
+- Exporte
+- Klingeltonlautstärke

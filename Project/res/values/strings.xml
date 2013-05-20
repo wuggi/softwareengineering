@@ -1,24 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="anleitung">Bitte erstellen sie ihr Passwort nach folgendem Muster:</string>
-    <string name="title_activity_pop_poll">Umfrage</string>
-    <string name="title_activity_week">Zeitenauswahl</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_settings">SocialIntelligence</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="alarm_msg">15:00\nUmfrage</string>
+    <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens Ihrer Mutter\n2. Dritter Buchstabe des Vornamens Ihres Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
+    <string name="Anzahl">Anzahl:</string>
+    <string name="app_name">Umfrage Einstellungen</string>
+    <string name="bntFriday">Fr</string>
     <string name="bntMonday">Mo</string>
+    <string name="bntSaturday">Sa</string>
+    <string name="bntSunday">So</string>
+    <string name="bntThursday">Do</string>
     <string name="bntTuesday">Di</string>
     <string name="bntWednesday">Mi</string>
-    <string name="bntThursday">Do</string>
-    <string name="bntFriday">Fr</string>
-	<string name="bntSaturday">Sa</string>
-	<string name="bntSunday">So</string>
-    <string name="bntWeekSave">Woche speichern</string>
+    <string name="bntWeekSave">Woche speichern und Weiter</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="false_password">Falsches Passwort.</string>
+    <string name="message_about">Entwickler:\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
+    <string name="next">Weiter</string>
+    <string name="OK">OK</string>
+    <string name="password_changed">Passwort geändert.</string>
+    <string name="password_mismatch">Passwörter stimmen nicht überein.</string>
+    <string name="preferences_password_change1">\n\tNeues Passwort:</string>
+    <string name="preferences_password_change2">\n\tPasswort erneut eingeben:</string>
+    <string name="salt">jl#1i$Q3awrO!ql4tia5=et</string>
+    <string name="save">Speichern</string>
+    <string name="settings_about">Über</string>
+    <string name="settings_admin">Administrator Einstellungen</string>
+    <string name="settings_deleteDB">Export und Zurücksetzen</string>
+    <string name="settings_deleteDB2">Wollen Sie die gesammelten Nutzerdaten von dem Gerät löschen? Dies löscht nicht die exportierten Dateien vom Handy.</string>
+    <string name="settings_export">Export als CSV</string>
+    <string name="settings_export_email">Export per Email</string>
+    <string name="settings_export_success">Eine CSV Datei erfolgreich erstellt.</string>
+    <string name="settings_export_success_multi">CSV Dateien erfolgreich erstellt.</string>
+    <string name="settings_other">Sonstiges</string>
+    <string name="settings_password_change">Passwort ändern</string>
+    <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>
+    <string name="settings_password_new_title">Neues Passwort</string>
+    <string name="settings_ringtone">Klingelton</string>
+    <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
+    <string name="settings_volume">Lautstärke</string>
+    <string name="snooze">Schlummern</string>
+    <string name="std_PW">Sommer</string>
+    <string name="time">Dauer:</string>
+    <string name="title_about">Über SocialIntelligence</string>
+    <string name="title_activity_alarm_">Alarm</string>
+    <string name="title_activity_settings">SocialIntelligence</string>
+    <string name="title_activity_week">Zeitenauswahl</string>
+    <string name="title_password_entry">Passwort</string>
+    <string name="txtNo">Nein</string>
     <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten\n</string>
-	<string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
-	<string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
-	<string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zurück?</string>
-	<string name="txtWeekSaveTitle">Zeitslots verwerfen</string>
-	<string name="txtYes">Ja</string>
-	<string name="txtNo">Nein</string>
+    <string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
+    <string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zum Menü?</string>
+    <string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
+    <string name="txtWeekSaveTitle">Zeitslots verwerfen</string>
+    <string name="txtYes">Ja</string>
+    <string name="Umfrage_txt">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten (gestrigen) Signal um XX:XX Uhr Kontakt? Bitte schätzen Sie zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="Willkommen">Willkommen,</string>
+    <string name="Willkommen_2">Bitte geben Sie hier Ihren Code ein:</string>
+    <string name="title_activity_pop_poll">Umfrage</string>
+    <string name="settings_email_to">Empfängeradresse</string>
+    <string name="settings_email_subject">Betreff</string>
+    <string name="settings_email">Email Einstellungen</string>
+    <string name="std_Email_Adress">StandartAdresse@st-ovgu.de</string>
+    <string name="std_Email_Subject">[Socialintelligence]CSV Export</string>
+    <string name="settings_deleteDB_success">Nutzerdaten gelöscht</string>
+    
+
 </resources>

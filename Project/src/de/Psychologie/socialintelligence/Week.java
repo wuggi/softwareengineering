@@ -26,6 +26,8 @@ public class Week extends Activity {
 	Day currentDay;
 	// Ansicht gespeichert
 	boolean saveAllTimeSlots = true;
+	// Alarm
+	Alarm alarm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,9 @@ public class Week extends Activity {
 		fri = (Button) findViewById(R.id.fri);
 		sat = (Button) findViewById(R.id.sat);
 		sun = (Button) findViewById(R.id.sun);
+		
+		// Alarm erzeugen
+		alarm = new Alarm(this);
 
 		////////////////////////////////////////////////////////////////////////
 		// Methoden OnClick
@@ -117,8 +122,9 @@ public class Week extends Activity {
 		// Alle deaktivieren
 		disableWeek();
 		disableAllTimeSlots();
-		// Disable all
-		enableAllTimes(false);
+		// TODO: kann weg oder? Disable all
+		// 
+	    enableAllTimes(false);
 		
 		
 		// Zeitdaten aus der Datenbank holen
@@ -143,7 +149,10 @@ public class Week extends Activity {
 			}
 		} 
 		
-		
+		// Aktuellen Wochentag anklicken
+		// TODO: Dieser Tag muss momentan zwingend Zeiten bekommen!
+		clickCurrentDay();
+				
 		////////////////////////////////////////////////////////////////////////
 		// save Week
 		////////////////////////////////////////////////////////////////////////
@@ -159,7 +168,17 @@ public class Week extends Activity {
 				} else {
 					// Alle Einstellungen erfolgreich gespeichert
 					saveAllTimeSlots = true;
+					// Alarm setzen
+					// TODO: Wann soll er dies immer setzen?
+					SQLHandler db = new SQLHandler(Week.this);
+					if(!db.getSnoozeActiv()){
+						alarm.setNextAlarm(true);
+					}
+					db.close();
+					// Meldung ausgeben
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
+					//Weiter zu den Einstellungen
+   			 		onBackPressed();
 				}
 			}
 		});
@@ -273,6 +292,35 @@ public class Week extends Activity {
 			ButtonHandler[i].setEnabled(enable);
 		}
 	}
+	
+	private void clickCurrentDay(){
+		switch (alarm.getCurrentWeekDay()) {
+		case 0:
+			mon.performClick();
+			break;
+		case 1:
+			tue.performClick();
+			break;
+		case 2:
+			wed.performClick();
+			break;
+		case 3:
+			thur.performClick();
+			break;
+		case 4:
+			fri.performClick();
+			break;
+		case 5:
+			sat.performClick();
+			break;
+		case 6:
+			sun.performClick();
+			break;
+		default:
+			break;
+		}
+	}
+	
 
 	@SuppressWarnings("deprecation")
 	private void disableWeek() {

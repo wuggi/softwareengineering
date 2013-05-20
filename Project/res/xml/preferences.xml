@@ -2,54 +2,55 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/title_activity_settings" >
 
-    <PreferenceCategory android:title="@string/settings_settings" >
+    <PreferenceCategory android:title="@string/action_settings" >
         <Preference
-            android:icon="@android:drawable/ic_menu_today"
+            android:icon="@drawable/ic_menu_today"
             android:key="button_week"
-            android:title="@string/weekButton" >
+            android:title="@string/title_activity_week" >
         </Preference>
 
         <RingtonePreference
-            android:defaultValue="1"
-            android:icon="@android:drawable/ic_lock_silent_mode_off"
+            android:icon="@drawable/ic_menu_note"
             android:key="ringtone"
             android:persistent="true"
-            android:ringtoneType="all"
+            android:ringtoneType="ringtone|alarm"
             android:selectable="true"
             android:showDefault="true"
             android:showSilent="false"
-            android:summary="@string/settings_ringtone2"
-            android:theme="@style/android:Theme.Light"
             android:title="@string/settings_ringtone" />
 
         <ListPreference
-            android:defaultValue="2"
+            android:defaultValue="5"
             android:dialogTitle="@string/settings_sleeptime"
             android:entries="@array/settings_sleeptimes2"
             android:entryValues="@array/settings_sleeptimes"
-            android:icon="@android:drawable/ic_menu_preferences"
+            android:icon="@drawable/ic_menu_clock"
             android:key="Sleeptime"
             android:negativeButtonText="@string/cancel"
             android:persistent="true"
-            android:summary="@string/settings_sleeptime2"
             android:title="@string/settings_sleeptime" />
 
-        <Preference
-            android:icon="@android:drawable/ic_lock_silent_mode_off"
-            android:key="button_volume"
-            android:title="@string/settings_volume" >
-        </Preference>
+        <VolumePreference
+            android:icon="@drawable/ic_volume"
+            android:persistent="true"
+            android:streamType="alarm"
+            android:title="@string/settings_volume" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_other" >
         <Preference
-            android:icon="@android:drawable/ic_menu_preferences"
+            android:icon="@drawable/ic_menu_preferences"
             android:key="button_admin_settings"
             android:title="@string/settings_admin" >
         </Preference>
         <Preference
-            android:icon="@android:drawable/ic_menu_info_details"
+            android:icon="@drawable/ic_menu_info_details"
             android:key="button_about"
             android:title="@string/settings_about" >
+        </Preference>
+        <Preference
+            android:icon="@drawable/ic_menu_info_details"
+            android:key="button_test"
+            android:title="TEST" >
         </Preference>
     </PreferenceCategory>
 
