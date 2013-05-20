@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) by Marsupilami -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="1024"
+   height="369"
+   viewBox="-3.8701428 -3.8701428 379.7877756 136.7450456"
+   id="svg3847"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="back_button.svg">
+  <metadata
+     id="metadata25">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="745"
+     id="namedview23"
+     showgrid="false"
+     inkscape:zoom="0.64910192"
+     inkscape:cx="200.71767"
+     inkscape:cy="198.38002"
+     inkscape:window-x="-3"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3847" />
+  <defs
+     id="defs3849" />
+  <rect
+     style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     id="rect3768"
+     width="361.57144"
+     height="259.08344"
+     x="54.387917"
+     y="24.094721"
+     transform="matrix(0.3708865,0,0,0.3708865,-3.8701428,-3.9261792)"
+     inkscape:export-filename="/home/otto/studium/SoftEng/SocialIntelligence/tmp/guericke_standard_border.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     d="m 70.794695,5.0596188 -57.063934,0 0,96.2562512 57.496286,0 -0.432352,-96.2562512"
+     id="path2598"
+     style="fill:#f07d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc"
+     inkscape:export-filename="/home/otto/studium/SoftEng/SocialIntelligence/tmp/back_button.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <text
+     xml:space="preserve"
+     style="font-size:58.78653717px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+     x="48.816219"
+     y="52.793518"
+     id="text3039"
+     sodipodi:linespacing="125%"
+     transform="scale(0.61836464,1.6171688)"
+     inkscape:export-filename="/home/otto/studium/SoftEng/SocialIntelligence/tmp/back_button.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"><tspan
+       sodipodi:role="line"
+       id="tspan3041"
+       x="48.816219"
+       y="52.793518">&lt;</tspan></text>
+</svg>
+<!-- version: 20090314, original size: 372.04749 129.00476, border: 3% -->
+
