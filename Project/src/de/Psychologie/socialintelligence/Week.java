@@ -1,4 +1,5 @@
 package de.Psychologie.socialintelligence;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class Week extends Activity {
 
@@ -34,6 +38,10 @@ public class Week extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_week);
 		
+		// Actionbar mit Zurueckknopf versehen
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, new Intent(Week.this, MainActivity.class), R.drawable.back_button));
+        		
 		////////////////////////////////////////////////////////////////////////
 		// Buttons definieren
 		////////////////////////////////////////////////////////////////////////
@@ -129,20 +137,20 @@ public class Week extends Activity {
 		
 		// Zeitdaten aus der Datenbank holen
 		if(getWeekFromDatabase()){
-			// Zeiten wählbar
+			// Zeiten wï¿½hlbar
 			enableAllTimes(true);
 			// Woche auslesen
 			for (int i = 0; i < week.length; i++) {
 				if(week[i] != null){
-					// Wochentage zurücksetzen
+					// Wochentage zurï¿½cksetzen
 					disableWeek();
 					// aktuellen Wochentag makieren
 					setButtonSelect((Button) findViewById(Day.getViewIDfromWeekID(i)));
 					currentDay = week[i];
-					// Zeitslots zurücksetzen
+					// Zeitslots zurï¿½cksetzen
 					disableAllTimeSlots();
 					for (int j = 0; j < week[i].getTimeSlotsButton().length; j++) {
-						// setze Zeitslots für diesen Tag
+						// setze Zeitslots fï¿½r diesen Tag
 						setButtonSelect(week[i].getTimeSlotsButton()[j]);
 					}
 				}
@@ -161,7 +169,7 @@ public class Week extends Activity {
 		saveWeek.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Daten in Datenbank überführen
+				// Daten in Datenbank ï¿½berfï¿½hren
 				if (!writeWeekToDatabase()) {
 					// Fehlermeldung ausgeben
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
@@ -195,7 +203,7 @@ public class Week extends Activity {
        		}		
        		Week.super.onBackPressed();
 		} else {
-			// Änderungen verwerfen?
+			// ï¿½nderungen verwerfen?
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(getResources().getString(R.string.txtWeekSaveTitle));
 	        builder.setMessage(getResources().getString(R.string.txtWeekSaveQuestion))
@@ -234,7 +242,7 @@ public class Week extends Activity {
 				case 0:
 					// korrekten Wochentag markieren
 					disableWeek();
-					// Auswahl zurücksetzen
+					// Auswahl zurï¿½cksetzen
 					disableAllTimeSlots();
 					// existiert Tag bereits?
 					if (existDay(bnt.getId())) {
@@ -280,7 +288,7 @@ public class Week extends Activity {
 					break;
 				}
 
-				// Button wählen (grün)
+				// Button wï¿½hlen (grï¿½n)
 				setButtonSelect(bnt);
 			}
 		});
@@ -345,7 +353,7 @@ public class Week extends Activity {
 
 		// old way:
 		// setBackgroundColor(getResources().getColor(R.color.uncheckedButton));
-		// die neue Methode ist zwar veraltet, aber so können auch alte Geräte
+		// die neue Methode ist zwar veraltet, aber so kï¿½nnen auch alte Gerï¿½te
 		// es nutzen
 
 		timeslot1.setBackgroundDrawable(getResources().getDrawable(
@@ -409,11 +417,11 @@ public class Week extends Activity {
 	private void addDay(int rID) {
 		// aktuellen Tag erstellen
 		currentDay = new Day(rID);
-		// der Woche hinzufügen
+		// der Woche hinzufï¿½gen
 		week[currentDay.getWeekID()] = currentDay;
 	}
 
-	// prüft, ob Tag bereits gesetzt ist
+	// prï¿½ft, ob Tag bereits gesetzt ist
 	private boolean existDay(int rID) {
 		boolean res = false;
 		for (int i = 0; i < week.length; i++) {
@@ -433,24 +441,24 @@ public class Week extends Activity {
 		for (int i = 0; i < week.length; i++) {
 			// wurde Wochentag gesetzt?
 			if (week[i] != null) {
-				// wurden alle Zeiten für den Wochentag gesetzt?
+				// wurden alle Zeiten fï¿½r den Wochentag gesetzt?
 				if(week[i].existAllTimes()){
-					// alten Tag löschen
+					// alten Tag lï¿½schen
 					db.deleteDay(week[i].getWeekID());
-					// alle Zeitslots wählen
+					// alle Zeitslots wï¿½hlen
 					for (int j = 0; j < week[i].getTimeSlots().length; j++) {
 						// Wochentag und Zeitslot in Datenbank schreiben
 						db.addDayTime(week[i].getWeekID(),
 								week[i].getTimeSlots()[j]);
 					}
 				} else {
-					// es wurden nicht für jeden Tag 4 Zeitslots gewählt
+					// es wurden nicht fï¿½r jeden Tag 4 Zeitslots gewï¿½hlt
 					db.close();
 					return false;
 				}
 			}
 		}
-		// Datenbankverbindung schließen
+		// Datenbankverbindung schlieï¿½en
 		db.close();
 		// Import ist erfolgreich
 		return true;
@@ -468,7 +476,7 @@ public class Week extends Activity {
 					if(!existDay(Day.getViewIDfromWeekID(cur.getInt(0)))){
 						week[cur.getInt(0)] = new Day(Day.getViewIDfromWeekID(cur.getInt(0)));
 					}
-					// Zeitslots setzen, alle Buttons werden übergeben
+					// Zeitslots setzen, alle Buttons werden ï¿½bergeben
 					week[cur.getInt(0)].setTimeSlots(cur.getString(1), ButtonHandler);
 					// check
 					check++;
@@ -580,12 +588,12 @@ public class Week extends Activity {
 		public void setTimeSlots(String time, Button[] handler){
 			// Zeit von HH:mm:ss in HH:mm umwandeln
 			time = time.substring(0,5);
-			// prüfen, ob ein Button den Zeittext enthält
+			// prï¿½fen, ob ein Button den Zeittext enthï¿½lt
 			for (int i = 0; i < handler.length; i++) {
 				if(handler[i].getText().toString().compareTo(time) == 0){
 					// Zeit abspeichern
 					this.timeSlots[this.timeSlotID] = time;
-					// zugehörigen Button speichern
+					// zugehï¿½rigen Button speichern
 					this.timeSlotsButton[this.timeSlotID] = handler[i];
 					//this.timeSlotID = (this.timeSlotID+1)%4;
 					this.timeSlotID++;

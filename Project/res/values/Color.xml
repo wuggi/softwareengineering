@@ -7,5 +7,12 @@
     <color name="greenstroke">#01bc64</color>
     <color name="redstart">#ef7f01</color>
     <color name="redend">#d67201</color>
-    <color name="redstroke">#d67201</color> 
+    <color name="redstroke">#d67201</color>
+    <color name="orange">#f07d00</color>
+	<color name="actionbar_separator">#f07d00</color>
+    <color name="actionbar_title">#FFFFFF</color>
+    <color name="actionbar_background_start">#f07d00</color>
+    <color name="actionbar_background_end">#f07d00</color>
+    <color name="actionbar_background_item_pressed_start">#f07d00</color>
+    <color name="actionbar_background_item_pressed_end">#f07d00</color>
 </resources>

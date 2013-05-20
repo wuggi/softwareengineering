@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/de.Psychologie.socialintelligence"   
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,6 +8,12 @@
     tools:context=".Week"
     tools:ignore="HardcodedText" >
 
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/actionbar"
+        style="@style/ActionBar"
+        app:title="@string/title"
+    />
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

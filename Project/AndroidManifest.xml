@@ -22,7 +22,8 @@
             android:name="de.Psychologie.socialintelligence.MainActivity"
             android:label="@string/title_activity_settings"
             android:noHistory="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +38,8 @@
         <activity
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.UserSettingActivity"

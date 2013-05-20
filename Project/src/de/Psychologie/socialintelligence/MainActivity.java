@@ -14,6 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.markupartist.android.widget.ActionBar;
+
 public class MainActivity extends Activity {
 	private Button btnWeiter;
 	private EditText userCode;
@@ -31,7 +33,7 @@ public class MainActivity extends Activity {
 			//db.close();
 			finish();
 			
-		// User existiert, Weiterleitung zu Einstellungsübersicht
+		// User existiert, Weiterleitung zu Einstellungsï¿½bersicht
 		} else if (db.existUserCode()) {
 			startActivity(new Intent(MainActivity.this,UserSettingActivity.class));
 			//db.close();
@@ -62,7 +64,7 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-//			//Damit button nicht in scrollview hängt:
+//			//Damit button nicht in scrollview hï¿½ngt:
 //			EditText text= (EditText) findViewById(R.id.userCode);
 //					//show keyboard
 //					text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -99,7 +101,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-    //menü taste deaktiviert ansonsten das Blinken der texteingabe
+    //menï¿½ taste deaktiviert ansonsten das Blinken der texteingabe
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent e) {
 	    switch(keycode) {
