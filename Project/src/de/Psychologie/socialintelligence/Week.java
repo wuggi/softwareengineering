@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.markupartist.android.widget.ActionBar;
@@ -190,7 +191,17 @@ public class Week extends Activity {
 				}
 			}
 		});
+		
+		ImageButton headerButton = (ImageButton) findViewById(R.id.actionbar_home_btn);
+		headerButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();				
+			}
+		});
 	}
+	
 	
 	@Override
 	public void onBackPressed() {

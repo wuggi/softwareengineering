@@ -68,7 +68,12 @@ public class UserSettingActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences);
-
+		
+		//TODO:AppBar in Settings
+		//com.markupartist.android.widget.ActionBar actionBar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.actionbar);
+		//actionBar.inflate(getBaseContext(), resource, root)
+		
+		
 		Preference button_week = (Preference) findPreference("button_week");
 		button_week
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

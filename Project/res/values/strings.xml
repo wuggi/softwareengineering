@@ -28,11 +28,9 @@
     <string name="settings_about">Über</string>
     <string name="settings_admin">Administrator Einstellungen</string>
     <string name="settings_deleteDB">Export und Zurücksetzen</string>
-    <string name="settings_deleteDB2">Wollen Sie die gesammelten Nutzerdaten von dem Gerät löschen? Dies löscht nicht die exportierten Dateien vom Handy.</string>
     <string name="settings_export">Export als CSV</string>
     <string name="settings_export_email">Export per Email</string>
     <string name="settings_export_success">Eine CSV Datei erfolgreich erstellt.</string>
-    <string name="settings_export_success_multi">CSV Dateien erfolgreich erstellt.</string>
     <string name="settings_other">Sonstiges</string>
     <string name="settings_password_change">Passwort ändern</string>
     <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>
@@ -47,6 +45,7 @@
     <string name="title_about">Über SocialIntelligence</string>
     <string name="title_activity_alarm_">Alarm</string>
     <string name="title_activity_settings">SocialIntelligence</string>
+    <string name="title_activity_main">SocialIntelligence</string>
     <string name="title_activity_week">Zeitenauswahl</string>
     <string name="title_password_entry">Passwort</string>
     <string name="txtNo">Nein</string>

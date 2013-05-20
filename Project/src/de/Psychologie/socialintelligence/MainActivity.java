@@ -14,8 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.markupartist.android.widget.ActionBar;
-
 public class MainActivity extends Activity {
 	private Button btnWeiter;
 	private EditText userCode;
@@ -93,8 +91,8 @@ public class MainActivity extends Activity {
 					db.addUserCode(code);
 					//db.close();
 					// zur naechsten Activity
+					MainActivity.this.finish();
 					startActivity(new Intent(MainActivity.this, Week.class));
-					finish();
 				}
 			});
 

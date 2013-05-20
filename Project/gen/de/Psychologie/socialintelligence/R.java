@@ -62,23 +62,21 @@ containing a value of this type.
         public static final int back_button=0x7f020005;
         public static final int button_green=0x7f020006;
         public static final int button_red=0x7f020007;
-        public static final int guericke_standard=0x7f020008;
-        public static final int guericke_standard_border=0x7f020009;
-        public static final int guericke_twinkle=0x7f02000a;
-        public static final int ic_launcher=0x7f02000b;
-        public static final int ic_menu_clock=0x7f02000c;
-        public static final int ic_menu_info_details=0x7f02000d;
-        public static final int ic_menu_note=0x7f02000e;
-        public static final int ic_menu_preferences=0x7f02000f;
-        public static final int ic_menu_today=0x7f020010;
-        public static final int ic_volume=0x7f020011;
-        public static final int icon=0x7f020012;
+        public static final int guericke_standard_border=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int ic_menu_clock=0x7f02000a;
+        public static final int ic_menu_info_details=0x7f02000b;
+        public static final int ic_menu_note=0x7f02000c;
+        public static final int ic_menu_preferences=0x7f02000d;
+        public static final int ic_menu_today=0x7f02000e;
+        public static final int ic_volume=0x7f02000f;
+        public static final int icon=0x7f020010;
     }
     public static final class id {
         public static final int CustomLayout01=0x7f0b000b;
         public static final int LinearLayout1=0x7f0b0014;
         public static final int LinearLayout2=0x7f0b001c;
-        public static final int action_settings=0x7f0b0039;
+        public static final int action_settings=0x7f0b003a;
         public static final int actionbar=0x7f0b000d;
         public static final int actionbar_actions=0x7f0b0007;
         public static final int actionbar_back_button=0x7f0b0002;
@@ -97,9 +95,10 @@ containing a value of this type.
         public static final int editText1=0x7f0b0036;
         public static final int editText2=0x7f0b0037;
         public static final int fri=0x7f0b0021;
-        public static final int menu_settings=0x7f0b0038;
+        public static final int menu_settings=0x7f0b0039;
         public static final int mon=0x7f0b001d;
         public static final int ok_button=0x7f0b001b;
+        public static final int preference_id=0x7f0b0038;
         public static final int sat=0x7f0b0022;
         public static final int saveWeek=0x7f0b0035;
         public static final int screen=0x7f0b0000;
@@ -152,9 +151,9 @@ containing a value of this type.
         public static final int Anleitung=0x7f070005;
         public static final int Anzahl=0x7f070006;
         public static final int OK=0x7f070013;
-        public static final int Umfrage_txt=0x7f070039;
-        public static final int Willkommen=0x7f07003a;
-        public static final int Willkommen_2=0x7f07003b;
+        public static final int Umfrage_txt=0x7f070038;
+        public static final int Willkommen=0x7f070039;
+        public static final int Willkommen_2=0x7f07003a;
         public static final int action_settings=0x7f070003;
         public static final int actionbar_activity_not_found=0x7f070002;
         public static final int alarm_msg=0x7f070004;
@@ -181,41 +180,40 @@ containing a value of this type.
         public static final int settings_about=0x7f07001a;
         public static final int settings_admin=0x7f07001b;
         public static final int settings_deleteDB=0x7f07001c;
-        public static final int settings_deleteDB2=0x7f07001d;
-        public static final int settings_deleteDB_success=0x7f070042;
-        public static final int settings_email=0x7f07003f;
-        public static final int settings_email_subject=0x7f07003e;
-        public static final int settings_email_to=0x7f07003d;
-        public static final int settings_export=0x7f07001e;
-        public static final int settings_export_email=0x7f07001f;
-        public static final int settings_export_success=0x7f070020;
-        public static final int settings_export_success_multi=0x7f070021;
-        public static final int settings_other=0x7f070022;
-        public static final int settings_password_change=0x7f070023;
-        public static final int settings_password_new_text=0x7f070024;
-        public static final int settings_password_new_title=0x7f070025;
-        public static final int settings_ringtone=0x7f070026;
-        public static final int settings_sleeptime=0x7f070027;
-        public static final int settings_volume=0x7f070028;
-        public static final int snooze=0x7f070029;
-        public static final int std_Email_Adress=0x7f070040;
-        public static final int std_Email_Subject=0x7f070041;
-        public static final int std_PW=0x7f07002a;
-        public static final int time=0x7f07002b;
-        public static final int title=0x7f07002c;
-        public static final int title_about=0x7f07002d;
-        public static final int title_activity_alarm_=0x7f07002e;
-        public static final int title_activity_pop_poll=0x7f07003c;
-        public static final int title_activity_settings=0x7f07002f;
-        public static final int title_activity_week=0x7f070030;
-        public static final int title_password_entry=0x7f070031;
-        public static final int txtNo=0x7f070032;
-        public static final int txtTime_slot=0x7f070033;
-        public static final int txtWeekErrorTimeSlots=0x7f070034;
-        public static final int txtWeekSaveQuestion=0x7f070035;
-        public static final int txtWeekSaveTimeSlots=0x7f070036;
-        public static final int txtWeekSaveTitle=0x7f070037;
-        public static final int txtYes=0x7f070038;
+        public static final int settings_deleteDB_success=0x7f070041;
+        public static final int settings_email=0x7f07003e;
+        public static final int settings_email_subject=0x7f07003d;
+        public static final int settings_email_to=0x7f07003c;
+        public static final int settings_export=0x7f07001d;
+        public static final int settings_export_email=0x7f07001e;
+        public static final int settings_export_success=0x7f07001f;
+        public static final int settings_other=0x7f070020;
+        public static final int settings_password_change=0x7f070021;
+        public static final int settings_password_new_text=0x7f070022;
+        public static final int settings_password_new_title=0x7f070023;
+        public static final int settings_ringtone=0x7f070024;
+        public static final int settings_sleeptime=0x7f070025;
+        public static final int settings_volume=0x7f070026;
+        public static final int snooze=0x7f070027;
+        public static final int std_Email_Adress=0x7f07003f;
+        public static final int std_Email_Subject=0x7f070040;
+        public static final int std_PW=0x7f070028;
+        public static final int time=0x7f070029;
+        public static final int title=0x7f07002a;
+        public static final int title_about=0x7f07002b;
+        public static final int title_activity_alarm_=0x7f07002c;
+        public static final int title_activity_main=0x7f07002e;
+        public static final int title_activity_pop_poll=0x7f07003b;
+        public static final int title_activity_settings=0x7f07002d;
+        public static final int title_activity_week=0x7f07002f;
+        public static final int title_password_entry=0x7f070030;
+        public static final int txtNo=0x7f070031;
+        public static final int txtTime_slot=0x7f070032;
+        public static final int txtWeekErrorTimeSlots=0x7f070033;
+        public static final int txtWeekSaveQuestion=0x7f070034;
+        public static final int txtWeekSaveTimeSlots=0x7f070035;
+        public static final int txtWeekSaveTitle=0x7f070036;
+        public static final int txtYes=0x7f070037;
     }
     public static final class style {
         public static final int ActionBar=0x7f080000;
@@ -245,17 +243,17 @@ containing a value of this type.
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     
- API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f080005;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080006;
-        public static final int ButtonBar=0x7f080008;
-        public static final int ButtonBarButton=0x7f080009;
-        public static final int FullscreenActionBarStyle=0x7f08000a;
-        public static final int FullscreenTheme=0x7f080007;
+        public static final int AppTheme_noTitle=0x7f080007;
+        public static final int ButtonBar=0x7f080009;
+        public static final int ButtonBarButton=0x7f08000a;
+        public static final int FullscreenActionBarStyle=0x7f08000b;
+        public static final int FullscreenTheme=0x7f080008;
     }
     public static final class xml {
         public static final int adminpreferences=0x7f040000;

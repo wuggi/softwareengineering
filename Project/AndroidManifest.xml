@@ -23,7 +23,7 @@
             android:label="@string/title_activity_settings"
             android:noHistory="true"
             android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@style/AppTheme_noTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +39,7 @@
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week"
             android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@style/AppTheme_noTitle" >
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.UserSettingActivity"

@@ -1,8 +1,5 @@
 package de.Psychologie.socialintelligence;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -99,7 +96,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	// TODO: nur für Testzwecke, später löschen!
+	// TODO: nur für Testzwecke?
 	public void deleteDB(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS user");
@@ -125,7 +122,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		// Wurde Umfrage abgebrochen?
 		int breakup = abort?1:0;
 		SQLiteDatabase db= this.getWritableDatabase();
-		// TODO: Mehrbenutzer erwünscht muss noch die User-ID gespeichert werden
 		ContentValues cv = new ContentValues();
 		cv.put("date", date);
 		cv.put("alarm", alarmTime);
@@ -138,7 +134,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.insert("poll", null, cv);
 	}
 	
-	//TODO: korrekte abfrage
 	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT u.code, " +
@@ -263,19 +258,14 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// get User Codes
-	public String[] getUserCodes() {
+	public String getUserCode() {
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cur = db.rawQuery("SELECT code FROM user", null);
-		String[] codes = new String[0];
-		List<String> codelst = new ArrayList<String>();
+		Cursor cur = db.rawQuery("SELECT code FROM user where ID=1", null);
+		String code = "";
 		if (cur != null)
-			if (cur.moveToFirst()) {
-				do {
-					codelst.add(cur.getString(0));
-				} while (cur.moveToNext());
-				codes = codelst.toArray(codes);
-			}
-		return codes;
+			if (cur.moveToFirst()) 
+				code = cur.getString(0);			
+		return code;
 	}
 	
 	public boolean existUserCode(){

@@ -7,11 +7,10 @@
     tools:context=".MainActivity" >
 
     <com.markupartist.android.widget.ActionBar
-		android:id="@+id/actionbar"
-		style="@style/ActionBar"
-		app:title="@string/title"
-    />
-        
+        android:id="@+id/actionbar"
+        style="@style/ActionBar"
+        app:title="@string/title_activity_week" />
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"

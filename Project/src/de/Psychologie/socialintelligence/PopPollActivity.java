@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SlidingDrawer;
 import android.widget.TimePicker;
 
 public class PopPollActivity extends Activity {
