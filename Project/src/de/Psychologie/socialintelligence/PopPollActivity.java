@@ -1,15 +1,12 @@
 package de.Psychologie.socialintelligence;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +21,7 @@ public class PopPollActivity extends Activity {
 	Button cancel_button;
 	private TimePicker time;
 	private EditText count;
+	private Alarm pollAlarm;
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class PopPollActivity extends Activity {
 		// App startet -> hinterlegten Klingelton abspielen
 		// Meldung etc. Wenn Handy gesperrt �ffnet sich zwar die App, aber User bekommt nix von mit :-)
 		
-		 final Alarm pollAlarm = new Alarm(this);
+		pollAlarm = new Alarm(this);
 	
 		snooze_button = (Button) findViewById(R.id.snooze_button);
 		ok_button=(Button) findViewById(R.id.ok_button);
@@ -69,10 +67,10 @@ public class PopPollActivity extends Activity {
 				int contacts = Integer.parseInt(count.getText().toString());
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
-				String answerTime = cal.HOUR+":"+cal.MINUTE;
+				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
 				
 				//Datum
-				String date = cal.DAY_OF_MONTH+"."+cal.MONTH+"."+cal.YEAR;
+				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
 				//Alarmzeit
 				String alarmTime=pollAlarm.currentAlarmTime;
 				String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
@@ -92,7 +90,7 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Calendar cal = Calendar.getInstance();
-				String date = cal.DAY_OF_MONTH+"."+cal.MONTH+"."+cal.YEAR;
+				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
 				String alarmTime=pollAlarm.currentAlarmTime;
 
 				pollAlarm.setNextAlarm();

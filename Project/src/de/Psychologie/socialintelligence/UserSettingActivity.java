@@ -2,7 +2,6 @@ package de.Psychologie.socialintelligence;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
@@ -112,8 +110,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		
 		
 		Preference button_week = (Preference) findPreference("button_week");
-		button_week
-				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		button_week.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
 						startActivity(new Intent(UserSettingActivity.this,
@@ -122,8 +119,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					}
 				});
 		Preference button_poll = (Preference) findPreference("button_poll");
-		button_week
-				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
 						startActivity(new Intent(UserSettingActivity.this,
