@@ -1,9 +1,13 @@
 package de.Psychologie.socialintelligence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,7 +17,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,7 +36,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	
 	String ringtonename = prefs.getString("ringtone", "");
-	Preference ringtonepref = (Preference) findPreference("ringtone");
+	CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
 	Uri ringtoneUri;
 	
 	//Get real song title
@@ -58,6 +62,39 @@ public class UserSettingActivity extends PreferenceActivity {
 	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
 	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
 	
+	CustomRingtonepreference Ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
+	
+	RingtoneManager rm = new RingtoneManager(UserSettingActivity.this);
+    final Cursor ringtones = rm.getCursor();
+
+    
+    List<String> mEntries = new ArrayList<String>();
+    List<String> mEntryValues = new ArrayList<String>();
+    
+    for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
+    	//TODO: only ringtones or Songs
+		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
+		mEntryValues.add(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
+    }
+    Ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
+    Ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
+    
+//    public String findPathFromName(String name) {
+//        Cursor mCursor = getContext().getContentResolver().query(
+//                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, 
+//                MediaStore.Audio.Media.TITLE  + "='" +  name + "'", null, null );
+//
+//        String path = "";
+//        if(mCursor.moveToFirst()){
+//            path = mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+//        }
+//
+//        mCursor.close();
+//        mCursor = null;
+//
+//        return path;
+//    }
+
 	}
 
 
@@ -89,7 +126,13 @@ public class UserSettingActivity extends PreferenceActivity {
 		.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference arg0) {
-				startActivity(new Intent(UserSettingActivity.this,	Alarm_Activity.class));
+				//startActivity(new Intent(UserSettingActivity.this,	Alarm_Activity.class));
+				CustomRingtonepreference myRingtonePref = new CustomRingtonepreference(UserSettingActivity.this);
+				myRingtonePref.setKey("keyName"); //Refer to get the pref value
+				myRingtonePref.setDialogTitle("Dialog Title"); 
+				myRingtonePref.setTitle("Title");
+				myRingtonePref.setSummary("Summary");
+		        myRingtonePref.getDialog().show();
 				return true;
 			}
 				});
@@ -119,7 +162,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					}
 				});
 
-		RingtonePreference ringtonepref = (RingtonePreference) findPreference("ringtone");
+		CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
 		ringtonepref
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 					@Override

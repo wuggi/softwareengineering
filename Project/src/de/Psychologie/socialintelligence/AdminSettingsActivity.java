@@ -75,6 +75,9 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});
 		
+		//TODO: Check if there is data
+		//TODO: Check if file exists (hash_new==hash_old) ->name(i).csv
+		
 		Preference button_reset = (Preference) findPreference("button_reset");
 		button_reset
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -83,7 +86,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						reset = true;
 						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 										
-						FileHandler file = new FileHandler(db.getUserCode()+".CSV");
+						FileHandler file = new FileHandler(db.getUserCode()+".csv");
 						filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
 						
 						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_SHORT).show();		
@@ -94,8 +97,8 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						final SharedPreferences settings = PreferenceManager
 								.getDefaultSharedPreferences(getBaseContext());
 						SharedPreferences.Editor editor = settings.edit();
-						editor.putString("ringtone", "");
-						editor.putString("Sleeptime", null);
+						editor.remove("ringtone");
+						editor.remove("Sleeptime");
 						editor.commit();
 						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_deleteDB_success),Toast.LENGTH_SHORT).show();
 					
@@ -190,7 +193,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						
 						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 						
-						FileHandler handler = new FileHandler(db.getUserCode() + ".CSV");
+						FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
 						File file = handler.createExternalFile(db.getPollCsvContext());
 						uri= Uri.fromFile(file);
 						}
