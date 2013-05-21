@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/title_activity_settings" 
-    android:id="@+id/preference_id">
-   
+    android:id="@+id/preference_id"
+    android:title="@string/title_activity_settings" >
+
     <PreferenceCategory android:title="@string/action_settings" >
         <Preference
             android:icon="@drawable/ic_menu_today"
@@ -10,16 +10,13 @@
             android:title="@string/title_activity_week" >
         </Preference>
 
-        <RingtonePreference
-            android:icon="@drawable/ic_menu_note"
-            android:key="ringtone"
-            android:persistent="true"
-            android:ringtoneType="ringtone|alarm"
-            android:selectable="true"
-            android:showDefault="true"
-            android:showSilent="false"
-            android:title="@string/settings_ringtone" />
 
+        <de.Psychologie.socialintelligence.CustomRingtonepreference         	
+            android:title="@string/settings_ringtone"
+            android:icon="@drawable/ic_menu_note"
+            android:persistent="true"
+       		android:key="ringtone"/>
+        
         <ListPreference
             android:defaultValue="5"
             android:dialogTitle="@string/settings_sleeptime"
@@ -52,6 +49,11 @@
             android:icon="@drawable/ic_menu_info_details"
             android:key="button_test"
             android:title="TEST" >
+        </Preference>
+        <Preference
+            android:icon="@drawable/ic_menu_info_details"
+            android:key="button_poll"
+            android:title="Umfrage Test" >
         </Preference>
     </PreferenceCategory>
 
