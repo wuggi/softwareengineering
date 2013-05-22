@@ -101,7 +101,8 @@ public class UserSettingActivity extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		ActivityRegistry.register(this);
+		
 		addPreferencesFromResource(R.xml.preferences);
 		
 		//TODO:AppBar in Settings

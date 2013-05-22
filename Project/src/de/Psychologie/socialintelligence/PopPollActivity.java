@@ -1,18 +1,28 @@
 package de.Psychologie.socialintelligence;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class PopPollActivity extends Activity {
 
@@ -21,14 +31,19 @@ public class PopPollActivity extends Activity {
 	Button cancel_button;
 	private TimePicker timepicker;
 	private EditText countContact;
+	private TextView txtPopPollInfo;
 	private Alarm pollAlarm;
 	private int maxHourforContact = 5;
+	private Calendar cal;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActivityRegistry.register(this);
 		setContentView(R.layout.activity_pop_poll);
 		
-		;
+		// Kalender Instanze setzen
+		cal = Calendar.getInstance();
+		
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PopPollActivity.this);
 		// Datenbank Verbindung aufbauen
 		final SQLHandler db = new SQLHandler(PopPollActivity.this);
@@ -41,7 +56,62 @@ public class PopPollActivity extends Activity {
 		snooze_button = (Button) findViewById(R.id.snooze_button);
 		ok_button=(Button) findViewById(R.id.ok_button);
 		cancel_button=(Button) findViewById(R.id.cancel_button);
+		
+		// Eingabefeld Kontaktpersonen
 		countContact=(EditText) findViewById(R.id.countContact);
+		countContact.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				if(countContact.getText().toString().length() > 0){
+					ok_button.setEnabled(true);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		// TODO: parsen der Zeit
+		// TODO: Fettgedruckt, obwohl HTML korrekt verwendet
+		// TODO: Zeiten nur im HH:mm Format ausgeben
+		txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
+		String lastAlarm = db.getLastAlarm();
+		if(lastAlarm.compareTo("00:00:00") == 0){
+			txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo0)));
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			Date lastTime = cal.getTime();
+			try {
+				lastTime = sdf.parse(lastAlarm);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Date nowTime = cal.getTime();
+			
+			if(lastTime.compareTo(nowTime) < 0){
+				// heute
+				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo1, lastAlarm)));	
+			} else{
+				// gestern
+				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo2, lastAlarm)));
+			}
+		}
+	
+		
+		// Zeitauswahl
 		timepicker=(TimePicker) findViewById(R.id.timePicker);
 		timepicker.setIs24HourView(true);
 		timepicker.setCurrentHour(1);
@@ -58,7 +128,8 @@ public class PopPollActivity extends Activity {
 				int snoozetime = Integer.parseInt(time);
 				pollAlarm.setSnooze(snoozetime);
 				db.setSnoozeActiv(true);
-				
+				// App beenden
+				ActivityRegistry.finishAll();
 			}
 		});
 		
@@ -73,7 +144,7 @@ public class PopPollActivity extends Activity {
 				int contacts = Integer.parseInt(countContact.getText().toString());
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
-				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
+				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				
 				//Datum
 				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
@@ -85,26 +156,43 @@ public class PopPollActivity extends Activity {
 				db.setSnoozeActiv(false);
 				db.setLastAlarm(lastAlarmTime);
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
-				
+				// Meldung
+				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollOK), Toast.LENGTH_LONG).show();
+				ActivityRegistry.finishAll();
 				//if abfrage fehlt, ob nicht mehr Stunden vom letzten Alarmpunkt ausgewält wurden
 				
 			}
 		});
 		
 		cancel_button.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				Calendar cal = Calendar.getInstance();
-				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
-				String alarmTime=pollAlarm.currentAlarmTime;
-
-				pollAlarm.setNextAlarm();
-				db.setSnoozeActiv(false);
-				//Werte in die DB eintragen
-				db.setPollEntry(date, alarmTime);
-				
-				
+				AlertDialog.Builder builder = new AlertDialog.Builder(PopPollActivity.this);
+				builder.setTitle(getResources().getString(R.string.txtPopPollBreakTitle));
+		        builder.setMessage(getResources().getString(R.string.txtPopPollBreakText))
+		               .setCancelable(false)
+		               .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		           				// Umfrage speichern
+			    				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
+			    				String alarmTime=pollAlarm.currentAlarmTime;
+	
+			    				pollAlarm.setNextAlarm();
+			    				db.setSnoozeActiv(false);
+			    				//Werte in die DB eintragen
+			    				db.setPollEntry(date, alarmTime);
+			    				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
+			    				// Alle Activitys beenden
+			    				ActivityRegistry.finishAll();
+		                   }
+		               })
+		               .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                	   dialog.cancel();
+		                   }
+		               });
+		        AlertDialog alert = builder.create();
+		        alert.show();
 			}
 		});
 		
