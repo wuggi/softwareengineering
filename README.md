@@ -11,4 +11,4 @@ TODO:
 - App Bar auf allen Versionen anpassen
 - App Bar in Settings integrieren
 - App Icon
-- Ringtonepreference default setzen
+- Vorgelagerter Weckerscreen Erstellen

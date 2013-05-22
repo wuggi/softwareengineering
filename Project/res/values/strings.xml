@@ -39,6 +39,7 @@
     <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
     <string name="settings_volume">Lautstärke</string>
     <string name="snooze">Schlummern</string>
+    <string name="action">zur Umfrage</string>
     <string name="std_PW">Sommer</string>
     <string name="time">Dauer:</string>
     <string name="title">Social Intelligence</string>
