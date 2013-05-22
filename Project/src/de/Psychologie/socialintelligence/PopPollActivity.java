@@ -22,7 +22,10 @@ public class PopPollActivity extends Activity {
 	private TimePicker timepicker;
 	private EditText count;
 	private Alarm pollAlarm;
+<<<<<<< HEAD
 	private int maxHourforContact = 5;
+=======
+>>>>>>> origin/master
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
