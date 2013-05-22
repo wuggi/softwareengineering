@@ -20,12 +20,9 @@ public class PopPollActivity extends Activity {
 	Button ok_button;
 	Button cancel_button;
 	private TimePicker timepicker;
-	private EditText count;
+	private EditText countContact;
 	private Alarm pollAlarm;
-<<<<<<< HEAD
 	private int maxHourforContact = 5;
-=======
->>>>>>> origin/master
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +41,7 @@ public class PopPollActivity extends Activity {
 		snooze_button = (Button) findViewById(R.id.snooze_button);
 		ok_button=(Button) findViewById(R.id.ok_button);
 		cancel_button=(Button) findViewById(R.id.cancel_button);
+		countContact=(EditText) findViewById(R.id.countContact);
 		timepicker=(TimePicker) findViewById(R.id.timePicker);
 		timepicker.setIs24HourView(true);
 		timepicker.setCurrentHour(1);
@@ -72,7 +70,7 @@ public class PopPollActivity extends Activity {
 				int hour = timepicker.getCurrentHour();
 				int minute = timepicker.getCurrentMinute();
 				//Anzahl der Kontakte
-				int contacts = Integer.parseInt(count.getText().toString());
+				int contacts = Integer.parseInt(countContact.getText().toString());
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
 				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);

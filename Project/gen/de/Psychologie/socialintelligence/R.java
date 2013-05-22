@@ -91,7 +91,7 @@ containing a value of this type.
         public static final int btnWeiter=0x7f0b0013;
         public static final int btnsnooze=0x7f0b000c;
         public static final int cancel_button=0x7f0b0019;
-        public static final int count=0x7f0b0016;
+        public static final int countContact=0x7f0b0016;
         public static final int editText1=0x7f0b0036;
         public static final int editText2=0x7f0b0037;
         public static final int fri=0x7f0b0021;
