@@ -29,70 +29,55 @@ public class UserSettingActivity extends PreferenceActivity {
 	protected void onStart() {
 	super.onStart();
 
-	// Set Ringtonepreference summary to chosen title
 	// Get the xml/prefx.xml preferences
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	
-	String ringtonename = prefs.getString("ringtone", "");
 	CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
-	Uri ringtoneUri;
-	
-	//Get real song title
-	if (ringtonename == ""){
-		// Standart wird gesetzt, falls noch keiner da
-		// 4=Alarm, 7=All, 2=Notification, 1=Ringtone
-		ringtoneUri=RingtoneManager.getDefaultUri(4); 	
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString("ringtone", ringtoneUri.toString());
-		editor.commit();
-	}
-	else
-		ringtoneUri = Uri.parse((String) ringtonename);
 	
 	
-	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
-	String name = ringtone.getTitle(UserSettingActivity.this);
 	
-	ringtonepref.setSummary(name);
-	
-	// Set Sleeptime summary to chosen time		
-	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
-	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
-	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
-	
-	CustomRingtonepreference Ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
-	
+	//Import All Ringtones
 	RingtoneManager rm = new RingtoneManager(UserSettingActivity.this);
+	rm.setType(RingtoneManager.TYPE_ALARM|RingtoneManager.TYPE_RINGTONE );
     final Cursor ringtones = rm.getCursor();
-
     
     List<String> mEntries = new ArrayList<String>();
     List<String> mEntryValues = new ArrayList<String>();
     
     for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
-    	//TODO: only ringtones or Songs
 		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
 		mEntryValues.add(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
     }
-    Ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
-    Ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
+    ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
+    ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
     
-//    public String findPathFromName(String name) {
-//        Cursor mCursor = getContext().getContentResolver().query(
-//                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, 
-//                MediaStore.Audio.Media.TITLE  + "='" +  name + "'", null, null );
-//
-//        String path = "";
-//        if(mCursor.moveToFirst()){
-//            path = mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-//        }
-//
-//        mCursor.close();
-//        mCursor = null;
-//
-//        return path;
-//    }
+	// Set Sleeptime summary to chosen time		
+	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
+	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
+	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
+	
+	// Set Ringtonepreference summary to chosen title
+	String ringtonename = prefs.getString("ringtone", "");
+	Uri ringtoneUri;
+	
+	//Set std Alarm
+	if (ringtonename == ""){
+		// Standart wird gesetzt, falls noch keiner da
+		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM); 	
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("ringtone", ringtoneUri.toString());
+		editor.commit();
+		//Sets the default Alarm to the chosen Value
+		ringtonepref.setValue(RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
+	}
+	else
+		ringtoneUri = Uri.parse((String) ringtonename);	
+	
+	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);	
+	String name = ringtone.getTitle(UserSettingActivity.this);
 
+	//Set summary of Alarm
+	ringtonepref.setSummary(name);
 	}
 
 
@@ -133,13 +118,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference arg0) {
-				//startActivity(new Intent(UserSettingActivity.this,	Alarm_Activity.class));
-				CustomRingtonepreference myRingtonePref = new CustomRingtonepreference(UserSettingActivity.this);
-				myRingtonePref.setKey("keyName"); //Refer to get the pref value
-				myRingtonePref.setDialogTitle("Dialog Title"); 
-				myRingtonePref.setTitle("Title");
-				myRingtonePref.setSummary("Summary");
-		        myRingtonePref.getDialog().show();
+				startActivity(new Intent(UserSettingActivity.this,	Alarm_Activity.class));
 				return true;
 			}
 				});

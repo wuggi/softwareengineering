@@ -12,7 +12,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class CustomRingtonepreference extends ListPreference{
 
@@ -88,10 +87,6 @@ private int  getValueIndex() {
     return findIndexOfValue(mValue);
 }
 
-
-
-//TODO: Default ringtone
-
 @Override
 protected void onPrepareDialogBuilder(Builder builder) {
     super.onPrepareDialogBuilder(builder);
@@ -149,7 +144,7 @@ protected void onPrepareDialogBuilder(Builder builder) {
 private void playSong(String path) throws IllegalArgumentException,
     IllegalStateException, IOException {
 
-    Log.d("ringtone", "playSong :: " + path);
+    //Log.d("ringtone", "playSong :: " + path);
 
     mMediaPlayer.reset();
     mMediaPlayer.setDataSource(path);

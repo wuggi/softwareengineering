@@ -152,9 +152,10 @@ containing a value of this type.
         public static final int Anleitung=0x7f070005;
         public static final int Anzahl=0x7f070006;
         public static final int OK=0x7f070013;
-        public static final int Umfrage_txt=0x7f070038;
-        public static final int Willkommen=0x7f070039;
-        public static final int Willkommen_2=0x7f07003a;
+        public static final int Umfrage_txt=0x7f070039;
+        public static final int Willkommen=0x7f07003a;
+        public static final int Willkommen_2=0x7f07003b;
+        public static final int action=0x7f070028;
         public static final int action_settings=0x7f070003;
         public static final int actionbar_activity_not_found=0x7f070002;
         public static final int alarm_msg=0x7f070004;
@@ -181,10 +182,10 @@ containing a value of this type.
         public static final int settings_about=0x7f07001a;
         public static final int settings_admin=0x7f07001b;
         public static final int settings_deleteDB=0x7f07001c;
-        public static final int settings_deleteDB_success=0x7f070041;
-        public static final int settings_email=0x7f07003e;
-        public static final int settings_email_subject=0x7f07003d;
-        public static final int settings_email_to=0x7f07003c;
+        public static final int settings_deleteDB_success=0x7f070042;
+        public static final int settings_email=0x7f07003f;
+        public static final int settings_email_subject=0x7f07003e;
+        public static final int settings_email_to=0x7f07003d;
         public static final int settings_export=0x7f07001d;
         public static final int settings_export_email=0x7f07001e;
         public static final int settings_export_success=0x7f07001f;
@@ -196,6 +197,7 @@ containing a value of this type.
         public static final int settings_sleeptime=0x7f070025;
         public static final int settings_volume=0x7f070026;
         public static final int snooze=0x7f070027;
+<<<<<<< HEAD
         public static final int std_Email_Adress=0x7f07003f;
         public static final int std_Email_Subject=0x7f070040;
         public static final int std_PW=0x7f070028;
@@ -222,6 +224,27 @@ containing a value of this type.
         public static final int txtWeekSaveTimeSlots=0x7f070035;
         public static final int txtWeekSaveTitle=0x7f070036;
         public static final int txtYes=0x7f070037;
+=======
+        public static final int std_Email_Adress=0x7f070040;
+        public static final int std_Email_Subject=0x7f070041;
+        public static final int std_PW=0x7f070029;
+        public static final int time=0x7f07002a;
+        public static final int title=0x7f07002b;
+        public static final int title_about=0x7f07002c;
+        public static final int title_activity_alarm_=0x7f07002d;
+        public static final int title_activity_main=0x7f07002f;
+        public static final int title_activity_pop_poll=0x7f07003c;
+        public static final int title_activity_settings=0x7f07002e;
+        public static final int title_activity_week=0x7f070030;
+        public static final int title_password_entry=0x7f070031;
+        public static final int txtNo=0x7f070032;
+        public static final int txtTime_slot=0x7f070033;
+        public static final int txtWeekErrorTimeSlots=0x7f070034;
+        public static final int txtWeekSaveQuestion=0x7f070035;
+        public static final int txtWeekSaveTimeSlots=0x7f070036;
+        public static final int txtWeekSaveTitle=0x7f070037;
+        public static final int txtYes=0x7f070038;
+>>>>>>> origin/master
     }
     public static final class style {
         public static final int ActionBar=0x7f080000;
