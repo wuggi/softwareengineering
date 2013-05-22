@@ -15,13 +15,14 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class PopPollActivity extends Activity {
-	
+
 	Button snooze_button;
 	Button ok_button;
 	Button cancel_button;
-	private TimePicker time;
-	private EditText count;
+	private TimePicker timepicker;
+	private EditText countContact;
 	private Alarm pollAlarm;
+	private int maxHourforContact = 5;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +41,12 @@ public class PopPollActivity extends Activity {
 		snooze_button = (Button) findViewById(R.id.snooze_button);
 		ok_button=(Button) findViewById(R.id.ok_button);
 		cancel_button=(Button) findViewById(R.id.cancel_button);
-		
+		countContact=(EditText) findViewById(R.id.countContact);
+		timepicker=(TimePicker) findViewById(R.id.timePicker);
+		timepicker.setIs24HourView(true);
+		timepicker.setCurrentHour(1);
+		timepicker.setCurrentMinute(0);
+		timepicker.setOnTimeChangedListener(StartTimeChangedListener);
 		
 		// Wenn Snooze gedr�ck wird
 		snooze_button.setOnClickListener(new OnClickListener() {
@@ -61,10 +67,10 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Gesamtdauer der Kontakte
-				int hour = time.getCurrentHour();
-				int minute = time.getCurrentMinute();
+				int hour = timepicker.getCurrentHour();
+				int minute = timepicker.getCurrentMinute();
 				//Anzahl der Kontakte
-				int contacts = Integer.parseInt(count.getText().toString());
+				int contacts = Integer.parseInt(countContact.getText().toString());
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
 				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
@@ -115,8 +121,67 @@ public class PopPollActivity extends Activity {
 		//db.setPollEntry(date, alarmTime)
 		
 	}
+
+	private TimePicker.OnTimeChangedListener StartTimeChangedListener = new TimePicker.OnTimeChangedListener() {
+
+		public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+			updateDisplay(view, hourOfDay, minute);
+		}
+	};
+
+	private TimePicker.OnTimeChangedListener NullTimeChangedListener = new TimePicker.OnTimeChangedListener() {
+
+		public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+
+		}
+	};
+
+	private void updateDisplay(TimePicker timePicker, int hourOfDay, int minute) {
+		int nextMinute = 0;
+		int nextHour = 0;
+		timePicker.setOnTimeChangedListener(NullTimeChangedListener);
+		// Minuten - Abstand
+		if (minute >= 45 && minute <= 59)
+			nextMinute = 45;
+		else if (minute >= 30)
+			nextMinute = 30;
+		else if (minute >= 15)
+			nextMinute = 15;
+		else if (minute > 0)
+			nextMinute = 0;
+		else {
+			nextMinute = 45;
+		}
+
+		if (minute - nextMinute == 1) {
+			if (minute >= 45 && minute <= 59)
+				nextMinute = 00;
+			else if (minute >= 30)
+				nextMinute = 45;
+			else if (minute >= 15)
+				nextMinute = 30;
+			else if (minute > 0)
+				nextMinute = 15;
+			else {
+				nextMinute = 15;
+			}
+		}
+		timePicker.setCurrentMinute(nextMinute);
+		
+		
+		if(hourOfDay == 23){
+			nextHour = maxHourforContact;
+		} else if (hourOfDay > maxHourforContact){
+			nextHour = 0;
+		} else {
+			nextHour = hourOfDay;
+		}
 	
-	
+		
+		timePicker.setCurrentHour(nextHour);
+		timePicker.setOnTimeChangedListener(StartTimeChangedListener);
+
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
