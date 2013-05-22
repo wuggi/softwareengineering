@@ -113,7 +113,7 @@ containing a value of this type.
         public static final int textView2=0x7f0b000f;
         public static final int textView3=0x7f0b0010;
         public static final int thur=0x7f0b0020;
-        public static final int time=0x7f0b0018;
+        public static final int timePicker=0x7f0b0018;
         public static final int timeslot1=0x7f0b0024;
         public static final int timeslot10=0x7f0b002e;
         public static final int timeslot11=0x7f0b002f;

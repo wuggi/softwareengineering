@@ -79,7 +79,7 @@ int id textView1 0x7f0b0012
 int id textView2 0x7f0b000f
 int id textView3 0x7f0b0010
 int id thur 0x7f0b0020
-int id time 0x7f0b0018
+int id timePicker 0x7f0b0018
 int id timeslot1 0x7f0b0024
 int id timeslot10 0x7f0b002e
 int id timeslot11 0x7f0b002f
