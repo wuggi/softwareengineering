@@ -22,13 +22,13 @@ public class PopPollActivity extends Activity {
 	private TimePicker time;
 	private EditText count;
 	private Alarm pollAlarm;
-	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pop_poll);
 		
-		
+		;
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PopPollActivity.this);
 		// Datenbank Verbindung aufbauen
 		final SQLHandler db = new SQLHandler(PopPollActivity.this);
 		
