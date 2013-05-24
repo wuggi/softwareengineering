@@ -10,7 +10,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 1;
 	private static final int POLL_ABORT = -77;
 	
 	/////////////////////////////////////////////////////////////

@@ -197,34 +197,6 @@ containing a value of this type.
         public static final int settings_sleeptime=0x7f070025;
         public static final int settings_volume=0x7f070026;
         public static final int snooze=0x7f070027;
-<<<<<<< HEAD
-        public static final int std_Email_Adress=0x7f07003f;
-        public static final int std_Email_Subject=0x7f070040;
-        public static final int std_PW=0x7f070028;
-        public static final int time=0x7f070029;
-        public static final int title=0x7f07002a;
-        public static final int title_about=0x7f07002b;
-        public static final int title_activity_alarm_=0x7f07002c;
-        public static final int title_activity_main=0x7f07002e;
-        public static final int title_activity_pop_poll=0x7f07003b;
-        public static final int title_activity_settings=0x7f07002d;
-        public static final int title_activity_week=0x7f07002f;
-        public static final int title_password_entry=0x7f070030;
-        public static final int txtNo=0x7f070031;
-        public static final int txtPopPollBreak=0x7f070045;
-        public static final int txtPopPollBreakText=0x7f070044;
-        public static final int txtPopPollBreakTitle=0x7f070043;
-        public static final int txtPopPollInfo0=0x7f070046;
-        public static final int txtPopPollInfo1=0x7f070047;
-        public static final int txtPopPollInfo2=0x7f070048;
-        public static final int txtPopPollOK=0x7f070042;
-        public static final int txtTime_slot=0x7f070032;
-        public static final int txtWeekErrorTimeSlots=0x7f070033;
-        public static final int txtWeekSaveQuestion=0x7f070034;
-        public static final int txtWeekSaveTimeSlots=0x7f070035;
-        public static final int txtWeekSaveTitle=0x7f070036;
-        public static final int txtYes=0x7f070037;
-=======
         public static final int std_Email_Adress=0x7f070040;
         public static final int std_Email_Subject=0x7f070041;
         public static final int std_PW=0x7f070029;
@@ -238,13 +210,20 @@ containing a value of this type.
         public static final int title_activity_week=0x7f070030;
         public static final int title_password_entry=0x7f070031;
         public static final int txtNo=0x7f070032;
+        public static final int txtPopPollBreak=0x7f070047;
+        public static final int txtPopPollBreakText=0x7f070046;
+        public static final int txtPopPollBreakTitle=0x7f070045;
+        public static final int txtPopPollInfo0=0x7f070048;
+        public static final int txtPopPollInfo1=0x7f070049;
+        public static final int txtPopPollInfo2=0x7f07004a;
+        public static final int txtPopPollOK=0x7f070043;
+        public static final int txtPopPollSnooze=0x7f070044;
         public static final int txtTime_slot=0x7f070033;
         public static final int txtWeekErrorTimeSlots=0x7f070034;
         public static final int txtWeekSaveQuestion=0x7f070035;
         public static final int txtWeekSaveTimeSlots=0x7f070036;
         public static final int txtWeekSaveTitle=0x7f070037;
         public static final int txtYes=0x7f070038;
->>>>>>> origin/master
     }
     public static final class style {
         public static final int ActionBar=0x7f080000;

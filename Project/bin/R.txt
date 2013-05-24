@@ -157,34 +157,6 @@ int string settings_ringtone 0x7f070024
 int string settings_sleeptime 0x7f070025
 int string settings_volume 0x7f070026
 int string snooze 0x7f070027
-<<<<<<< HEAD
-int string std_Email_Adress 0x7f07003f
-int string std_Email_Subject 0x7f070040
-int string std_PW 0x7f070028
-int string time 0x7f070029
-int string title 0x7f07002a
-int string title_about 0x7f07002b
-int string title_activity_alarm_ 0x7f07002c
-int string title_activity_main 0x7f07002e
-int string title_activity_pop_poll 0x7f07003b
-int string title_activity_settings 0x7f07002d
-int string title_activity_week 0x7f07002f
-int string title_password_entry 0x7f070030
-int string txtNo 0x7f070031
-int string txtPopPollBreak 0x7f070045
-int string txtPopPollBreakText 0x7f070044
-int string txtPopPollBreakTitle 0x7f070043
-int string txtPopPollInfo0 0x7f070046
-int string txtPopPollInfo1 0x7f070047
-int string txtPopPollInfo2 0x7f070048
-int string txtPopPollOK 0x7f070042
-int string txtTime_slot 0x7f070032
-int string txtWeekErrorTimeSlots 0x7f070033
-int string txtWeekSaveQuestion 0x7f070034
-int string txtWeekSaveTimeSlots 0x7f070035
-int string txtWeekSaveTitle 0x7f070036
-int string txtYes 0x7f070037
-=======
 int string std_Email_Adress 0x7f070040
 int string std_Email_Subject 0x7f070041
 int string std_PW 0x7f070029
@@ -198,13 +170,20 @@ int string title_activity_settings 0x7f07002e
 int string title_activity_week 0x7f070030
 int string title_password_entry 0x7f070031
 int string txtNo 0x7f070032
+int string txtPopPollBreak 0x7f070047
+int string txtPopPollBreakText 0x7f070046
+int string txtPopPollBreakTitle 0x7f070045
+int string txtPopPollInfo0 0x7f070048
+int string txtPopPollInfo1 0x7f070049
+int string txtPopPollInfo2 0x7f07004a
+int string txtPopPollOK 0x7f070043
+int string txtPopPollSnooze 0x7f070044
 int string txtTime_slot 0x7f070033
 int string txtWeekErrorTimeSlots 0x7f070034
 int string txtWeekSaveQuestion 0x7f070035
 int string txtWeekSaveTimeSlots 0x7f070036
 int string txtWeekSaveTitle 0x7f070037
 int string txtYes 0x7f070038
->>>>>>> origin/master
 int style ActionBar 0x7f080000
 int style ActionBarHomeItem 0x7f080002
 int style ActionBarHomeLogo 0x7f080003

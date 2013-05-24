@@ -4,13 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.Html;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 
 public class PopPollActivity extends Activity {
 
+	private static final int HITHERE_ID = 1;
 	Button snooze_button;
 	Button ok_button;
 	Button cancel_button;
@@ -35,18 +39,24 @@ public class PopPollActivity extends Activity {
 	private Alarm pollAlarm;
 	private int maxHourforContact = 5;
 	private Calendar cal;
+	private SharedPreferences prefs;
+	private SQLHandler db; 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActivityRegistry.register(this);
 		setContentView(R.layout.activity_pop_poll);
 		
+		// Notification setzen
+		setNotification();
+		
+		
 		// Kalender Instanze setzen
 		cal = Calendar.getInstance();
 		
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PopPollActivity.this);
+		prefs = PreferenceManager.getDefaultSharedPreferences(PopPollActivity.this);
 		// Datenbank Verbindung aufbauen
-		final SQLHandler db = new SQLHandler(PopPollActivity.this);
+		db = new SQLHandler(PopPollActivity.this);
 		
 		// App startet -> hinterlegten Klingelton abspielen
 		// Meldung etc. Wenn Handy gesperrt ï¿½ffnet sich zwar die App, aber User bekommt nix von mit :-)
@@ -208,6 +218,65 @@ public class PopPollActivity extends Activity {
 		// Wenn Abbrechen gedrï¿½ckt
 		//db.setPollEntry(date, alarmTime)
 		
+	}
+	
+	public void onBackPressed() {
+		setSnooze();
+	}
+	
+	
+	private void setSnooze(){
+		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
+		String time= prefs.getString("Sleeptime", "5 Minuten");
+		int snoozetime = Integer.parseInt(time);
+		pollAlarm.setSnooze(snoozetime);
+		db.setSnoozeActiv(true);
+		// Meldung
+		Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
+		// App beenden
+		ActivityRegistry.finishAll();
+	}
+	
+	// TODO: App startet bereits alleine, in der Notification ist festgelegt, wenn man darauf klingt kommt man auch zur Umfrage
+	// Doppel gemoppelt, nur die Meldung?
+	// Oder Meldung kann man weg klicken (ohne das sie weiterleitet?)
+	@SuppressWarnings("deprecation")
+	private void setNotification(){
+		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		
+		// Meldung (im Durchlauf) definieren
+		int icon          = R.drawable.ic_launcher;
+		CharSequence text = "Umfrage beantworten!";
+		long time         = System.currentTimeMillis();
+		
+		// Meldung setzen
+		Notification notification = new Notification(icon, text, time);
+		
+		// Meldung schließen
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		
+		// Meldungstext, wenn gewählt
+		Context context = getApplicationContext();
+		CharSequence contentTitle = "Umfrage";
+		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";
+		
+		Intent notificationIntent = new Intent(this, this.getClass());
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 1, notificationIntent, 1);
+	
+		// Ton hinzufügen
+		notification.defaults |= Notification.DEFAULT_SOUND;
+		
+		// Vibration benötigt zusätzliches Recht
+		//notification.defaults |= Notification.DEFAULT_VIBRATE;
+		
+		// Licht
+		notification.defaults |= Notification.DEFAULT_LIGHTS;
+
+		
+		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		
+		// NotificationManager bekommt Meldung
+		notificationManager.notify(HITHERE_ID, notification);
 	}
 
 	private TimePicker.OnTimeChangedListener StartTimeChangedListener = new TimePicker.OnTimeChangedListener() {
