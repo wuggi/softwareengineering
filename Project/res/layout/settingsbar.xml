@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/de.Psychologie.socialintelligence"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+    
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/settings_actionbar"
+        style="@style/ActionBar"
+        app:title="@string/title_activity_week" />
+
+</LinearLayout>

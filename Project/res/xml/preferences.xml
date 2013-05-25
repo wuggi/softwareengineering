@@ -10,13 +10,12 @@
             android:title="@string/title_activity_week" >
         </Preference>
 
-
-        <de.Psychologie.socialintelligence.CustomRingtonepreference         	
-            android:title="@string/settings_ringtone"
+        <de.Psychologie.socialintelligence.CustomRingtonepreference
             android:icon="@drawable/ic_menu_note"
+            android:key="ringtone"
             android:persistent="true"
-       		android:key="ringtone"/>
-        
+            android:title="@string/settings_ringtone" />
+
         <ListPreference
             android:defaultValue="5"
             android:dialogTitle="@string/settings_sleeptime"
@@ -29,6 +28,7 @@
             android:title="@string/settings_sleeptime" />
 
         <VolumePreference
+            android:key="volumepref"
             android:icon="@drawable/ic_volume"
             android:persistent="true"
             android:streamType="alarm"

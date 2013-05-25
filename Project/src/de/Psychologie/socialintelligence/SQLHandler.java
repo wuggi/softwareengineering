@@ -373,7 +373,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	public String getFirstTimeFromDay(int day){
 		String res = "00:00:00";
 		SQLiteDatabase db= this.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT time FROM user WHERE day='"+day+"' ORDER BY ID",null);
+		Cursor c = db.rawQuery("SELECT time FROM time WHERE day='"+day+"' ORDER BY ID",null);
 		if(c != null){
 			c.moveToFirst();
 			res = c.getString(0);

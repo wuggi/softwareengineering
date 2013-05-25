@@ -138,9 +138,8 @@ public class Alarm{
 	
 	private void startAlarm(){
     	// bei Alarmstart die Umfrage aufrufen
-    	// TODO: oder eine Zwischen-Activtiy starten, die lediglich Snooze setzt.
     	// Damit der Start durch den Alarm klar ist
-        Intent intent = new Intent(source, PopPollActivity.class);
+        Intent intent = new Intent(source, Alarm_Activity.class);
         // 10000 ist einmalige Nummer für den Alarm
         PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager am = (AlarmManager)source.getSystemService(Activity.ALARM_SERVICE);

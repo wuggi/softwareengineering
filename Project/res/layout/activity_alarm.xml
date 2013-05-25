@@ -2,19 +2,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <FrameLayout
-        android:id="@+id/CustomLayout01"
+    <Button
+        android:id="@+id/btn_action_front"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="25dp" >
+        android:layout_marginBottom="143dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/action" />
 
-        <Button
-            android:id="@+id/btnsnooze"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/snooze" />
-    </FrameLayout>
+    <Button
+        android:id="@+id/btn_snooze_front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_action_front"
+        android:layout_alignBottom="@+id/btn_action_front"
+        android:layout_marginLeft="30dp"
+        android:text="@string/snooze" />
+
+    <TextView
+        android:id="@+id/textview_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_snooze_front"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        android:typeface="normal" />
 
 </RelativeLayout>

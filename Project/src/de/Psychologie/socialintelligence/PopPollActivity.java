@@ -20,6 +20,7 @@ import android.text.Html;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class PopPollActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ActivityRegistry.register(this);
 		setContentView(R.layout.activity_pop_poll);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		
 		// Notification setzen
 		setNotification();
@@ -228,7 +230,7 @@ public class PopPollActivity extends Activity {
 	
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
-		String time= prefs.getString("Sleeptime", "5 Minuten");
+		String time= prefs.getString("Sleeptime", "5");
 		int snoozetime = Integer.parseInt(time);
 		pollAlarm.setSnooze(snoozetime);
 		db.setSnoozeActiv(true);

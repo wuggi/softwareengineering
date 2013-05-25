@@ -86,14 +86,17 @@ public class UserSettingActivity extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActivityRegistry.register(this);
+ActivityRegistry.register(this);
 		
 		addPreferencesFromResource(R.xml.preferences);
 		
 		//TODO:AppBar in Settings
 		//com.markupartist.android.widget.ActionBar actionBar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.actionbar);
 		//actionBar.inflate(getBaseContext(), resource, root)
-		
+		//setup any other views that you have
+ 		
+		//com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.settings_actionbar);
+		//setContentView(R.layout.settingsbar); //set the contentview. On the layout, you need a listview with the id: @android:id/list
 		
 		Preference button_week = (Preference) findPreference("button_week");
 		button_week.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -159,6 +162,10 @@ public class UserSettingActivity extends PreferenceActivity {
 						String name = ringtone.getTitle(UserSettingActivity.this);
 
 						preference.setSummary( name);
+						// Save Ringtone to preferences
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+						SharedPreferences.Editor editor = prefs.edit();
+						editor.putString("ringtone", ringtoneUri.toString());
 
 						return true;
 					}
