@@ -28,8 +28,6 @@ public class Alarm{
 	// TODO: sehr unschön...
 	Activity source;
 	
-
-	
 	// speichern letzter Alarm
 	// speichern nächster Alarm
 	
@@ -54,9 +52,14 @@ public class Alarm{
 
 
 		// Zeit setzen, mit Aufbau 00:00:00
-		currentAlarmTime = withNull(currentHour)+":"+withNull(currentMinute)+":00";
-		
+		currentAlarmTime = withNull(currentHour)+":"+withNull(currentMinute)+":00";	
 	}
+	
+	Alarm(){
+		this(new Activity());
+	}
+	
+	
 	
 	// setzen nächsten oder ersten Alarm
 	public boolean setNextAlarm(){
@@ -100,7 +103,14 @@ public class Alarm{
 			alarmDay.setSeconds(5);
 			Log.v("test",alarmDay.toString());
 
+			// letzen Alarm setzen
+			if(!firstAlarm){
+				db.setLastAlarm(currentAlarmTime);
+			} else {
+				db.setLastAlarm("00:00:00");
+			}
 			// nächsten Alarm setzen
+			db.setNextAlarm(alarmDay.getHours()+":"+alarmDay.getMinutes()+":00");
         	cal.setTime(alarmDay);
         	startAlarm();
         	

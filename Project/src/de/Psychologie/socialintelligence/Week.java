@@ -17,22 +17,22 @@ import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class Week extends Activity {
 
-	Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5, timeslot6,
+	private Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5, timeslot6,
 			timeslot7, timeslot8;
-	Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13,
+	private Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13,
 			timeslot14, timeslot15;
-	Button mon, tue, wed, thur, fri, sat, sun;
-	Button saveWeek;
+	private Button mon, tue, wed, thur, fri, sat, sun;
+	private Button saveWeek;
 	// Zeitslots verwalten
-	Button[] ButtonHandler = new Button[15];
+	private Button[] ButtonHandler = new Button[15];
 	// Tage verwalten
-	Day week[] = new Day[7];
+	private Day week[] = new Day[7];
 	// aktueller Tag
-	Day currentDay;
+	private Day currentDay;
 	// Ansicht gespeichert
-	boolean saveAllTimeSlots = true;
+	private boolean saveAllTimeSlots = true;
 	// Alarm
-	Alarm alarm;
+	private Alarm alarm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
