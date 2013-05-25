@@ -31,9 +31,9 @@ import android.widget.Toast;
 public class PopPollActivity extends Activity {
 
 	private static final int HITHERE_ID = 1;
-	Button snooze_button;
-	Button ok_button;
-	Button cancel_button;
+	private Button snooze_button;
+	private Button ok_button;
+	private Button cancel_button;
 	private TimePicker timepicker;
 	private EditText countContact;
 	private TextView txtPopPollInfo;
@@ -115,10 +115,10 @@ public class PopPollActivity extends Activity {
 			
 			if(lastTime.compareTo(nowTime) < 0){
 				// heute
-				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo1, lastAlarm)));	
+				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo1, lastAlarm.substring(0,5))));	
 			} else{
 				// gestern
-				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo2, lastAlarm)));
+				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo2, lastAlarm.substring(0,5))));
 			}
 		}
 	
@@ -163,11 +163,12 @@ public class PopPollActivity extends Activity {
 				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
 				//Alarmzeit
 				String alarmTime=pollAlarm.currentAlarmTime;
-				String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
+				//String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				//nÃ¤chsten Alarm setzen
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
-				db.setLastAlarm(lastAlarmTime);
+				// TODO: LastAlarm gehört zu Alarm
+				//db.setLastAlarm(lastAlarmTime);
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
 				// Meldung
 				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollOK), Toast.LENGTH_LONG).show();

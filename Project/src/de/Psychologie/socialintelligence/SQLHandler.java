@@ -10,7 +10,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private static final int POLL_ABORT = -77;
 	
 	/////////////////////////////////////////////////////////////
@@ -39,7 +39,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	private static final String tabCreateStatus = "CREATE TABLE IF NOT EXISTS status ( " +
 												  "ID INTEGER PRIMARY KEY NOT NULL, " +
 												  "snoozeActiv INTEGER NULL, " +	
-												  "lastAlarm Text NULL)";
+												  "lastAlarm Text NULL, " +
+												  "nextAlarm Text NULL)";
 			
 	/////////////////////////////////////////////////////////////
 	//// FIRST PROCESS
@@ -208,6 +209,28 @@ public class SQLHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db= this.getReadableDatabase();
 		String res = "00:00:00";
 		Cursor c = db.rawQuery("SELECT lastAlarm FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		//db.close();
+		return res;
+	}
+	
+	// nächsten Alarm setzen
+	public void setNextAlarm(String nextAlarmTime){
+		SQLiteDatabase db= this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put("nextAlarm", nextAlarmTime);
+		db.update("status", cv, "ID = 1", null);
+		//db.close();
+	}
+	
+	// nächsten Alarm auslesen
+	public String getNextAlarm() {
+		SQLiteDatabase db= this.getReadableDatabase();
+		String res = "00:00:00";
+		Cursor c = db.rawQuery("SELECT nextAlarm FROM status WHERE ID=1",null);
 		if(c != null){
 			c.moveToFirst();
 			res = c.getString(0);
