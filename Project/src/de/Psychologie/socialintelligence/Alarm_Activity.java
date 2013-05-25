@@ -30,7 +30,6 @@ public class Alarm_Activity extends Activity {
 	private MediaPlayer mMediaPlayer;
 	private SharedPreferences prefs;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,6 +100,7 @@ public class Alarm_Activity extends Activity {
 			mMediaPlayer.prepare();
 			mMediaPlayer.start();
 
+			//TODO: korrekte lautstärke
 			AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 			mMediaPlayer.setVolume(audio.getStreamVolume(AudioManager.STREAM_RING),
 					audio.getStreamVolume(AudioManager.STREAM_RING));
@@ -152,13 +152,15 @@ public class Alarm_Activity extends Activity {
 	        return super.onKeyDown(keyCode, event);
 	    }
 	}
-	
+	//TODO:
 	//Try to ignore home button
 	@Override
 	public void onPause(){
 		Log.i("Status","pause");
+		// onPause() ist started after/before oncreate()
+		
+		
 		super.onPause();
-		//this.onResume();
 	}
 
 }
