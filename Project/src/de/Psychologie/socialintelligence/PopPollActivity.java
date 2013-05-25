@@ -133,13 +133,14 @@ public class PopPollActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
-				String time= prefs.getString("Sleeptime", "5 Minuten");
-				int snoozetime = Integer.parseInt(time);
-				pollAlarm.setSnooze(snoozetime);
-				db.setSnoozeActiv(true);
-				// App beenden
-				ActivityRegistry.finishAll();
+//				//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
+//				String time= prefs.getString("Sleeptime", "5 Minuten");
+//				int snoozetime = Integer.parseInt(time);
+//				pollAlarm.setSnooze(snoozetime);
+//				db.setSnoozeActiv(true);
+//				// App beenden
+//				ActivityRegistry.finishAll();
+				setSnooze();
 			}
 		});
 		
@@ -273,7 +274,8 @@ public class PopPollActivity extends Activity {
 		notification.defaults |= Notification.DEFAULT_LIGHTS;
 
 		
-		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		//notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		notification.setLatestEventInfo(context, contentTitle, contentText, null);
 		
 		// NotificationManager bekommt Meldung
 		notificationManager.notify(HITHERE_ID, notification);

@@ -159,7 +159,6 @@ public class Week extends Activity {
 		} 
 		
 		// Aktuellen Wochentag anklicken
-		// TODO: Dieser Tag muss momentan zwingend Zeiten bekommen!
 		clickCurrentDay();
 				
 		////////////////////////////////////////////////////////////////////////
