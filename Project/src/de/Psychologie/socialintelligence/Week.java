@@ -268,8 +268,8 @@ public class Week extends Activity {
 						// aktuellen Tag merken
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
 					} else {
+						// Tag hinzufügen und als aktuellen Tag merken
 						addDay(bnt.getId());
-						// TODO: currentDay??
 					}
 					enableAllTimes(true);
 					break;

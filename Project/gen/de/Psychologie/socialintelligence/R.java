@@ -153,7 +153,7 @@ containing a value of this type.
         public static final int week=0x7f0b0002;
     }
     public static final class raw {
-        public static final int cygnus=0x7f050000;
+        public static final int alarmtone=0x7f050000;
     }
     public static final class string {
         public static final int Anleitung=0x7f080005;

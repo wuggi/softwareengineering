@@ -17,6 +17,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -43,17 +44,20 @@ public class UserSettingActivity extends PreferenceActivity {
     
     List<String> mEntries = new ArrayList<String>();
     List<String> mEntryValues = new ArrayList<String>();
-    
+    int i=0;
     for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
 		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
+    	Log.i("RingtoneEntry["+i+"]",mEntries.get(i));
 		mEntryValues.add(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
+    	Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
+		i++;
     }
-    //Import cygnus.ogg for devices without ringtones
-    Uri MySongUri = Uri.parse(getApplicationContext().getResources().getResourceEntryName(
-			getResources().getIdentifier("cygnus", "raw", getPackageName())));
+    //TODO: Import cygnus.ogg for devices without ringtones
+    //int MySongName = R.raw.alarmtone;
+    //Uri MySongUri = Uri.parse("android.resource://" + getPackageName() + "/"+MySongName);
     
-	mEntries.add(RingtoneManager.getRingtone(UserSettingActivity.this, MySongUri).getTitle(UserSettingActivity.this));
-	mEntryValues.add(MySongUri.toString());
+    //mEntries.add(getResources().getResourceEntryName(MySongName));
+	//mEntryValues.add(MySongUri.toString());
 	
     ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
@@ -71,8 +75,8 @@ public class UserSettingActivity extends PreferenceActivity {
 	if (ringtonename == ""){
 		// Standart wird gesetzt, falls noch keiner da
 		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM);
-		if(ringtoneUri==null)
-			ringtoneUri= MySongUri;
+		//if(ringtoneUri==null)
+		//	ringtoneUri= MySongUri;
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString("ringtone", ringtoneUri.toString());
 		editor.commit();
@@ -166,6 +170,7 @@ ActivityRegistry.register(this);
 					@Override
 					public boolean onPreferenceChange(Preference preference,Object newValue) {
 						
+						Log.d("OnprefChange", "newValue="+newValue.toString());
 						Uri ringtoneUri = Uri.parse((String) newValue);
 						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 						String name = ringtone.getTitle(UserSettingActivity.this);
@@ -175,6 +180,7 @@ ActivityRegistry.register(this);
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 						SharedPreferences.Editor editor = prefs.edit();
 						editor.putString("ringtone", ringtoneUri.toString());
+						editor.commit();
 
 						return true;
 					}
@@ -186,8 +192,7 @@ ActivityRegistry.register(this);
 					@Override
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
-						preference
-								.setSummary(((String) newValue) + " \tMinuten");
+						preference.setSummary(((String) newValue) + " \tMinuten");
 						return true;
 					}
 				});
@@ -270,5 +275,7 @@ ActivityRegistry.register(this);
 		}
 		return null;
 	}
-
+	
+	
+	
 }

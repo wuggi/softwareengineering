@@ -22,11 +22,11 @@ public class Alarm{
 	// Stunde 24er Format
 	private int currentHour;
 	// Alarmzeiten in Datenbank
-	String currentAlarmTime;
-	String nextAlarmTime;
+	private String currentAlarmTime;
+	private String nextAlarmTime;
 	// Activity. welche den Alarm nutzen möchte
 	// TODO: sehr unschön...
-	Activity source;
+	private Activity source;
 	
 	// speichern letzter Alarm
 	// speichern nächster Alarm
@@ -54,12 +54,7 @@ public class Alarm{
 		// Zeit setzen, mit Aufbau 00:00:00
 		currentAlarmTime = FormatHandler.withNull(currentHour)+":"+FormatHandler.withNull(currentMinute)+":00";	
 	}
-	
-	Alarm(){
-		this(new Activity());
-	}
-	
-	
+
 	
 	// setzen nächsten oder ersten Alarm
 	public boolean setNextAlarm(){
@@ -146,7 +141,9 @@ public class Alarm{
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
 	}
 	
-	
+	public String getCurrentAlarmTime() {
+		return currentAlarmTime;
+	}
 	
 	// TODO: kann weg
 	public boolean appStartByAlarm(){

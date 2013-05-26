@@ -1,15 +1,20 @@
-05-26 10:57:31.057: E/AndroidRuntime(9084): FATAL EXCEPTION: main
-05-26 10:57:31.057: E/AndroidRuntime(9084): java.lang.NullPointerException
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at de.Psychologie.socialintelligence.UserSettingActivity$5.onPreferenceChange(UserSettingActivity.java:162)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.preference.Preference.callChangeListener(Preference.java:895)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at de.Psychologie.socialintelligence.CustomRingtonepreference.onDialogClosed(CustomRingtonepreference.java:207)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.preference.DialogPreference.onDismiss(DialogPreference.java:390)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.app.Dialog$ListenersHandler.handleMessage(Dialog.java:1240)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.os.Handler.dispatchMessage(Handler.java:99)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.os.Looper.loop(Looper.java:137)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.app.ActivityThread.main(ActivityThread.java:4918)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at java.lang.reflect.Method.invokeNative(Native Method)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at java.lang.reflect.Method.invoke(Method.java:511)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:994)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:761)
-05-26 10:57:31.057: E/AndroidRuntime(9084): 	at dalvik.system.NativeStart.main(Native Method)
+05-26 16:11:44.175: E/AndroidRuntime(3831): FATAL EXCEPTION: main
+05-26 16:11:44.175: E/AndroidRuntime(3831): java.lang.RuntimeException: Unable to start activity ComponentInfo{de.Psychologie.socialintelligence/de.Psychologie.socialintelligence.UserSettingActivity}: java.lang.NullPointerException
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2107)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2132)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.ActivityThread.access$700(ActivityThread.java:140)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1238)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.os.Looper.loop(Looper.java:137)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.ActivityThread.main(ActivityThread.java:4918)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at java.lang.reflect.Method.invokeNative(Native Method)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at java.lang.reflect.Method.invoke(Method.java:511)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:994)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:761)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at dalvik.system.NativeStart.main(Native Method)
+05-26 16:11:44.175: E/AndroidRuntime(3831): Caused by: java.lang.NullPointerException
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at de.Psychologie.socialintelligence.UserSettingActivity.onStart(UserSettingActivity.java:55)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1178)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.Activity.performStart(Activity.java:5195)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2080)
+05-26 16:11:44.175: E/AndroidRuntime(3831): 	... 11 more
