@@ -55,6 +55,11 @@
             android:key="button_poll"
             android:title="Umfrage Test" >
         </Preference>
+        <Preference
+            android:icon="@drawable/ic_menu_info_details"
+            android:key="numpicker"
+            android:title="Numpicker Test" >
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>

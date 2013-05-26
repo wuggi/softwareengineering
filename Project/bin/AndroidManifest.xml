@@ -24,7 +24,7 @@
             android:name="de.Psychologie.socialintelligence.MainActivity"
             android:label="@string/title_activity_settings"
             android:noHistory="true"
-            android:screenOrientation="portrait" 
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme_noTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,12 +35,13 @@
         <activity
             android:name="de.Psychologie.socialintelligence.PopPollActivity"
             android:label="@string/title_activity_pop_poll"
+            android:theme="@style/SampleTheme.Light"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.Week"
             android:label="@string/title_activity_week"
-            android:screenOrientation="portrait" 
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme_noTitle" >
         </activity>
         <activity
@@ -59,13 +60,23 @@
             android:label="@string/title_activity_alarm_"
             android:theme="@style/FullscreenTheme" >
         </activity>
-        
-        <receiver android:name=".BootReceiver" android:enabled="true" android:exported="false">
+
+        <receiver
+            android:name="de.Psychologie.socialintelligence.BootReceiver"
+            android:enabled="true"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <activity android:name="BootActivity"></activity>
+
+        <activity android:name="de.Psychologie.socialintelligence.BootActivity" >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.Numpicker"
+            android:theme="@style/SampleTheme.Light"
+            android:label="@string/title_activity_numpicker" >
+        </activity>
     </application>
 
 </manifest>

@@ -72,7 +72,9 @@
     <string name="txtPopPollBreakText">Wollen Sie wirklich die Umfrage abbrechen?</string>
     <string name="txtPopPollBreak">Umfrage wurde abgebrochen</string>
     <string name="txtPopPollInfo0">Mit wie vielen Interaktionspartnern hatten Sie <b>heute</b> schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
-	<string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um <b>%s Uhr</b> Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
-	<string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten <b>gestriegen</b> Signal um <b>%s Uhr</b> schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
-	
+    <string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um <b>%s Uhr</b> Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten <b>gestriegen</b> Signal um <b>%s Uhr</b> schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="title_activity_numpicker">Numpicker</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

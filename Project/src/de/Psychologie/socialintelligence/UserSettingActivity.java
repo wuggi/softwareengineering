@@ -129,6 +129,18 @@ ActivityRegistry.register(this);
 						return true;
 					}
 				});
+		Preference numpicker = (Preference) findPreference("numpicker");
+		numpicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {
+						startActivity(new Intent(UserSettingActivity.this,
+								Numpicker.class));
+						return true;
+					}
+				});
+		
+		
+
 		Preference button_test = (Preference) findPreference("button_test");
 		button_test
 		.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
