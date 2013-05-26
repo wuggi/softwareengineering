@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="de.Psychologie.socialintelligence.SQLHandler" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/SQLHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="603" width="286" x="1885" y="667"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="de.Psychologie.socialintelligence.ActivityRegistry" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/ActivityRegistry.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="147" x="270" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="de.Psychologie.socialintelligence.PopPollActivity" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/PopPollActivity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="405" width="277" x="1894" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="de.Psychologie.socialintelligence.Alarm" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/Alarm.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="178" x="2211" y="667"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="de.Psychologie.socialintelligence.FormatHandler" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/FormatHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="147" x="457" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="de.Psychologie.socialintelligence.FileHandler" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/FileHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="167" x="644" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="de.Psychologie.socialintelligence.Alarm_Activity" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/Alarm_Activity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="179" x="851" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="de.Psychologie.socialintelligence.Week.Day" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/Week.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2526" y="912"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="de.Psychologie.socialintelligence.UserSettingActivity" 
+    project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/UserSettingActivity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="147" x="1070" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="de.Psychologie.socialintelligence.CustomRingtonepreference.SavedState" 
+    project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/CustomRingtonepreference.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="184" x="2656" y="667"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="de.Psychologie.socialintelligence.Week" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/Week.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2514" y="220"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="de.Psychologie.socialintelligence.CustomRingtonepreference" 
+    project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/CustomRingtonepreference.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="423" width="263" x="2656" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="de.Psychologie.socialintelligence.BootActivity" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/BootActivity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="147" x="2211" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="de.Psychologie.socialintelligence.BootReceiver" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/BootReceiver.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="174" x="1257" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="de.Psychologie.socialintelligence.MainActivity" project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/MainActivity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="195" x="1471" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="de.Psychologie.socialintelligence.AdminSettingsActivity" 
+    project="SocialIntelligence" 
+    file="/SocialIntelligence/src/de/Psychologie/socialintelligence/AdminSettingsActivity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="148" x="1706" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <nesting id="17">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <association id="18">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="19" name="alarm"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="22" name="alarm"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="25" name="db"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="27">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
+  <association id="28">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="29" name="currentDay"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="32" name="db"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="35" name="pollAlarm"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="38" name="week"/>      
+      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

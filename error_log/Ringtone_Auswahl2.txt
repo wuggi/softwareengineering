@@ -1,0 +1,47 @@
+05-26 16:13:22.862: W/ResourceType(4268): Failure getting entry for 0x010802c1 (t=7 e=705) in package 0 (error -75)
+05-26 16:13:22.886: D/AbsListView(4268): Get MotionRecognitionManager
+05-26 16:13:22.902: D/AbsListView(4268): Get MotionRecognitionManager
+05-26 16:13:22.909: W/Resources(4268): Converting to string: TypedValue{t=0x10/d=0x5 a=-1}
+05-26 16:13:22.964: V/MediaPlayer-JNI(4268): native_setup
+05-26 16:13:22.964: V/MediaPlayer(4268): constructor
+05-26 16:13:22.964: V/MediaPlayer(4268): setListener
+05-26 16:13:22.972: V/MediaPlayer-JNI(4268): setAudioStreamType: 2
+05-26 16:13:22.972: V/MediaPlayer(4268): MediaPlayer::setAudioStreamType
+05-26 16:13:22.972: V/MediaPlayer(4268): setVideoSurfaceTexture
+05-26 16:13:22.972: V/MediaPlayer(4268): prepare
+05-26 16:13:22.980: V/MediaPlayer(4268): message received msg=100, ext1=1, ext2=-2147483648
+05-26 16:13:22.980: E/MediaPlayer(4268): error (1, -2147483648)
+05-26 16:13:22.980: V/MediaPlayer(4268): signal application thread
+05-26 16:13:22.980: V/MediaPlayer(4268): prepare complete - status=1
+05-26 16:13:22.980: V/MediaPlayer-JNI(4268): setVolume: left 0.000000  right 0.000000
+05-26 16:13:22.980: V/MediaPlayer(4268): MediaPlayer::setVolume(0.000000, 0.000000)
+05-26 16:13:22.980: V/MediaPlayer-JNI(4268): release
+05-26 16:13:22.980: V/MediaPlayer(4268): setListener
+05-26 16:13:22.980: V/MediaPlayer(4268): disconnect
+05-26 16:13:22.987: V/MediaPlayer(4268): destructor
+05-26 16:13:22.987: V/MediaPlayer(4268): disconnect
+05-26 16:13:22.987: D/Ringtone(4268): Problem opening; delegating to remote player, return false : cygnus
+05-26 16:13:22.987: E/RingtoneManager(4268): Failed to setUri cygnus, return null
+05-26 16:13:22.987: D/AndroidRuntime(4268): Shutting down VM
+05-26 16:13:22.987: W/dalvikvm(4268): threadid=1: thread exiting with uncaught exception (group=0x413842a0)
+05-26 16:13:22.987: E/AndroidRuntime(4268): FATAL EXCEPTION: main
+05-26 16:13:22.987: E/AndroidRuntime(4268): java.lang.RuntimeException: Unable to start activity ComponentInfo{de.Psychologie.socialintelligence/de.Psychologie.socialintelligence.UserSettingActivity}: java.lang.NullPointerException
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2107)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2132)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.ActivityThread.access$700(ActivityThread.java:140)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1238)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.os.Looper.loop(Looper.java:137)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.ActivityThread.main(ActivityThread.java:4918)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at java.lang.reflect.Method.invokeNative(Native Method)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at java.lang.reflect.Method.invoke(Method.java:511)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:994)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:761)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at dalvik.system.NativeStart.main(Native Method)
+05-26 16:13:22.987: E/AndroidRuntime(4268): Caused by: java.lang.NullPointerException
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at de.Psychologie.socialintelligence.UserSettingActivity.onStart(UserSettingActivity.java:55)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1178)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.Activity.performStart(Activity.java:5195)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2080)
+05-26 16:13:22.987: E/AndroidRuntime(4268): 	... 11 more
+05-26 16:13:31.589: I/Process(4268): Sending signal. PID: 4268 SIG: 9

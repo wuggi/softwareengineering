@@ -404,36 +404,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		//db.close();
 		return res;
 	}
-	
-	
-	// TODO: Es wird eine Methode benötigt, welche gesetzte Tage löscht, wenn dieser in der Vergangenheit liegt.
-	
-
-	/*
-	public Cursor getUserByID(int id){
-		 SQLiteDatabase db=this.getReadableDatabase();
-		 return db.rawQuery("SELECT ID as _id, name FROM "+tabUser+
-			" WHERE ID="+id, null);
-	}
-	*/
-	
-	
 }
-	
-/*
-
-	-- -----------------------------------------------------
-	-- Table `mydb`.`status`
-	-- -----------------------------------------------------
-	CREATE  TABLE IF NOT EXISTS `mydb`.`status` (
-	  `ID` INT NOT NULL AUTO_INCREMENT ,
-	  `lastAlarm` TIME NULL ,
-	  `snooze` CHAR NULL ,
-	  `startDay` CHAR NULL ,
-	  PRIMARY KEY (`ID`) )
-	ENGINE = InnoDB;
-
-*/
 	
 
 

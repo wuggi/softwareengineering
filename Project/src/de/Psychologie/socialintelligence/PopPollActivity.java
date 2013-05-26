@@ -81,15 +81,11 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		
@@ -161,7 +157,7 @@ public class PopPollActivity extends Activity {
 				//Datum
 				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
 				//Alarmzeit
-				String alarmTime=pollAlarm.currentAlarmTime;
+				String alarmTime=pollAlarm.getCurrentAlarmTime();
 				//String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				//nächsten Alarm setzen
 				pollAlarm.setNextAlarm();
@@ -188,7 +184,7 @@ public class PopPollActivity extends Activity {
 		                   public void onClick(DialogInterface dialog, int id) {
 		           				// Umfrage speichern
 			    				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
-			    				String alarmTime=pollAlarm.currentAlarmTime;
+			    				String alarmTime=pollAlarm.getCurrentAlarmTime();
 	
 			    				pollAlarm.setNextAlarm();
 			    				db.setSnoozeActiv(false);
