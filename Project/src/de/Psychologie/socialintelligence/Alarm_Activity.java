@@ -93,17 +93,16 @@ public class Alarm_Activity extends Activity {
 		mMediaPlayer = new MediaPlayer();
 		try {
 			mMediaPlayer.reset();
-			mMediaPlayer.setDataSource(prefs.getString("ringtone",
-					RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString()));
-			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+			String path = prefs.getString("ringtone",
+					RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
+			mMediaPlayer.setDataSource(path);
+
+		    Log.d("Alarm_Activity", "playSong :: " + path);
+		    
+			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
 			mMediaPlayer.setLooping(true);
 			mMediaPlayer.prepare();
 			mMediaPlayer.start();
-
-			//TODO: korrekte lautstärke
-			AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-			mMediaPlayer.setVolume(audio.getStreamVolume(AudioManager.STREAM_RING),
-					audio.getStreamVolume(AudioManager.STREAM_RING));
 
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -146,21 +145,13 @@ public class Alarm_Activity extends Activity {
 	// Forbid closing the view
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        return true;
-	    } else {
-	        return super.onKeyDown(keyCode, event);
-	    }
-	}
-	//TODO:
-	//Try to ignore home button
-	@Override
-	public void onPause(){
-		Log.i("Status","pause");
-		// onPause() ist started after/before oncreate()
-		
-		
-		super.onPause();
+		if (keyCode == KeyEvent.KEYCODE_HOME)
+			return true;
+		else if (keyCode == KeyEvent.KEYCODE_BACK) {
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
 	}
 
 }

@@ -48,6 +48,13 @@ public class UserSettingActivity extends PreferenceActivity {
 		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
 		mEntryValues.add(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
     }
+    //Import cygnus.ogg for devices without ringtones
+    Uri MySongUri = Uri.parse(getApplicationContext().getResources().getResourceEntryName(
+			getResources().getIdentifier("cygnus", "raw", getPackageName())));
+    
+	mEntries.add(RingtoneManager.getRingtone(UserSettingActivity.this, MySongUri).getTitle(UserSettingActivity.this));
+	mEntryValues.add(MySongUri.toString());
+	
     ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
     
@@ -58,17 +65,19 @@ public class UserSettingActivity extends PreferenceActivity {
 	
 	// Set Ringtonepreference summary to chosen title
 	String ringtonename = prefs.getString("ringtone", "");
-	Uri ringtoneUri;
+	Uri ringtoneUri = null;
 	
 	//Set std Alarm
 	if (ringtonename == ""){
 		// Standart wird gesetzt, falls noch keiner da
-		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM); 	
+		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM);
+		if(ringtoneUri==null)
+			ringtoneUri= MySongUri;
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString("ringtone", ringtoneUri.toString());
 		editor.commit();
 		//Sets the default Alarm to the chosen Value
-		ringtonepref.setValue(RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
+		ringtonepref.setValue(ringtoneUri.toString());
 	}
 	else
 		ringtoneUri = Uri.parse((String) ringtonename);	
