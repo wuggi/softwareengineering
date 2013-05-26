@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,10 +24,12 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class Alarm_Activity extends Activity {
 
+	private static final int HITHERE_ID = 1;
 	private CountDownTimer waitTimer;
 	private PowerManager.WakeLock wl;
 	private MediaPlayer mMediaPlayer;
@@ -129,6 +134,7 @@ public class Alarm_Activity extends Activity {
 		}.start();
 	}
 	
+	// TODO: setSnooze und set Notification werden in PopPollActivity auch genutzt (fast 1:1)
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
@@ -139,8 +145,51 @@ public class Alarm_Activity extends Activity {
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(this);
 		db.setSnoozeActiv(true);
+		// Meldung
+		Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
+		// Notification setzen
+		setNotification();
 		// App beenden
-		finish();		
+		finish();	
+	}
+	
+	private void setNotification(){
+		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		
+		// Meldung (im Durchlauf) definieren
+		int icon          = R.drawable.ic_launcher;
+		CharSequence text = "Schlummerfunktion aktiv!";
+		long time         = System.currentTimeMillis();
+		
+		// Meldung setzen
+		Notification notification = new Notification(icon, text, time);
+		
+		// Meldung schließen
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		
+		// Meldungstext, wenn gewählt
+		Context context = getApplicationContext();
+		CharSequence contentTitle = "Umfrage";
+		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";
+		
+		Intent notificationIntent = new Intent(this, PopPollActivity.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 1, notificationIntent, 1);
+	
+		// Ton hinzufügen
+		//notification.defaults |= Notification.DEFAULT_SOUND;
+		
+		// Vibration benötigt zusätzliches Recht
+		//notification.defaults |= Notification.DEFAULT_VIBRATE;
+		
+		// Licht
+		//notification.defaults |= Notification.DEFAULT_LIGHTS;
+
+		
+		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		//notification.setLatestEventInfo(context, contentTitle, contentText, null);
+		
+		// NotificationManager bekommt Meldung
+		notificationManager.notify(HITHERE_ID, notification);
 	}
 	
 	// Forbid closing the view

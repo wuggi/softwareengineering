@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+@SuppressLint("SimpleDateFormat")
 public class PopPollActivity extends Activity {
 
 	private static final int HITHERE_ID = 1;
@@ -48,9 +50,6 @@ public class PopPollActivity extends Activity {
 		ActivityRegistry.register(this);
 		setContentView(R.layout.activity_pop_poll);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-		
-		// Notification setzen
-		setNotification();
 		
 		
 		// Kalender Instanze setzen
@@ -228,7 +227,7 @@ public class PopPollActivity extends Activity {
 		setSnooze();
 	}
 	
-	
+	// TODO: setSnooze und set Notification werden in Alarm_Activity auch genutzt (fast 1:1)
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
@@ -237,20 +236,19 @@ public class PopPollActivity extends Activity {
 		db.setSnoozeActiv(true);
 		// Meldung
 		Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
+		// Notification setzen
+		setNotification();
 		// App beenden
 		ActivityRegistry.finishAll();
 	}
 	
-	// TODO: App startet bereits alleine, in der Notification ist festgelegt, wenn man darauf klingt kommt man auch zur Umfrage
-	// Doppel gemoppelt, nur die Meldung?
-	// Oder Meldung kann man weg klicken (ohne das sie weiterleitet?)
 	@SuppressWarnings("deprecation")
 	private void setNotification(){
 		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
 		int icon          = R.drawable.ic_launcher;
-		CharSequence text = "Umfrage beantworten!";
+		CharSequence text = "Schlummerfunktion aktiv!";
 		long time         = System.currentTimeMillis();
 		
 		// Meldung setzen
@@ -268,22 +266,22 @@ public class PopPollActivity extends Activity {
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 1, notificationIntent, 1);
 	
 		// Ton hinzufügen
-		notification.defaults |= Notification.DEFAULT_SOUND;
+		//notification.defaults |= Notification.DEFAULT_SOUND;
 		
 		// Vibration benötigt zusätzliches Recht
 		//notification.defaults |= Notification.DEFAULT_VIBRATE;
 		
 		// Licht
-		notification.defaults |= Notification.DEFAULT_LIGHTS;
+		//notification.defaults |= Notification.DEFAULT_LIGHTS;
 
 		
-		//notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-		notification.setLatestEventInfo(context, contentTitle, contentText, null);
+		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		//notification.setLatestEventInfo(context, contentTitle, contentText, null);
 		
 		// NotificationManager bekommt Meldung
 		notificationManager.notify(HITHERE_ID, notification);
 	}
-
+	
 	private TimePicker.OnTimeChangedListener StartTimeChangedListener = new TimePicker.OnTimeChangedListener() {
 
 		public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
