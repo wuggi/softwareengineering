@@ -191,6 +191,7 @@ protected void onDialogClosed(boolean positiveResult) {
     if (positiveResult && mClickedDialogEntryIndex >= 0 && mEntryValues != null) {
         String value = mEntryValues[mClickedDialogEntryIndex].toString();
         Log.d("onCloseWerte","i="+mClickedDialogEntryIndex+" E[i]="+value);
+        //TODO: hier ist der fehler
         if (callChangeListener(value)) {
             setValue(value);
         }

@@ -113,7 +113,7 @@ int layout settingsbar 0x7f030007
 int menu activity_settings 0x7f0b0000
 int menu pop_poll 0x7f0b0001
 int menu week 0x7f0b0002
-int raw cygnus 0x7f050000
+int raw alarmtone 0x7f050000
 int string Anleitung 0x7f080005
 int string Anzahl 0x7f080006
 int string OK 0x7f080013
