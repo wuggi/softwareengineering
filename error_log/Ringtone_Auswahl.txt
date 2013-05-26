@@ -1,0 +1,15 @@
+05-26 10:57:31.057: E/AndroidRuntime(9084): FATAL EXCEPTION: main
+05-26 10:57:31.057: E/AndroidRuntime(9084): java.lang.NullPointerException
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at de.Psychologie.socialintelligence.UserSettingActivity$5.onPreferenceChange(UserSettingActivity.java:162)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.preference.Preference.callChangeListener(Preference.java:895)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at de.Psychologie.socialintelligence.CustomRingtonepreference.onDialogClosed(CustomRingtonepreference.java:207)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.preference.DialogPreference.onDismiss(DialogPreference.java:390)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.app.Dialog$ListenersHandler.handleMessage(Dialog.java:1240)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.os.Looper.loop(Looper.java:137)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at android.app.ActivityThread.main(ActivityThread.java:4918)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at java.lang.reflect.Method.invokeNative(Native Method)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at java.lang.reflect.Method.invoke(Method.java:511)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:994)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:761)
+05-26 10:57:31.057: E/AndroidRuntime(9084): 	at dalvik.system.NativeStart.main(Native Method)

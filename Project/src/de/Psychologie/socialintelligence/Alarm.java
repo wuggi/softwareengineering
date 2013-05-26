@@ -52,7 +52,7 @@ public class Alarm{
 
 
 		// Zeit setzen, mit Aufbau 00:00:00
-		currentAlarmTime = withNull(currentHour)+":"+withNull(currentMinute)+":00";	
+		currentAlarmTime = FormatHandler.withNull(currentHour)+":"+FormatHandler.withNull(currentMinute)+":00";	
 	}
 	
 	Alarm(){
@@ -134,16 +134,6 @@ public class Alarm{
 	
 	public int getCurrentWeekDay(){
 		return currentWeekDay;
-	}
-	
-	private String withNull(int time){
-		String res;
-		if(time < 10){
-			res = "0"+String.valueOf(time);
-		} else {
-			res = String.valueOf(time);
-		}
-		return res;
 	}
 	
 	private void startAlarm(){

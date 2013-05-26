@@ -42,7 +42,7 @@ public class Alarm_Activity extends Activity {
 		
 		TextView text = (TextView) findViewById(R.id.textview_alarm);
 		Calendar c = Calendar.getInstance();		
-		text.setText(c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+"\nExperiment Umfrage");
+		text.setText(FormatHandler.withNull(c.get(Calendar.HOUR_OF_DAY))+":"+FormatHandler.withNull(c.get(Calendar.MINUTE))+" Uhr\nExperiment Umfrage");
 		
 		
 		Button btn_action = (Button) findViewById(R.id.btn_action_front);
