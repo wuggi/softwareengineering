@@ -53,16 +53,15 @@
                 android:id="@+id/actionbar_home_btn"
                 style="@style/ActionBarHomeItem"
                 />
-        </RelativeLayout>
-        <ImageView
-            android:id="@+id/actionbar_home_is_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"            
-            android:layout_toLeftOf="@id/actionbar_home_btn"
-            android:layout_alignParentTop="true"
-            android:padding="0dip"
-            android:visibility="gone"
-            />        
+
+            <ImageView
+                android:id="@+id/actionbar_home_is_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dip"
+                android:visibility="gone" />
+
+        </RelativeLayout>        
             
 		<ImageView
 		    android:id="@+id/actionbar_home_logo"
@@ -75,6 +74,7 @@
 		    android:visibility="visible" />
 
         <LinearLayout
+            android:orientation="horizontal"
             android:id="@+id/actionbar_actions"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/actionbar_height"

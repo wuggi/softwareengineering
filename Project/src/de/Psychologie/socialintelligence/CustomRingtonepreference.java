@@ -12,6 +12,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class CustomRingtonepreference extends ListPreference{
 
@@ -94,25 +95,6 @@ protected void onPrepareDialogBuilder(Builder builder) {
     mMediaPlayer = new MediaPlayer();
     mEntries = getEntries();
     mEntryValues = getEntryValues();
-    
-
-//    RingtoneManager rm = new RingtoneManager(mContext);
-//    final Cursor ringtones = rm.getCursor();
-//    
-//    
-//    int i=0;
-//    Log.i("mEntries","sdsd");
-//    //for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
-//    if(ringtones.moveToFirst()){
-//		do{				
-//        mEntries[i]= ringtones.getString(RingtoneManager.URI_COLUMN_INDEX);
-//        Log.i("mEntries", mEntries[i].toString());
-//        mEntryValues[i]= ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-//        Log.i("mEntryValues", mEntryValues[i].toString());
-//        i++;
-//        //mEntryValues[i]= ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX);
-//		}while(ringtones.moveToNext());
-//    }
 
     if (mEntries == null || mEntryValues == null) {
         throw new IllegalStateException(
@@ -129,11 +111,15 @@ protected void onPrepareDialogBuilder(Builder builder) {
                     String value = mEntryValues[which].toString();
                     try {
                         playSong(value);
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    } catch (IllegalArgumentException e) {
+            			e.printStackTrace();
+            		} catch (SecurityException e) {
+            			e.printStackTrace();
+            		} catch (IllegalStateException e) {
+            			e.printStackTrace();
+            		} catch (IOException e) {
+            			e.printStackTrace();
+            		}
                 }
             });
 
@@ -144,7 +130,7 @@ protected void onPrepareDialogBuilder(Builder builder) {
 private void playSong(String path) throws IllegalArgumentException,
     IllegalStateException, IOException {
 
-    //Log.d("ringtone", "playSong :: " + path);
+    Log.d("CustomRingtonepref", "playSong :: " + path);
 
     mMediaPlayer.reset();
     mMediaPlayer.setDataSource(path);
@@ -204,6 +190,7 @@ protected void onDialogClosed(boolean positiveResult) {
 
     if (positiveResult && mClickedDialogEntryIndex >= 0 && mEntryValues != null) {
         String value = mEntryValues[mClickedDialogEntryIndex].toString();
+        Log.d("onCloseWerte","i="+mClickedDialogEntryIndex+" E[i]="+value);
         if (callChangeListener(value)) {
             setValue(value);
         }
