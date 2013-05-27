@@ -10,7 +10,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	private static final int POLL_ABORT = -77;
 	
 	/////////////////////////////////////////////////////////////
@@ -386,6 +386,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 			if(c != null){
 				c.moveToFirst();
 				res = c.getString(0);
+			} else {
+				// TODO: als Test, wenn Zeit für heute nicht mehr vorhanden, nimm nächsten Tag
+				res = getFirstTimeFromDay((1+day)%7);
 			}
 			//db.close();
 			Log.v("test",String.valueOf(res));

@@ -53,6 +53,9 @@ public class BootActivity extends Activity{
 				// Alarm wieder einstellen
 				alarm.setNextAlarm();
 			}
-		} 
+		}
+		
+		// Activity beenden
+		finish();
 	}
 }
