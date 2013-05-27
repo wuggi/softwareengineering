@@ -64,7 +64,7 @@ int drawable list_selector_disabled_holo_light 0x7f02001a
 int drawable np_numberpicker_selection_divider 0x7f02001b
 int id LinearLayout1 0x7f070018
 int id LinearLayout2 0x7f070020
-int id action_settings 0x7f070043
+int id action_settings 0x7f070044
 int id actionbar 0x7f070010
 int id actionbar_actions 0x7f070009
 int id actionbar_back_button 0x7f070004
@@ -85,8 +85,8 @@ int id editText1 0x7f07003d
 int id editText2 0x7f07003e
 int id fri 0x7f070025
 int id hourPicker 0x7f07001b
-int id list 0x7f07003f
-int id menu_settings 0x7f070042
+int id list 0x7f070040
+int id menu_settings 0x7f070043
 int id minutePicker 0x7f07001c
 int id mon 0x7f070021
 int id np__decrement 0x7f070001
@@ -94,12 +94,13 @@ int id np__increment 0x7f070000
 int id np__numberpicker_input 0x7f07003c
 int id numberPicker 0x7f070017
 int id ok_button 0x7f07001f
-int id preference_id 0x7f070041
+int id preference_id 0x7f070042
 int id sat 0x7f070026
 int id saveWeek 0x7f07003b
 int id screen 0x7f070002
 int id scrollView1 0x7f070011
-int id settings_actionbar 0x7f070040
+int id seekBar1 0x7f07003f
+int id settings_actionbar 0x7f070041
 int id snooze_button 0x7f07001e
 int id sun 0x7f070027
 int id tableRow1 0x7f070028
@@ -139,7 +140,8 @@ int layout activity_pop_poll 0x7f030005
 int layout activity_week 0x7f030006
 int layout number_picker_with_selector_wheel 0x7f030007
 int layout preferences_two_passwords 0x7f030008
-int layout settingsbar 0x7f030009
+int layout seekbar 0x7f030009
+int layout settingsbar 0x7f03000a
 int menu activity_settings 0x7f0c0000
 int menu numpicker 0x7f0c0001
 int menu pop_poll 0x7f0c0002

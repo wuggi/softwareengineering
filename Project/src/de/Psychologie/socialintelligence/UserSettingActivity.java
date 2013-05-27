@@ -1,16 +1,15 @@
 package de.Psychologie.socialintelligence;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -26,6 +25,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
@@ -222,7 +223,56 @@ ActivityRegistry.register(this);
 						return true;
 					}
 				});
+		
+		//TODO: Preference should play chosen tone
+		Preference volume = (Preference) findPreference("volumepref");
+		volume.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
 
+		        setVolumeControlStream(AudioManager.STREAM_ALARM);
+		        try
+		        {
+		        	SeekBar volumeSeekbar = (SeekBar)findViewById(R.id.seekBar1);
+		            final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		            volumeSeekbar.setMax(audioManager
+		                    .getStreamMaxVolume(AudioManager.STREAM_ALARM));
+		            volumeSeekbar.setProgress(audioManager
+		                    .getStreamVolume(AudioManager.STREAM_ALARM));   
+
+
+		            volumeSeekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() 
+		            {
+		                @Override
+		                public void onStopTrackingTouch(SeekBar arg0) 
+		                {
+		                	
+		                }
+
+		                @Override
+		                public void onStartTrackingTouch(SeekBar arg0) 
+		                {
+		                	//Play music
+		                }
+
+		                @Override
+		                public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) 
+		                {
+		                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, progress, 0);
+		                }
+		            });
+		        }
+		        catch (Exception e) 
+		        {
+		            e.printStackTrace();
+		        }
+				
+				
+				return true;
+			}
+		});
+		
 		ListPreference sleeptimechooser = (ListPreference) findPreference("Sleeptime");
 		sleeptimechooser
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

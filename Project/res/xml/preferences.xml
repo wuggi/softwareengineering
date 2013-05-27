@@ -27,12 +27,11 @@
             android:persistent="true"
             android:title="@string/settings_sleeptime" />
 
-        <VolumePreference
+        <Preference
             android:key="volumepref"
             android:icon="@drawable/ic_volume"
-            android:persistent="true"
-            android:streamType="alarm"
             android:title="@string/settings_volume" />
+        
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_other" >
         <Preference

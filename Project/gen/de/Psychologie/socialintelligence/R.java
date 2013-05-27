@@ -184,7 +184,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int LinearLayout1=0x7f070018;
         public static final int LinearLayout2=0x7f070020;
-        public static final int action_settings=0x7f070043;
+        public static final int action_settings=0x7f070044;
         public static final int actionbar=0x7f070010;
         public static final int actionbar_actions=0x7f070009;
         public static final int actionbar_back_button=0x7f070004;
@@ -205,8 +205,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int editText2=0x7f07003e;
         public static final int fri=0x7f070025;
         public static final int hourPicker=0x7f07001b;
-        public static final int list=0x7f07003f;
-        public static final int menu_settings=0x7f070042;
+        public static final int list=0x7f070040;
+        public static final int menu_settings=0x7f070043;
         public static final int minutePicker=0x7f07001c;
         public static final int mon=0x7f070021;
         public static final int np__decrement=0x7f070001;
@@ -216,12 +216,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int np__numberpicker_input=0x7f07003c;
         public static final int numberPicker=0x7f070017;
         public static final int ok_button=0x7f07001f;
-        public static final int preference_id=0x7f070041;
+        public static final int preference_id=0x7f070042;
         public static final int sat=0x7f070026;
         public static final int saveWeek=0x7f07003b;
         public static final int screen=0x7f070002;
         public static final int scrollView1=0x7f070011;
-        public static final int settings_actionbar=0x7f070040;
+        public static final int seekBar1=0x7f07003f;
+        public static final int settings_actionbar=0x7f070041;
         public static final int snooze_button=0x7f07001e;
         public static final int sun=0x7f070027;
         public static final int tableRow1=0x7f070028;
@@ -263,7 +264,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_week=0x7f030006;
         public static final int number_picker_with_selector_wheel=0x7f030007;
         public static final int preferences_two_passwords=0x7f030008;
-        public static final int settingsbar=0x7f030009;
+        public static final int seekbar=0x7f030009;
+        public static final int settingsbar=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_settings=0x7f0c0000;
