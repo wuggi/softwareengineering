@@ -144,7 +144,7 @@ int menu activity_settings 0x7f0c0000
 int menu numpicker 0x7f0c0001
 int menu pop_poll 0x7f0c0002
 int menu week 0x7f0c0003
-int raw alarmtone 0x7f050000
+int raw cygnus 0x7f050000
 int string Anleitung 0x7f0a0005
 int string Anzahl 0x7f0a0006
 int string OK 0x7f0a0013

@@ -272,7 +272,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int week=0x7f0c0003;
     }
     public static final class raw {
-        public static final int alarmtone=0x7f050000;
+        public static final int cygnus=0x7f050000;
     }
     public static final class string {
         public static final int Anleitung=0x7f0a0005;

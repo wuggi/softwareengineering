@@ -98,8 +98,7 @@ public class Alarm_Activity extends Activity {
 		mMediaPlayer = new MediaPlayer();
 		try {
 			mMediaPlayer.reset();
-			String path = prefs.getString("ringtone",
-					RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
+			String path = prefs.getString("ringtone",RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
 			mMediaPlayer.setDataSource(path);
 
 		    Log.d("Alarm_Activity", "playSong :: " + path);

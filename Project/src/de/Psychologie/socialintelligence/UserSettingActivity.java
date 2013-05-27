@@ -1,5 +1,7 @@
 package de.Psychologie.socialintelligence;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.AlertDialog;
@@ -7,10 +9,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -47,7 +52,6 @@ public class UserSettingActivity extends PreferenceActivity {
     
     List<String> mEntries = new ArrayList<String>();
     List<String> mEntryValues = new ArrayList<String>();
-    int i=0;
     for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
 		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
     	//Log.i("RingtoneEntry["+i+"]",mEntries.get(i));
@@ -66,15 +70,20 @@ public class UserSettingActivity extends PreferenceActivity {
     		mEntryValues.add(UriWithWithoutID.toString()+"/"+ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX));    		
     	
     	//Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
-		i++;
     }
-    //TODO: Import cygnus.ogg for devices without ringtones
-    //int MySongName = R.raw.alarmtone;
-    //Uri MySongUri = Uri.parse("android.resource://" + getPackageName() + "/"+MySongName);
     
-    //mEntries.add(getResources().getResourceEntryName(MySongName));
-	//mEntryValues.add(MySongUri.toString());
-	
+    //Import cygnus.ogg for devices without ringtones
+    int MySongName = R.raw.cygnus;
+
+    //Save file to directory
+    FileHandler h = new FileHandler("cygnus.ogg");
+    h.saveAudio(MySongName, UserSettingActivity.this);
+    
+    File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
+
+    mEntries.add(getResources().getResourceEntryName(MySongName));
+	mEntryValues.add(Dir.getAbsolutePath().toString()+"/cygnus.ogg");
+    
     ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
     
