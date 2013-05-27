@@ -3,15 +3,14 @@ Softwareengineering
 
 Known BUGS:
 ===========
-- ÃœberflÃ¼ssige Abfrage bei rÃ¼ckgÃ¤ngig gemachter WochenÃ¤nderung
-- Wecker schmiert ab
+- Überflüssige Abfrage bei rückgängig gemachter Wochenänderung
+- Week schmiert manchmal ab
 
 TODO:
 ===========
 - App Bar auf allen Versionen anpassen
 - App Bar in Settings integrieren
 - App Icon
-- Eigenen Klingelton Importieren
-- Volume Control soll gewählten Klingelton spielen
-- Knöpfe in Alarm und Umfrage anpassen
+- Knöpfe in Umfrage anpassen
+- Checken, ob Export leer
 - Week darf nur einen Alarm setzen, wenn keiner aktiv ist oder Snooze deaktiv ist (Ein Alarm ist deaktiviert, wenn man das Handy neu startet - wie kann man diesen Wert wieder auf false setzen, damit man einen neuen Alarm setzen kann?)

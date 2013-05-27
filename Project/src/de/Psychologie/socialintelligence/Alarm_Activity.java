@@ -10,14 +10,17 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +37,7 @@ public class Alarm_Activity extends Activity {
 	private PowerManager.WakeLock wl;
 	private MediaPlayer mMediaPlayer;
 	private SharedPreferences prefs;
+	private boolean vibrate = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class Alarm_Activity extends Activity {
 		
 		
 		Button btn_action = (Button) findViewById(R.id.btn_action_front);
+		btn_action.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.alarm_button_green));
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -58,19 +64,27 @@ public class Alarm_Activity extends Activity {
 					waitTimer.cancel();
 					waitTimer = null;
 				}
-				try{
-					mMediaPlayer.stop();
-					mMediaPlayer.release();				
-					} catch (IllegalStateException e){
-						e.printStackTrace();
-						}		
+				try {
+					if (mMediaPlayer != null) {
+						if (mMediaPlayer.isPlaying()) {
+							mMediaPlayer.stop();
+						}
+						mMediaPlayer.release();
+						mMediaPlayer = null;
+					}
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				}		
 				wl.release();
 				startActivity(new Intent(Alarm_Activity.this,PopPollActivity.class));
+         		overridePendingTransition(0, 0);
 				finish();
 			}
 		});
 
 		Button btn_sleep = (Button) findViewById(R.id.btn_snooze_front);
+		btn_sleep.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.alarm_button_red));
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -78,12 +92,17 @@ public class Alarm_Activity extends Activity {
 					waitTimer.cancel();
 					waitTimer = null;
 				}
-				try{
-					mMediaPlayer.stop();
-					mMediaPlayer.release();				
-					} catch (IllegalStateException e) {
-						e.printStackTrace();
+				try {
+					if (mMediaPlayer != null) {
+						if (mMediaPlayer.isPlaying()) {
+							mMediaPlayer.stop();
 						}
+						mMediaPlayer.release();
+						mMediaPlayer = null;
+					}
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				}
 				wl.release();
 				setSnooze();
 			}
@@ -99,10 +118,7 @@ public class Alarm_Activity extends Activity {
 		try {
 			mMediaPlayer.reset();
 			String path = prefs.getString("ringtone",RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
-			mMediaPlayer.setDataSource(path);
-
-		    Log.d("Alarm_Activity", "playSong :: " + path);
-		    
+			mMediaPlayer.setDataSource(path);		    
 			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
 			mMediaPlayer.setLooping(true);
 			mMediaPlayer.prepare();
@@ -117,22 +133,38 @@ public class Alarm_Activity extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		waitTimer = new CountDownTimer(60000, 70000) {
+
+		vibrate = prefs.getBoolean("vibrate", true);
+		
+		waitTimer = new CountDownTimer(60000, 1000) {
 
 			public void onTick(long millisUntilFinished) {
+				if (vibrate){
+				Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+				// Vibrate for 500 milliseconds
+				v.vibrate(500);
+				}
 			}
 
 			public void onFinish() {
 				// After 60000 milliseconds (1 min) finish current
-				mMediaPlayer.stop();
-				mMediaPlayer.release();
+				try {
+					if (mMediaPlayer != null) {
+						if (mMediaPlayer.isPlaying()) {
+							mMediaPlayer.stop();
+						}
+						mMediaPlayer.release();
+						mMediaPlayer = null;
+					}
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				}
 				wl.release();
 				setSnooze();
 			}
 		}.start();
 	}
 	
-	// TODO: setSnooze und set Notification werden in PopPollActivity auch genutzt (fast 1:1)
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");

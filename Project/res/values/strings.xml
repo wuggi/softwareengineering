@@ -16,6 +16,7 @@
     <string name="bntWeekSave">Woche speichern und Weiter</string>
     <string name="cancel">Abbrechen</string>
     <string name="false_password">Falsches Passwort.</string>
+    <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>
     <string name="message_about">Entwickler:\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
     <string name="next">Weiter</string>
     <string name="OK">OK</string>
@@ -38,6 +39,7 @@
     <string name="settings_ringtone">Klingelton</string>
     <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
     <string name="settings_volume">Lautstärke</string>
+    <string name="settings_vibrate">Vibrieren</string>
     <string name="snooze">Schlummern</string>
     <string name="action">zur Umfrage</string>
     <string name="std_PW">Sommer</string>

@@ -1,27 +1,31 @@
 package de.Psychologie.socialintelligence;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -33,6 +37,8 @@ public class UserSettingActivity extends PreferenceActivity {
 
 	private boolean altUri= false;
 	private boolean tested= false;
+	private boolean playing=false;
+	private MediaPlayer mMediaPlayer = new MediaPlayer();
 	
 	@SuppressWarnings("deprecation")
 	@Override
@@ -51,6 +57,8 @@ public class UserSettingActivity extends PreferenceActivity {
 	rm.setType(RingtoneManager.TYPE_ALARM|RingtoneManager.TYPE_RINGTONE );
     final Cursor ringtones = rm.getCursor();
     
+    
+    Integer i=0;
     List<String> mEntries = new ArrayList<String>();
     List<String> mEntryValues = new ArrayList<String>();
     for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
@@ -69,22 +77,23 @@ public class UserSettingActivity extends PreferenceActivity {
     		mEntryValues.add(UriWithWithoutID.toString());
     	else
     		mEntryValues.add(UriWithWithoutID.toString()+"/"+ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX));    		
-    	
     	//Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
+    	i++;
     }
     
     //Import cygnus.ogg for devices without ringtones
     int MySongName = R.raw.cygnus;
 
-    //Save file to directory
-    FileHandler h = new FileHandler("cygnus.ogg");
-    h.saveAudio(MySongName, UserSettingActivity.this);
+    //Save file to directory if device has no ringtone
+    if (i==0){
+    	FileHandler h = new FileHandler("cygnus.ogg");
+    	h.saveAudio(MySongName, UserSettingActivity.this);
     
-    File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
+    	File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
 
-    mEntries.add(getResources().getResourceEntryName(MySongName));
-	mEntryValues.add(Dir.getAbsolutePath().toString()+"/cygnus.ogg");
-    
+    	mEntries.add(getResources().getResourceEntryName(MySongName));
+    	mEntryValues.add(Dir.getAbsolutePath().toString()+"/cygnus.ogg");
+    }
     ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
     
@@ -127,6 +136,8 @@ public class UserSettingActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 ActivityRegistry.register(this);
 		
+
+
 		addPreferencesFromResource(R.xml.preferences);
 		
 		//TODO:AppBar in Settings
@@ -154,17 +165,7 @@ ActivityRegistry.register(this);
 								PopPollActivity.class));
 						return true;
 					}
-				});
-		Preference numpicker = (Preference) findPreference("numpicker");
-		numpicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-					@Override
-					public boolean onPreferenceClick(Preference arg0) {
-						startActivity(new Intent(UserSettingActivity.this,
-								Numpicker.class));
-						return true;
-					}
-				});
-		
+				});		
 		
 
 		Preference button_test = (Preference) findPreference("button_test");
@@ -208,11 +209,12 @@ ActivityRegistry.register(this);
 					@Override
 					public boolean onPreferenceChange(Preference preference,Object newValue) {
 						
-						Log.d("OnprefChange", "newValue="+newValue.toString());
+						//Log.d("OnprefChange", "newValue="+newValue.toString());
 						Uri ringtoneUri = Uri.parse((String) newValue);
 						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 						String name = ringtone.getTitle(UserSettingActivity.this);
-
+						if (name == "cygnus.ogg")
+							name = "cygnus";
 						preference.setSummary( name);
 						// Save Ringtone to preferences
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -224,36 +226,77 @@ ActivityRegistry.register(this);
 					}
 				});
 		
-		//TODO: Preference should play chosen tone
 		Preference volume = (Preference) findPreference("volumepref");
 		volume.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-
+				LayoutInflater factory = LayoutInflater.from(UserSettingActivity.this);
+				
+				final View textEntryView = factory.inflate(R.layout.seekbar, null);
+				
+				final AlertDialog.Builder alert = new AlertDialog.Builder(UserSettingActivity.this);
+				
+				alert.setTitle(getResources().getString(R.string.settings_volume)).setView(textEntryView);
+				alert.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
+				                   public void onClick(DialogInterface dialog, int id) {
+				                	   try {
+				               			if (mMediaPlayer != null) {
+				               				if (mMediaPlayer.isPlaying()) {
+				               					mMediaPlayer.stop();
+				               				}
+				               			}
+				               		} catch (IllegalStateException e) {
+				               			e.printStackTrace();
+				               		}	
+								dialog.cancel();
+								AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+								int currentVolume = audio
+										.getStreamVolume(AudioManager.STREAM_ALARM);
+								CheckBoxPreference vibrieren = (CheckBoxPreference) findPreference("vibrate");
+								if (!vibrieren.isChecked() & currentVolume == 0) {
+									vibrieren.setChecked(true);
+								}
+				                   }
+				});
+				
 		        setVolumeControlStream(AudioManager.STREAM_ALARM);
 		        try
 		        {
-		        	SeekBar volumeSeekbar = (SeekBar)findViewById(R.id.seekBar1);
+		        	playing = false;
+		        	SeekBar volumeSeekbar = (SeekBar)textEntryView.findViewById(R.id.seekBar1);
 		            final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		            volumeSeekbar.setMax(audioManager
-		                    .getStreamMaxVolume(AudioManager.STREAM_ALARM));
-		            volumeSeekbar.setProgress(audioManager
-		                    .getStreamVolume(AudioManager.STREAM_ALARM));   
-
+		            volumeSeekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+		            volumeSeekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));  
 
 		            volumeSeekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() 
 		            {
 		                @Override
 		                public void onStopTrackingTouch(SeekBar arg0) 
 		                {
-		                	
 		                }
 
 		                @Override
 		                public void onStartTrackingTouch(SeekBar arg0) 
 		                {
-		                	//Play music
+		                	if (!playing){
+		                	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		                	String path = prefs.getString("ringtone", RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
+		                    try {
+			                    mMediaPlayer.reset();
+			                    mMediaPlayer.setDataSource(path);
+			                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+			                    mMediaPlayer.setLooping(true);
+								mMediaPlayer.prepare();
+			                    mMediaPlayer.start();
+							} catch (IllegalStateException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+		                    playing=true;
+		                	}
+		                		
 		                }
 
 		                @Override
@@ -267,8 +310,49 @@ ActivityRegistry.register(this);
 		        {
 		            e.printStackTrace();
 		        }
+
+				final AlertDialog dialog = alert.create();
+				dialog.setOnCancelListener(new OnCancelListener() {
+					
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						try {
+							if (mMediaPlayer != null) {
+								if (mMediaPlayer.isPlaying()) {
+									mMediaPlayer.stop();
+								}
+							}
+						} catch (IllegalStateException e) {
+							e.printStackTrace();
+						}	
+	                	   dialog.cancel();
+	       				AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+	       				int currentVolume = audio.getStreamVolume(AudioManager.STREAM_ALARM);
+	       				CheckBoxPreference vibrieren = (CheckBoxPreference) findPreference("vibrate");
+	       				if (!vibrieren.isChecked() & currentVolume==0){
+	       					vibrieren.setChecked(true);
+	       				}
+					}
+				});
 				
+				dialog.show();
+				return true;
+			}
+		});
+		//Make sure that it either rings or it vibrates
+		CheckBoxPreference vibrieren = (CheckBoxPreference) findPreference("vibrate");
+		vibrieren.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				
+				AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+				int currentVolume = audio.getStreamVolume(AudioManager.STREAM_ALARM);
+				if (!Boolean.valueOf(newValue.toString()) & currentVolume==0){
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.muteAndnoVibrate), Toast.LENGTH_LONG).show();
+					return false;
+				}
+					
 				return true;
 			}
 		});
