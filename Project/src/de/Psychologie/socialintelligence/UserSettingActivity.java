@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 public class UserSettingActivity extends PreferenceActivity {
 
+	private boolean altUri= false;
+	private boolean tested= false;
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onStart() {
@@ -47,9 +50,22 @@ public class UserSettingActivity extends PreferenceActivity {
     int i=0;
     for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
 		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
-    	Log.i("RingtoneEntry["+i+"]",mEntries.get(i));
-		mEntryValues.add(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
-    	Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
+    	//Log.i("RingtoneEntry["+i+"]",mEntries.get(i));
+    	Uri UriWithWithoutID = Uri.parse(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
+    	//FIX for URI ending
+    	//normal: ../media
+    	//alternative: ../media/[songID]
+    	if (!tested){
+    		tested = true;
+    		if (UriWithWithoutID.getLastPathSegment().matches("-?\\d+(\\.\\d+)?")) //match a number with optional '-' and decimal.
+    			altUri=true;
+    	}
+    	if (altUri)
+    		mEntryValues.add(UriWithWithoutID.toString());
+    	else
+    		mEntryValues.add(UriWithWithoutID.toString()+"/"+ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX));    		
+    	
+    	//Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
 		i++;
     }
     //TODO: Import cygnus.ogg for devices without ringtones
@@ -287,7 +303,5 @@ ActivityRegistry.register(this);
 		}
 		return null;
 	}
-	
-	
 	
 }
