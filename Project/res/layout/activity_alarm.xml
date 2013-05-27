@@ -10,7 +10,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="143dp"
         android:layout_marginRight="30dp"
-        android:text="@string/action" />
+        android:text="@string/action"
+        android:textSize="18dp" />
 
     <Button
         android:id="@+id/btn_snooze_front"
@@ -19,15 +20,16 @@
         android:layout_alignBaseline="@+id/btn_action_front"
         android:layout_alignBottom="@+id/btn_action_front"
         android:layout_marginLeft="30dp"
-        android:text="@string/snooze" />
+        android:text="@string/snooze"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textview_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_snooze_front"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="90dp"
         android:gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFFFFF"

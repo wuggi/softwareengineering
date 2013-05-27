@@ -12,7 +12,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class CustomRingtonepreference extends ListPreference{
 
@@ -130,7 +129,7 @@ protected void onPrepareDialogBuilder(Builder builder) {
 private void playSong(String path) throws IllegalArgumentException,
     IllegalStateException, IOException {
 
-    Log.d("CustomRingtonepref", "playSong :: " + path);
+    //Log.d("CustomRingtonepref", "playSong :: " + path);
 
     mMediaPlayer.reset();
     mMediaPlayer.setDataSource(path);
@@ -185,21 +184,28 @@ private static class SavedState extends BaseSavedState {
 }
 
  @Override
-protected void onDialogClosed(boolean positiveResult) {
-    super.onDialogClosed(positiveResult);
+	protected void onDialogClosed(boolean positiveResult) {
+		super.onDialogClosed(positiveResult);
 
-    if (positiveResult && mClickedDialogEntryIndex >= 0 && mEntryValues != null) {
-        String value = mEntryValues[mClickedDialogEntryIndex].toString();
-        Log.d("onCloseWerte","i="+mClickedDialogEntryIndex+" E[i]="+value);
-        //TODO: hier ist der fehler
-        if (callChangeListener(value)) {
-            setValue(value);
-        }
-    }
-
-    mMediaPlayer.stop();
-    mMediaPlayer.release();
-}
+		if (positiveResult && mClickedDialogEntryIndex >= 0
+				&& mEntryValues != null) {
+			String value = mEntryValues[mClickedDialogEntryIndex].toString();
+			if (callChangeListener(value)) {
+				setValue(value);
+			}
+		}
+		try {
+			if (mMediaPlayer != null) {
+				if (mMediaPlayer.isPlaying()) {
+					mMediaPlayer.stop();
+				}
+				mMediaPlayer.release();
+				mMediaPlayer = null;
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
+	}
 
 @Override
 protected Object onGetDefaultValue(TypedArray a, int index) {

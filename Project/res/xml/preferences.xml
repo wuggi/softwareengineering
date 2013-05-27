@@ -27,12 +27,17 @@
             android:persistent="true"
             android:title="@string/settings_sleeptime" />
 
-        <VolumePreference
-            android:key="volumepref"
+        <Preference
             android:icon="@drawable/ic_volume"
-            android:persistent="true"
-            android:streamType="alarm"
+            android:key="volumepref"
             android:title="@string/settings_volume" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_lock_silent_mode_vibrate"
+            android:key="vibrate"
+            android:persistent="true"
+            android:title="@string/settings_vibrate" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_other" >
         <Preference
@@ -48,17 +53,12 @@
         <Preference
             android:icon="@drawable/ic_menu_info_details"
             android:key="button_test"
-            android:title="TEST" >
+            android:title="(WECKER)" >
         </Preference>
         <Preference
             android:icon="@drawable/ic_menu_info_details"
             android:key="button_poll"
-            android:title="Umfrage Test" >
-        </Preference>
-        <Preference
-            android:icon="@drawable/ic_menu_info_details"
-            android:key="numpicker"
-            android:title="Numpicker Test" >
+            android:title="(UMFRAGE)" >
         </Preference>
     </PreferenceCategory>
 
