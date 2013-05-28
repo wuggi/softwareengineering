@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -141,6 +143,8 @@ ActivityRegistry.register(this);
 
 		addPreferencesFromResource(R.xml.preferences);
 		
+		
+		
 		//TODO:AppBar in Settings
 		//com.markupartist.android.widget.ActionBar actionBar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.actionbar);
 		//actionBar.inflate(getBaseContext(), resource, root)
@@ -182,14 +186,28 @@ ActivityRegistry.register(this);
 		Preference button_about = findPreference("button_about");
 		button_about
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
 						AlertDialog ad = new AlertDialog.Builder(
 								UserSettingActivity.this).create();
 						ad.setTitle(getResources().getString(
 								R.string.title_about));
+						
+						   PackageInfo pinfo = null;
+						try {
+							pinfo = getPackageManager().getPackageInfo(getPackageName(),0);
+						} catch (NameNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+							String versionName = pinfo.versionName;
+							
+							
 						ad.setMessage(Html.fromHtml(getResources().getString(
-								R.string.message_about)));
+								R.string.message_about))+getResources().getString(R.string.version)+" "+versionName);
+						
+
 						ad.setButton(getResources().getString(
 								R.string.OK),
 								new DialogInterface.OnClickListener() {
