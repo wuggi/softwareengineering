@@ -24,6 +24,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -187,8 +188,8 @@ ActivityRegistry.register(this);
 								UserSettingActivity.this).create();
 						ad.setTitle(getResources().getString(
 								R.string.title_about));
-						ad.setMessage(getResources().getString(
-								R.string.message_about));
+						ad.setMessage(Html.fromHtml(getResources().getString(
+								R.string.message_about)));
 						ad.setButton(getResources().getString(
 								R.string.OK),
 								new DialogInterface.OnClickListener() {
@@ -383,7 +384,7 @@ ActivityRegistry.register(this);
 						builder.setView(input)
 				               .setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
-				           			//Passwortüberprüfung mit Salt
+				           			//Passwortï¿½berprï¿½fung mit Salt
 				                	//Falls kein PW gesetzt ist, ist das standart PW: 
 				                 	if (MD5(input.getText().toString()+getResources().getString(R.string.salt)).equals(settings.getString("password", MD5(getResources().getString(R.string.std_PW)+getResources().getString(R.string.salt))))){
 				                        finish();
@@ -430,7 +431,7 @@ ActivityRegistry.register(this);
 			super.onBackPressed();
 	}
 	
-	// MD5 Funktion für Passwörter
+	// MD5 Funktion fï¿½r Passwï¿½rter
 	public static String MD5(String md5) {
 		try {
 			java.security.MessageDigest md = java.security.MessageDigest
