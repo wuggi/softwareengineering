@@ -31,13 +31,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 @SuppressLint("SimpleDateFormat")
 public class PopPollActivity extends Activity {
 
-	private static final int SNOOZE_ID = 1;
+	private static final int SNOOZE_ID = 111;
 	private Button snooze_button;
 	private Button ok_button;
 	private Button cancel_button;
@@ -46,7 +45,6 @@ public class PopPollActivity extends Activity {
 	private EditText countContact;
 	private TextView txtPopPollInfo;
 	private Alarm pollAlarm;
-	private int maxHourforContact = 5;
 	private Calendar cal;
 	private SharedPreferences prefs;
 	private SQLHandler db; 
@@ -192,9 +190,9 @@ public class PopPollActivity extends Activity {
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
+				cancelNotification();
 				// Meldung
 				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollOK), Toast.LENGTH_LONG).show();
-				cancelNotification();
 				ActivityRegistry.finishAll();			
 			}
 		});

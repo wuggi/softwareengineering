@@ -64,23 +64,22 @@ public class Alarm{
 	@SuppressWarnings("deprecation")
 	public boolean setNextAlarm(boolean firstAlarm){
 		int lastHour = firstAlarm?23:19;
-		Log.v("test",String.valueOf(lastHour));
+		Log.v("test","lastHour " + String.valueOf(lastHour));
 		boolean res = false;
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(source);
-		Log.v("test",String.valueOf(db.existUserCode()));
+		Log.v("test","usercode: " + String.valueOf(db.existUserCode()));
 		// nächster Alarm
 		Date alarmDay;
-		Log.v("test",String.valueOf(currentHour));
+		Log.v("test","next Alarm: " + String.valueOf(currentHour));
 		// Aktuelle Zeit im letzen Slot des Tages, dann ist es nach 19 Uhr
-		if(currentHour > lastHour){
+		if(currentHour >= lastHour){
 			// erste Zeit vom nächsten Wochentag holen
 			nextAlarmTime = db.getFirstTimeFromDay(nextWeekDay);
 			alarmDay = nextDate;
 		} else {
 			// für Heute existiert noch eine Alarmzeit
-			Log.v("test",currentAlarmTime);
-			
+			Log.v("test","heute: " + currentAlarmTime);
 			
 			//Fehler wenn heute kein gespeicherter eintrag nach der aktuellen Uhrzeit vorhanden ist.
 			//TODO: reparieren
