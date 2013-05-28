@@ -17,7 +17,7 @@
     <string name="cancel">Abbrechen</string>
     <string name="false_password">Falsches Passwort.</string>
     <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>
-    <string name="message_about"><b>Entwickler:</b>\n\tChristian Steusloff\n\tChia-Mei Chen\n\tFranz Kuntke\n\tJens Wiemann\n\tPatrick Wuggazer</string>
+    <string name="message_about">&lt;h2&gt;Entwickler&lt;/h2&gt;Christian Steusloff&lt;br&gt;Franz Kuntke&lt;br&gt;Jens Wiemann&lt;br&gt;Patrick Wuggazer&lt;br&gt;Chia-Mei Chen</string>
     <string name="next">Weiter</string>
     <string name="OK">OK</string>
     <string name="password_changed">Passwort geändert.</string>
@@ -73,9 +73,9 @@
     <string name="txtPopPollBreakTitle">Abbruch</string>
     <string name="txtPopPollBreakText">Wollen Sie wirklich die Umfrage abbrechen?</string>
     <string name="txtPopPollBreak">Umfrage wurde abgebrochen</string>
-    <string name="txtPopPollInfo0">Mit wie vielen Interaktionspartnern hatten Sie <b>heute</b> schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
-    <string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um <b>%s Uhr</b> Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
-    <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten <b>gestriegen</b> Signal um <b>%s Uhr</b> schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="txtPopPollInfo0">Mit wie vielen Interaktionspartnern hatten Sie &lt;b&gt;heute&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um &lt;b&gt;%s Uhr&lt;/b&gt; Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten &lt;b&gt;gestriegen&lt;/b&gt; Signal um &lt;b&gt;%s Uhr&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
     <string name="title_activity_numpicker">Numpicker</string>
     <string name="hello_world">Hello world!</string>
 
