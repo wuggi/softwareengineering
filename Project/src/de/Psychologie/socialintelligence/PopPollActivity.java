@@ -35,11 +35,10 @@ import android.widget.Toast;
 @SuppressLint("SimpleDateFormat")
 public class PopPollActivity extends Activity {
 
-	private static final int HITHERE_ID = 1;
+	private static final int SNOOZE_ID = 1;
 	private Button snooze_button;
 	private Button ok_button;
 	private Button cancel_button;
-	//private TimePicker timepicker;
 	private NumberPicker hourPicker;
 	private NumberPicker minutePicker;
 	private EditText countContact;
@@ -49,6 +48,7 @@ public class PopPollActivity extends Activity {
 	private Calendar cal;
 	private SharedPreferences prefs;
 	private SQLHandler db; 
+	private NotificationManager notificationManager = null;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,10 +94,8 @@ public class PopPollActivity extends Activity {
 		});
 		
 		
-		// TODO: parsen der Zeit
-		// TODO: Fettgedruckt, obwohl HTML korrekt verwendet
-		// TODO: Zeiten nur im HH:mm Format ausgeben
 		txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
+		
 		String lastAlarm = db.getLastAlarm();
 		if(lastAlarm.compareTo("00:00:00") == 0){
 			txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo0)));
@@ -107,7 +105,6 @@ public class PopPollActivity extends Activity {
 			try {
 				lastTime = sdf.parse(lastAlarm);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Date nowTime = cal.getTime();
@@ -123,13 +120,6 @@ public class PopPollActivity extends Activity {
 	
 		
 		// Zeitauswahl
-//		timepicker=(TimePicker) findViewById(R.id.timePicker);
-//		timepicker.setIs24HourView(true);
-//		timepicker.setCurrentHour(1);
-//		timepicker.setCurrentMinute(0);
-//		timepicker.setOnTimeChangedListener(StartTimeChangedListener);
-	    
-		// ToDo NumberPicker statt Timepicker
 		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
 		hourPicker.setMaxValue(5);
 		hourPicker.setMinValue(0);
@@ -147,13 +137,6 @@ public class PopPollActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-//				//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
-//				String time= prefs.getString("Sleeptime", "5 Minuten");
-//				int snoozetime = Integer.parseInt(time);
-//				pollAlarm.setSnooze(snoozetime);
-//				db.setSnoozeActiv(true);
-//				// App beenden
-//				ActivityRegistry.finishAll();
 				setSnooze();
 			}
 		});
@@ -163,8 +146,6 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Gesamtdauer der Kontakte
-//				int hour = timepicker.getCurrentHour();
-//				int minute = timepicker.getCurrentMinute();
 				int hour = hourPicker.getValue();
 				int minute = minutePicker.getValue();
 				//Anzahl der Kontakte
@@ -172,7 +153,6 @@ public class PopPollActivity extends Activity {
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
 				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
-				
 				//Datum
 				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
 				//Alarmzeit
@@ -181,14 +161,11 @@ public class PopPollActivity extends Activity {
 				//nächsten Alarm setzen
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
-				// TODO: LastAlarm geh�rt zu Alarm
-				//db.setLastAlarm(lastAlarmTime);
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
 				// Meldung
 				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollOK), Toast.LENGTH_LONG).show();
-				ActivityRegistry.finishAll();
-				//if abfrage fehlt, ob nicht mehr Stunden vom letzten Alarmpunkt ausgewält wurden
-				
+				cancelNotification();
+				ActivityRegistry.finishAll();			
 			}
 		});
 		
@@ -221,6 +198,7 @@ public class PopPollActivity extends Activity {
 		               });
 		        AlertDialog alert = builder.create();
 		        alert.show();
+		        cancelNotification();
 			}
 		});
 		
@@ -259,7 +237,7 @@ public class PopPollActivity extends Activity {
 	
 	@SuppressWarnings("deprecation")
 	private void setNotification(){
-		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
 		int icon          = R.drawable.ic_launcher;
@@ -291,74 +269,15 @@ public class PopPollActivity extends Activity {
 
 		
 		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-		//notification.setLatestEventInfo(context, contentTitle, contentText, null);
 		
 		// NotificationManager bekommt Meldung
-		notificationManager.notify(HITHERE_ID, notification);
+		notificationManager.notify(SNOOZE_ID, notification);
 	}
 	
-	
-	// TODO: OLD Version
-//	private TimePicker.OnTimeChangedListener StartTimeChangedListener = new TimePicker.OnTimeChangedListener() {
-//
-//		public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//			updateDisplay(view, hourOfDay, minute);
-//		}
-//	};
-//
-//	private TimePicker.OnTimeChangedListener NullTimeChangedListener = new TimePicker.OnTimeChangedListener() {
-//
-//		public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//
-//		}
-//	};
-//
-//	private void updateDisplay(TimePicker timePicker, int hourOfDay, int minute) {
-//		int nextMinute = 0;
-//		int nextHour = 0;
-//		timePicker.setOnTimeChangedListener(NullTimeChangedListener);
-//		// Minuten - Abstand
-//		if (minute >= 45 && minute <= 59)
-//			nextMinute = 45;
-//		else if (minute >= 30)
-//			nextMinute = 30;
-//		else if (minute >= 15)
-//			nextMinute = 15;
-//		else if (minute > 0)
-//			nextMinute = 0;
-//		else {
-//			nextMinute = 45;
-//		}
-//
-//		if (minute - nextMinute == 1) {
-//			if (minute >= 45 && minute <= 59)
-//				nextMinute = 00;
-//			else if (minute >= 30)
-//				nextMinute = 45;
-//			else if (minute >= 15)
-//				nextMinute = 30;
-//			else if (minute > 0)
-//				nextMinute = 15;
-//			else {
-//				nextMinute = 15;
-//			}
-//		}
-//		timePicker.setCurrentMinute(nextMinute);
-//		
-//		
-//		if(hourOfDay == 23){
-//			nextHour = maxHourforContact;
-//		} else if (hourOfDay > maxHourforContact){
-//			nextHour = 0;
-//		} else {
-//			nextHour = hourOfDay;
-//		}
-//	
-//		
-//		timePicker.setCurrentHour(nextHour);
-//		timePicker.setOnTimeChangedListener(StartTimeChangedListener);
-//
-//	}
+	private void cancelNotification(){
+		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		notificationManager.cancel(SNOOZE_ID);	
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
