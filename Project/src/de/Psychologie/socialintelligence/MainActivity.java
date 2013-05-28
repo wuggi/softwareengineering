@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
 	}
 
 	// Aktiviert weiter button
-	protected void enableSubmitIfReady() {
+    void enableSubmitIfReady() {
 
 		boolean isReady = userCode.getText().toString().length() == 5;
 		if (isReady) {

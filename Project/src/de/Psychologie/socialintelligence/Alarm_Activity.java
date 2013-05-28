@@ -176,7 +176,7 @@ public class Alarm_Activity extends Activity {
 		SQLHandler db = new SQLHandler(this);
 		db.setSnoozeActiv(true);
 		// Meldung
-		Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
+		Toast.makeText(Alarm_Activity.this,getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
 		// Notification setzen
 		setNotification();
 		// App beenden
@@ -194,10 +194,10 @@ public class Alarm_Activity extends Activity {
 		// Meldung setzen
 		Notification notification = new Notification(icon, text, time);
 		
-		// Meldung schließen
+		// Meldung schlieï¿½en
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		
-		// Meldungstext, wenn gewählt
+		// Meldungstext, wenn gewï¿½hlt
 		Context context = getApplicationContext();
 		CharSequence contentTitle = "Umfrage";
 		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";
@@ -205,10 +205,10 @@ public class Alarm_Activity extends Activity {
 		Intent notificationIntent = new Intent(this, PopPollActivity.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 1, notificationIntent, 1);
 	
-		// Ton hinzufügen
+		// Ton hinzufï¿½gen
 		//notification.defaults |= Notification.DEFAULT_SOUND;
 		
-		// Vibration benötigt zusätzliches Recht
+		// Vibration benï¿½tigt zusï¿½tzliches Recht
 		//notification.defaults |= Notification.DEFAULT_VIBRATE;
 		
 		// Licht
@@ -227,11 +227,7 @@ public class Alarm_Activity extends Activity {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_HOME)
 			return true;
-		else if (keyCode == KeyEvent.KEYCODE_BACK) {
-			return true;
-		} else {
-			return super.onKeyDown(keyCode, event);
-		}
+		else return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
 	}
 
 }

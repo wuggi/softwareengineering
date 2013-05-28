@@ -9,7 +9,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 
-// TODO: dies ist keine Activity!! Es benötigt lediglich 3 Methoden von dieser!
+// TODO: dies ist keine Activity!! Es benoetigt lediglich 3 Methoden von dieser!
 public class Alarm{
 
 	private Calendar cal;
@@ -24,14 +24,14 @@ public class Alarm{
 	// Alarmzeiten in Datenbank
 	private String currentAlarmTime;
 	private String nextAlarmTime;
-	// Activity. welche den Alarm nutzen möchte
-	// TODO: sehr unschön...
+	// Activity. welche den Alarm nutzen moechte
+	// TODO: sehr unschoen...
 	private Activity source;
 	
 	// speichern letzter Alarm
-	// speichern nächster Alarm
+	// speichern naechster Alarm
 	
-	// prüfen ist Alarm gesetzt, sonst nächsten Alarm aktivieren
+	// pruefen ist Alarm gesetzt, sonst naechsten Alarm aktivieren
 	
 	Alarm(Activity source){
 		// Zeit und Datum holen
@@ -43,7 +43,7 @@ public class Alarm{
 		nextWeekDay = (currentWeekDay+1)%7;
 		// aktuelles Datum speichern
 		currentDate = cal.getTime();
-		// nächstes Datum ermitteln
+		// naechstes Datum ermitteln
 		cal.add(Calendar.DAY_OF_MONTH, +1);
 		nextDate = cal.getTime();
 		
@@ -56,7 +56,7 @@ public class Alarm{
 	}
 
 	
-	// setzen nächsten oder ersten Alarm
+	// setzen naechsten oder ersten Alarm
 	public boolean setNextAlarm(){
 		return setNextAlarm(false);
 	}
@@ -69,16 +69,16 @@ public class Alarm{
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(source);
 		Log.v("test","usercode: " + String.valueOf(db.existUserCode()));
-		// nächster Alarm
+		// naechster Alarm
 		Date alarmDay;
 		Log.v("test","next Alarm: " + String.valueOf(currentHour));
 		// Aktuelle Zeit im letzen Slot des Tages, dann ist es nach 19 Uhr
 		if(currentHour >= lastHour){
-			// erste Zeit vom nächsten Wochentag holen
+			// erste Zeit vom naechsten Wochentag holen
 			nextAlarmTime = db.getFirstTimeFromDay(nextWeekDay);
 			alarmDay = nextDate;
 		} else {
-			// für Heute existiert noch eine Alarmzeit
+			// fuer Heute existiert noch eine Alarmzeit
 			Log.v("test","heute: " + currentAlarmTime);
 			
 			//Fehler wenn heute kein gespeicherter eintrag nach der aktuellen Uhrzeit vorhanden ist.
@@ -103,7 +103,7 @@ public class Alarm{
 			} else {
 				db.setLastAlarm("00:00:00");
 			}
-			// nächsten Alarm setzen
+			// naechsten Alarm setzen
 			db.setNextAlarm(alarmDay.getHours()+":"+alarmDay.getMinutes()+":00");
         	cal.setTime(alarmDay);
         	startAlarm();
@@ -119,7 +119,7 @@ public class Alarm{
 	public void setSnooze(int snoozeTime){
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(source);
-		// nächster Alarm
+		// naechster Alarm
 		cal.setTime(currentDate);
 		cal.add(Calendar.MINUTE, snoozeTime);
 		startAlarm();
@@ -134,7 +134,7 @@ public class Alarm{
     	// bei Alarmstart die Umfrage aufrufen
     	// Damit der Start durch den Alarm klar ist
         Intent intent = new Intent(source, Alarm_Activity.class);
-        // 10000 ist einmalige Nummer für den Alarm
+        // 10000 ist einmalige Nummer fuer den Alarm
         PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager am = (AlarmManager)source.getSystemService(Activity.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);

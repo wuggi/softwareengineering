@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 public class AdminSettingsActivity extends PreferenceActivity {
 	
-	static boolean reset=false;
-	static Uri filedir=null;
+	private static boolean reset=false;
+	private static Uri filedir=null;
 	
 	@SuppressWarnings("deprecation")
 	@Override
@@ -34,12 +34,12 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	
 	// Set emailto summary to chosen one or default	
 	String to = prefs.getString("emailto", getResources().getString(R.string.std_Email_Adress));
-	Preference topref = (Preference) findPreference("emailto");		
+	Preference topref = findPreference("emailto");
 	topref.setSummary(to);		
 	
 	// Set emailsubject summary to chosen one or default
     String subject = prefs.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
-	Preference subjectpref = (Preference) findPreference("emailsubject");		
+	Preference subjectpref = findPreference("emailsubject");
 	subjectpref.setSummary(subject);	    
 	}
 	
@@ -78,7 +78,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		//TODO: Check if there is data
 		//TODO: Check if file exists (hash_new==hash_old) ->name(i).csv
 		
-		Preference button_reset = (Preference) findPreference("button_reset");
+		Preference button_reset = findPreference("button_reset");
 		button_reset
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -93,7 +93,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						
 						db.deleteDB();
 						// db.close();
-						// Alle Einstellungen werden gelöscht
+						// Alle Einstellungen werden gelï¿½scht
 						final SharedPreferences settings = PreferenceManager
 								.getDefaultSharedPreferences(getBaseContext());
 						SharedPreferences.Editor editor = settings.edit();
@@ -106,7 +106,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});		
 		
-		Preference button_password_change2 = (Preference) findPreference("password");
+		Preference button_password_change2 = findPreference("password");
 		button_password_change2
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -167,7 +167,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});
 		
-		Preference button_export_email = (Preference) findPreference("button_export_email");
+		Preference button_export_email = findPreference("button_export_email");
 		button_export_email
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -179,7 +179,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						
 			            String to = settings.getString("emailto", getResources().getString(R.string.std_Email_Adress));
 			            String subject = settings.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
-						Uri uri = null;
+						Uri uri;
 
 						Intent i = new Intent(Intent.ACTION_SEND);
 						//i.setType("message/rfc822");
@@ -221,4 +221,4 @@ public class AdminSettingsActivity extends PreferenceActivity {
 			startActivity(new Intent(AdminSettingsActivity.this,UserSettingActivity.class));
 		}
 	}
-};
+}

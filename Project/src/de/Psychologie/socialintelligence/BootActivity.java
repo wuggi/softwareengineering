@@ -34,7 +34,7 @@ public class BootActivity extends Activity{
 		Date now = cal.getTime();
 		// letzter Alarm
 		Date lastAlarm = null;
-		// nächster Alarm
+		// naechster Alarm
 		Date nextAlarm = null;
 		try {
 			lastAlarm = df.parse(db.getLastAlarm());

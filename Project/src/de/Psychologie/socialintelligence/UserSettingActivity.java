@@ -93,22 +93,22 @@ public class UserSettingActivity extends PreferenceActivity {
     	File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
 
     	mEntries.add(getResources().getResourceEntryName(MySongName));
-    	mEntryValues.add(Dir.getAbsolutePath().toString()+"/cygnus.ogg");
+    	mEntryValues.add(Dir.getAbsolutePath() +"/cygnus.ogg");
     }
     ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
     
 	// Set Sleeptime summary to chosen time		
 	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
-	Preference sleeptimepref = (Preference) findPreference("Sleeptime");		
+	Preference sleeptimepref = findPreference("Sleeptime");
 	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
 	
 	// Set Ringtonepreference summary to chosen title
 	String ringtonename = prefs.getString("ringtone", "");
-	Uri ringtoneUri = null;
+	Uri ringtoneUri;
 	
 	//Set std Alarm
-	if (ringtonename == ""){
+	if (ringtonename.equals("")){
 		// Standart wird gesetzt, falls noch keiner da
 		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM);
 		//if(ringtoneUri==null)
@@ -120,7 +120,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		ringtonepref.setValue(ringtoneUri.toString());
 	}
 	else
-		ringtoneUri = Uri.parse((String) ringtonename);	
+		ringtoneUri = Uri.parse(ringtonename);
 	
 	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);	
 	String name = ringtone.getTitle(UserSettingActivity.this);
@@ -149,7 +149,7 @@ ActivityRegistry.register(this);
 		//com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.settings_actionbar);
 		//setContentView(R.layout.settingsbar); //set the contentview. On the layout, you need a listview with the id: @android:id/list
 		
-		Preference button_week = (Preference) findPreference("button_week");
+		Preference button_week = findPreference("button_week");
 		button_week.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
@@ -158,7 +158,7 @@ ActivityRegistry.register(this);
 						return true;
 					}
 				});
-		Preference button_poll = (Preference) findPreference("button_poll");
+		Preference button_poll = findPreference("button_poll");
 		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
@@ -169,7 +169,7 @@ ActivityRegistry.register(this);
 				});		
 		
 
-		Preference button_test = (Preference) findPreference("button_test");
+		Preference button_test = findPreference("button_test");
 		button_test
 		.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
@@ -179,7 +179,7 @@ ActivityRegistry.register(this);
 			}
 				});
 		
-		Preference button_about = (Preference) findPreference("button_about");
+		Preference button_about = findPreference("button_about");
 		button_about
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -214,7 +214,7 @@ ActivityRegistry.register(this);
 						Uri ringtoneUri = Uri.parse((String) newValue);
 						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
 						String name = ringtone.getTitle(UserSettingActivity.this);
-						if (name == "cygnus.ogg")
+						if (name.equals("cygnus.ogg"))
 							name = "cygnus";
 						preference.setSummary( name);
 						// Save Ringtone to preferences
@@ -227,7 +227,7 @@ ActivityRegistry.register(this);
 					}
 				});
 		
-		Preference volume = (Preference) findPreference("volumepref");
+		Preference volume = findPreference("volumepref");
 		volume.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			
 			@Override
@@ -350,7 +350,7 @@ ActivityRegistry.register(this);
 				AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 				int currentVolume = audio.getStreamVolume(AudioManager.STREAM_ALARM);
 				if (!Boolean.valueOf(newValue.toString()) & currentVolume==0){
-					Toast.makeText(getApplicationContext(),getResources().getString(R.string.muteAndnoVibrate), Toast.LENGTH_LONG).show();
+					Toast.makeText(UserSettingActivity.this,getResources().getString(R.string.muteAndnoVibrate), Toast.LENGTH_LONG).show();
 					return false;
 				}
 					
@@ -364,12 +364,12 @@ ActivityRegistry.register(this);
 					@Override
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
-						preference.setSummary(((String) newValue) + " \tMinuten");
+						preference.setSummary(newValue + " \tMinuten");
 						return true;
 					}
 				});
 		
-		Preference button_admin_settings = (Preference) findPreference("button_admin_settings");
+		Preference button_admin_settings = findPreference("button_admin_settings");
 		button_admin_settings
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -393,7 +393,7 @@ ActivityRegistry.register(this);
 				                  		}	
 				                   else
 				                   {				                	   
-				   						Toast.makeText(getApplicationContext(),getResources().getString(R.string.false_password), Toast.LENGTH_SHORT).show();
+				   						Toast.makeText(UserSettingActivity.this,getResources().getString(R.string.false_password), Toast.LENGTH_SHORT).show();
 				   						onPreferenceClick(arg0);
 				                   }
 				                   }
@@ -437,13 +437,14 @@ ActivityRegistry.register(this);
 			java.security.MessageDigest md = java.security.MessageDigest
 					.getInstance("MD5");
 			byte[] array = md.digest(md5.getBytes());
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < array.length; ++i) {
-				sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100)
-						.substring(1, 3));
-			}
+			StringBuilder sb = new StringBuilder();
+            for (byte anArray : array) {
+                sb.append(Integer.toHexString((anArray & 0xFF) | 0x100)
+                        .substring(1, 3));
+            }
 			return sb.toString();
 		} catch (java.security.NoSuchAlgorithmException e) {
+            e.printStackTrace();
 		}
 		return null;
 	}

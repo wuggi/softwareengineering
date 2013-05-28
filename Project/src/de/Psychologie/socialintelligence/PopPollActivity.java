@@ -39,12 +39,10 @@ public class PopPollActivity extends Activity {
 	private static final int SNOOZE_ID = 111;
 	private Button snooze_button;
 	private Button ok_button;
-	private Button cancel_button;
-	private NumberPicker hourPicker;
+    private NumberPicker hourPicker;
 	private NumberPicker minutePicker;
 	private EditText countContact;
-	private TextView txtPopPollInfo;
-	private Alarm pollAlarm;
+    private Alarm pollAlarm;
 	private Calendar cal;
 	private SharedPreferences prefs;
 	private SQLHandler db; 
@@ -70,10 +68,10 @@ public class PopPollActivity extends Activity {
 		// Meldung etc. Wenn Handy gesperrt ï¿½ffnet sich zwar die App, aber User bekommt nix von mit :-)
 		
 		pollAlarm = new Alarm(this);
-	
+
 		snooze_button = (Button) findViewById(R.id.snooze_button);
 		ok_button=(Button) findViewById(R.id.ok_button);
-		cancel_button=(Button) findViewById(R.id.cancel_button);
+        Button cancel_button = (Button) findViewById(R.id.cancel_button);
 		
 		// Eingabefeld Kontaktpersonen
 		countContact=(EditText) findViewById(R.id.countContact);
@@ -95,9 +93,9 @@ public class PopPollActivity extends Activity {
 					int count) {
 			}
 		});
-		
-		
-		txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
+
+
+        TextView txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
 		
 		String lastAlarm = db.getLastAlarm();
 		if(lastAlarm.compareTo("00:00:00") == 0){
@@ -114,10 +112,10 @@ public class PopPollActivity extends Activity {
 			
 			if(lastTime.compareTo(nowTime) < 0){
 				// heute
-				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo1, lastAlarm.substring(0,5))));	
+				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo1, lastAlarm.substring(0, 5))));
 			} else{
 				// gestern
-				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo2, lastAlarm.substring(0,5))));
+				txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo2, lastAlarm.substring(0, 5))));
 			}
 		}
 	
@@ -162,7 +160,7 @@ public class PopPollActivity extends Activity {
 		
 		// Wenn Snooze gedrï¿½ck wird
 		snooze_button.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				setSnooze();
@@ -198,37 +196,37 @@ public class PopPollActivity extends Activity {
 		});
 		
 		cancel_button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(PopPollActivity.this);
-				builder.setTitle(getResources().getString(R.string.txtPopPollBreakTitle));
-		        builder.setMessage(getResources().getString(R.string.txtPopPollBreakText))
-		               .setCancelable(false)
-		               .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
-		                   public void onClick(DialogInterface dialog, int id) {
-		           				// Umfrage speichern
-			    				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
-			    				String alarmTime=pollAlarm.getCurrentAlarmTime();
-	
-			    				pollAlarm.setNextAlarm();
-			    				db.setSnoozeActiv(false);
-			    				//Werte in die DB eintragen
-			    				db.setPollEntry(date, alarmTime);
-			    				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
-			    				// Alle Activitys beenden
-			    				ActivityRegistry.finishAll();
-		                   }
-		               })
-		               .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {
-		                   public void onClick(DialogInterface dialog, int id) {
-		                	   dialog.cancel();
-		                   }
-		               });
-		        AlertDialog alert = builder.create();
-		        alert.show();
-		        cancelNotification();
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PopPollActivity.this);
+                builder.setTitle(getResources().getString(R.string.txtPopPollBreakTitle));
+                builder.setMessage(getResources().getString(R.string.txtPopPollBreakText))
+                        .setCancelable(false)
+                        .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Umfrage speichern
+                                String date = cal.get(Calendar.DAY_OF_MONTH) + "." + cal.get(Calendar.MONTH) + "." + cal.get(Calendar.YEAR);
+                                String alarmTime = pollAlarm.getCurrentAlarmTime();
+
+                                pollAlarm.setNextAlarm();
+                                db.setSnoozeActiv(false);
+                                //Werte in die DB eintragen
+                                db.setPollEntry(date, alarmTime);
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
+                                // Alle Activitys beenden
+                                ActivityRegistry.finishAll();
+                            }
+                        })
+                        .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+                cancelNotification();
+            }
+        });
 		
 		
 		
@@ -275,10 +273,10 @@ public class PopPollActivity extends Activity {
 		// Meldung setzen
 		Notification notification = new Notification(icon, text, time);
 		
-		// Meldung schließen
+		// Meldung schlieï¿½en
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		
-		// Meldungstext, wenn gewählt
+		// Meldungstext, wenn gewï¿½hlt
 		Context context = getApplicationContext();
 		CharSequence contentTitle = "Umfrage";
 		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";
@@ -286,10 +284,10 @@ public class PopPollActivity extends Activity {
 		Intent notificationIntent = new Intent(this, this.getClass());
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 1, notificationIntent, 1);
 	
-		// Ton hinzufügen
+		// Ton hinzufï¿½gen
 		//notification.defaults |= Notification.DEFAULT_SOUND;
 		
-		// Vibration benötigt zusätzliches Recht
+		// Vibration benï¿½tigt zusï¿½tzliches Recht
 		//notification.defaults |= Notification.DEFAULT_VIBRATE;
 		
 		// Licht

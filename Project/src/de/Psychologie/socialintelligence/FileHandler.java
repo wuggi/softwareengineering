@@ -12,7 +12,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-// Rechte nötig
+// Rechte nï¿½tig
 // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 public class FileHandler {
@@ -50,9 +50,9 @@ public class FileHandler {
 	}
 	
 	public boolean saveAudio(int resSoundId, Context context){
-		 byte[] buffer = null;
+		 byte[] buffer;
 		 InputStream fIn = context.getResources().openRawResource(resSoundId);
-		 int size=0;
+		 int size;
 
 		 try {
 		  size = fIn.available();

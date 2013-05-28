@@ -172,7 +172,7 @@ public class Week extends Activity {
 				// Daten in Datenbank ï¿½berfï¿½hren
 				if (!writeWeekToDatabase()) {
 					// Fehlermeldung ausgeben
-					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
+					Toast.makeText(Week.this,getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
 				} else {
 					// Alle Einstellungen erfolgreich gespeichert
 					saveAllTimeSlots = true;
@@ -184,7 +184,7 @@ public class Week extends Activity {
 					}
 					db.close();
 					// Meldung ausgeben
-					Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
+					Toast.makeText(Week.this,getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
 					//Weiter zu den Einstellungen
    			 		onBackPressed();
 				}
@@ -268,7 +268,7 @@ public class Week extends Activity {
 						// aktuellen Tag merken
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
 					} else {
-						// Tag hinzufügen und als aktuellen Tag merken
+						// Tag hinzufï¿½gen und als aktuellen Tag merken
 						addDay(bnt.getId());
 					}
 					enableAllTimes(true);
@@ -306,9 +306,9 @@ public class Week extends Activity {
 	}
 
 	private void enableAllTimes(boolean enable) {
-		for (int i = 0; i < ButtonHandler.length; i++) {
-			ButtonHandler[i].setEnabled(enable);
-		}
+        for (Button aButtonHandler : ButtonHandler) {
+            aButtonHandler.setEnabled(enable);
+        }
 	}
 	
 	private void clickCurrentDay(){
@@ -434,13 +434,13 @@ public class Week extends Activity {
 	// prï¿½ft, ob Tag bereits gesetzt ist
 	private boolean existDay(int rID) {
 		boolean res = false;
-		for (int i = 0; i < week.length; i++) {
-			if (week[i] != null) {
-				if (week[i].getViewID() == rID) {
-					res = true;
-				}
-			}
-		}
+        for (Day aWeek : week) {
+            if (aWeek != null) {
+                if (aWeek.getViewID() == rID) {
+                    res = true;
+                }
+            }
+        }
 		return res;
 	}
 
@@ -448,26 +448,26 @@ public class Week extends Activity {
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
 		// jeden Wochentag durchgehen
-		for (int i = 0; i < week.length; i++) {
-			// wurde Wochentag gesetzt?
-			if (week[i] != null) {
-				// wurden alle Zeiten fï¿½r den Wochentag gesetzt?
-				if(week[i].existAllTimes()){
-					// alten Tag lï¿½schen
-					db.deleteDay(week[i].getWeekID());
-					// alle Zeitslots wï¿½hlen
-					for (int j = 0; j < week[i].getTimeSlots().length; j++) {
-						// Wochentag und Zeitslot in Datenbank schreiben
-						db.addDayTime(week[i].getWeekID(),
-								week[i].getTimeSlots()[j]);
-					}
-				} else {
-					// es wurden nicht fï¿½r jeden Tag 4 Zeitslots gewï¿½hlt
-					db.close();
-					return false;
-				}
-			}
-		}
+        for (Day aWeek : week) {
+            // wurde Wochentag gesetzt?
+            if (aWeek != null) {
+                // wurden alle Zeiten fï¿½r den Wochentag gesetzt?
+                if (aWeek.existAllTimes()) {
+                    // alten Tag lï¿½schen
+                    db.deleteDay(aWeek.getWeekID());
+                    // alle Zeitslots wï¿½hlen
+                    for (int j = 0; j < aWeek.getTimeSlots().length; j++) {
+                        // Wochentag und Zeitslot in Datenbank schreiben
+                        db.addDayTime(aWeek.getWeekID(),
+                                aWeek.getTimeSlots()[j]);
+                    }
+                } else {
+                    // es wurden nicht fï¿½r jeden Tag 4 Zeitslots gewï¿½hlt
+                    db.close();
+                    return false;
+                }
+            }
+        }
 		// Datenbankverbindung schlieï¿½en
 		db.close();
 		// Import ist erfolgreich
@@ -599,16 +599,16 @@ public class Week extends Activity {
 			// Zeit von HH:mm:ss in HH:mm umwandeln
 			time = time.substring(0,5);
 			// prï¿½fen, ob ein Button den Zeittext enthï¿½lt
-			for (int i = 0; i < handler.length; i++) {
-				if(handler[i].getText().toString().compareTo(time) == 0){
-					// Zeit abspeichern
-					this.timeSlots[this.timeSlotID] = time;
-					// zugehï¿½rigen Button speichern
-					this.timeSlotsButton[this.timeSlotID] = handler[i];
-					//this.timeSlotID = (this.timeSlotID+1)%4;
-					this.timeSlotID++;
-				}
-			}
+            for (Button aHandler : handler) {
+                if (aHandler.getText().toString().compareTo(time) == 0) {
+                    // Zeit abspeichern
+                    this.timeSlots[this.timeSlotID] = time;
+                    // zugehï¿½rigen Button speichern
+                    this.timeSlotsButton[this.timeSlotID] = aHandler;
+                    //this.timeSlotID = (this.timeSlotID+1)%4;
+                    this.timeSlotID++;
+                }
+            }
 		}
 		
 		public int getViewID() {

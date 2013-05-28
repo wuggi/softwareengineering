@@ -97,7 +97,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	// Benutzerdaten vollständig löschen
+	// Benutzerdaten vollstï¿½ndig lï¿½schen
 	public void deleteDB(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS user");
@@ -136,23 +136,22 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.insert("poll", null, cv);
 	}
 	
-	// Holt ein Element für CSV-Datei
-	public Cursor getPollEntry(){
+	// Holt ein Element fï¿½r CSV-Datei
+    Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
-		Cursor cur=db.rawQuery("SELECT u.code, " +
-									  "p.date, " +
-									  "p.alarm, " +
-									  "p.answer, " +
-									  "p.break, " +
-									  "p.contact, " +
-									  "p.hour, " +
-									  "p.minute " +
-						      "FROM user u, " +
-						      "poll p",null);
-		return cur;
+        return db.rawQuery("SELECT u.code, " +
+                                      "p.date, " +
+                                      "p.alarm, " +
+                                      "p.answer, " +
+                                      "p.break, " +
+                                      "p.contact, " +
+                                      "p.hour, " +
+                                      "p.minute " +
+                              "FROM user u, " +
+                              "poll p",null);
 	}
 	
-	// holt gesamten Inhalt für die CSV-Datei
+	// holt gesamten Inhalt fï¿½r die CSV-Datei
 	public String getPollCsvContext(){
 		String context = ""; 
 		Cursor c = getPollEntry();
@@ -216,7 +215,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return res;
 	}
 	
-	// nächsten Alarm setzen
+	// nï¿½chsten Alarm setzen
 	public void setNextAlarm(String nextAlarmTime){
 		SQLiteDatabase db= this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -224,7 +223,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.update("status", cv, "ID = 1", null);
 	}
 	
-	// nächsten Alarm auslesen
+	// nï¿½chsten Alarm auslesen
 	public String getNextAlarm() {
 		SQLiteDatabase db= this.getReadableDatabase();
 		String res = "00:00:00";
@@ -288,22 +287,21 @@ public class SQLHandler extends SQLiteOpenHelper {
 		}
 	}
 	
-	// löscht übergebenden Tag
+	// lï¿½scht ï¿½bergebenden Tag
 	public void deleteDay(int day){
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();		
-			// Tag löschen
+			// Tag lï¿½schen
 			db.delete("time", "day="+day, null);		
 		}
 	}
 	
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
-		Cursor cur=db.rawQuery("SELECT day,time from time",null);
-		return cur;
+        return db.rawQuery("SELECT day,time from time",null);
 	}
 	
-	// Prüft, ob Tag mit Uhrzeit existiert
+	// Prï¿½ft, ob Tag mit Uhrzeit existiert
 	public boolean existDayTime(int day,String time){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean exist = false;
@@ -317,11 +315,11 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return exist;
 	}
 	
-	// gibt nächsten Alarm aus
+	// gibt nï¿½chsten Alarm aus
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
 		SQLiteDatabase db = this.getReadableDatabase();
-		// Suche heute nach möglicher Alarmzeit
+		// Suche heute nach mï¿½glicher Alarmzeit
 		Cursor c = db.rawQuery("SELECT time FROM time " +
 							   "WHERE day = "+day+" " +
 							   "AND time(time) > time('"+time+"')",null);
@@ -330,10 +328,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		} else {
-			// Heute kein Zeitslot mehr verfügbar, nimm morgigen ersten Termin
+			// Heute kein Zeitslot mehr verfï¿½gbar, nimm morgigen ersten Termin
 			res = getFirstTimeFromDay((1+day)%7);
 		}
-		Log.v("test",String.valueOf(res));
+		Log.v("getNextTimeFromDayTime",String.valueOf(res));
 		return res;
 	}
 	

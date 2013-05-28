@@ -2,7 +2,7 @@ package de.Psychologie.socialintelligence;
 
 public class FormatHandler {
 
-	// Verwendet für Uhrzeitenanzeige, statt 9:3 -> 09:03
+	// Verwendet fuer Uhrzeitenanzeige, statt 9:3 -> 09:03
 	static public String withNull(int time){
 		String res;
 		if(time < 10){
