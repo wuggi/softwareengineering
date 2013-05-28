@@ -10,7 +10,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	private static final int POLL_ABORT = -77;
 	
 	/////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	// TODO: nur für Testzwecke?
+	// Benutzerdaten vollständig löschen
 	public void deleteDB(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS user");
@@ -119,6 +119,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		setPollEntry(date,alarmTime,String.valueOf(POLL_ABORT),true,POLL_ABORT,POLL_ABORT,POLL_ABORT);
 	}
 	
+	// setzt Umfragedaten
 	public void setPollEntry(String date,String alarmTime, String answerTime,boolean abort,int contacts, int hour, int minute){
 		// Wurde Umfrage abgebrochen?
 		int breakup = abort?1:0;
@@ -135,6 +136,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.insert("poll", null, cv);
 	}
 	
+	// Holt ein Element für CSV-Datei
 	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT u.code, " +
@@ -150,6 +152,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return cur;
 	}
 	
+	// holt gesamten Inhalt für die CSV-Datei
 	public String getPollCsvContext(){
 		String context = ""; 
 		Cursor c = getPollEntry();
@@ -179,7 +182,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		    	snoozeActiv = true;
 		    }
 		}
-		//db.close();
 		return snoozeActiv;
 	}
 	
@@ -192,7 +194,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeActiv", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
-		//db.close();
 	}
 	
 	// letzten Alarm setzen
@@ -201,7 +202,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put("lastAlarm", lastAlarmTime);
 		db.update("status", cv, "ID = 1", null);
-		//db.close();
 	}
 	
 	// letzen Alarm auslesen
@@ -213,7 +213,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
-		//db.close();
 		return res;
 	}
 	
@@ -223,7 +222,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put("nextAlarm", nextAlarmTime);
 		db.update("status", cv, "ID = 1", null);
-		//db.close();
 	}
 	
 	// nächsten Alarm auslesen
@@ -235,37 +233,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
-		//db.close();
 		return res;
 	}
-	
-	/*
-	// Wartezeit holen & setzen
-	public int getSnoozeTime(){
-		SQLiteDatabase db= this.getReadableDatabase();
-		int res = -1;
-		Cursor c = db.rawQuery("SELECT snoozeTime FROM status WHERE ID=1",null);
-		if(c != null){
-			c.moveToFirst();
-			// prÃ¼fen, ob Snooze gesetzt
-			res =  c.getInt(0);
-		} 
-		//db.close();
-		return res;
-	}
-	
-	public void setSnoozeTime(int value){
-		SQLiteDatabase db= this.getWritableDatabase();
-		// nur positive Zeiten
-		value = value>0?value:15;
-		// values als cv
-		ContentValues cv = new ContentValues();
-		cv.put("snoozeTime", value);
-		// Datenbankupdate
-		db.update("status", cv, "ID = 1", null);
-		//db.close();
-	}
-	*/
 	
 	// add User Code
 	public void addUserCode(String code){
@@ -277,17 +246,17 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("code", code);
 		
 		db.insert("user", "code", cv);
-		//db.close();
 	}
 	
 	// get User Codes
 	public String getUserCode() {
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cur = db.rawQuery("SELECT code FROM user where ID=1", null);
+		Cursor c = db.rawQuery("SELECT code FROM user where ID=1", null);
 		String code = "";
-		if (cur != null)
-			if (cur.moveToFirst()) 
-				code = cur.getString(0);			
+		if (c != null && c.getCount() > 0){
+			if (c.moveToFirst()) code = c.getString(0);	
+		}
+					
 		return code;
 	}
 	
@@ -295,13 +264,12 @@ public class SQLHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean exist = false;
 		Cursor c = db.rawQuery("SELECT COUNT(*) FROM user",null);
-		if(c != null){
+		if(c != null && c.getCount() > 0){
 			c.moveToFirst();
 			if(c.getInt(0) > 0){
 				exist = true;
 			}
 		}
-		//db.close();
 		return exist;
 	}
 	
@@ -317,94 +285,67 @@ public class SQLHandler extends SQLiteOpenHelper {
 			cv.put("time", time);			
 			// import
 			db.insert("time", null, cv);
-			
-			//db.close();
 		}
 	}
 	
+	// löscht übergebenden Tag
 	public void deleteDay(int day){
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();		
 			// Tag löschen
 			db.delete("time", "day="+day, null);		
-			//db.close();
 		}
 	}
 	
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
 		Cursor cur=db.rawQuery("SELECT day,time from time",null);
-		//db.close();
 		return cur;
 	}
 	
+	// Prüft, ob Tag mit Uhrzeit existiert
 	public boolean existDayTime(int day,String time){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean exist = false;
 		Cursor c = db.rawQuery("SELECT COUNT(*) FROM time WHERE day="+day+" AND time ='"+time+"'",null);
-		if(c != null){
+		if(c != null && c.getCount() > 0){
 			c.moveToFirst();
-			Log.v("test",String.valueOf(c.getInt(0)));
 			if(c.getInt(0) > 0){
 				exist = true;
 			}
 		}
-		//db.close();
-		Log.v("test",String.valueOf(exist));
 		return exist;
 	}
 	
-	
-	//TODO: Fehler, bei c.getString(0) kahm eine CursorIndexOutOfBoundsException
-	// Schmiert ab, wenn keine Uhrzeit gewählt wurde, die noch heute dran kommt.
+	// gibt nächsten Alarm aus
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
-//		if(existDayTime(day,time)){
-//			// SELECT time FROM time WHERE day = 0 AND ID = 1+(SELECT ID FROM time WHERE day= 0 AND time ='16:00:00')
-//			SQLiteDatabase db= this.getReadableDatabase();
-//			Cursor c = db.rawQuery("SELECT time FROM time " +
-//								   "WHERE day = "+day+" " +
-//								   "AND ID = 1+(SELECT ID " +
-//								    			 "FROM time " +
-//								    			 "WHERE day="+day+" " +
-//								    			 "AND time ='"+time+"')",null);
-//			if(c != null){
-//				c.moveToFirst();
-//				res = c.getString(0);
-//			}
-//			db.close();
-//			return res;
-//		} else {
-			// TODO: else Pfad klappt immer, if nicht notwendig!
-			// SELECT time FROM time WHERE day = 1 AND time(time) > time('18:00:00')
-			Log.v("test","DB-Zeit "+time);
-			Log.v("test","Tag "+String.valueOf(day));
-			SQLiteDatabase db = this.getReadableDatabase();
-			Cursor c = db.rawQuery("SELECT time FROM time " +
-								   "WHERE day = "+day+" " +
-								   "AND time(time) > time('"+time+"')",null);
-			if(c != null){
-				c.moveToFirst();
-				res = c.getString(0);
-			} else {
-				// TODO: als Test, wenn Zeit für heute nicht mehr vorhanden, nimm nächsten Tag
-				res = getFirstTimeFromDay((1+day)%7);
-			}
-			//db.close();
-			Log.v("test",String.valueOf(res));
-			return res;
-//		}
+		SQLiteDatabase db = this.getReadableDatabase();
+		// Suche heute nach möglicher Alarmzeit
+		Cursor c = db.rawQuery("SELECT time FROM time " +
+							   "WHERE day = "+day+" " +
+							   "AND time(time) > time('"+time+"')",null);
+		// Zeitslot gefunden?
+		if(c != null && c.getCount() > 0){
+			c.moveToFirst();
+			res = c.getString(0);
+		} else {
+			// Heute kein Zeitslot mehr verfügbar, nimm morgigen ersten Termin
+			res = getFirstTimeFromDay((1+day)%7);
+		}
+		Log.v("test",String.valueOf(res));
+		return res;
 	}
 	
+	// Gibt ersten Alarm vom jeweiligen Tag aus
 	public String getFirstTimeFromDay(int day){
 		String res = "00:00:00";
 		SQLiteDatabase db= this.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT time FROM time WHERE day='"+day+"' ORDER BY ID",null);
-		if(c != null){
+		if(c != null && c.getCount() > 0){
 			c.moveToFirst();
 			res = c.getString(0);
 		}
-		//db.close();
 		return res;
 	}
 }
