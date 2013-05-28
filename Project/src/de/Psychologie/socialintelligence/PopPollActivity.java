@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import net.simonvt.numberpicker.NumberPicker;
+import net.simonvt.numberpicker.NumberPicker.OnValueChangeListener;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,6 +23,7 @@ import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,6 +52,9 @@ public class PopPollActivity extends Activity {
 	private SQLHandler db; 
 	private NotificationManager notificationManager = null;
 
+	private int difHour;
+	private int difMinute;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActivityRegistry.register(this);
@@ -118,10 +123,20 @@ public class PopPollActivity extends Activity {
 			}
 		}
 	
+		// Zeitdifferenz
+		int lastHour = Integer.valueOf(lastAlarm.substring(0,2));
+		int lastMinute = Integer.valueOf(lastAlarm.substring(3,5));
+		Log.v("test",String.valueOf(lastHour));
+		Log.v("test",String.valueOf(lastMinute));
+		int currentHour = cal.get(Calendar.HOUR_OF_DAY);
+		int currentMinute = cal.get(Calendar.MINUTE);
+		
+		difHour = currentHour-lastHour;
+		difMinute = currentMinute-lastMinute;
 		
 		// Zeitauswahl
 		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
-		hourPicker.setMaxValue(5);
+		hourPicker.setMaxValue(difHour);
 		hourPicker.setMinValue(0);
 		hourPicker.setFocusable(true);
 		hourPicker.setFocusableInTouchMode(true);
@@ -131,6 +146,21 @@ public class PopPollActivity extends Activity {
 		minutePicker.setMinValue(0);
 		minutePicker.setFocusable(true);
 		minutePicker.setFocusableInTouchMode(true);
+		
+		hourPicker.setOnValueChangedListener(new OnValueChangeListener(){
+
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				if(hourPicker.getValue() == difHour){
+					minutePicker.setMaxValue(difMinute);
+				} else {
+					minutePicker.setMaxValue(59);
+				}
+				
+			}
+			
+		});
 		
 		// Wenn Snooze gedr�ck wird
 		snooze_button.setOnClickListener(new OnClickListener() {
