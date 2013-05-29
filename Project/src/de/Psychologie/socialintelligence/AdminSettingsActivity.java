@@ -2,6 +2,9 @@ package de.Psychologie.socialintelligence;
 
 import java.io.File;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +38,8 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		setContentView(R.layout.custom_preferences);
 		com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar)findViewById(R.id.settings_actionbar);
 		bar.setTitle(R.string.settings_admin);
+		// Actionbar mit Zurueckknopf versehen
+        bar.setHomeAction(new IntentAction(this, new Intent(AdminSettingsActivity.this, MainActivity.class), R.drawable.back_button));
 		
 		addPreferencesFromResource(R.xml.adminpreferences);
 		
@@ -227,7 +232,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				        dialog.show();
 						return true;
 					}
-				});
+				});		
 		
 	}
 	
