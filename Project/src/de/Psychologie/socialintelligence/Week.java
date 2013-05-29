@@ -34,6 +34,7 @@ public class Week extends Activity {
 	// Alarm
 	private Alarm alarm;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,14 +95,25 @@ public class Week extends Activity {
 		// Methoden OnClick
 		////////////////////////////////////////////////////////////////////////
 
+		// Displaybreite
+		//LinearLayout weekLayout = (LinearLayout) findViewById(R.id.weekLayout);
+		//int weekButtonWidth = (int) weekLayout.getWidth()/8;
+		
 		// Week
 		enableButton(mon, 0);
+		//mon.setWidth(weekButtonWidth);
 		enableButton(tue, 0);
+		//tue.setWidth(weekButtonWidth);
 		enableButton(wed, 0);
+		//wed.setWidth(weekButtonWidth);
 		enableButton(thur, 0);
+		//thur.setWidth(weekButtonWidth);
 		enableButton(fri, 0);
+		//fri.setWidth(weekButtonWidth);
 		enableButton(sat, 0);
+		//sat.setWidth(weekButtonWidth);
 		enableButton(sun, 0);
+		//sun.setWidth(weekButtonWidth);
 
 		// Row1
 		enableButton(timeslot1, 1);
@@ -166,6 +178,7 @@ public class Week extends Activity {
 		////////////////////////////////////////////////////////////////////////
 
 		saveWeek = (Button) findViewById(R.id.saveWeek);
+		saveWeek.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
 		saveWeek.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

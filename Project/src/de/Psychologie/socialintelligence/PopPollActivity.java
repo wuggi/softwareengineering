@@ -38,6 +38,7 @@ public class PopPollActivity extends Activity {
 	private static final int SNOOZE_ID = 111;
 	private Button snooze_button;
 	private Button ok_button;
+	private Button cancel_button;
     private NumberPicker hourPicker;
 	private NumberPicker minutePicker;
 	private EditText countContact;
@@ -51,6 +52,7 @@ public class PopPollActivity extends Activity {
 	private int difHour;
 	private int difMinute;
 	
+	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActivityRegistry.register(this);
@@ -70,9 +72,11 @@ public class PopPollActivity extends Activity {
 		pollAlarm = new Alarm(this);
 
 		snooze_button = (Button) findViewById(R.id.snooze_button);
+		snooze_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red));
 		ok_button=(Button) findViewById(R.id.ok_button);
-        Button cancel_button = (Button) findViewById(R.id.cancel_button);
-		
+		ok_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+		cancel_button = (Button) findViewById(R.id.cancel_button);
+        cancel_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red));
 		// Eingabefeld Kontaktpersonen
 		countContact=(EditText) findViewById(R.id.countContact);
 		countContact.addTextChangedListener(new TextWatcher() {

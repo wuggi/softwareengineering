@@ -163,13 +163,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/snooze_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:text="@string/snooze" />
         </LinearLayout>
 
@@ -181,6 +184,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:enabled="false"
+            android:layout_margin = "2dp"
             android:text="@string/OK" />
     </RelativeLayout>
 
