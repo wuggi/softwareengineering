@@ -142,7 +142,11 @@ public class PopPollActivity extends Activity {
 		hourPicker.setFocusableInTouchMode(true);
 		
 		minutePicker = (NumberPicker) findViewById(R.id.minutePicker);
-		minutePicker.setMaxValue(59);
+		if(difHour == 0){
+			minutePicker.setMaxValue(difMinute);
+		} else {
+			minutePicker.setMaxValue(59);
+		}
 		minutePicker.setMinValue(0);
 		minutePicker.setFocusable(true);
 		minutePicker.setFocusableInTouchMode(true);
