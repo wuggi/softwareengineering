@@ -12,22 +12,22 @@
         android:id="@+id/actionbar"
         style="@style/ActionBar"
         app:title="@string/title_activity_week" />
-    
+
     <TextView
         android:id="@+id/txtPopPollInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-        android:layout_gravity="center_horizontal" >
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:id="@+id/textView2"
@@ -43,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:ems="10"
-            android:inputType="number" >
+            android:inputType="number"
+            android:maxLength="4" >
 
             <requestFocus />
         </EditText>
@@ -53,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="10dp" >
 
         <TextView
@@ -62,6 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="73dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:paddingRight="10dp"
             android:text="@string/time"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -69,7 +72,9 @@
         <net.simonvt.numberpicker.NumberPicker
             android:id="@+id/hourPicker"
             android:layout_width="60dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
 
         <TextView
             android:id="@+id/textView1"
@@ -82,7 +87,10 @@
         <net.simonvt.numberpicker.NumberPicker
             android:id="@+id/minutePicker"
             android:layout_width="60dp"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false" >
+
         </net.simonvt.numberpicker.NumberPicker>
     </LinearLayout>
     <!--
