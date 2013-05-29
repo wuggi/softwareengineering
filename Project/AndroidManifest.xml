@@ -36,7 +36,7 @@
         <activity
             android:name="de.Psychologie.socialintelligence.PopPollActivity"
             android:label="@string/title_activity_pop_poll"
-            android:theme="@style/SampleTheme.Light"
+            android:theme="@style/AppTheme_noTitle" 
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -48,12 +48,14 @@
         <activity
             android:name="de.Psychologie.socialintelligence.UserSettingActivity"
             android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noTitle"  >
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.AdminSettingsActivity"
             android:label="@string/settings_admin"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noTitle"  >
         </activity>
         <activity
             android:name="de.Psychologie.socialintelligence.Alarm_Activity"

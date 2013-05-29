@@ -13,7 +13,7 @@
     <string name="bntThursday">Do</string>
     <string name="bntTuesday">Di</string>
     <string name="bntWednesday">Mi</string>
-    <string name="bntWeekSave">Woche speichern und Weiter</string>
+    <string name="bntWeekSave">Woche speichern und weiter</string>
     <string name="cancel">Abbrechen</string>
     <string name="false_password">Falsches Passwort.</string>
     <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>
@@ -69,6 +69,7 @@
     <string name="std_Email_Adress">StandartAdresse@st-ovgu.de</string>
     <string name="std_Email_Subject">[Socialintelligence]CSV Export</string>
     <string name="settings_deleteDB_success">Nutzerdaten gelöscht</string>
+    <string name="export_already_done">Export wurde bereits ausgeführt.</string>
     <string name="txtPopPollOK">Umfrage wurde gespeichert</string>
     <string name="txtPopPollSnooze">Schlummerfunktion aktiv</string>
     <string name="txtPopPollBreakTitle">Abbruch</string>

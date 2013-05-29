@@ -82,25 +82,28 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		button_reset
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
-					public boolean onPreferenceClick(Preference arg0) {						
-						reset = true;
-						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+					public boolean onPreferenceClick(Preference arg0) {			
+						if (!reset){
+							reset = true;						
+							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 										
-						FileHandler file = new FileHandler(db.getUserCode()+".csv");
-						filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+							FileHandler file = new FileHandler(db.getUserCode()+".csv");
+							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
 						
-						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_SHORT).show();		
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_SHORT).show();		
 						
-						db.deleteDB();
-						// db.close();
-						// Alle Einstellungen werden gel�scht
-						final SharedPreferences settings = PreferenceManager
+							db.deleteDB();
+							// Alle Einstellungen werden geloescht
+							final SharedPreferences settings = PreferenceManager
 								.getDefaultSharedPreferences(getBaseContext());
-						SharedPreferences.Editor editor = settings.edit();
-						editor.remove("ringtone");
-						editor.remove("Sleeptime");
-						editor.commit();
-						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_deleteDB_success),Toast.LENGTH_SHORT).show();
+							SharedPreferences.Editor editor = settings.edit();
+							editor.remove("ringtone");
+							editor.remove("Sleeptime");
+							editor.commit();
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_deleteDB_success),Toast.LENGTH_SHORT).show();
+						}
+						else
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.export_already_done),Toast.LENGTH_SHORT).show();
 					
 				        return true;
 					}

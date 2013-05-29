@@ -305,11 +305,4 @@ public class PopPollActivity extends Activity {
 		notificationManager.cancel(SNOOZE_ID);	
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.pop_poll, menu);
-		return true;
-	}
-
 }
