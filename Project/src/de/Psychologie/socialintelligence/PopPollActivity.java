@@ -47,6 +47,7 @@ public class PopPollActivity extends Activity {
 	private SQLHandler db; 
 	private NotificationManager notificationManager = null;
 
+	private boolean action_done = false;
 	private int difHour;
 	private int difMinute;
 	
@@ -163,6 +164,7 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				setSnooze();
+				action_done=true;
 			}
 		});
 		
@@ -186,6 +188,7 @@ public class PopPollActivity extends Activity {
 				//nächsten Alarm setzen
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
+				action_done=true;
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
 				cancelNotification();
 				// Meldung
@@ -209,6 +212,7 @@ public class PopPollActivity extends Activity {
 
                                 pollAlarm.setNextAlarm();
                                 db.setSnoozeActiv(false);
+                				action_done=true;
                                 //Werte in die DB eintragen
                                 db.setPollEntry(date, alarmTime);
                                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
@@ -238,14 +242,28 @@ public class PopPollActivity extends Activity {
 		
 		// Wenn Abbrechen gedr�ckt
 		//db.setPollEntry(date, alarmTime)
+
+		//TODO: Prevent the alarm when answering
+        pollAlarm.setNextAlarm();
+        db.setSnoozeActiv(false);
 		
 	}
 	
+	@Override
 	public void onBackPressed() {
 		setSnooze();
+		action_done=true;
 	}
 	
-	// TODO: setSnooze und set Notification werden in Alarm_Activity auch genutzt (fast 1:1)
+	@Override
+	protected void onPause(){
+		if (!action_done)
+			setSnooze();		
+		super.onPause();
+		
+	}
+	
+	
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
