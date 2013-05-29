@@ -1,5 +1,8 @@
 package de.Psychologie.socialintelligence;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -31,16 +34,20 @@ public class MainActivity extends Activity {
 			//db.close();
 			finish();
 			
-		// User existiert, Weiterleitung zu Einstellungs�bersicht
+		// User existiert, Weiterleitung zu Einstellungsuebersicht
 		} else if (db.existUserCode()) {
 			startActivity(new Intent(MainActivity.this,UserSettingActivity.class));
 			//db.close();
 			finish();
 
 		// erster App-Start
-		} else {
+		} else {				
 			setContentView(R.layout.activity_main);
 
+			// Actionbar mit Zurueckknopf versehen !DEBUG!
+//	        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+//	        actionBar.setHomeAction(new IntentAction(this, new Intent(MainActivity.this, MainActivity.class), R.drawable.back_button));
+			
 			userCode = (EditText) findViewById(R.id.userCode);
 			userCode.setFilters(new InputFilter[] { new InputFilter.AllCaps(),
 					new InputFilter.LengthFilter(5) });
@@ -62,7 +69,7 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-//			//Damit button nicht in scrollview h�ngt:
+//			//Damit button nicht in scrollview haengt:
 //			EditText text= (EditText) findViewById(R.id.userCode);
 //					//show keyboard
 //					text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -84,7 +91,7 @@ public class MainActivity extends Activity {
 			btnWeiter.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					// Usereingabe aus Textfeld holen und alles gro� machen
+					// Usereingabe aus Textfeld holen und alles gross machen
 					String code = userCode.getText().toString().toUpperCase();
 					// SQL Handler fuer Datenbankimport
 					SQLHandler db = new SQLHandler(MainActivity.this);
@@ -99,7 +106,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-    //men� taste deaktiviert ansonsten das Blinken der texteingabe
+    //menue taste deaktiviert ansonsten das Blinken der texteingabe
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent e) {
 	    switch(keycode) {

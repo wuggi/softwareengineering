@@ -9,7 +9,7 @@
     <color name="redend">#d67201</color>
     <color name="redstroke">#d67201</color>
     <color name="orange">#f07d00</color>
-	<color name="actionbar_separator">#f07d00</color>
+	<color name="actionbar_separator">#fe9d20</color>
     <color name="actionbar_title">#FFFFFF</color>
     <color name="actionbar_background_start">#f07d00</color>
     <color name="actionbar_background_end">#f07d00</color>
