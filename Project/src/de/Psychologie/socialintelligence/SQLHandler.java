@@ -97,7 +97,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	// Benutzerdaten vollst�ndig l�schen
+	// Benutzerdaten vollstaendig loeschen
 	public void deleteDB(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS user");

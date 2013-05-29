@@ -96,6 +96,8 @@ public class UserSettingActivity extends PreferenceActivity {
 
     	mEntries.add(getResources().getResourceEntryName(MySongName));
     	mEntryValues.add(Dir.getAbsolutePath() +"/cygnus.ogg");
+    	RingtoneManager.setActualDefaultRingtoneUri(UserSettingActivity.this, RingtoneManager.TYPE_ALARM,Uri.parse(Dir.getAbsolutePath() +"/cygnus.ogg"));
+    	
     }
     ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
@@ -113,8 +115,6 @@ public class UserSettingActivity extends PreferenceActivity {
 	if (ringtonename.equals("")){
 		// Standart wird gesetzt, falls noch keiner da
 		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM);
-		//if(ringtoneUri==null)
-		//	ringtoneUri= MySongUri;
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString("ringtone", ringtoneUri.toString());
 		editor.commit();
