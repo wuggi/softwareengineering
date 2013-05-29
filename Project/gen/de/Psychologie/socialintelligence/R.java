@@ -204,12 +204,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int btn_snooze_front=0x7f0a000e;
         public static final int cancel_button=0x7f0a001d;
         public static final int countContact=0x7f0a0019;
-        public static final int editText1=0x7f0a003d;
-        public static final int editText2=0x7f0a003e;
+        public static final int editText1=0x7f0a003e;
+        public static final int editText2=0x7f0a003f;
         public static final int fri=0x7f0a0025;
         public static final int hourPicker=0x7f0a001a;
         public static final int linearLayout2=0x7f0a001c;
-        public static final int list=0x7f0a0040;
+        public static final int list=0x7f0a0041;
         public static final int menu_settings=0x7f0a0043;
         public static final int minutePicker=0x7f0a001b;
         public static final int mon=0x7f0a0021;
@@ -217,15 +217,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /**  Just adding these so I wont have to remove a lot of code from NumberPicker.java. 
          */
         public static final int np__increment=0x7f0a0000;
-        public static final int np__numberpicker_input=0x7f0a003c;
+        public static final int np__numberpicker_input=0x7f0a003d;
         public static final int ok_button=0x7f0a001f;
         public static final int preference_id=0x7f0a0042;
         public static final int sat=0x7f0a0026;
         public static final int saveWeek=0x7f0a003b;
         public static final int screen=0x7f0a0002;
         public static final int scrollView1=0x7f0a0011;
-        public static final int seekBar1=0x7f0a003f;
-        public static final int settings_actionbar=0x7f0a0041;
+        public static final int seekBar1=0x7f0a0040;
+        public static final int settings_actionbar=0x7f0a003c;
         public static final int snooze_button=0x7f0a001e;
         public static final int sun=0x7f0a0027;
         public static final int tableRow1=0x7f0a0028;
@@ -264,10 +264,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_main=0x7f030003;
         public static final int activity_pop_poll=0x7f030004;
         public static final int activity_week=0x7f030005;
-        public static final int number_picker_with_selector_wheel=0x7f030006;
-        public static final int preferences_two_passwords=0x7f030007;
-        public static final int seekbar=0x7f030008;
-        public static final int settingsbar=0x7f030009;
+        public static final int custom_preferences=0x7f030006;
+        public static final int number_picker_with_selector_wheel=0x7f030007;
+        public static final int preferences_two_passwords=0x7f030008;
+        public static final int seekbar=0x7f030009;
+        public static final int settingsbar=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_settings=0x7f0c0000;

@@ -31,6 +31,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		//Add View for ActionBar
+		setContentView(R.layout.custom_preferences);
+		com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar)findViewById(R.id.settings_actionbar);
+		bar.setTitle(R.string.settings_admin);
+		
 		addPreferencesFromResource(R.xml.adminpreferences);
 		
 		

@@ -137,13 +137,11 @@ public class UserSettingActivity extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-ActivityRegistry.register(this);
-		
-
+		ActivityRegistry.register(this);
+		//Add View for ActionBar
+		setContentView(R.layout.custom_preferences);
 
 		addPreferencesFromResource(R.xml.preferences);
-		
-		
 		
 		//TODO:AppBar in Settings
 		//com.markupartist.android.widget.ActionBar actionBar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.actionbar);
