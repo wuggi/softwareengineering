@@ -257,11 +257,13 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	// Set emailto summary to chosen one or default	
 	String to = prefs.getString("emailto", getResources().getString(R.string.std_Email_Adress));
 	Preference topref = findPreference("emailto");
+	((EditTextPreference) topref).setText(to);
 	topref.setSummary(to);		
 	
 	// Set emailsubject summary to chosen one or default
     String subject = prefs.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
 	Preference subjectpref = findPreference("emailsubject");
+	((EditTextPreference) subjectpref).setText(subject);
 	subjectpref.setSummary(subject);	    
 	
 	Boolean export = prefs.getBoolean("export", false);
@@ -298,10 +300,10 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	public void onBackPressed() {
 		finish();
 		if (reset)
-			startActivity(new Intent(AdminSettingsActivity.this,MainActivity.class));
+			startActivity(new Intent(AdminSettingsActivity.this,MainActivity.class));	
 		else {
-			overridePendingTransition(0, 0);
 			startActivity(new Intent(AdminSettingsActivity.this,UserSettingActivity.class));
-		}
+			overridePendingTransition(0, 0);
+		}	
 	}
 }
