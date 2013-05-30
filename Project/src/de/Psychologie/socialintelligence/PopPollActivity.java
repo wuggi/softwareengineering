@@ -252,7 +252,7 @@ public class PopPollActivity extends Activity {
 		//db.setPollEntry(date, alarmTime)
 
 		//TODO: Prevent the alarm when answering
-        pollAlarm.setNextAlarm();
+        //pollAlarm.setNextAlarm();
         db.setSnoozeActiv(false);
 		
 	}

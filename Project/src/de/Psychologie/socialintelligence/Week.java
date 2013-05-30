@@ -42,7 +42,7 @@ public class Week extends Activity {
 		
 		// Actionbar mit Zurueckknopf versehen
         ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, new Intent(Week.this, MainActivity.class), R.drawable.back_button));
+        actionBar.setHomeAction(new IntentAction(this, new Intent(Week.this, UserSettingActivity.class), R.drawable.back_button));
         		
 		////////////////////////////////////////////////////////////////////////
 		// Buttons definieren

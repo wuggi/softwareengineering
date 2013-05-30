@@ -19,7 +19,9 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class AdminSettingsActivity extends PreferenceActivity {
@@ -39,10 +41,18 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar)findViewById(R.id.settings_actionbar);
 		bar.setTitle(R.string.settings_admin);
 		// Actionbar mit Zurueckknopf versehen
-        bar.setHomeAction(new IntentAction(this, new Intent(AdminSettingsActivity.this, MainActivity.class), R.drawable.back_button));
+        bar.setHomeAction(new IntentAction(this, new Intent(AdminSettingsActivity.this, UserSettingActivity.class), R.drawable.back_button));
+		
+        ImageButton headerButton = (ImageButton) findViewById(R.id.actionbar_home_btn);
+		headerButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();				
+			}
+		});
 		
 		addPreferencesFromResource(R.xml.adminpreferences);
-		
 		
 		EditTextPreference emailtotextpref = (EditTextPreference) findPreference("emailto");
 		emailtotextpref

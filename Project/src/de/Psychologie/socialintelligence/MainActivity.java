@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 	private Button btnWeiter;
 	private EditText userCode;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +89,8 @@ public class MainActivity extends Activity {
 
 			// Weiter Button geklickt?
 			btnWeiter = (Button) findViewById(R.id.btnWeiter);
+
+			btnWeiter.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
 			btnWeiter.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
