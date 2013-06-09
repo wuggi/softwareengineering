@@ -2,6 +2,9 @@ package de.Psychologie.socialintelligence;
 
 import java.io.File;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,40 +19,40 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class AdminSettingsActivity extends PreferenceActivity {
 	
-	static boolean reset=false;
-	static Uri filedir=null;
+	private static boolean reset=false;
+	private static Uri filedir=null;
 	
-	@SuppressWarnings("deprecation")
-	@Override
-	protected void onStart() {
-	super.onStart();
 	
-	// Get the xml/prefx.xml preferences
-	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	
-	
-	// Set emailto summary to chosen one or default	
-	String to = prefs.getString("emailto", getResources().getString(R.string.std_Email_Adress));
-	Preference topref = (Preference) findPreference("emailto");		
-	topref.setSummary(to);		
-	
-	// Set emailsubject summary to chosen one or default
-    String subject = prefs.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
-	Preference subjectpref = (Preference) findPreference("emailsubject");		
-	subjectpref.setSummary(subject);	    
-	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		addPreferencesFromResource(R.xml.adminpreferences);
+		//Add View for ActionBar
+		setContentView(R.layout.custom_preferences);
+		com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar)findViewById(R.id.settings_actionbar);
+		bar.setTitle(R.string.settings_admin);
+		// Actionbar mit Zurueckknopf versehen
+        bar.setHomeAction(new IntentAction(this, new Intent(AdminSettingsActivity.this, UserSettingActivity.class), R.drawable.back_button));
 		
+        ImageButton headerButton = (ImageButton) findViewById(R.id.actionbar_home_btn);
+		headerButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();				
+			}
+		});
+		
+		addPreferencesFromResource(R.xml.adminpreferences);
 		
 		EditTextPreference emailtotextpref = (EditTextPreference) findPreference("emailto");
 		emailtotextpref
@@ -75,38 +78,112 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					}
 				});
 		
-		//TODO: Check if there is data
-		//TODO: Check if file exists (hash_new==hash_old) ->name(i).csv
+		final Preference button_export_email = findPreference("button_export_email");
+		button_export_email
+				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {		
+						
+
+						//get Preferences
+						final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+						
+			            String to = settings.getString("emailto", getResources().getString(R.string.std_Email_Adress));
+			            String subject = settings.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
+						Uri uri;
+
+						Intent i = new Intent(Intent.ACTION_SEND);
+						//i.setType("message/rfc822");
+						//i.setType("text/csv");
+						i.setType("application/csv");
+						
+						if (reset){
+							uri=filedir;
+						}
+						else{
+						
+						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+						
+						FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
+						File file = handler.createExternalFile(db.getPollCsvContext());
+						uri= Uri.fromFile(file);
+						}
+						
+						i.putExtra(Intent.EXTRA_STREAM,uri );
+						i.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
+						i.putExtra(Intent.EXTRA_SUBJECT, subject);
+						
+						startActivity(Intent.createChooser(i, "E-Mail"));						
+
+						return true;
+					}
+				});			
 		
-		Preference button_reset = (Preference) findPreference("button_reset");
+		final Preference button_reset = findPreference("button_reset");
 		button_reset
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
-					public boolean onPreferenceClick(Preference arg0) {						
-						reset = true;
-						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
-										
-						FileHandler file = new FileHandler(db.getUserCode()+".csv");
-						filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+					public boolean onPreferenceClick(Preference arg0) {								
+							reset = true;						
+							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 						
-						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_SHORT).show();		
-						
-						db.deleteDB();
-						// db.close();
-						// Alle Einstellungen werden gelöscht
-						final SharedPreferences settings = PreferenceManager
+							db.deleteDB();
+							//TODO: Stop Alarm
+							
+							// Alle Einstellungen werden geloescht
+							final SharedPreferences prefs = PreferenceManager
 								.getDefaultSharedPreferences(getBaseContext());
-						SharedPreferences.Editor editor = settings.edit();
-						editor.remove("ringtone");
-						editor.remove("Sleeptime");
-						editor.commit();
-						Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_deleteDB_success),Toast.LENGTH_SHORT).show();
-					
+							SharedPreferences.Editor editor = prefs.edit();
+							editor.remove("ringtone");
+							editor.remove("Sleeptime");
+							editor.remove("export");
+							editor.commit();
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_deleteDB_success),Toast.LENGTH_SHORT).show();
+						
+							button_reset.setEnabled(false);
 				        return true;
 					}
-				});		
+				});
 		
-		Preference button_password_change2 = (Preference) findPreference("password");
+		final Preference button_export = findPreference("button_export");
+		button_export
+				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {	
+							
+						byte status = status();
+						if (status == 2 | status == 3){
+							
+						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+							
+							FileHandler file = new FileHandler(db.getUserCode()+".csv");
+							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+						
+							if (fileOK())
+								Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_LONG).show();
+							else{
+								//TODO: DB Dump? + Rename files
+								Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_failure), Toast.LENGTH_LONG).show();
+							}	
+							
+								button_reset.setEnabled(true);
+								button_export_email.setEnabled(true);	
+								button_export.setEnabled(false);
+								
+								//Save condition in Settings
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+								SharedPreferences.Editor editor = prefs.edit();
+								editor.putBoolean("export", true);
+								editor.commit();
+						}
+						else
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.export_empty), Toast.LENGTH_LONG).show();
+						
+				        return true;
+					}
+				});	
+		
+		Preference button_password_change2 = findPreference("password");
 		button_password_change2
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -165,60 +242,68 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				        dialog.show();
 						return true;
 					}
-				});
-		
-		Preference button_export_email = (Preference) findPreference("button_export_email");
-		button_export_email
-				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-					@Override
-					public boolean onPreferenceClick(Preference arg0) {		
-						
-
-						//get Preferences
-						final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-						
-			            String to = settings.getString("emailto", getResources().getString(R.string.std_Email_Adress));
-			            String subject = settings.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
-						Uri uri = null;
-
-						Intent i = new Intent(Intent.ACTION_SEND);
-						//i.setType("message/rfc822");
-						//i.setType("text/csv");
-						i.setType("application/csv");
-						
-						if (reset){
-							uri=filedir;
-						}
-						else{
-						
-						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
-						
-						FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
-						File file = handler.createExternalFile(db.getPollCsvContext());
-						uri= Uri.fromFile(file);
-						}
-						
-						i.putExtra(Intent.EXTRA_STREAM,uri );
-						i.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
-						i.putExtra(Intent.EXTRA_SUBJECT, subject);
-						
-						startActivity(Intent.createChooser(i, "E-Mail"));						
-
-						return true;
-					}
-				});	
-		
+				});		
 		
 	}
-
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onStart() {
+	super.onStart();
+	
+	// Get the xml/prefx.xml preferences
+	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	
+	
+	// Set emailto summary to chosen one or default	
+	String to = prefs.getString("emailto", getResources().getString(R.string.std_Email_Adress));
+	Preference topref = findPreference("emailto");
+	((EditTextPreference) topref).setText(to);
+	topref.setSummary(to);		
+	
+	// Set emailsubject summary to chosen one or default
+    String subject = prefs.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
+	Preference subjectpref = findPreference("emailsubject");
+	((EditTextPreference) subjectpref).setText(subject);
+	subjectpref.setSummary(subject);	    
+	
+	Boolean export = prefs.getBoolean("export", false);
+	
+	if (export){
+		Preference button_export = findPreference("button_export");
+		button_export.setEnabled(false);
+		final Preference button_reset = findPreference("button_reset");
+		button_reset.setEnabled(true);
+		final Preference button_export_email = findPreference("button_export_email");
+		button_export_email.setEnabled(true);	
+	}
+	}
+	
+	/*
+	 * Return Codes: 
+	 * 0 - DB Empty + no File
+	 * 1 - DB Empty + File exists
+	 * 2 - DB OK + no File
+	 * 3 - DB OK + File exists
+	 * TODO:Implement
+	 */
+	private byte status(){
+		
+		return 2;
+	}
+	
+	//TODO: check if file is correct
+	private boolean fileOK(){
+		
+		return true;
+	}
 	@Override
 	public void onBackPressed() {
 		finish();
 		if (reset)
-			startActivity(new Intent(AdminSettingsActivity.this,MainActivity.class));
+			startActivity(new Intent(AdminSettingsActivity.this,MainActivity.class));	
 		else {
-			overridePendingTransition(0, 0);
 			startActivity(new Intent(AdminSettingsActivity.this,UserSettingActivity.class));
-		}
+			overridePendingTransition(0, 0);
+		}	
 	}
-};
+}

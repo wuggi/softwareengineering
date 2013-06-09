@@ -28,14 +28,14 @@
         android:layout_centerVertical="true"
         android:visibility="visible"
         >
-        <ImageView 
+
+        <ImageView
             android:id="@+id/actionbar_back_button"
-            android:layout_width="20dip"
-			android:layout_height="50dip"  
-			android:adjustViewBounds="true"
             style="@style/ActionBarHomeLogo"
-            android:visibility="visible"
-            />
+            android:layout_width="20dip"
+            android:layout_height="50dip"
+            android:adjustViewBounds="true"
+            android:visibility="visible" />
         
         <RelativeLayout
             android:id="@+id/actionbar_home_bg"

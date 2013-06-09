@@ -16,8 +16,8 @@ import android.util.AttributeSet;
 public class CustomRingtonepreference extends ListPreference{
 
 private MediaPlayer mMediaPlayer;
-CharSequence[] mEntries;
-CharSequence[] mEntryValues;
+private CharSequence[] mEntries;
+private CharSequence[] mEntryValues;
 private int mClickedDialogEntryIndex;
 private String mValue;
 

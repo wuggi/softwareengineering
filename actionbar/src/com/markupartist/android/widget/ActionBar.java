@@ -47,7 +47,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
     private LinearLayout mActionsView;
     private ImageButton mHomeBtn;
     private RelativeLayout mHomeLayout;
-    private ProgressBar mProgress;
+//    private ProgressBar mProgress;
 
     public ActionBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,7 +65,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
         mTitleView = (TextView) mBarView.findViewById(R.id.actionbar_title);
         mActionsView = (LinearLayout) mBarView.findViewById(R.id.actionbar_actions);
         
-        mProgress = (ProgressBar) mBarView.findViewById(R.id.actionbar_progress);
+//        mProgress = (ProgressBar) mBarView.findViewById(R.id.actionbar_progress);
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.ActionBar);
@@ -79,7 +79,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
     public void setHomeAction(Action action) {
         mHomeBtn.setOnClickListener(this);
         mHomeBtn.setTag(action);
-        mHomeBtn.setImageResource(action.getDrawable());
+        mHomeBtn.setBackgroundResource(action.getDrawable());
         mHomeLayout.setVisibility(View.VISIBLE);
     }
 
@@ -124,9 +124,9 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
      * @param One of {@link View#VISIBLE}, {@link View#INVISIBLE},
      *   or {@link View#GONE}.
      */
-    public void setProgressBarVisibility(int visibility) {
-        mProgress.setVisibility(visibility);
-    }
+//    public void setProgressBarVisibility(int visibility) {
+//        mProgress.setVisibility(visibility);
+//    }
 
     /**
      * Returns the visibility status for the progress bar.
@@ -134,9 +134,9 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
      * @param One of {@link View#VISIBLE}, {@link View#INVISIBLE},
      *   or {@link View#GONE}.
      */
-    public int getProgressBarVisibility() {
-        return mProgress.getVisibility();
-    }
+//    public int getProgressBarVisibility() {
+//        return mProgress.getVisibility();
+//    }
 
     /**
      * Function to set a click listener for Title TextView

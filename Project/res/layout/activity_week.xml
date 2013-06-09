@@ -25,6 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:id="@+id/weekLayout"
+        android:weightSum="7.0"
         android:layout_marginBottom="10dp" >
 
         <Button
@@ -33,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1.0"
             android:text="@string/bntMonday" />
 
         <Button
@@ -42,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_weight="1.0"
             android:text="@string/bntTuesday" />
 
         <Button
@@ -51,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_weight="1.0"
             android:text="@string/bntWednesday" />
 
         <Button
@@ -60,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_weight="1.0"
             android:text="@string/bntThursday" />
 
         <Button
@@ -69,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_weight="1.0"
             android:text="@string/bntFriday" />
 
         <Button
@@ -78,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_weight="1.0"
             android:text="@string/bntSaturday" />
 
         <Button
@@ -87,7 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:minWidth="30dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1.0"
             android:text="@string/bntSunday" />
     </LinearLayout>
 
@@ -252,6 +256,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
+            android:layout_margin="2dp"
             android:text="@string/bntWeekSave" />
     </RelativeLayout>
 
