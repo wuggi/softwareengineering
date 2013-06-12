@@ -18,6 +18,7 @@ import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +38,8 @@ public class Alarm_Activity extends Activity {
 	private SharedPreferences prefs;
 	private boolean vibrate = true;
 	private NotificationManager notificationManager = null;
+	// Normal Pause(finish): 0 | Abnormal pause (Home Button):1 | Has been abnormally paused:2 
+	private byte pauseOK = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class Alarm_Activity extends Activity {
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
+				pauseOK = 1;
 				if (waitTimer != null) {
 					waitTimer.cancel();
 					waitTimer = null;
@@ -76,7 +80,12 @@ public class Alarm_Activity extends Activity {
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				}		
-				wl.release();
+				try {
+					wl.release();
+				} catch (Throwable th) {
+					// ignoring this exception, probably wakeLock was
+					// already released
+				}
 				startActivity(new Intent(Alarm_Activity.this,PopPollActivity.class));
          		overridePendingTransition(0, 0);
 				finish();
@@ -89,6 +98,7 @@ public class Alarm_Activity extends Activity {
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
+				pauseOK = 1;
 				if (waitTimer != null) {
 					waitTimer.cancel();
 					waitTimer = null;
@@ -104,7 +114,12 @@ public class Alarm_Activity extends Activity {
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				}
-				wl.release();
+				try {
+					wl.release();
+				} catch (Throwable th) {
+					// ignoring this exception, probably wakeLock was
+					// already released
+				}
 				setSnooze();
 			}
 		});
@@ -160,7 +175,12 @@ public class Alarm_Activity extends Activity {
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				}
-				wl.release();
+				try {
+					wl.release();
+				} catch (Throwable th) {
+					// ignoring this exception, probably wakeLock was
+					// already released
+				}
 				setSnooze();
 			}
 		}.start();
@@ -225,15 +245,105 @@ public class Alarm_Activity extends Activity {
 	
 	// Forbid closing the view
 	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_HOME)
-			return true;
-		else return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
 	}
 	
 	private void cancelNotification(){
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancel(SNOOZE_ID);	
 	}
+	/*
+	@Override
+	public void onPause(){
+		if (pauseOK == 0) {
+			
+		
+			pauseOK = 2;
+			if (waitTimer != null) {
+				waitTimer.cancel();
+				waitTimer = null;
+			}
+			try {
+				if (mMediaPlayer != null) {
+					if (mMediaPlayer.isPlaying()) {
+						mMediaPlayer.pause();
+					}
+				}
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			}
+			try {
+				wl.release();
+			} catch (Throwable th) {
+				// ignoring this exception, probably wakeLock was
+				// already released
+			}
+			//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
+			String time= prefs.getString("Sleeptime", "5");
+			int snoozetime = Integer.parseInt(time);
 
+			Alarm pollAlarm = new Alarm(this);
+			pollAlarm.setSnooze(snoozetime);
+			// Datenbank Verbindung aufbauen
+			SQLHandler db = new SQLHandler(this);
+			db.setSnoozeActiv(true);
+			// Meldung
+			Toast.makeText(Alarm_Activity.this,getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
+			// Notification setzen
+			setNotification();
+		}
+		super.onPause();
+	}
+	
+	@Override
+	public void onResume(){
+		if (pauseOK==2) {
+			pauseOK = 0;
+			// Resume the Ringtone
+			try {
+				if (mMediaPlayer != null) {
+					mMediaPlayer.start();
+				}
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			}
+			wl.acquire();
+			waitTimer = new CountDownTimer(60000, 1000) {
+
+				public void onTick(long millisUntilFinished) {
+					if (vibrate) {
+						Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+						// Vibrate for 500 milliseconds
+						v.vibrate(500);
+					}
+				}
+
+				public void onFinish() {
+					// After 60000 milliseconds (1 min) finish current
+					try {
+						if (mMediaPlayer != null) {
+							if (mMediaPlayer.isPlaying()) {
+								mMediaPlayer.stop();
+							}
+							mMediaPlayer.release();
+							mMediaPlayer = null;
+						}
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					}
+					try {
+						wl.release();
+					} catch (Throwable th) {
+						// ignoring this exception, probably wakeLock was
+						// already released
+					}
+					setSnooze();
+				}
+			}.start();
+		}
+		super.onResume();
+		
+	}
+*/
 }
