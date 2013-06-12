@@ -41,11 +41,14 @@ public class UserSettingActivity extends PreferenceActivity {
 	private boolean altUri= false;
 	private boolean tested= false;
 	private boolean playing=false;
-	private MediaPlayer mMediaPlayer = new MediaPlayer();
+	
+	//TODO: why is this alwayst created?
+	private MediaPlayer mMediaPlayer;
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onStart() {
+		
 	super.onStart();
 
 	// Get the xml/prefx.xml preferences
@@ -53,14 +56,13 @@ public class UserSettingActivity extends PreferenceActivity {
 	
 	CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
 	
-	
-	
+
 	//Import All Ringtones
 	RingtoneManager rm = new RingtoneManager(UserSettingActivity.this);
 	rm.setType(RingtoneManager.TYPE_ALARM|RingtoneManager.TYPE_RINGTONE );
     final Cursor ringtones = rm.getCursor();
     
-    
+
     Integer i=0;
     List<String> mEntries = new ArrayList<String>();
     List<String> mEntryValues = new ArrayList<String>();
@@ -83,7 +85,6 @@ public class UserSettingActivity extends PreferenceActivity {
     	//Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
     	i++;
     }
-    
     //Import cygnus.ogg for devices without ringtones
     int MySongName = R.raw.cygnus;
 
@@ -103,8 +104,9 @@ public class UserSettingActivity extends PreferenceActivity {
     ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
     
 	// Set Sleeptime summary to chosen time		
-	String sleeptimesummary = prefs.getString("Sleeptime",	"5 Minuten");
+	String sleeptimesummary = prefs.getString("Sleeptime",	"5");
 	Preference sleeptimepref = findPreference("Sleeptime");
+	if (sleeptimesummary == "5 Minuten") sleeptimesummary="5";
 	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
 	
 	// Set Ringtonepreference summary to chosen title
@@ -125,10 +127,13 @@ public class UserSettingActivity extends PreferenceActivity {
 		ringtoneUri = Uri.parse(ringtonename);
 	
 	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);	
-	String name = ringtone.getTitle(UserSettingActivity.this);
-
+	String name = ringtone.getTitle(UserSettingActivity.this);	
+	//release Ringtone
+	ringtone.stop();
+	
 	//Set summary of Alarm
 	ringtonepref.setSummary(name);
+	
 	}
 
 
@@ -157,6 +162,7 @@ public class UserSettingActivity extends PreferenceActivity {
 					public boolean onPreferenceClick(Preference arg0) {
 						startActivity(new Intent(UserSettingActivity.this,
 								Week.class));
+						overridePendingTransition(0, 0);
 						return true;
 					}
 				});
@@ -228,7 +234,7 @@ public class UserSettingActivity extends PreferenceActivity {
 						
 						//Log.d("OnprefChange", "newValue="+newValue.toString());
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);						
 						String name = ringtone.getTitle(UserSettingActivity.this);
 						if (name.equals("cygnus.ogg"))
 							name = "cygnus";
@@ -258,11 +264,12 @@ public class UserSettingActivity extends PreferenceActivity {
 				alert.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 				                   public void onClick(DialogInterface dialog, int id) {
 				                	   try {
-				               			if (mMediaPlayer != null) {
-				               				if (mMediaPlayer.isPlaying()) {
-				               					mMediaPlayer.stop();
-				               				}
-				               			}
+				                			if (mMediaPlayer != null){
+				                				if (mMediaPlayer.isPlaying())
+				                					mMediaPlayer.stop();		
+				                				mMediaPlayer.release();
+				                				mMediaPlayer = null;
+				                			}
 				               		} catch (IllegalStateException e) {
 				               			e.printStackTrace();
 				               		}	
@@ -300,6 +307,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		                	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		                	String path = prefs.getString("ringtone", RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString());
 		                    try {
+		                    	mMediaPlayer = new MediaPlayer();
 			                    mMediaPlayer.reset();
 			                    mMediaPlayer.setDataSource(path);
 			                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
@@ -334,10 +342,11 @@ public class UserSettingActivity extends PreferenceActivity {
 					@Override
 					public void onCancel(DialogInterface dialog) {
 						try {
-							if (mMediaPlayer != null) {
-								if (mMediaPlayer.isPlaying()) {
-									mMediaPlayer.stop();
-								}
+							if (mMediaPlayer != null){
+								if (mMediaPlayer.isPlaying())
+									mMediaPlayer.stop();		
+								mMediaPlayer.release();
+								mMediaPlayer = null;
 							}
 						} catch (IllegalStateException e) {
 							e.printStackTrace();
@@ -464,5 +473,6 @@ public class UserSettingActivity extends PreferenceActivity {
 		}
 		return null;
 	}
+	
 	
 }

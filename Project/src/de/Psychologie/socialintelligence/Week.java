@@ -249,6 +249,7 @@ public class Week extends Activity {
 	        AlertDialog alert = builder.create();
 	        alert.show();    
         }
+		overridePendingTransition(0, 0);
 	}
 
 	////////////////////////////////////////////////////////////////////////
