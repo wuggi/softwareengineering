@@ -13,7 +13,7 @@
     <string name="bntThursday">Do</string>
     <string name="bntTuesday">Di</string>
     <string name="bntWednesday">Mi</string>
-    <string name="bntWeekSave">Woche speichern und weiter</string>
+    <string name="bntWeekSave">Woche speichern</string>
     <string name="cancel">Abbrechen</string>
     <string name="false_password">Falsches Passwort.</string>
     <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>

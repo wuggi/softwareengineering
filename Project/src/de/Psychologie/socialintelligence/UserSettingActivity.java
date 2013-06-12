@@ -351,7 +351,8 @@ public class UserSettingActivity extends PreferenceActivity {
 						} catch (IllegalStateException e) {
 							e.printStackTrace();
 						}	
-	                	   dialog.cancel();
+						// TODO: NUll Pointer daher auskommentiert (CS)
+	                	//   dialog.cancel();
 	       				AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 	       				int currentVolume = audio.getStreamVolume(AudioManager.STREAM_ALARM);
 	       				CheckBoxPreference vibrieren = (CheckBoxPreference) findPreference("vibrate");

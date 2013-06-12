@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 		
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(MainActivity.this);
-		
+
 		// Alarm aktiv, Weiterleitung zur Umfrage	
 		if(db.getSnoozeActiv()){
 			startActivity(new Intent(MainActivity.this,PopPollActivity.class));

@@ -2,6 +2,7 @@ package de.Psychologie.socialintelligence;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,7 +11,7 @@ import android.util.Log;
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 1;
 	private static final int POLL_ABORT = -77;
 	
 	/////////////////////////////////////////////////////////////
@@ -137,7 +138,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// Holt ein Element f�r CSV-Datei
-    Cursor getPollEntry(){
+	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
         return db.rawQuery("SELECT u.code, " +
                                       "p.date, " +
@@ -165,15 +166,18 @@ public class SQLHandler extends SQLiteOpenHelper {
 				}while(c.moveToNext());
 			}
 		}
-		else
+		else {
 			Log.i("cursor", "=null");
+		}
+		c.close();
 		return context;
 	}
 	
 	public boolean getSnoozeActiv(){
-		SQLiteDatabase db= this.getReadableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		boolean snoozeActiv = false;
 		Cursor c = db.rawQuery("SELECT snoozeActiv FROM status WHERE ID=1",null);
+		
 		if(c != null){
 			c.moveToFirst();
 			// prüfen, ob Snooze gesetzt
@@ -181,6 +185,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 		    	snoozeActiv = true;
 		    }
 		}
+		c.close();
+		db.close();
 		return snoozeActiv;
 	}
 	
@@ -193,6 +199,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("snoozeActiv", value);
 		// Datenbankupdate
 		db.update("status", cv, "ID = 1", null);
+		db.close();
 	}
 	
 	// letzten Alarm setzen
@@ -201,6 +208,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put("lastAlarm", lastAlarmTime);
 		db.update("status", cv, "ID = 1", null);
+		db.close();
 	}
 	
 	// letzen Alarm auslesen
@@ -212,6 +220,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
+		c.close();
 		return res;
 	}
 	
@@ -232,6 +241,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
+		c.close();
 		return res;
 	}
 	
@@ -245,6 +255,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("code", code);
 		
 		db.insert("user", "code", cv);
+		db.close();
 	}
 	
 	// get User Codes
@@ -255,7 +266,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		if (c != null && c.getCount() > 0){
 			if (c.moveToFirst()) code = c.getString(0);	
 		}
-					
+		c.close();
 		return code;
 	}
 	
@@ -269,6 +280,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 				exist = true;
 			}
 		}
+		c.close();
+		db.close();
 		return exist;
 	}
 	
@@ -312,6 +325,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 				exist = true;
 			}
 		}
+		c.close();
 		return exist;
 	}
 	
@@ -331,6 +345,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			// Heute kein Zeitslot mehr verf�gbar, nimm morgigen ersten Termin
 			res = getFirstTimeFromDay((1+day)%7);
 		}
+		c.close();
 		Log.v("getNextTimeFromDayTime",String.valueOf(res));
 		return res;
 	}
@@ -344,6 +359,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			c.moveToFirst();
 			res = c.getString(0);
 		}
+		c.close();
 		return res;
 	}
 }

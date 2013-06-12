@@ -29,12 +29,14 @@ import android.widget.Toast;
 @SuppressWarnings("deprecation")
 public class Alarm_Activity extends Activity {
 
+	private static final int SNOOZE_ID = 111;
 	private static final int HITHERE_ID = 1;
 	private CountDownTimer waitTimer;
 	private PowerManager.WakeLock wl;
 	private MediaPlayer mMediaPlayer;
 	private SharedPreferences prefs;
 	private boolean vibrate = true;
+	private NotificationManager notificationManager = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class Alarm_Activity extends Activity {
 		// Stay unlocked if not pw-secured
 		// getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
+		// aktive Nachricht löschen
+		cancelNotification();
 		
 		TextView text = (TextView) findViewById(R.id.textview_alarm);
 		Calendar c = Calendar.getInstance();		
@@ -225,6 +229,11 @@ public class Alarm_Activity extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_HOME)
 			return true;
 		else return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
+	}
+	
+	private void cancelNotification(){
+		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		notificationManager.cancel(SNOOZE_ID);	
 	}
 
 }
