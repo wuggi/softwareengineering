@@ -175,32 +175,24 @@ public class Week extends Activity {
 			@Override
 			public void onClick(View v) {
 				// Daten in Datenbank ï¿½berfï¿½hren
-				if (!writeWeekToDatabase()) {
-					// Fehlermeldung ausgeben
-					Toast.makeText(
-							Week.this,
-							getResources().getString(
-									R.string.txtWeekErrorTimeSlots),
-							Toast.LENGTH_LONG).show();
-				} else {
-					// Alle Einstellungen erfolgreich gespeichert
-					saveAllTimeSlots = true;
-					// Alarm setzen
-					// TODO: Wann soll er dies immer setzen?
-					SQLHandler db = new SQLHandler(Week.this);
-					if (!db.getSnoozeActiv()) {
-						alarm.setNextAlarm(true);
-					}
-					db.close();
-					// Meldung ausgeben
-					Toast.makeText(
-							Week.this,
-							getResources().getString(
-									R.string.txtWeekSaveTimeSlots),
-							Toast.LENGTH_SHORT).show();
-					// Weiter zu den Einstellungen
-					onBackPressed();
+				// TODO: Make faster
+				writeWeekToDatabase();
+				// Alle Einstellungen erfolgreich gespeichert
+				saveAllTimeSlots = true;
+				// Alarm setzen
+				// TODO: Wann soll er dies immer setzen?
+				SQLHandler db = new SQLHandler(Week.this);
+				if (!db.getSnoozeActiv()) {
+					alarm.setNextAlarm(true);
 				}
+				db.close();
+				// Meldung ausgeben
+				Toast.makeText(
+						Week.this,
+						getResources().getString(R.string.txtWeekSaveTimeSlots),
+						Toast.LENGTH_SHORT).show();
+				// Weiter zu den Einstellungen
+				onBackPressed();				
 			}
 		});
 
@@ -292,7 +284,7 @@ public class Week extends Activity {
 						// aktuellen Tag merken
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
 						// Auswahl beschränken
-						deactivateOldTimes();
+						//deactivateOldTimes();
 					} else {
 						// Tag hinzufï¿½gen und als aktuellen Tag merken
 						addDay(bnt.getId());
@@ -477,20 +469,13 @@ public class Week extends Activity {
 		for (Day aWeek : week) {
 			// wurde Wochentag gesetzt?
 			if (aWeek != null) {
-				// wurden alle Zeiten fï¿½r den Wochentag gesetzt?
-				if (aWeek.existAllTimes()) {
-					// alten Tag lï¿½schen
-					db.deleteDay(aWeek.getWeekID());
-					// alle Zeitslots wï¿½hlen
-					for (int j = 0; j < aWeek.getTimeSlots().length; j++) {
-						// Wochentag und Zeitslot in Datenbank schreiben
-						db.addDayTime(aWeek.getWeekID(),
-								aWeek.getTimeSlots()[j]);
-					}
-				} else {
-					// es wurden nicht fï¿½r jeden Tag 4 Zeitslots gewï¿½hlt
-					db.close();
-					return false;
+				// alten Tag loeschen
+				db.deleteDay(aWeek.getWeekID());
+				// alle Zeitslots wï¿½hlen
+				int length =  aWeek.getTimeSlots().length;
+				for (int j = 0; j <length; j++) {
+					// Wochentag und Zeitslot in Datenbank schreiben
+					db.addDayTime(aWeek.getWeekID(), aWeek.getTimeSlots()[j]);
 				}
 			}
 		}
@@ -678,12 +663,12 @@ public class Week extends Activity {
 			this.timeSlots[3] = time.getText().toString();
 			this.timeSlotsButton[3] = time;
 		}
-
+/*
 		public boolean existAllTimes() {
 			return timeSlots[0] != null && timeSlots[1] != null
 					&& timeSlots[2] != null && timeSlots[3] != null;
 		}
-
+*/
 		public String[] getTimeSlots() {
 			return timeSlots;
 		}
