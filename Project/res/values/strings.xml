@@ -82,5 +82,7 @@
     <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten &lt;b&gt;gestriegen&lt;/b&gt; Signal um &lt;b&gt;%s Uhr&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
     <string name="title_activity_numpicker">Numpicker</string>
     <string name="hello_world">Hello world!</string>
+    <string name="subjectHelp">Sie können folgende Codes in Ihrem Betreff verwenden:\n\u0025c\t\tBenutzercode\n\u0025s\t\tStart Datum\n\u0025e\t\tEnd Datum</string>
+    
 
 </resources>

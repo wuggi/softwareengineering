@@ -208,6 +208,7 @@ int string snooze 0x7f08002b
 int string std_Email_Adress 0x7f080045
 int string std_Email_Subject 0x7f080046
 int string std_PW 0x7f08002d
+int string subjectHelp 0x7f080053
 int string time 0x7f08002e
 int string title 0x7f08002f
 int string title_about 0x7f080030

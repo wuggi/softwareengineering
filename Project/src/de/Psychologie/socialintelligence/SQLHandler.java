@@ -362,6 +362,21 @@ public class SQLHandler extends SQLiteOpenHelper {
 		c.close();
 		return res;
 	}
+	
+	/*
+	// Get starting Date
+	public String getFirstDate(){
+		String res;
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT day FROM poll",null);
+		if(c != null && c.getCount() > 0){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		c.close();		
+		return res;		
+	}
+	*/
 }
 	
 

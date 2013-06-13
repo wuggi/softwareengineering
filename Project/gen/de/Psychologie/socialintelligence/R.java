@@ -338,6 +338,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int std_Email_Adress=0x7f080045;
         public static final int std_Email_Subject=0x7f080046;
         public static final int std_PW=0x7f08002d;
+        public static final int subjectHelp=0x7f080053;
         public static final int time=0x7f08002e;
         public static final int title=0x7f08002f;
         public static final int title_about=0x7f080030;
