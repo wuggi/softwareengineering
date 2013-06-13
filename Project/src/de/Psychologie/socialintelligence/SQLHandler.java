@@ -376,6 +376,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	
