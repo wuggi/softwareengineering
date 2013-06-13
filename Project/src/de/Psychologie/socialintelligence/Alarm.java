@@ -139,7 +139,7 @@ public class Alarm{
         intent.setAction(Long.toString(System.currentTimeMillis()));
         // 10000 ist einmalige Nummer fuer den Alarm        
         //PendingIntent.FLAG_ONE_SHOT ???
-        PendingIntent pendingIntent = PendingIntent.getActivity(source, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         
         AlarmManager am = (AlarmManager)source.getSystemService(Activity.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);

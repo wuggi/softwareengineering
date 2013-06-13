@@ -1,8 +1,5 @@
 package de.Psychologie.socialintelligence;
 
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;

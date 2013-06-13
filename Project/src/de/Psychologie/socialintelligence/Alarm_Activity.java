@@ -18,7 +18,6 @@ import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,7 +38,7 @@ public class Alarm_Activity extends Activity {
 	private boolean vibrate = true;
 	private NotificationManager notificationManager = null;
 	// Normal Pause(finish): 0 | Abnormal pause (Home Button):1 | Has been abnormally paused:2 
-	private byte pauseOK = 0;
+	//private byte pauseOK = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class Alarm_Activity extends Activity {
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				pauseOK = 1;
+				//pauseOK = 1;
 				if (waitTimer != null) {
 					waitTimer.cancel();
 					waitTimer = null;
@@ -98,7 +97,7 @@ public class Alarm_Activity extends Activity {
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				pauseOK = 1;
+				//pauseOK = 1;
 				if (waitTimer != null) {
 					waitTimer.cancel();
 					waitTimer = null;
@@ -253,7 +252,8 @@ public class Alarm_Activity extends Activity {
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancel(SNOOZE_ID);	
 	}
-	
+	//TODO: handle Home Button klick
+	/*
 	@Override
 	public void onPause(){
 		if (pauseOK == 0) {
@@ -345,5 +345,6 @@ public class Alarm_Activity extends Activity {
 		super.onResume();
 		
 	}
+	*/
 
 }
