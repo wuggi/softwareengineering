@@ -284,7 +284,7 @@ public class Week extends Activity {
 						// aktuellen Tag merken
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
 						// Auswahl beschränken
-						//deactivateOldTimes();
+						deactivateOldTimes();
 					} else {
 						// Tag hinzufï¿½gen und als aktuellen Tag merken
 						addDay(bnt.getId());
