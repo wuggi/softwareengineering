@@ -54,7 +54,7 @@
     <string name="title_activity_week">Zeitenauswahl</string>
     <string name="title_password_entry">Passwort</string>
     <string name="txtNo">Nein</string>
-    <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten\n</string>
+    <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten für die Umfrage. In jeder Zeile muss eine Uhrzeit gewählt werden.\nDiese Einstellungen können Sie später immer wieder verändern.</string>
     <string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
     <string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zum Menü?</string>
     <string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
