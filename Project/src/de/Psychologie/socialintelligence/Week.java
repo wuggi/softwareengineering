@@ -532,7 +532,7 @@ public class Week extends Activity {
 			for (int i = 0; i < ButtonHandler.length; i++) {
 				int buttonHour = Integer.valueOf(ButtonHandler[i].getText().toString().substring(0, 2));
 
-				if (currentHour >= demureHour[demurHourIndex]) {
+				if (demurHourIndex < 4 && currentHour >= demureHour[demurHourIndex]) {
 					// Zeile der Timeslots deaktivieren
 					deactivTimeButtonLine(demurHourIndex);
 					demurHourIndex++;
