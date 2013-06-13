@@ -363,6 +363,24 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return res;
 	}
 	
+	public String getBorderDate(boolean first){
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c;
+		String res = "";
+		if(first){
+			c = db.rawQuery("SELECT day FROM poll ORDER BY ID ASC LIMIT 1",null);
+		} else {
+			c = db.rawQuery("SELECT day FROM poll ORDER BY ID DESC LIMIT 1",null);
+		}
+		if(c != null && c.getCount() > 0){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		c.close();
+		return res;
+	}
+	
+	
 	/*
 	// Get starting Date
 	public String getFirstDate(){
