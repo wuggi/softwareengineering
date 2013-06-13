@@ -90,8 +90,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						
 			            String to = settings.getString("emailto", getResources().getString(R.string.std_Email_Adress));
 			            String subject = settings.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
+			            //Parse subject for Codes
+			            SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+			            
+			            subject = subject.replace("%c", db.getUserCode());
+			            //TODO: Get Dates
+			            subject.replace("%s", "Start");
+			            subject.replace("%e", "Ende");
+			            
+			            
 						Uri uri;
-
 						Intent i = new Intent(Intent.ACTION_SEND);
 						//i.setType("message/rfc822");
 						//i.setType("text/csv");
@@ -100,13 +108,10 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						if (reset){
 							uri=filedir;
 						}
-						else{
-						
-						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
-						
-						FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
-						File file = handler.createExternalFile(db.getPollCsvContext());
-						uri= Uri.fromFile(file);
+						else{						
+							FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
+							File file = handler.createExternalFile(db.getPollCsvContext());
+							uri= Uri.fromFile(file);
 						}
 						
 						i.putExtra(Intent.EXTRA_STREAM,uri );

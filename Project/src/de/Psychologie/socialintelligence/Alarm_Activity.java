@@ -253,7 +253,7 @@ public class Alarm_Activity extends Activity {
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancel(SNOOZE_ID);	
 	}
-	/*
+	
 	@Override
 	public void onPause(){
 		if (pauseOK == 0) {
@@ -345,5 +345,5 @@ public class Alarm_Activity extends Activity {
 		super.onResume();
 		
 	}
-*/
+
 }
