@@ -28,6 +28,9 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,7 +45,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	private boolean tested= false;
 	private boolean playing=false;
 	
-	//TODO: why is this alwayst created?
+	//TODO: why is this always created?
 	private MediaPlayer mMediaPlayer;
 	
 	@SuppressWarnings("deprecation")
@@ -207,11 +210,13 @@ public class UserSettingActivity extends PreferenceActivity {
 						}
 							String versionName = pinfo.versionName;
 							
-							
+					    //SpannableString about_text = new SpannableString(getResources().getString(R.string.message_about));
+						//about_text.setSpan(new StyleSpan(Type), start, end, flags)
+					    
 						ad.setMessage(Html.fromHtml(getResources().getString(
-								R.string.message_about))+getResources().getString(R.string.version)+" "+versionName);
+								R.string.message_about)+getResources().getString(R.string.version)+" "+versionName));
+					
 						
-
 						ad.setButton(getResources().getString(
 								R.string.OK),
 								new DialogInterface.OnClickListener() {
