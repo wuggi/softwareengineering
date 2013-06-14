@@ -39,7 +39,6 @@ public void setValue(String value) {
 
     persistString(value);
 }
-
 /**
  * Sets the value to the given index from the entry values.
  * 

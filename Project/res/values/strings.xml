@@ -3,7 +3,7 @@
 
     <string name="action_settings">Einstellungen</string>
     <string name="alarm_msg">15:00\nUmfrage</string>
-    <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens Ihrer Mutter\n2. Dritter Buchstabe des Vornamens Ihres Vaters\n3. Dritter Buchstabe des Geburtsortes\n4. Dritter Buchstabe der aktuellen Straße\n5. Dritter Buchstabe des Geburtsmonats</string>
+    <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens Ihrer Mutter\n2. Dritter Buchstabe des Vornamens Ihres Vaters\n3. Dritter Buchstabe Ihres Geburtsortes\n4. Dritter Buchstabe Ihrer aktuellen Straße\n5. Dritter Buchstabe Ihres Geburtsmonats</string>
     <string name="Anzahl">Anzahl:</string>
     <string name="app_name">Umfrage Einstellungen</string>
     <string name="bntFriday">Fr</string>
