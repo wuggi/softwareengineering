@@ -5,7 +5,7 @@ Known BUGS:
 ===========
 - Ueberfluessige Abfrage bei rueckgaengig gemachter Wochenaenderung
 - Bei Klingeltonauwahl Home Button druecken bricht das Lied nicht ab
-- Nach dem Zurruecksetzen ist in der Listpreference nicht "5 Minuten" gewählt
+- Manchmal Weckerwiederholungen
 
 TODO:
 ===========

@@ -85,6 +85,6 @@
     <string name="Warning">Warnung!</string>
     <string name="overrideFile">Die Datei mit dem Nutzercode existiert bereits.</string>
     <string name="subjectHelp">Sie können folgende Codes in Ihrem Betreff verwenden:\n\u0025c\t\tBenutzercode\n\u0025s\t\tStart Datum\n\u0025e\t\tEnd Datum</string>
-    
+    <string name="five">5</string>
 
 </resources>

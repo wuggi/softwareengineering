@@ -17,6 +17,7 @@
             android:title="@string/settings_ringtone" />
 
         <ListPreference
+            android:defaultValue="@string/five"
             android:dialogTitle="@string/settings_sleeptime"
             android:entries="@array/settings_sleeptimes2"
             android:entryValues="@array/settings_sleeptimes"
