@@ -81,8 +81,6 @@ public class Alarm{
 			// fuer Heute existiert noch eine Alarmzeit
 			Log.v("test","heute: " + currentAlarmTime);
 			
-			//Fehler wenn heute kein gespeicherter eintrag nach der aktuellen Uhrzeit vorhanden ist.
-			//TODO: reparieren
 			nextAlarmTime = db.getNextTimeFromDayTime(currentWeekDay, currentAlarmTime);
 			
 			alarmDay = currentDate;
@@ -135,6 +133,7 @@ public class Alarm{
     	// bei Alarmstart die Umfrage aufrufen
     	// Damit der Start durch den Alarm klar ist
         Intent intent = new Intent(source, Alarm_Activity.class);
+        intent.putExtra("widgetId", 10000);
         //Needed, or else the Flag is not used?!
         intent.setAction(Long.toString(System.currentTimeMillis()));
         // 10000 ist einmalige Nummer fuer den Alarm        
