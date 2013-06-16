@@ -37,6 +37,18 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
+/**
+* @class UserSettingActivity
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file UserSettingActivity.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/
 public class UserSettingActivity extends PreferenceActivity {
 
 	private boolean altUri= false;

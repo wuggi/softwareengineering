@@ -14,11 +14,27 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+
+/**
+* @class MainActivity
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file MainActivity.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/ 
 public class MainActivity extends Activity {
+	
+
 	private Button btnWeiter;
+	
 	private EditText userCode;
 
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,6 +48,7 @@ public class MainActivity extends Activity {
 			finish();
 			
 		// User existiert, Weiterleitung zu Einstellungsuebersicht
+		
 		} else if (db.existUserCode()) {
 			startActivity(new Intent(MainActivity.this,UserSettingActivity.class));
 			finish();
@@ -40,6 +57,7 @@ public class MainActivity extends Activity {
 		} else {				
 			setContentView(R.layout.activity_main);
 			
+		
 			userCode = (EditText) findViewById(R.id.userCode);
 			userCode.setFilters(new InputFilter[] { new InputFilter.AllCaps(),
 					new InputFilter.LengthFilter(5) });
@@ -65,6 +83,7 @@ public class MainActivity extends Activity {
 			btnWeiter = (Button) findViewById(R.id.btnWeiter);
 
 			btnWeiter.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+			
 			btnWeiter.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -83,8 +102,12 @@ public class MainActivity extends Activity {
 	}
 
     //menue taste deaktiviert ansonsten das Blinken der texteingabe
+	/**
+	 * @brief ??
+	 * @param[in] int keycode
+	 */
 	@Override
-	public boolean onKeyDown(int keycode, KeyEvent e) {
+	public boolean onKeyDown(int keycode,KeyEvent e) {
 	    switch(keycode) {
 	        case KeyEvent.KEYCODE_MENU:
 	            

@@ -7,6 +7,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+
+/**
+* @class SQLHandler
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file SQLHandler.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/
 public class SQLHandler extends SQLiteOpenHelper {
  
 	private static final String DATABASE_NAME = "socialintelligence.db";

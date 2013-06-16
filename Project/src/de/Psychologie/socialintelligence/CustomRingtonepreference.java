@@ -13,6 +13,18 @@ import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
 
+/**
+* @class CustomRingtonepreference
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file CustomRingtonepreferencer.java
+*
+* @brief //TODO Diese Klasse macht.....
+*Klingeltonauswahl
+* 
+*
+* 
+*/ 
 public class CustomRingtonepreference extends ListPreference{
 
 private MediaPlayer mMediaPlayer;

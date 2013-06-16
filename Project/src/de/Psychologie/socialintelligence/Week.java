@@ -18,6 +18,18 @@ import android.widget.Toast;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
+/**
+* @class Week
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file Week.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/
 public class Week extends Activity {
 
 	private Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5,

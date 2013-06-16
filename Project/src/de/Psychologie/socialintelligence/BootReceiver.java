@@ -4,6 +4,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+* @class BootReceiver
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file BootReceiver.java
+
+*
+* @brief //TODO Diese Klasse macht.....
+* Klasse startet mit dem Systemstart
+* 
+*
+* 
+*/ 
 // Klasse startet mit dem Systemstart
 public class BootReceiver extends BroadcastReceiver {
 

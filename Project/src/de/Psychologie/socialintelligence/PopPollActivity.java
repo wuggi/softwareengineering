@@ -32,6 +32,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+* @class PopPollActivity
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file PopPollActivity.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/ 
 @SuppressLint("SimpleDateFormat")
 public class PopPollActivity extends Activity {
 
@@ -60,6 +72,7 @@ public class PopPollActivity extends Activity {
 		setContentView(R.layout.activity_pop_poll);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		
+
 		// Kalender Instanze setzen
 		cal = Calendar.getInstance();
 		
