@@ -26,7 +26,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressWarnings("deprecation")
+/**
+* @class Alarm_Activity
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file Alarm_Activity.java
+
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*/ 
 public class Alarm_Activity extends Activity {
 
 	private static final int SNOOZE_ID = 111;
@@ -47,7 +57,7 @@ public class Alarm_Activity extends Activity {
 		// Stay unlocked if not pw-secured
 		// getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-		// aktive Nachricht löschen
+		// aktive Nachricht lï¿½schen
 		cancelNotification();
 		
 		TextView text = (TextView) findViewById(R.id.textview_alarm);

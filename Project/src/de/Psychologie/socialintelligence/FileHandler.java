@@ -15,6 +15,18 @@ import android.util.Log;
 // Rechte n�tig
 // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+/**
+* @class FileHandler
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file FileHandler.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/ 
 public class FileHandler {
 	private String filename;
 
