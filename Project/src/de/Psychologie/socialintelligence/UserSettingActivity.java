@@ -103,7 +103,6 @@ public class UserSettingActivity extends PreferenceActivity {
 						try {
 							pinfo = getPackageManager().getPackageInfo(getPackageName(),0);
 						} catch (NameNotFoundException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 							String versionName = pinfo.versionName;

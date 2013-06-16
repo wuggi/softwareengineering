@@ -101,8 +101,6 @@ public class AdminSettingsActivity extends PreferenceActivity {
 			            
 						Uri uri;
 						Intent i = new Intent(Intent.ACTION_SEND);
-						//i.setType("message/rfc822");
-						//i.setType("text/csv");
 						i.setType("application/csv");
 						
 						if (reset){
@@ -133,7 +131,6 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 						
 							db.deleteDB();
-							//TODO: Stop Alarm
 							
 							// Alle Einstellungen werden geloescht
 							final SharedPreferences prefs = PreferenceManager
@@ -317,6 +314,10 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onStart() {
 	super.onStart();
+
+	Alarm alarm = new Alarm(AdminSettingsActivity.this);
+	alarm.stopSnooze();
+	
 	
 	// Get the xml/prefx.xml preferences
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	

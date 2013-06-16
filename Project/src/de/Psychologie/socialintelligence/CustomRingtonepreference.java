@@ -128,12 +128,10 @@ protected void onPrepareDialogBuilder(Builder builder) {
 private void playSong(String path) throws IllegalArgumentException,
     IllegalStateException, IOException {
 
-    //Log.d("CustomRingtonepref", "playSong :: " + path);
 
     mMediaPlayer.reset();
     mMediaPlayer.setDataSource(path);
     mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-//  mMediaPlayer.setLooping(true);
     mMediaPlayer.prepare();
     mMediaPlayer.start();
 }

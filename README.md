@@ -5,7 +5,7 @@ Known BUGS:
 ===========
 - Ueberfluessige Abfrage bei rueckgaengig gemachter Wochenaenderung
 - Bei Klingeltonauwahl Home Button druecken bricht das Lied nicht ab
-- Mehrere PendingIntents trotzd ID
+- Mehrere PendingIntents trotzd ID (cancel funktioniert auch nicht)
 
 TODO:
 ===========

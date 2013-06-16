@@ -6,6 +6,7 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -128,6 +129,23 @@ public class Alarm{
 		return currentWeekDay;
 	}
 	
+	//TODO: doesnt work
+	//Intent must be exactly the same!!!
+	public void stopSnooze(){
+		// bei Alarmstart die Umfrage aufrufen
+    	// Damit der Start durch den Alarm klar ist
+        Intent intent = new Intent(source, Alarm_Activity.class);
+        intent.putExtra("widgetId", 10000);
+        //Needed, or else the Flag is not used?!
+        intent.setAction(Long.toString(System.currentTimeMillis()));
+        // 10000 ist einmalige Nummer fuer den Alarm        
+        //PendingIntent.FLAG_ONE_SHOT ???
+        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager am = (AlarmManager)source.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(pendingIntent);
+	}
+	 
 	//TODO: if alarm_activity was already started, resume it
 	private void startAlarm(){
     	// bei Alarmstart die Umfrage aufrufen
@@ -140,7 +158,7 @@ public class Alarm{
         //PendingIntent.FLAG_ONE_SHOT ???
         PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         
-        AlarmManager am = (AlarmManager)source.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager)source.getSystemService(Context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
 	}
 	
