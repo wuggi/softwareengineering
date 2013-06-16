@@ -2,7 +2,6 @@ package de.Psychologie.socialintelligence;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -375,6 +374,40 @@ public class SQLHandler extends SQLiteOpenHelper {
 		c.close();
 		return res;
 	}
+	
+	public String getBorderDate(boolean first){
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c;
+		String res = "";
+		if(first){
+			c = db.rawQuery("SELECT date FROM poll ORDER BY ID ASC LIMIT 1",null);
+		} else {
+			c = db.rawQuery("SELECT date FROM poll ORDER BY ID DESC LIMIT 1",null);
+		}
+		if(c != null && c.getCount() > 0){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		c.close();
+		db.close();
+		return res;
+	}
+	
+	
+	/*
+	// Get starting Date
+	public String getFirstDate(){
+		String res;
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT day FROM poll",null);
+		if(c != null && c.getCount() > 0){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		c.close();		
+		return res;		
+	}
+	*/
 }
 	
 

@@ -72,9 +72,7 @@ public class PopPollActivity extends Activity {
 		setContentView(R.layout.activity_pop_poll);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		
-		// aktive Nachricht l�schen
-		cancelNotification();
-		
+
 		// Kalender Instanze setzen
 		cal = Calendar.getInstance();
 		
@@ -84,7 +82,7 @@ public class PopPollActivity extends Activity {
 		
 		// App startet -> hinterlegten Klingelton abspielen
 		// Meldung etc. Wenn Handy gesperrt �ffnet sich zwar die App, aber User bekommt nix von mit :-)
-		
+	
 		pollAlarm = new Alarm(this);
 
 		snooze_button = (Button) findViewById(R.id.snooze_button);
@@ -152,16 +150,23 @@ public class PopPollActivity extends Activity {
 		Calendar oldAlarm = Calendar.getInstance();
 		oldAlarm.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), lastHour, lastMinute);
 		
-		long diffInMs = cal.getTimeInMillis() - oldAlarm.getTimeInMillis();
-		Log.v("Dif",String.valueOf(diffInMs));
+		long diffInMs = Math.abs(cal.getTimeInMillis() - oldAlarm.getTimeInMillis());
+		
+		long diffInMS = cal.getTimeInMillis() - oldAlarm.getTimeInMillis();
+		// If oldAlarm was the day before e.g. old= 23:59 new= 1:00 diff=1:01 and NOT diff=22:59
+		// must add 24h (86400000ms)
+		if (diffInMS<0) 
+			diffInMS+= 86400000;
+		
 		long diffInMin = (long) (diffInMs/60000);
-		Log.v("Dif",String.valueOf(diffInMin));
+		Log.v("DiffInMin","="+String.valueOf(diffInMin));
 		
 		difHour = (int) (diffInMin/minPerHour);
 		difMinute = (int) (diffInMin%minPerHour);
 		
 		// Zeitauswahl
 		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
+		//TODO: 12:04:24.130 E/AndroidRuntime(11067): java.lang.RuntimeException: Unable to start activity ComponentInfo{[..]PopPollActivity}: java.lang.IllegalArgumentException: maxValue must be >= 0
 		hourPicker.setMaxValue(difHour);
 		hourPicker.setMinValue(0);
 		hourPicker.setFocusable(true);
@@ -198,6 +203,7 @@ public class PopPollActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				setSnooze();
+				ActivityRegistry.finishAll();
 				action_done=true;
 			}
 		});
@@ -275,16 +281,15 @@ public class PopPollActivity extends Activity {
 		// Wenn Abbrechen gedr�ckt
 		//db.setPollEntry(date, alarmTime)
 
-		//TODO: Prevent the alarm when answering
-        //pollAlarm.setNextAlarm();
-        db.setSnoozeActiv(false);
 		
 	}
-	
 	@Override
-	public void onBackPressed() {
-		setSnooze();
-		action_done=true;
+	public void onStart(){
+		//Delete notification
+		cancelNotification();
+        db.setSnoozeActiv(false);
+        action_done = false;
+		super.onStart();
 	}
 	
 	@Override
@@ -306,8 +311,6 @@ public class PopPollActivity extends Activity {
 		Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
 		// Notification setzen
 		setNotification();
-		// App beenden
-		ActivityRegistry.finishAll();
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -351,7 +354,7 @@ public class PopPollActivity extends Activity {
 	
 	private void cancelNotification(){
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-		notificationManager.cancel(SNOOZE_ID);	
+		notificationManager.cancelAll();
 	}
 
 }

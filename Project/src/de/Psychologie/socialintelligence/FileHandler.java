@@ -10,9 +10,8 @@ import java.io.PrintWriter;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 
-// Rechte n�tig
+// Rechte noetig
 // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 /**
@@ -52,7 +51,6 @@ public class FileHandler {
 
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				Log.i("test","******* File not found. Did you add a WRITE_EXTERNAL_STORAGE permission to the manifest?");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -60,25 +58,25 @@ public class FileHandler {
 		} else
 			return null;
 	}
-	
-	public boolean saveAudio(int resSoundId, Context context){
-		 byte[] buffer;
-		 InputStream fIn = context.getResources().openRawResource(resSoundId);
-		 int size;
 
-		 try {
-		  size = fIn.available();
-		  buffer = new byte[size];
-		  fIn.read(buffer);
-		  fIn.close();
-		 } catch (IOException e) {
-		  // TODO Auto-generated catch block
-		  return false;
-		 }
+	public boolean saveAudio(int resSoundId, Context context) {
+		byte[] buffer;
+		InputStream fIn = context.getResources().openRawResource(resSoundId);
+		int size;
 
-		 File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
+		try {
+			size = fIn.available();
+			buffer = new byte[size];
+			fIn.read(buffer);
+			fIn.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 
-		 
+		File Dir = new File(Environment.getExternalStorageDirectory(),
+				"media/audio/notifications");
+
 		if (!Dir.exists())
 			Dir.mkdirs();
 
@@ -90,10 +88,10 @@ public class FileHandler {
 			save.flush();
 			save.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
 		}
 		return true;

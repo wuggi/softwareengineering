@@ -28,6 +28,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -52,102 +53,8 @@ public class UserSettingActivity extends PreferenceActivity {
 
 	private boolean altUri= false;
 	private boolean tested= false;
-	private boolean playing=false;
-	
-	//TODO: why is this alwayst created?
+	private boolean playing=false;	
 	private MediaPlayer mMediaPlayer;
-	
-	@SuppressWarnings("deprecation")
-	@Override
-	protected void onStart() {
-		
-	super.onStart();
-
-	// Get the xml/prefx.xml preferences
-	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-	
-	CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
-	
-
-	//Import All Ringtones
-	RingtoneManager rm = new RingtoneManager(UserSettingActivity.this);
-	rm.setType(RingtoneManager.TYPE_ALARM|RingtoneManager.TYPE_RINGTONE );
-    final Cursor ringtones = rm.getCursor();
-    
-
-    Integer i=0;
-    List<String> mEntries = new ArrayList<String>();
-    List<String> mEntryValues = new ArrayList<String>();
-    for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
-		mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
-    	//Log.i("RingtoneEntry["+i+"]",mEntries.get(i));
-    	Uri UriWithWithoutID = Uri.parse(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
-    	//FIX for URI ending
-    	//normal: ../media
-    	//alternative: ../media/[songID]
-    	if (!tested){
-    		tested = true;
-    		if (UriWithWithoutID.getLastPathSegment().matches("-?\\d+(\\.\\d+)?")) //match a number with optional '-' and decimal.
-    			altUri=true;
-    	}
-    	if (altUri)
-    		mEntryValues.add(UriWithWithoutID.toString());
-    	else
-    		mEntryValues.add(UriWithWithoutID.toString()+"/"+ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX));    		
-    	//Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
-    	i++;
-    }
-    //Import cygnus.ogg for devices without ringtones
-    int MySongName = R.raw.cygnus;
-
-    //Save file to directory if device has no ringtone
-    if (i==0){
-    	FileHandler h = new FileHandler("cygnus.ogg");
-    	h.saveAudio(MySongName, UserSettingActivity.this);
-    
-    	File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
-
-    	mEntries.add(getResources().getResourceEntryName(MySongName));
-    	mEntryValues.add(Dir.getAbsolutePath() +"/cygnus.ogg");
-    	RingtoneManager.setActualDefaultRingtoneUri(UserSettingActivity.this, RingtoneManager.TYPE_ALARM,Uri.parse(Dir.getAbsolutePath() +"/cygnus.ogg"));
-    	
-    }
-    ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
-    ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));
-    
-	// Set Sleeptime summary to chosen time		
-	String sleeptimesummary = prefs.getString("Sleeptime",	"5");
-	Preference sleeptimepref = findPreference("Sleeptime");
-	if (sleeptimesummary == "5 Minuten") sleeptimesummary="5";
-	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
-	
-	// Set Ringtonepreference summary to chosen title
-	String ringtonename = prefs.getString("ringtone", "");
-	Uri ringtoneUri;
-	
-	//Set std Alarm
-	if (ringtonename.equals("")){
-		// Standart wird gesetzt, falls noch keiner da
-		ringtoneUri=RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(),RingtoneManager.TYPE_ALARM);
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString("ringtone", ringtoneUri.toString());
-		editor.commit();
-		//Sets the default Alarm to the chosen Value
-		ringtonepref.setValue(ringtoneUri.toString());
-	}
-	else
-		ringtoneUri = Uri.parse(ringtonename);
-	
-	Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);	
-	String name = ringtone.getTitle(UserSettingActivity.this);	
-	//release Ringtone
-	ringtone.stop();
-	
-	//Set summary of Alarm
-	ringtonepref.setSummary(name);
-	
-	}
-
 
 	
 	@SuppressWarnings("deprecation")
@@ -159,14 +66,8 @@ public class UserSettingActivity extends PreferenceActivity {
 		setContentView(R.layout.custom_preferences);
 
 		addPreferencesFromResource(R.xml.preferences);
-		
-		//TODO:AppBar in Settings
-		//com.markupartist.android.widget.ActionBar actionBar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.actionbar);
-		//actionBar.inflate(getBaseContext(), resource, root)
-		//setup any other views that you have
- 		
-		//com.markupartist.android.widget.ActionBar bar = (com.markupartist.android.widget.ActionBar) findViewById(R.id.settings_actionbar);
-		//setContentView(R.layout.settingsbar); //set the contentview. On the layout, you need a listview with the id: @android:id/list
+		seekAndImportSongs();
+		setSummaries();
 		
 		Preference button_week = findPreference("button_week");
 		button_week.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -246,8 +147,7 @@ public class UserSettingActivity extends PreferenceActivity {
 						
 						//Log.d("OnprefChange", "newValue="+newValue.toString());
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);						
-						String name = ringtone.getTitle(UserSettingActivity.this);
+						String name = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri).getTitle(UserSettingActivity.this);
 						if (name.equals("cygnus.ogg"))
 							name = "cygnus";
 						preference.setSummary( name);
@@ -266,11 +166,15 @@ public class UserSettingActivity extends PreferenceActivity {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
+				
+				
+				
 				LayoutInflater factory = LayoutInflater.from(UserSettingActivity.this);
 				
 				final View textEntryView = factory.inflate(R.layout.seekbar, null);
 				
 				final AlertDialog.Builder alert = new AlertDialog.Builder(UserSettingActivity.this);
+
 				
 				alert.setTitle(getResources().getString(R.string.settings_volume)).setView(textEntryView);
 				alert.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
@@ -362,9 +266,7 @@ public class UserSettingActivity extends PreferenceActivity {
 							}
 						} catch (IllegalStateException e) {
 							e.printStackTrace();
-						}	
-						// TODO: NUll Pointer daher auskommentiert (CS)
-	                	//   dialog.cancel();
+						}
 	       				AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 	       				int currentVolume = audio.getStreamVolume(AudioManager.STREAM_ALARM);
 	       				CheckBoxPreference vibrieren = (CheckBoxPreference) findPreference("vibrate");
@@ -468,6 +370,38 @@ public class UserSettingActivity extends PreferenceActivity {
 		else
 			super.onBackPressed();
 	}
+
+	@Override
+	public void onPause() {		
+		try {
+			if (mMediaPlayer != null) {
+				if (mMediaPlayer.isPlaying())
+					mMediaPlayer.stop();
+				mMediaPlayer.release();
+				mMediaPlayer = null;
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
+    	playing = false;
+		super.onPause();
+	}
+	
+	@Override
+	public void onStop() {
+		try {
+			if (mMediaPlayer != null) {
+				if (mMediaPlayer.isPlaying())
+					mMediaPlayer.stop();
+				mMediaPlayer.release();
+				mMediaPlayer = null;
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
+    	playing = false;
+		super.onStop();
+	}
 	
 	// MD5 Funktion f�r Passw�rter
 	public static String MD5(String md5) {
@@ -487,5 +421,95 @@ public class UserSettingActivity extends PreferenceActivity {
 		return null;
 	}
 	
+	@SuppressWarnings("deprecation")
+	private void seekAndImportSongs(){
+		CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
+		
+		//Import All Ringtones
+		RingtoneManager rm = new RingtoneManager(UserSettingActivity.this);
+		rm.setType(RingtoneManager.TYPE_ALARM|RingtoneManager.TYPE_RINGTONE );
+	    Cursor ringtones = rm.getCursor();
+	    
+
+	    Integer i=0;
+	    List<String> mEntries = new ArrayList<String>();
+	    List<String> mEntryValues = new ArrayList<String>();
+	    for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
+			mEntries.add(ringtones.getString(RingtoneManager.TITLE_COLUMN_INDEX));
+	    	//Log.i("RingtoneEntry["+i+"]",mEntries.get(i));
+	    	Uri UriWithWithoutID = Uri.parse(ringtones.getString(RingtoneManager.URI_COLUMN_INDEX));
+	    	//FIX for URI ending
+	    	//normal: ../media
+	    	//alternative: ../media/[songID]
+	    	if (!tested){
+	    		tested = true;
+	    		if (UriWithWithoutID.getLastPathSegment().matches("-?\\d+(\\.\\d+)?")) //match a number with optional '-' and decimal.
+	    			altUri=true;
+	    	}
+	    	if (altUri)
+	    		mEntryValues.add(UriWithWithoutID.toString());
+	    	else
+	    		mEntryValues.add(UriWithWithoutID.toString()+"/"+ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX));    		
+	    	//Log.i("RingtoneValue["+i+"]",mEntryValues.get(i));
+	    	i++;
+	    }
+	    ringtones.deactivate();
+
+	    //Save file to directory if device has no ringtone
+	    if (i==0){
+		    //Import cygnus.ogg for devices without ringtones
+	    	Log.e("Import","You had no Ringtones");
+		    int MySongName = R.raw.cygnus;
+	    	FileHandler h = new FileHandler("cygnus.ogg");
+	    	h.saveAudio(MySongName, UserSettingActivity.this);
+	    
+	    	File Dir = new File(Environment.getExternalStorageDirectory(),"media/audio/notifications");
+
+	    	mEntries.add(getResources().getResourceEntryName(MySongName));
+	    	mEntryValues.add(Dir.getAbsolutePath() +"/cygnus.ogg");
+	    	RingtoneManager.setActualDefaultRingtoneUri(UserSettingActivity.this, RingtoneManager.TYPE_ALARM,Uri.parse(Dir.getAbsolutePath() +"/cygnus.ogg"));
+	    	
+	    }
+	    else
+	    	if(RingtoneManager.getActualDefaultRingtoneUri(UserSettingActivity.this, RingtoneManager.TYPE_ALARM).toString()=="")
+	    		RingtoneManager.setActualDefaultRingtoneUri(UserSettingActivity.this, RingtoneManager.TYPE_ALARM,Uri.parse(mEntryValues.get(0)));
+	    ringtonepref.setEntryValues(mEntryValues.toArray(new CharSequence[mEntryValues.size()]));
+	    ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));		
+	}
 	
+	@SuppressWarnings("deprecation")
+	private void setSummaries(){
+		// Get the xml/prefx.xml preferences
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+		CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
+		// Set Sleeptime summary to chosen time
+		String sleeptimesummary = prefs.getString("Sleeptime", "5");
+		Preference sleeptimepref = findPreference("Sleeptime");
+		sleeptimepref.setSummary(sleeptimesummary + " \tMinuten");
+
+		// Set Ringtonepreference summary to chosen title
+		String ringtonename = prefs.getString("ringtone", "");
+		Uri ringtoneUri;// Set std Alarm
+		if (ringtonename.equals("")) {
+			// Standart wird gesetzt, falls noch keiner da
+			ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(
+					UserSettingActivity.this, RingtoneManager.TYPE_ALARM);
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString("ringtone", ringtoneUri.toString());
+			editor.commit();
+			// Sets the default Alarm to the chosen Value
+			ringtonepref.setValue(ringtoneUri.toString());
+		} else
+			ringtoneUri = Uri.parse(ringtonename);
+
+		Ringtone ringtone = RingtoneManager.getRingtone(
+				UserSettingActivity.this, ringtoneUri);
+		String name = ringtone.getTitle(UserSettingActivity.this);
+		// release Ringtone
+		ringtone.stop();
+
+		// Set summary of Alarm
+		ringtonepref.setSummary(name);
+	}
 }
