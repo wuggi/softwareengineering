@@ -42,6 +42,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	 * @brief //TODO
 	 */
 	private static Uri filedir=null;
+	private Alarm alarm;
 	
 	
 	
@@ -332,7 +333,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	protected void onStart() {
 	super.onStart();
 
-	Alarm alarm = new Alarm(AdminSettingsActivity.this);
+	alarm = new Alarm(AdminSettingsActivity.this);
 	alarm.stopSnooze();
 	
 	
@@ -363,8 +364,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	}
 	}
 	
-	/*
-	 * Return Codes: 
+	@Override
+	public void onDestroy(){
+		if (!reset)
+			alarm.setNextAlarm();
+		super.onDestroy();
+	}
+	
+	/**
+	 * @return
+	 * Codes: 
 	 * 0 - DB Empty + no File
 	 * 1 - DB Empty + File exists
 	 * 2 - DB OK + no File

@@ -176,18 +176,13 @@ public class Alarm{
 		return currentWeekDay;
 	}
 	
-	//TODO: doesnt work
 	//Intent must be exactly the same!!!
 	public void stopSnooze(){
 		// bei Alarmstart die Umfrage aufrufen
     	// Damit der Start durch den Alarm klar ist
         Intent intent = new Intent(source, Alarm_Activity.class);
-        intent.putExtra("widgetId", 10000);
-        //Needed, or else the Flag is not used?!
-        intent.setAction(Long.toString(System.currentTimeMillis()));
-        // 10000 ist einmalige Nummer fuer den Alarm        
-        //PendingIntent.FLAG_ONE_SHOT ???
-        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        // 10000 ist einmalige Nummer fuer den Alarm
+        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager am = (AlarmManager)source.getSystemService(Context.ALARM_SERVICE);
         am.cancel(pendingIntent);
@@ -195,15 +190,12 @@ public class Alarm{
 	 
 	//TODO: if alarm_activity was already started, resume it
 	private void startAlarm(){
+		stopSnooze();
     	// bei Alarmstart die Umfrage aufrufen
     	// Damit der Start durch den Alarm klar ist
         Intent intent = new Intent(source, Alarm_Activity.class);
-        intent.putExtra("widgetId", 10000);
-        //Needed, or else the Flag is not used?!
-        intent.setAction(Long.toString(System.currentTimeMillis()));
-        // 10000 ist einmalige Nummer fuer den Alarm        
-        //PendingIntent.FLAG_ONE_SHOT ???
-        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        // 10000 ist einmalige Nummer fuer den Alarm
+        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         
         AlarmManager am = (AlarmManager)source.getSystemService(Context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
