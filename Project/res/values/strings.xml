@@ -13,7 +13,7 @@
     <string name="bntThursday">Do</string>
     <string name="bntTuesday">Di</string>
     <string name="bntWednesday">Mi</string>
-    <string name="bntWeekSave">Woche speichern und weiter</string>
+    <string name="bntWeekSave">Woche speichern</string>
     <string name="cancel">Abbrechen</string>
     <string name="false_password">Falsches Passwort.</string>
     <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>
@@ -21,6 +21,8 @@
     <string name="version">Version:</string>
     <string name="next">Weiter</string>
     <string name="OK">OK</string>
+    <string name="override">Überschreiben</string>
+    <string name="keepboth">Datei umbenennen</string>
     <string name="password_changed">Passwort geändert.</string>
     <string name="password_mismatch">Passwörter stimmen nicht überein.</string>
     <string name="preferences_password_change1">\n\tNeues Passwort:</string>
@@ -54,8 +56,7 @@
     <string name="title_activity_week">Zeitenauswahl</string>
     <string name="title_password_entry">Passwort</string>
     <string name="txtNo">Nein</string>
-    <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten\n</string>
-    <string name="txtWeekErrorTimeSlots">Bitte wählen Sie für jeden Tag 4 Zeitslots!</string>
+    <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten für die Umfrage. In jeder Zeile muss eine Uhrzeit gewählt werden.\nDiese Einstellungen können Sie später immer wieder verändern.</string>
     <string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zum Menü?</string>
     <string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
     <string name="txtWeekSaveTitle">Zeitslots verwerfen</string>
@@ -81,6 +82,9 @@
     <string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um &lt;b&gt;%s Uhr&lt;/b&gt; Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
     <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten &lt;b&gt;gestriegen&lt;/b&gt; Signal um &lt;b&gt;%s Uhr&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
     <string name="title_activity_numpicker">Numpicker</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="Warning">Warnung!</string>
+    <string name="overrideFile">Die Datei mit dem Nutzercode existiert bereits.</string>
+    <string name="subjectHelp">Sie können folgende Codes in Ihrem Betreff verwenden:\n\u0025c\t\tBenutzercode\n\u0025s\t\tStart Datum\n\u0025e\t\tEnd Datum</string>
+    
 
 </resources>

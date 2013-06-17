@@ -11,7 +11,7 @@
         android:layout_marginBottom="143dp"
         android:layout_marginRight="30dp"
         android:text="@string/action"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_snooze_front"

@@ -31,7 +31,8 @@
         <EditTextPreference
             android:key="emailsubject"
             android:persistent="true"
-            android:title="@string/settings_email_subject" />
+            android:title="@string/settings_email_subject"    
+            android:dialogMessage="@string/subjectHelp"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

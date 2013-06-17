@@ -109,7 +109,6 @@ public class UserSettingActivity extends PreferenceActivity {
 	// Set Sleeptime summary to chosen time		
 	String sleeptimesummary = prefs.getString("Sleeptime",	"5");
 	Preference sleeptimepref = findPreference("Sleeptime");
-	if (sleeptimesummary == "5 Minuten") sleeptimesummary="5";
 	sleeptimepref.setSummary(sleeptimesummary+ " \tMinuten");	
 	
 	// Set Ringtonepreference summary to chosen title
@@ -356,7 +355,8 @@ public class UserSettingActivity extends PreferenceActivity {
 						} catch (IllegalStateException e) {
 							e.printStackTrace();
 						}	
-	                	   dialog.cancel();
+						// TODO: NUll Pointer daher auskommentiert (CS)
+	                	//   dialog.cancel();
 	       				AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 	       				int currentVolume = audio.getStreamVolume(AudioManager.STREAM_ALARM);
 	       				CheckBoxPreference vibrieren = (CheckBoxPreference) findPreference("vibrate");

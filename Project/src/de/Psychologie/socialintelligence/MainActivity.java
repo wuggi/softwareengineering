@@ -1,8 +1,5 @@
 package de.Psychologie.socialintelligence;
 
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -28,7 +25,7 @@ public class MainActivity extends Activity {
 		
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(MainActivity.this);
-		
+
 		// Alarm aktiv, Weiterleitung zur Umfrage	
 		if(db.getSnoozeActiv()){
 			startActivity(new Intent(MainActivity.this,PopPollActivity.class));

@@ -1,5 +1,7 @@
 package de.Psychologie.socialintelligence;
 
+import java.util.Calendar;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,8 +19,8 @@ import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class Week extends Activity {
 
-	private Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5, timeslot6,
-			timeslot7, timeslot8;
+	private Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5,
+			timeslot6, timeslot7, timeslot8;
 	private Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13,
 			timeslot14, timeslot15;
 	private Button mon, tue, wed, thur, fri, sat, sun;
@@ -39,14 +41,15 @@ public class Week extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_week);
-		
+
 		// Actionbar mit Zurueckknopf versehen
-        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, new Intent(Week.this, UserSettingActivity.class), R.drawable.back_button));
-        		
-		////////////////////////////////////////////////////////////////////////
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setHomeAction(new IntentAction(this, new Intent(Week.this,
+				UserSettingActivity.class), R.drawable.back_button));
+
+		// //////////////////////////////////////////////////////////////////////
 		// Buttons definieren
-		////////////////////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////////////////
 		// fetch Buttons times
 		timeslot1 = (Button) findViewById(R.id.timeslot1);
 		ButtonHandler[0] = timeslot1;
@@ -87,33 +90,22 @@ public class Week extends Activity {
 		fri = (Button) findViewById(R.id.fri);
 		sat = (Button) findViewById(R.id.sat);
 		sun = (Button) findViewById(R.id.sun);
-		
+
 		// Alarm erzeugen
 		alarm = new Alarm(this);
 
-		////////////////////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////////////////
 		// Methoden OnClick
-		////////////////////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////////////////
 
-		// Displaybreite
-		//LinearLayout weekLayout = (LinearLayout) findViewById(R.id.weekLayout);
-		//int weekButtonWidth = (int) weekLayout.getWidth()/8;
-		
 		// Week
 		enableButton(mon, 0);
-		//mon.setWidth(weekButtonWidth);
 		enableButton(tue, 0);
-		//tue.setWidth(weekButtonWidth);
 		enableButton(wed, 0);
-		//wed.setWidth(weekButtonWidth);
 		enableButton(thur, 0);
-		//thur.setWidth(weekButtonWidth);
 		enableButton(fri, 0);
-		//fri.setWidth(weekButtonWidth);
 		enableButton(sat, 0);
-		//sat.setWidth(weekButtonWidth);
 		enableButton(sun, 0);
-		//sun.setWidth(weekButtonWidth);
 
 		// Row1
 		enableButton(timeslot1, 1);
@@ -130,35 +122,34 @@ public class Week extends Activity {
 		enableButton(timeslot10, 3);
 		enableButton(timeslot11, 3);
 		// Row4
-		enableButton(timeslot12,4);
-		enableButton(timeslot13,4);
-		enableButton(timeslot14,4);
-		enableButton(timeslot15,4);
-		
-		////////////////////////////////////////////////////////////////////////
+		enableButton(timeslot12, 4);
+		enableButton(timeslot13, 4);
+		enableButton(timeslot14, 4);
+		enableButton(timeslot15, 4);
+
+		// //////////////////////////////////////////////////////////////////////
 		// start Activity
-		////////////////////////////////////////////////////////////////////////
-		
+		// //////////////////////////////////////////////////////////////////////
+
 		// Standardeinstellungen
 		// Alle deaktivieren
 		disableWeek();
 		disableAllTimeSlots();
 		// TODO: kann weg oder? Disable all
-		// 
-	    enableAllTimes(false);
-		
-		
+		//
+
 		// Zeitdaten aus der Datenbank holen
-		if(getWeekFromDatabase()){
+		if (getWeekFromDatabase()) {
 			// Zeiten wï¿½hlbar
-			enableAllTimes(true);
+			activateAllTimes(true);
 			// Woche auslesen
 			for (int i = 0; i < week.length; i++) {
-				if(week[i] != null){
+				if (week[i] != null) {
 					// Wochentage zurï¿½cksetzen
 					disableWeek();
 					// aktuellen Wochentag makieren
-					setButtonSelect((Button) findViewById(Day.getViewIDfromWeekID(i)));
+					setButtonSelect((Button) findViewById(Day
+							.getViewIDfromWeekID(i)));
 					currentDay = week[i];
 					// Zeitslots zurï¿½cksetzen
 					disableAllTimeSlots();
@@ -168,93 +159,104 @@ public class Week extends Activity {
 					}
 				}
 			}
-		} 
-		
+		}
+
 		// Aktuellen Wochentag anklicken
 		clickCurrentDay();
-				
-		////////////////////////////////////////////////////////////////////////
+
+		// //////////////////////////////////////////////////////////////////////
 		// save Week
-		////////////////////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////////////////
 
 		saveWeek = (Button) findViewById(R.id.saveWeek);
-		saveWeek.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+		saveWeek.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.button_green));
 		saveWeek.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// Daten in Datenbank ï¿½berfï¿½hren
-				if (!writeWeekToDatabase()) {
-					// Fehlermeldung ausgeben
-					Toast.makeText(Week.this,getResources().getString(R.string.txtWeekErrorTimeSlots), Toast.LENGTH_LONG).show();
-				} else {
-					// Alle Einstellungen erfolgreich gespeichert
-					saveAllTimeSlots = true;
-					// Alarm setzen
-					// TODO: Wann soll er dies immer setzen?
-					SQLHandler db = new SQLHandler(Week.this);
-					if(!db.getSnoozeActiv()){
-						alarm.setNextAlarm(true);
-					}
-					db.close();
-					// Meldung ausgeben
-					Toast.makeText(Week.this,getResources().getString(R.string.txtWeekSaveTimeSlots), Toast.LENGTH_SHORT).show();
-					//Weiter zu den Einstellungen
-   			 		onBackPressed();
+				// TODO: Make faster
+				writeWeekToDatabase();
+				// Alle Einstellungen erfolgreich gespeichert
+				saveAllTimeSlots = true;
+				// Alarm setzen
+				// TODO: Wann soll er dies immer setzen?
+				SQLHandler db = new SQLHandler(Week.this);
+				if (!db.getSnoozeActiv()) {
+					alarm.setNextAlarm(true);
 				}
-			}
-		});
-		
-		ImageButton headerButton = (ImageButton) findViewById(R.id.actionbar_home_btn);
-		headerButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
+				db.close();
+				// Meldung ausgeben
+				Toast.makeText(
+						Week.this,
+						getResources().getString(R.string.txtWeekSaveTimeSlots),
+						Toast.LENGTH_SHORT).show();
+				// Weiter zu den Einstellungen
 				onBackPressed();				
 			}
 		});
+
+		ImageButton headerButton = (ImageButton) findViewById(R.id.actionbar_home_btn);
+		headerButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
 	}
-	
-	
+
 	@Override
 	public void onBackPressed() {
 		// wurde alles gespeichert?
-		if(saveAllTimeSlots){
+		if (saveAllTimeSlots) {
 			// go back to Settingsactivity
-      		if (Week.this.isTaskRoot()){
-       			Week.this.startActivity(new Intent(Week.this, UserSettingActivity.class));
-       			Week.this.finish();
-       		}		
-       		Week.super.onBackPressed();
+			if (Week.this.isTaskRoot()) {
+				Week.this.startActivity(new Intent(Week.this,
+						UserSettingActivity.class));
+				Week.this.finish();
+			}
+			Week.super.onBackPressed();
 		} else {
 			// ï¿½nderungen verwerfen?
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(getResources().getString(R.string.txtWeekSaveTitle));
-	        builder.setMessage(getResources().getString(R.string.txtWeekSaveQuestion))
-	               .setCancelable(false)
-	               .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	           				// go back to Settingsactivity
-	                 		if (Week.this.isTaskRoot()){
-	                  			Week.this.startActivity(new Intent(Week.this, UserSettingActivity.class));
-	                  			Week.this.finish();
-	                  		}		
-	                  		Week.super.onBackPressed();
-	                   }
-	               })
-	               .setNegativeButton(getResources().getString(R.string.txtNo), new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                	   dialog.cancel();
-	                   }
-	               });
-	        AlertDialog alert = builder.create();
-	        alert.show();    
-        }
+			builder.setTitle(getResources()
+					.getString(R.string.txtWeekSaveTitle));
+			builder.setMessage(
+					getResources().getString(R.string.txtWeekSaveQuestion))
+					.setCancelable(false)
+					.setPositiveButton(
+							getResources().getString(R.string.txtYes),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// go back to Settingsactivity
+									if (Week.this.isTaskRoot()) {
+										Week.this.startActivity(new Intent(
+												Week.this,
+												UserSettingActivity.class));
+										Week.this.finish();
+									}
+									Week.super.onBackPressed();
+								}
+							})
+					.setNegativeButton(
+							getResources().getString(R.string.txtNo),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.cancel();
+								}
+							});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
 		overridePendingTransition(0, 0);
 	}
 
-	////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////
 	// Private Methoden
-	////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////
 
 	// aktiviert nur den selektierten Button, alle anderen in der Zeile werden
 	// disabled
@@ -281,11 +283,12 @@ public class Week extends Activity {
 						}
 						// aktuellen Tag merken
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
+						// Auswahl beschränken
+						deactivateOldTimes();
 					} else {
 						// Tag hinzufï¿½gen und als aktuellen Tag merken
 						addDay(bnt.getId());
 					}
-					enableAllTimes(true);
 					break;
 				case 1:
 					disableRow1();
@@ -319,13 +322,13 @@ public class Week extends Activity {
 
 	}
 
-	private void enableAllTimes(boolean enable) {
-        for (Button aButtonHandler : ButtonHandler) {
-            aButtonHandler.setEnabled(enable);
-        }
+	private void activateAllTimes(boolean enable) {
+		for (Button aButtonHandler : ButtonHandler) {
+			aButtonHandler.setEnabled(enable);
+		}
 	}
-	
-	private void clickCurrentDay(){
+
+	private void clickCurrentDay() {
 		switch (alarm.getCurrentWeekDay()) {
 		case 0:
 			mon.performClick();
@@ -352,7 +355,6 @@ public class Week extends Activity {
 			break;
 		}
 	}
-	
 
 	@SuppressWarnings("deprecation")
 	private void disableWeek() {
@@ -377,7 +379,8 @@ public class Week extends Activity {
 
 		// old way:
 		// setBackgroundColor(getResources().getColor(R.color.uncheckedButton));
-		// die neue Methode ist zwar veraltet, aber so kï¿½nnen auch alte Gerï¿½te
+		// die neue Methode ist zwar veraltet, aber so kï¿½nnen auch alte
+		// Gerï¿½te
 		// es nutzen
 
 		timeslot1.setBackgroundDrawable(getResources().getDrawable(
@@ -425,9 +428,10 @@ public class Week extends Activity {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void setButtonSelect(Button bnt){
-		if(bnt != null){
-			bnt.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+	private void setButtonSelect(Button bnt) {
+		if (bnt != null) {
+			bnt.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.button_green));
 		}
 	}
 
@@ -448,13 +452,13 @@ public class Week extends Activity {
 	// prï¿½ft, ob Tag bereits gesetzt ist
 	private boolean existDay(int rID) {
 		boolean res = false;
-        for (Day aWeek : week) {
-            if (aWeek != null) {
-                if (aWeek.getViewID() == rID) {
-                    res = true;
-                }
-            }
-        }
+		for (Day aWeek : week) {
+			if (aWeek != null) {
+				if (aWeek.getViewID() == rID) {
+					res = true;
+				}
+			}
+		}
 		return res;
 	}
 
@@ -462,61 +466,122 @@ public class Week extends Activity {
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
 		// jeden Wochentag durchgehen
-        for (Day aWeek : week) {
-            // wurde Wochentag gesetzt?
-            if (aWeek != null) {
-                // wurden alle Zeiten fï¿½r den Wochentag gesetzt?
-                if (aWeek.existAllTimes()) {
-                    // alten Tag lï¿½schen
-                    db.deleteDay(aWeek.getWeekID());
-                    // alle Zeitslots wï¿½hlen
-                    for (int j = 0; j < aWeek.getTimeSlots().length; j++) {
-                        // Wochentag und Zeitslot in Datenbank schreiben
-                        db.addDayTime(aWeek.getWeekID(),
-                                aWeek.getTimeSlots()[j]);
-                    }
-                } else {
-                    // es wurden nicht fï¿½r jeden Tag 4 Zeitslots gewï¿½hlt
-                    db.close();
-                    return false;
-                }
-            }
-        }
+		for (Day aWeek : week) {
+			// wurde Wochentag gesetzt?
+			if (aWeek != null) {
+				// alten Tag loeschen
+				db.deleteDay(aWeek.getWeekID());
+				// alle Zeitslots wï¿½hlen
+				int length =  aWeek.getTimeSlots().length;
+				for (int j = 0; j <length; j++) {
+					// Wochentag und Zeitslot in Datenbank schreiben
+					db.addDayTime(aWeek.getWeekID(), aWeek.getTimeSlots()[j]);
+				}
+			}
+		}
 		// Datenbankverbindung schlieï¿½en
 		db.close();
 		// Import ist erfolgreich
 		return true;
 	}
-	
-	private boolean getWeekFromDatabase(){
+
+	private boolean getWeekFromDatabase() {
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
 		Cursor cur = db.getDayTime();
 		int check = 0;
-		if(cur != null){
-			if(cur.moveToFirst()){
-				do{
+		if (cur != null) {
+			if (cur.moveToFirst()) {
+				do {
 					// Tag erstellen, wenn noch nicht existent
-					if(!existDay(Day.getViewIDfromWeekID(cur.getInt(0)))){
-						week[cur.getInt(0)] = new Day(Day.getViewIDfromWeekID(cur.getInt(0)));
+					if (!existDay(Day.getViewIDfromWeekID(cur.getInt(0)))) {
+						week[cur.getInt(0)] = new Day(
+								Day.getViewIDfromWeekID(cur.getInt(0)));
 					}
 					// Zeitslots setzen, alle Buttons werden ï¿½bergeben
-					week[cur.getInt(0)].setTimeSlots(cur.getString(1), ButtonHandler);
+					week[cur.getInt(0)].setTimeSlots(cur.getString(1),
+							ButtonHandler);
 					// check
 					check++;
-				}while(cur.moveToNext());
+				} while (cur.moveToNext());
 			}
 		}
 		cur.close();
 		db.close();
-		
-		return check>3;
-		
+
+		return check > 3;
+
 	}
 
-	////////////////////////////////////////////////////////////////////////
+	public void deactivateOldTimes() {
+		
+		// aktueller Tag gewählt?
+		// deaktiviere alte Zeitslots
+		if (alarm.getCurrentWeekDay() == currentDay.getWeekID()) {
+			Calendar cal = Calendar.getInstance();
+			int currentHour = cal.get(Calendar.HOUR_OF_DAY);
+			String[] times = week[currentDay.getWeekID()].getTimeSlots();
+			int[] demureHour = new int[4];
+			// gesetzte Zeiten in gesetzte Stunden umwandeln
+			for (int i = 0; i < times.length; i++) {
+				demureHour[i] = Integer.valueOf(times[i].substring(0, 2));
+			}
+
+			// alle Zeiten durchlaufen und alte Zeiten deaktivieren
+			int demurHourIndex = 0;
+			for (int i = 0; i < ButtonHandler.length; i++) {
+				int buttonHour = Integer.valueOf(ButtonHandler[i].getText().toString().substring(0, 2));
+
+				if (demurHourIndex < 4 && currentHour >= demureHour[demurHourIndex]) {
+					// Zeile der Timeslots deaktivieren
+					deactivTimeButtonLine(demurHourIndex);
+					demurHourIndex++;
+				}
+
+				if (buttonHour <= currentHour) {
+					// Button deaktivieren
+					ButtonHandler[i].setEnabled(false);
+				}
+			}
+		} else {
+			// alle anderen Tage, alle Zeitslots aktiv
+			activateAllTimes(true);
+		}
+	}
+
+	private void deactivTimeButtonLine(int line) {
+		switch (line) {
+		case 0:
+			timeslot1.setEnabled(false);
+			timeslot2.setEnabled(false);
+			timeslot3.setEnabled(false);
+			timeslot4.setEnabled(false);
+			break;
+		case 1:
+			timeslot5.setEnabled(false);
+			timeslot6.setEnabled(false);
+			timeslot7.setEnabled(false);
+			break;
+		case 2:
+			timeslot8.setEnabled(false);
+			timeslot9.setEnabled(false);
+			timeslot10.setEnabled(false);
+			timeslot11.setEnabled(false);
+			break;
+		case 3:
+			timeslot12.setEnabled(false);
+			timeslot13.setEnabled(false);
+			timeslot14.setEnabled(false);
+			timeslot15.setEnabled(false);
+			break;
+		default:
+			break;
+		}
+	}
+
+	// //////////////////////////////////////////////////////////////////////
 	// Private Klassen
-	////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////
 
 	private static class Day {
 		private int rID;
@@ -524,7 +589,7 @@ public class Week extends Activity {
 		private String[] timeSlots = new String[4];
 		private Button[] timeSlotsButton = new Button[4];
 		private int timeSlotID;
-		
+
 		Day(int rID) {
 			this.rID = rID;
 			this.weekID = Day.getWeekIDfromViewID(rID);
@@ -552,8 +617,8 @@ public class Week extends Activity {
 				return 99;
 			}
 		}
-		
-		public static int getViewIDfromWeekID(int wID){
+
+		public static int getViewIDfromWeekID(int wID) {
 			switch (wID) {
 			case 0:
 				return R.id.mon;
@@ -571,10 +636,10 @@ public class Week extends Activity {
 				return R.id.sun;
 			default:
 				// for compiler
-				return 99;			
+				return 99;
 			}
 		}
-		
+
 		public int getWeekID() {
 			return this.weekID;
 		}
@@ -598,33 +663,32 @@ public class Week extends Activity {
 			this.timeSlots[3] = time.getText().toString();
 			this.timeSlotsButton[3] = time;
 		}
-		
-		public boolean existAllTimes(){
-			return  timeSlots[0] != null &&
-					timeSlots[1] != null &&
-					timeSlots[2] != null &&
-					timeSlots[3] != null;
+/*
+		public boolean existAllTimes() {
+			return timeSlots[0] != null && timeSlots[1] != null
+					&& timeSlots[2] != null && timeSlots[3] != null;
 		}
+*/
 		public String[] getTimeSlots() {
 			return timeSlots;
 		}
-		
-		public void setTimeSlots(String time, Button[] handler){
+
+		public void setTimeSlots(String time, Button[] handler) {
 			// Zeit von HH:mm:ss in HH:mm umwandeln
-			time = time.substring(0,5);
+			time = time.substring(0, 5);
 			// prï¿½fen, ob ein Button den Zeittext enthï¿½lt
-            for (Button aHandler : handler) {
-                if (aHandler.getText().toString().compareTo(time) == 0) {
-                    // Zeit abspeichern
-                    this.timeSlots[this.timeSlotID] = time;
-                    // zugehï¿½rigen Button speichern
-                    this.timeSlotsButton[this.timeSlotID] = aHandler;
-                    //this.timeSlotID = (this.timeSlotID+1)%4;
-                    this.timeSlotID++;
-                }
-            }
+			for (Button aHandler : handler) {
+				if (aHandler.getText().toString().compareTo(time) == 0) {
+					// Zeit abspeichern
+					this.timeSlots[this.timeSlotID] = time;
+					// zugehï¿½rigen Button speichern
+					this.timeSlotsButton[this.timeSlotID] = aHandler;
+					// this.timeSlotID = (this.timeSlotID+1)%4;
+					this.timeSlotID++;
+				}
+			}
 		}
-		
+
 		public int getViewID() {
 			return rID;
 		}

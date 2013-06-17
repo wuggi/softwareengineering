@@ -36,6 +36,7 @@ import android.widget.Toast;
 public class PopPollActivity extends Activity {
 
 	private static final int SNOOZE_ID = 111;
+	private final int minPerHour = 60; 
 	private Button snooze_button;
 	private Button ok_button;
 	private Button cancel_button;
@@ -58,6 +59,9 @@ public class PopPollActivity extends Activity {
 		ActivityRegistry.register(this);
 		setContentView(R.layout.activity_pop_poll);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+		
+		// aktive Nachricht löschen
+		cancelNotification();
 		
 		// Kalender Instanze setzen
 		cal = Calendar.getInstance();
@@ -126,13 +130,23 @@ public class PopPollActivity extends Activity {
 		// Zeitdifferenz
 		int lastHour = Integer.valueOf(lastAlarm.substring(0,2));
 		int lastMinute = Integer.valueOf(lastAlarm.substring(3,5));
-		Log.v("test",String.valueOf(lastHour));
-		Log.v("test",String.valueOf(lastMinute));
+		Log.v("oldHour",String.valueOf(lastHour));
+		Log.v("oldMin",String.valueOf(lastMinute));
 		int currentHour = cal.get(Calendar.HOUR_OF_DAY);
 		int currentMinute = cal.get(Calendar.MINUTE);
+		Log.v("newHour",String.valueOf(currentHour));
+		Log.v("newMin",String.valueOf(currentMinute));
+	
+		Calendar oldAlarm = Calendar.getInstance();
+		oldAlarm.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), lastHour, lastMinute);
 		
-		difHour = currentHour-lastHour;
-		difMinute = currentMinute-lastMinute;
+		long diffInMs = cal.getTimeInMillis() - oldAlarm.getTimeInMillis();
+		Log.v("Dif",String.valueOf(diffInMs));
+		long diffInMin = (long) (diffInMs/60000);
+		Log.v("Dif",String.valueOf(diffInMin));
+		
+		difHour = (int) (diffInMin/minPerHour);
+		difMinute = (int) (diffInMin%minPerHour);
 		
 		// Zeitauswahl
 		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
@@ -198,7 +212,6 @@ public class PopPollActivity extends Activity {
 				db.setSnoozeActiv(false);
 				action_done=true;
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
-				cancelNotification();
 				// Meldung
 				Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollOK), Toast.LENGTH_LONG).show();
 				ActivityRegistry.finishAll();			
@@ -235,7 +248,6 @@ public class PopPollActivity extends Activity {
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
-                cancelNotification();
             }
         });
 		

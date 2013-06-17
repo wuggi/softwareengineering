@@ -2,7 +2,6 @@ package de.Psychologie.socialintelligence;
 
 import java.io.File;
 
-import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
 import android.app.AlertDialog;
@@ -11,11 +10,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -90,8 +91,15 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						
 			            String to = settings.getString("emailto", getResources().getString(R.string.std_Email_Adress));
 			            String subject = settings.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
+			            //Parse subject for Codes
+			            SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+			            
+			            subject = subject.replace("%c", db.getUserCode());
+			            subject = subject.replace("%s", db.getBorderDate(true));
+			            subject = subject.replace("%e", db.getBorderDate(false));
+			            
+			            
 						Uri uri;
-
 						Intent i = new Intent(Intent.ACTION_SEND);
 						//i.setType("message/rfc822");
 						//i.setType("text/csv");
@@ -100,13 +108,10 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						if (reset){
 							uri=filedir;
 						}
-						else{
-						
-						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
-						
-						FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
-						File file = handler.createExternalFile(db.getPollCsvContext());
-						uri= Uri.fromFile(file);
+						else{						
+							FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
+							File file = handler.createExternalFile(db.getPollCsvContext());
+							uri= Uri.fromFile(file);
 						}
 						
 						i.putExtra(Intent.EXTRA_STREAM,uri );
@@ -152,33 +157,95 @@ public class AdminSettingsActivity extends PreferenceActivity {
 					public boolean onPreferenceClick(Preference arg0) {	
 							
 						byte status = status();
-						if (status == 2 | status == 3){
-							
-						SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
-							
-							FileHandler file = new FileHandler(db.getUserCode()+".csv");
-							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
-						
-							if (fileOK())
-								Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success), Toast.LENGTH_LONG).show();
-							else{
-								//TODO: DB Dump? + Rename files
-								Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_failure), Toast.LENGTH_LONG).show();
-							}	
-							
-								button_reset.setEnabled(true);
-								button_export_email.setEnabled(true);	
-								button_export.setEnabled(false);
-								
-								//Save condition in Settings
-								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-								SharedPreferences.Editor editor = prefs.edit();
-								editor.putBoolean("export", true);
-								editor.commit();
-						}
-						else
+						switch(status){
+						case 0: 
 							Toast.makeText(getApplicationContext(),getResources().getString(R.string.export_empty), Toast.LENGTH_LONG).show();
-						
+							break;
+						case 1:
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.export_empty), Toast.LENGTH_LONG).show();
+							break;
+						case 2:							
+							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+
+							FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
+							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
+							
+							button_reset.setEnabled(true);
+							button_export_email.setEnabled(true);
+							button_export.setEnabled(false);
+
+							// Save condition in Settings
+							SharedPreferences prefs = PreferenceManager
+									.getDefaultSharedPreferences(getBaseContext());
+							SharedPreferences.Editor editor = prefs.edit();
+							editor.putBoolean("export", true);
+							editor.commit();
+							break;
+						case 3:
+							AlertDialog ad = new AlertDialog.Builder(AdminSettingsActivity.this).create();
+							ad.setTitle(getResources().getString(R.string.Warning));
+													
+								
+							ad.setMessage(getResources().getString(R.string.overrideFile));
+							
+
+							ad.setButton(getResources().getString(R.string.override),
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog,
+												int which) {
+												SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+
+												FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
+												filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+
+												Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
+												
+												button_reset.setEnabled(true);
+												button_export_email.setEnabled(true);
+												button_export.setEnabled(false);
+
+												// Save condition in Settings
+												SharedPreferences prefs = PreferenceManager
+														.getDefaultSharedPreferences(getBaseContext());
+												SharedPreferences.Editor editor = prefs.edit();
+												editor.putBoolean("export", true);
+												editor.commit();
+											dialog.dismiss();
+										}
+									});
+							ad.setButton2(getResources().getString(R.string.keepboth),
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog,
+												int which) {
+											SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+
+											FileHandler file = new FileHandler(db.getUserCode()	+"("+ db.getBorderDate(false)+").csv");
+											filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+
+											Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
+											
+											button_reset.setEnabled(true);
+											button_export_email.setEnabled(true);
+											button_export.setEnabled(false);
+
+											// Save condition in Settings
+											SharedPreferences prefs = PreferenceManager
+													.getDefaultSharedPreferences(getBaseContext());
+											SharedPreferences.Editor editor = prefs.edit();
+											editor.putBoolean("export", true);
+											editor.commit();
+											dialog.dismiss();
+										}
+									});
+							ad.show();
+							break;
+						default:
+							Log.v("DBandFileStatus","ERROR - Status="+status);
+						}
 				        return true;
 					}
 				});	
@@ -284,18 +351,27 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	 * 1 - DB Empty + File exists
 	 * 2 - DB OK + no File
 	 * 3 - DB OK + File exists
-	 * TODO:Implement
 	 */
 	private byte status(){
+		byte ret=2;
+		SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+		if(db.getPollCsvContext()=="")
+			ret&=~(1<<1);
+		else
+			ret|=(1<<1);
 		
-		return 2;
+		File file = new File(new File(Environment.getExternalStorageDirectory(),"Socialintelligence"), db.getUserCode()+".csv");
+		Log.i("file", file.getAbsolutePath());
+		if (file.exists())
+			ret|= 1;
+		else
+			ret&=~1;
+		Log.i("status", Byte.toString(ret));
+			
+		
+		return ret;
 	}
 	
-	//TODO: check if file is correct
-	private boolean fileOK(){
-		
-		return true;
-	}
 	@Override
 	public void onBackPressed() {
 		finish();
