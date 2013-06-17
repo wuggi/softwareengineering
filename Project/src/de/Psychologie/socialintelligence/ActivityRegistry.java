@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-package de.Psychologie.socialintelligence;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
-
-public class ActivityRegistry {
-	private static List<Activity> _activities;
-
-	public static void register(Activity activity) {
-		if (_activities == null) {
-			_activities = new ArrayList<Activity>();
-		}
-		_activities.add(activity);
-	}
-
-	public static void finishAll() {
-		for (Activity activity : _activities) {
-			activity.finish();
-		}
-	}
-}
-=======
 package de.Psychologie.socialintelligence;
 
 import java.util.ArrayList;
@@ -64,4 +39,3 @@ public class ActivityRegistry {
 		}
 	}
 }
->>>>>>> fb53854a5727ab37faa63bfe3051e72ab6feb557

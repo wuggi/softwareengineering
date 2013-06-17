@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/btn_action_front"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="143dp"
-        android:layout_marginRight="30dp"
-        android:text="@string/action"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btn_snooze_front"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_action_front"
-        android:layout_alignBottom="@+id/btn_action_front"
-        android:layout_marginLeft="30dp"
-        android:text="@string/snooze"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textview_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
-        android:gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
-        android:textSize="50sp"
-        android:typeface="normal" />
-
-=======
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -77,5 +37,4 @@
         android:textSize="50sp"
         android:typeface="normal" />
 
->>>>>>> fb53854a5727ab37faa63bfe3051e72ab6feb557
 </RelativeLayout>
