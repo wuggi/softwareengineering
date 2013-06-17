@@ -79,6 +79,10 @@ public class UserSettingActivity extends PreferenceActivity {
 						return true;
 					}
 				});
+		
+		/*
+		 * NUR ZUM TESTEN
+		 * 
 		Preference button_poll = findPreference("button_poll");
 		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -99,6 +103,7 @@ public class UserSettingActivity extends PreferenceActivity {
 				return true;
 			}
 				});
+		*/
 		
 		Preference button_about = findPreference("button_about");
 		button_about

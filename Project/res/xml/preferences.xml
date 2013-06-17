@@ -50,6 +50,10 @@
             android:key="button_about"
             android:title="@string/settings_about" >
         </Preference>
+        <!--
+        
+        Nur zum Testen
+        
         <Preference
             android:icon="@drawable/ic_menu_info_details"
             android:key="button_test"
@@ -60,6 +64,7 @@
             android:key="button_poll"
             android:title="(UMFRAGE)" >
         </Preference>
+        -->
     </PreferenceCategory>
 
 </PreferenceScreen>
