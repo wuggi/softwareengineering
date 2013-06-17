@@ -27,8 +27,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,6 +113,18 @@ public class PopPollActivity extends Activity {
 					int count) {
 			}
 		});
+			
+		// Blendet Tastatur aus, sobald auﬂerhalb des Feldes zur Eingabe geklickt wird.
+		LinearLayout completeView = (LinearLayout) findViewById(R.id.LinearLayout1);
+		completeView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(countContact.getWindowToken(), 0);
+			}
+		});
+
 
 
         TextView txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);

@@ -93,57 +93,6 @@
 
         </net.simonvt.numberpicker.NumberPicker>
     </LinearLayout>
-    <!--
-      <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            
-
-                <requestFocus />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_marginTop="60dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/time"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-          
-            <net.simonvt.numberpicker.NumberPicker
-		        android:id="@+id/hourPicker"
-		        android:layout_width="60dp"
-		        android:layout_height="wrap_content" />
-            <net.simonvt.numberpicker.NumberPicker
-		        android:id="@+id/minutePicker"
-		        android:layout_width="60dp"
-		        android:layout_height="wrap_content" />
-
-        </TableRow>
-
-    </TableLayout>
-    -->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >

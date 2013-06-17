@@ -42,6 +42,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	 * @brief //TODO
 	 */
 	private static Uri filedir=null;
+	private Alarm alarm;
 	
 	
 	
@@ -116,8 +117,6 @@ public class AdminSettingsActivity extends PreferenceActivity {
 			            
 						Uri uri;
 						Intent i = new Intent(Intent.ACTION_SEND);
-						//i.setType("message/rfc822");
-						//i.setType("text/csv");
 						i.setType("application/csv");
 						
 						if (reset){
@@ -148,7 +147,6 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 						
 							db.deleteDB();
-							//TODO: Stop Alarm
 							
 							// Alle Einstellungen werden geloescht
 							final SharedPreferences prefs = PreferenceManager
@@ -334,6 +332,10 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onStart() {
 	super.onStart();
+
+	alarm = new Alarm(AdminSettingsActivity.this);
+	alarm.stopSnooze();
+	
 	
 	// Get the xml/prefx.xml preferences
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	
@@ -362,8 +364,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	}
 	}
 	
-	/*
-	 * Return Codes: 
+	@Override
+	public void onDestroy(){
+		if (!reset)
+			alarm.setNextAlarm();
+		super.onDestroy();
+	}
+	
+	/**
+	 * @return
+	 * Codes: 
 	 * 0 - DB Empty + no File
 	 * 1 - DB Empty + File exists
 	 * 2 - DB OK + no File

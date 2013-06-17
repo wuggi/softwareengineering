@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,11 +13,20 @@ import android.util.Log;
 
 /**
 * @class BootActivity
+<<<<<<< HEAD
 * @brief Es wird überprüft, ob eine Umfrage verpasst wurde, während das Handy aus war
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file BootActivity.java
+=======
+* @brief Diese Activity wird transparent gestartet, sodass der User nichts davon mitbekommt. Sie dient zum setzen des n�chsten Alarms, sollte ein Alarm durch das ausgeschaltete Handy verpasst worden sein, wird sofort die Umfrage gestartet.
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file BootActivity.java
+*
+>>>>>>> 1b7c9712ead435f6930f7fa00f911ac9c6314323
 */ 
+@SuppressLint("SimpleDateFormat")
 public class BootActivity extends Activity{
 	/**
 	 * @brief Instanz von {@link Alarm}
@@ -70,7 +78,6 @@ public class BootActivity extends Activity{
 			if((now.after(nextAlarm) && now.after(lastAlarm)) && nextAlarm.after(lastAlarm)){
 				// Umfrage wurde verpasst
 				startActivity(new Intent(this,PopPollActivity.class));
-				finish();
 			} else {
 				// Alarm wieder einstellen
 				alarm.setNextAlarm();

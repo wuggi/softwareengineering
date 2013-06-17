@@ -79,6 +79,10 @@ public class UserSettingActivity extends PreferenceActivity {
 						return true;
 					}
 				});
+		
+		/*
+		 * NUR ZUM TESTEN
+
 		Preference button_poll = findPreference("button_poll");
 		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -99,6 +103,8 @@ public class UserSettingActivity extends PreferenceActivity {
 				return true;
 			}
 				});
+		*/
+		
 		
 		Preference button_about = findPreference("button_about");
 		button_about
@@ -115,7 +121,6 @@ public class UserSettingActivity extends PreferenceActivity {
 						try {
 							pinfo = getPackageManager().getPackageInfo(getPackageName(),0);
 						} catch (NameNotFoundException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 							String versionName = pinfo.versionName;
