@@ -13,6 +13,18 @@ import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
 
+/**
+* @class CustomRingtonepreference
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file CustomRingtonepreferencer.java
+*
+* @brief //TODO Diese Klasse macht.....
+*Klingeltonauswahl
+* 
+*
+* 
+*/ 
 public class CustomRingtonepreference extends ListPreference{
 
 private MediaPlayer mMediaPlayer;
@@ -39,7 +51,6 @@ public void setValue(String value) {
 
     persistString(value);
 }
-
 /**
  * Sets the value to the given index from the entry values.
  * 
@@ -129,12 +140,10 @@ protected void onPrepareDialogBuilder(Builder builder) {
 private void playSong(String path) throws IllegalArgumentException,
     IllegalStateException, IOException {
 
-    //Log.d("CustomRingtonepref", "playSong :: " + path);
 
     mMediaPlayer.reset();
     mMediaPlayer.setDataSource(path);
     mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-//  mMediaPlayer.setLooping(true);
     mMediaPlayer.prepare();
     mMediaPlayer.start();
 }

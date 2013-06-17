@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,6 +18,18 @@ import android.widget.Toast;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
+/**
+* @class Week
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file Week.java
+*
+* @brief //TODO Diese Klasse macht.....
+*
+* 
+*
+* 
+*/
 public class Week extends Activity {
 
 	private Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5,
@@ -175,24 +188,36 @@ public class Week extends Activity {
 			@Override
 			public void onClick(View v) {
 				// Daten in Datenbank ï¿½berfï¿½hren
-				// TODO: Make faster
+				// TODO: Make faster Duration on S3:~500ms
+				final long t0 = System.currentTimeMillis();
 				writeWeekToDatabase();
+				Log.e("Duration",System.currentTimeMillis()-t0+"ms");
 				// Alle Einstellungen erfolgreich gespeichert
 				saveAllTimeSlots = true;
 				// Alarm setzen
+				
+				
 				// TODO: Wann soll er dies immer setzen?
+				// TODO: Hierdurch wird sofort der Alarm ausgelöst! (JW)
+				/*
 				SQLHandler db = new SQLHandler(Week.this);
 				if (!db.getSnoozeActiv()) {
 					alarm.setNextAlarm(true);
 				}
 				db.close();
+				*/
+				
 				// Meldung ausgeben
 				Toast.makeText(
 						Week.this,
 						getResources().getString(R.string.txtWeekSaveTimeSlots),
 						Toast.LENGTH_SHORT).show();
 				// Weiter zu den Einstellungen
-				onBackPressed();				
+				if (Week.this.isTaskRoot()) {
+					Week.this.startActivity(new Intent(Week.this,
+							UserSettingActivity.class));
+				}
+				Week.this.finish();			
 			}
 		});
 

@@ -11,7 +11,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-@SuppressLint("SimpleDateFormat")
+
+/**
+* @class BootActivity
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file BootActivity.java
+
+*
+* @brief //TODO Diese Klasse macht.....
+* 
+*
+* 
+*/ 
 public class BootActivity extends Activity{
 	private Alarm alarm;
 	private SQLHandler db; 

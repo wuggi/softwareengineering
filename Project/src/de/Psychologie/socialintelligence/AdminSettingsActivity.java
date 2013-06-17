@@ -25,16 +25,31 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+/**
+* @class AdminSettingsActivity
+* @brief .csv-Datein Export, Admin-Passwort ändern
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file AdminSettingsActivity.java 
+*/ 
+
 public class AdminSettingsActivity extends PreferenceActivity {
-	
+	/**
+	 * @brief //TODO
+	 */
 	private static boolean reset=false;
+	/**
+	 * @brief //TODO
+	 */
 	private static Uri filedir=null;
 	
 	
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		/**
+		 * @brief Beim ersten Aufruf der App
+		 */
 		super.onCreate(savedInstanceState);
 
 		//Add View for ActionBar
@@ -101,8 +116,6 @@ public class AdminSettingsActivity extends PreferenceActivity {
 			            
 						Uri uri;
 						Intent i = new Intent(Intent.ACTION_SEND);
-						//i.setType("message/rfc822");
-						//i.setType("text/csv");
 						i.setType("application/csv");
 						
 						if (reset){
@@ -133,7 +146,6 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 						
 							db.deleteDB();
-							//TODO: Stop Alarm
 							
 							// Alle Einstellungen werden geloescht
 							final SharedPreferences prefs = PreferenceManager
@@ -313,10 +325,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
+	/**
+	 * @brief Email 
+	 */
 	@Override
 	protected void onStart() {
 	super.onStart();
+
+	Alarm alarm = new Alarm(AdminSettingsActivity.this);
+	alarm.stopSnooze();
+	
 	
 	// Get the xml/prefx.xml preferences
 	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	
@@ -371,7 +389,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 		
 		return ret;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		finish();

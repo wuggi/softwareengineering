@@ -6,25 +6,48 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+/**
+* @class Alarm
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+* @file Alarm.java
+
+*
+* @brief 
+*
+* 
+*/ 
 // TODO: dies ist keine Activity!! Es benoetigt lediglich 3 Methoden von dieser!
 public class Alarm{
 
 	private Calendar cal;
 	// Wochentag
+	/**
+	 * @brief Wochentag
+	 */
 	private int currentWeekDay;
 	private int nextWeekDay;
-	// Tag des Monats
+	/**
+	 * @brief Tag des Monats
+	 */
 	private Date currentDate;
 	private Date nextDate;
-	// Stunde 24er Format
+	/** 
+	 * @brief Stunde 24er Format
+	 */
 	private int currentHour;
-	// Alarmzeiten in Datenbank
+	/**
+	 * @brief Alarmzeiten in Datenbank
+	 */
 	private String currentAlarmTime;
 	private String nextAlarmTime;
-	// Activity. welche den Alarm nutzen moechte
+	/**
+	 * @brief Activity. welche den Alarm nutzen moechte
+	 */
 	// TODO: sehr unschoen...
 	private Activity source;
 	
@@ -32,7 +55,12 @@ public class Alarm{
 	// speichern naechster Alarm
 	
 	// pruefen ist Alarm gesetzt, sonst naechsten Alarm aktivieren
-	
+	/**
+	 * 
+	 * @param source
+	 * @brief speichern letzter Alarm, speichern nächster Alarm <br>
+	 * pruefen ist Alarm gesetzt, sonst naechsten Alarm aktivieren
+	 */
 	Alarm(Activity source){
 		// Zeit und Datum holen
 		cal = Calendar.getInstance();
@@ -57,11 +85,21 @@ public class Alarm{
 
 	
 	// setzen naechsten oder ersten Alarm
+	/**
+	 * @brief Setzen des naechsten oder ersten Alarm <br>
+	 * ruft dazu die Funktion {@link setNextAlarm(boolean firstAlarm)} auf
+	 * @return {@code setNextAlarm(false)}
+	 */
 	public boolean setNextAlarm(){
 		return setNextAlarm(false);
 	}
 	
-	@SuppressWarnings("deprecation")
+	/**
+	 * 
+	 * @param firstAlarm
+	 * @return res
+	 * @brief Setzen des naechsten oder ersten Alarm
+	 */
 	public boolean setNextAlarm(boolean firstAlarm){
 		int lastHour = firstAlarm?23:19;
 		Log.v("test","lastHour " + String.valueOf(lastHour));
@@ -81,8 +119,6 @@ public class Alarm{
 			// fuer Heute existiert noch eine Alarmzeit
 			Log.v("test","heute: " + currentAlarmTime);
 			
-			//Fehler wenn heute kein gespeicherter eintrag nach der aktuellen Uhrzeit vorhanden ist.
-			//TODO: reparieren
 			nextAlarmTime = db.getNextTimeFromDayTime(currentWeekDay, currentAlarmTime);
 			
 			alarmDay = currentDate;
@@ -116,6 +152,11 @@ public class Alarm{
 	}
 	
 	// setze Snooze in Minuten
+	/**
+	 * 
+	 * @param snoozeTime
+	 * @brief Setzt Snooze in Minuten
+	 */
 	public void setSnooze(int snoozeTime){
 		// Datenbank Verbindung aufbauen
 		SQLHandler db = new SQLHandler(source);
@@ -126,25 +167,52 @@ public class Alarm{
 		db.close();
 	}
 	
+	/**
+	 * 
+	 * @return currentWeekDay
+	 * @brief Liefert den aktuellen Tag der Woche
+	 */
 	public int getCurrentWeekDay(){
 		return currentWeekDay;
 	}
 	
+	//TODO: doesnt work
+	//Intent must be exactly the same!!!
+	public void stopSnooze(){
+		// bei Alarmstart die Umfrage aufrufen
+    	// Damit der Start durch den Alarm klar ist
+        Intent intent = new Intent(source, Alarm_Activity.class);
+        intent.putExtra("widgetId", 10000);
+        //Needed, or else the Flag is not used?!
+        intent.setAction(Long.toString(System.currentTimeMillis()));
+        // 10000 ist einmalige Nummer fuer den Alarm        
+        //PendingIntent.FLAG_ONE_SHOT ???
+        PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager am = (AlarmManager)source.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(pendingIntent);
+	}
+	 
 	//TODO: if alarm_activity was already started, resume it
 	private void startAlarm(){
     	// bei Alarmstart die Umfrage aufrufen
     	// Damit der Start durch den Alarm klar ist
         Intent intent = new Intent(source, Alarm_Activity.class);
+        intent.putExtra("widgetId", 10000);
         //Needed, or else the Flag is not used?!
         intent.setAction(Long.toString(System.currentTimeMillis()));
         // 10000 ist einmalige Nummer fuer den Alarm        
         //PendingIntent.FLAG_ONE_SHOT ???
         PendingIntent pendingIntent = PendingIntent.getActivity(source, 10000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         
-        AlarmManager am = (AlarmManager)source.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager)source.getSystemService(Context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
 	}
 	
+	/**
+	 * @brief Liefert die aktuelle Alarmzeit
+	 * @return currentAlarmTime
+	 */
 	public String getCurrentAlarmTime() {
 		return currentAlarmTime;
 	}

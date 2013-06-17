@@ -304,6 +304,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int cancel=0x7f0a000f;
         public static final int export_empty=0x7f0a0049;
         public static final int false_password=0x7f0a0010;
+        public static final int five=0x7f0a0056;
         public static final int hello=0x7f0a0000;
         public static final int keepboth=0x7f0a0017;
         public static final int message_about=0x7f0a0012;
