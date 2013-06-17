@@ -15,15 +15,10 @@ import android.util.AttributeSet;
 
 /**
 * @class CustomRingtonepreference
+* @brief Klingeltonauswahl
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file CustomRingtonepreferencer.java
-*
-* @brief //TODO Diese Klasse macht.....
-*Klingeltonauswahl
-* 
-*
-* 
 */ 
 public class CustomRingtonepreference extends ListPreference{
 
@@ -33,10 +28,20 @@ private CharSequence[] mEntryValues;
 private int mClickedDialogEntryIndex;
 private String mValue;
 
+/**
+ * 
+ * @param context
+ * @param attrs
+ * @brief Konstruktor
+ */
 public CustomRingtonepreference(Context context, AttributeSet attrs) {
     super(context, attrs);
 }
-
+/**
+ * 
+ * @param context
+ * @brief Konstruktor
+ */
 public CustomRingtonepreference(Context context) {
     super(context);
 }
@@ -52,7 +57,7 @@ public void setValue(String value) {
     persistString(value);
 }
 /**
- * Sets the value to the given index from the entry values.
+ * @brief Sets the value to the given index from the entry values.
  * 
  * @param index The index of the value to set.
  */
@@ -63,8 +68,8 @@ public void setValueIndex(int index) {
 }
 
 /**
- * Returns the value of the key. This should be one of the entries in
- * {@link #getEntryValues()}.
+ *@brief Returns the value of the key. This should be one of the entries in
+ * {@link getEntryValues()}.
  * 
  * @return The value of the key.
  */

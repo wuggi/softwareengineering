@@ -28,14 +28,11 @@ import android.widget.Toast;
 
 /**
 * @class Alarm_Activity
+* @brief //TODO
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file Alarm_Activity.java
 
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
 */ 
 public class Alarm_Activity extends Activity {
 
@@ -50,6 +47,10 @@ public class Alarm_Activity extends Activity {
 	// Normal Pause(finish): 0 | Abnormal pause (Home Button):1 | Has been abnormally paused:2 
 	//private byte pauseOK = 0;
 	
+	/**
+	 * @param savedInstanceState
+	 * @brief //TODO
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -195,6 +196,9 @@ public class Alarm_Activity extends Activity {
 		}.start();
 	}
 	
+	/**
+	 * @brief Snoozezeit wird gesetzt
+	 */
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
@@ -213,6 +217,9 @@ public class Alarm_Activity extends Activity {
 		finish();	
 	}
 	
+	/**
+	 * @brief Notification setzen, wenn Snooze gedrückt wurde
+	 */
 	private void setNotification(){
 		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
@@ -253,6 +260,9 @@ public class Alarm_Activity extends Activity {
 	}
 	
 	// Forbid closing the view
+	/**
+	 * @brief Schließen der View durch tippen auf den Bildschirm wird verhindert
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);

@@ -11,14 +11,10 @@ import android.util.Log;
 
 /**
 * @class Alarm
+* @brief Alarmzeit und Snoozezeit werden gesetzt
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
-* @file Alarm.java
-
-*
-* @brief 
-*
-* 
+* @file Alarm.java 
 */ 
 // TODO: dies ist keine Activity!! Es benoetigt lediglich 3 Methoden von dieser!
 public class Alarm{

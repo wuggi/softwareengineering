@@ -14,21 +14,31 @@ import android.util.Log;
 
 /**
 * @class BootActivity
+* @brief Es wird überprüft, ob eine Umfrage verpasst wurde, während das Handy aus war
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file BootActivity.java
-
-*
-* @brief //TODO Diese Klasse macht.....
-* 
-*
-* 
 */ 
 public class BootActivity extends Activity{
+	/**
+	 * @brief Instanz von {@link Alarm}
+	 */
 	private Alarm alarm;
+	/**
+	 * @brief Instanz von {@link SQLHandler}
+	 */
 	private SQLHandler db; 
+	/**
+	 * @brief Instanz von Calendar
+	 */
 	private Calendar cal;
 	
+	/**
+	 * @brief Es wird überprüft, ob eine Umfrage verpasst wurde: <br>
+	 * {@code if((now.after(nextAlarm) && now.after(lastAlarm)) && nextAlarm.after(lastAlarm))}
+	 * @param savedInstanceState
+	 * 
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
