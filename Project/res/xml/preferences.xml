@@ -53,7 +53,11 @@
         <!--
         
         Nur zum Testen
+<<<<<<< HEAD
          -->
+=======
+        
+>>>>>>> 996fdda3507ae9ca8ab846be27cf10ed434e6009
         <Preference
             android:icon="@drawable/ic_menu_info_details"
             android:key="button_test"
@@ -64,7 +68,11 @@
             android:key="button_poll"
             android:title="(UMFRAGE)" >
         </Preference>
+<<<<<<< HEAD
        
+=======
+        -->
+>>>>>>> 996fdda3507ae9ca8ab846be27cf10ed434e6009
     </PreferenceCategory>
 
 </PreferenceScreen>
