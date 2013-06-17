@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
@@ -87,4 +88,95 @@
     <string name="subjectHelp">Sie können folgende Codes in Ihrem Betreff verwenden:\n\u0025c\t\tBenutzercode\n\u0025s\t\tStart Datum\n\u0025e\t\tEnd Datum</string>
     
 
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Einstellungen</string>
+    <string name="alarm_msg">15:00\nUmfrage</string>
+    <string name="Anleitung">Code - Anleitung:\n\n1. Dritter Buchstabe des Vornamens Ihrer Mutter\n2. Dritter Buchstabe des Vornamens Ihres Vaters\n3. Dritter Buchstabe Ihres Geburtsortes\n4. Dritter Buchstabe Ihrer aktuellen Straße\n5. Dritter Buchstabe Ihres Geburtsmonats</string>
+    <string name="Anzahl">Anzahl:</string>
+    <string name="app_name">Umfrage Einstellungen</string>
+    <string name="bntFriday">Fr</string>
+    <string name="bntMonday">Mo</string>
+    <string name="bntSaturday">Sa</string>
+    <string name="bntSunday">So</string>
+    <string name="bntThursday">Do</string>
+    <string name="bntTuesday">Di</string>
+    <string name="bntWednesday">Mi</string>
+    <string name="bntWeekSave">Woche speichern</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="false_password">Falsches Passwort.</string>
+    <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>
+    <string name="message_about">&lt;h2&gt;Entwickler&lt;/h2&gt;Christian Steusloff&lt;br&gt;Franz Kuntke&lt;br&gt;Jens Wiemann&lt;br&gt;Patrick Wuggazer&lt;br&gt;Chia-Mei Chen&lt;br&gt;&lt;br&gt;</string>
+    <string name="version">Version:</string>
+    <string name="next">Weiter</string>
+    <string name="OK">OK</string>
+    <string name="override">Überschreiben</string>
+    <string name="keepboth">Datei umbenennen</string>
+    <string name="password_changed">Passwort geändert.</string>
+    <string name="password_mismatch">Passwörter stimmen nicht überein.</string>
+    <string name="preferences_password_change1">\n\tNeues Passwort:</string>
+    <string name="preferences_password_change2">\n\tPasswort erneut eingeben:</string>
+    <string name="salt">jl#1i$Q3awrO!ql4tia5=et</string>
+    <string name="save">Speichern</string>
+    <string name="settings_about">Über</string>
+    <string name="settings_admin">Administrator Einstellungen</string>
+    <string name="settings_deleteDB">Zurücksetzen</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_export_email">Versand per Email</string>
+    <string name="settings_export_success">CSV Datei wurde erfolgreich erstellt.</string>
+    <string name="settings_export_failure">Beim Export ist ein Fehler aufgetreten. Es wurde versucht alles zu Speichern.</string>
+    <string name="settings_other">Sonstiges</string>
+    <string name="settings_password_change">Passwort ändern</string>
+    <string name="settings_password_new_text">Bitte geben Sie hier Ihr neues Passwort ein:</string>
+    <string name="settings_password_new_title">Neues Passwort</string>
+    <string name="settings_ringtone">Klingelton</string>
+    <string name="settings_sleeptime">Dauer der Schlummerfunktion</string>
+    <string name="settings_volume">Lautstärke</string>
+    <string name="settings_vibrate">Vibrieren</string>
+    <string name="snooze">Schlummern</string>
+    <string name="action">zur Umfrage</string>
+    <string name="std_PW">Sommer</string>
+    <string name="time">Dauer:</string>
+    <string name="title">Social Intelligence</string>
+    <string name="title_about">Über SocialIntelligence</string>
+    <string name="title_activity_alarm_">Umfrage</string>
+    <string name="title_activity_settings">SocialIntelligence</string>
+    <string name="title_activity_main">SocialIntelligence</string>
+    <string name="title_activity_week">Zeitenauswahl</string>
+    <string name="title_password_entry">Passwort</string>
+    <string name="txtNo">Nein</string>
+    <string name="txtTime_slot">Bitte wählen Sie Ihre Alarmzeiten für die Umfrage. In jeder Zeile muss eine Uhrzeit gewählt werden.\nDiese Einstellungen können Sie später immer wieder verändern.</string>
+    <string name="txtWeekSaveQuestion">Sie haben Ihre Auswahl nicht gespeichert.\nWollen Sie wirklich zum Menü?</string>
+    <string name="txtWeekSaveTimeSlots">Zeitslots gespeichert</string>
+    <string name="txtWeekSaveTitle">Zeitslots verwerfen</string>
+    <string name="txtYes">Ja</string>
+    <string name="Umfrage_txt">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten (gestrigen) Signal um XX:XX Uhr Kontakt? Bitte schätzen Sie zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="Willkommen">Willkommen,</string>
+    <string name="Willkommen_2">Bitte geben Sie hier Ihren Code ein:</string>
+    <string name="title_activity_pop_poll">Umfrage</string>
+    <string name="settings_email_to">Empfängeradresse</string>
+    <string name="settings_email_subject">Betreff</string>
+    <string name="settings_email">Email Einstellungen</string>
+    <string name="settings_general">Daten Verwaltung</string>
+    <string name="std_Email_Adress">StandartAdresse@st-ovgu.de</string>
+    <string name="std_Email_Subject">[Socialintelligence]CSV Export</string>
+    <string name="settings_deleteDB_success">App zurückgesetzt</string>
+    <string name="export_empty">Es sind keine Nutzerdaten vorhanden.</string>
+    <string name="txtPopPollOK">Umfrage wurde gespeichert</string>
+    <string name="txtPopPollSnooze">Schlummerfunktion aktiv</string>
+    <string name="txtPopPollBreakTitle">Abbruch</string>
+    <string name="txtPopPollBreakText">Wollen Sie wirklich die Umfrage abbrechen?</string>
+    <string name="txtPopPollBreak">Umfrage wurde abgebrochen</string>
+    <string name="txtPopPollInfo0">Mit wie vielen Interaktionspartnern hatten Sie &lt;b&gt;heute&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um &lt;b&gt;%s Uhr&lt;/b&gt; Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten &lt;b&gt;gestriegen&lt;/b&gt; Signal um &lt;b&gt;%s Uhr&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
+    <string name="title_activity_numpicker">Numpicker</string>
+    <string name="Warning">Warnung!</string>
+    <string name="overrideFile">Die Datei mit dem Nutzercode existiert bereits.</string>
+    <string name="subjectHelp">Sie können folgende Codes in Ihrem Betreff verwenden:\n\u0025c\t\tBenutzercode\n\u0025s\t\tStart Datum\n\u0025e\t\tEnd Datum</string>
+    <string name="five">5</string>
+
+>>>>>>> fb53854a5727ab37faa63bfe3051e72ab6feb557
 </resources>

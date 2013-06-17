@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.Psychologie.socialintelligence"
@@ -79,4 +80,87 @@
         </activity>
     </application>
 
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.Psychologie.socialintelligence"
+    android:versionCode="1"
+    android:versionName="0.7" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/title_activity_settings"
+        android:persistent="true"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="de.Psychologie.socialintelligence.MainActivity"
+            android:label="@string/title_activity_settings"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noTitle" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.PopPollActivity"
+            android:label="@string/title_activity_pop_poll"
+            android:theme="@style/AppTheme_noTitle" 
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.Week"
+            android:label="@string/title_activity_week"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noTitle" >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.UserSettingActivity"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noTitle"  >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.AdminSettingsActivity"
+            android:label="@string/settings_admin"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_noTitle"  >
+        </activity>
+        <activity
+            android:name="de.Psychologie.socialintelligence.Alarm_Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_alarm_"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <receiver
+            android:name="de.Psychologie.socialintelligence.BootReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="de.Psychologie.socialintelligence.BootActivity" >
+        </activity>
+    </application>
+
+>>>>>>> fb53854a5727ab37faa63bfe3051e72ab6feb557
 </manifest>
