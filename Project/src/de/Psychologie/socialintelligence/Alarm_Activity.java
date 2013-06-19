@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 /**
 * @class Alarm_Activity
-* @brief //TODO
+* @brief Zeigt den Audio/Visuellen Wecker an.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file Alarm_Activity.java
@@ -49,7 +49,7 @@ public class Alarm_Activity extends Activity {
 	
 	/**
 	 * @param savedInstanceState
-	 * @brief //TODO
+	 * @brief Erzeugt eine Fullscreen View mit angeschaltetem Bildschirm, Klingelton und Vibration so wie in den Einstellungen hinterlegt.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -274,6 +274,7 @@ public class Alarm_Activity extends Activity {
 	}
 	//TODO: handle Home Button klick
 	/*
+	 * 
 	@Override
 	public void onPause(){
 		if (pauseOK == 0) {

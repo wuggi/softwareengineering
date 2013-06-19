@@ -6,7 +6,7 @@ package de.Psychologie.socialintelligence;
 * @date 16/06/2013
 * @file FormatHandler.java
 *
-* @brief //TODO Diese Klasse macht.....
+* @brief Diese Klasse konvertiert die Uhrzeit in ein ordentliches (HH:MM) Format.
 *
 * 
 *
