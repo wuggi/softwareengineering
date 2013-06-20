@@ -6,19 +6,11 @@ import android.content.Intent;
 
 /**
 * @class BootReceiver
-<<<<<<< HEAD
-* @brief Klasse startet mit dem Systemstart, startet die {@link BootActivity}
-* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
-* @date 16/06/2013
-* @file BootReceiver.java
-
-=======
 * @brief Service startet mit dem Systemstart
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file BootReceiver.java
 *
->>>>>>> 1b7c9712ead435f6930f7fa00f911ac9c6314323
 */ 
 public class BootReceiver extends BroadcastReceiver {
 

@@ -16,6 +16,10 @@ import android.widget.EditText;
 
 
 /**
+ * 
+ * 
+ * @section Test ttest
+ * 
 * @class MainActivity
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
