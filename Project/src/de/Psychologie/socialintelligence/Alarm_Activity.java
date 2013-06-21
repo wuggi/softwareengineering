@@ -227,7 +227,7 @@ public class Alarm_Activity extends Activity {
 		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
-		int icon          = R.drawable.ic_launcher;
+		int icon          = R.drawable.ic_stat_notify;
 		CharSequence text = "Schlummerfunktion aktiv!";
 		long time         = System.currentTimeMillis();
 		

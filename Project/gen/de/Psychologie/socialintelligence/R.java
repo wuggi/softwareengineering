@@ -170,19 +170,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_menu_note=0x7f02000f;
         public static final int ic_menu_preferences=0x7f020010;
         public static final int ic_menu_today=0x7f020011;
-        public static final int ic_volume=0x7f020012;
-        public static final int icon=0x7f020013;
-        public static final int item_background_holo_dark=0x7f020014;
-        public static final int item_background_holo_light=0x7f020015;
-        public static final int list_focused_holo=0x7f020016;
-        public static final int list_longpressed_holo=0x7f020017;
-        public static final int list_pressed_holo_dark=0x7f020018;
-        public static final int list_pressed_holo_light=0x7f020019;
-        public static final int list_selector_background_transition_holo_dark=0x7f02001a;
-        public static final int list_selector_background_transition_holo_light=0x7f02001b;
-        public static final int list_selector_disabled_holo_dark=0x7f02001c;
-        public static final int list_selector_disabled_holo_light=0x7f02001d;
-        public static final int np_numberpicker_selection_divider=0x7f02001e;
+        public static final int ic_stat_notify=0x7f020012;
+        public static final int ic_volume=0x7f020013;
+        public static final int icon=0x7f020014;
+        public static final int item_background_holo_dark=0x7f020015;
+        public static final int item_background_holo_light=0x7f020016;
+        public static final int list_focused_holo=0x7f020017;
+        public static final int list_longpressed_holo=0x7f020018;
+        public static final int list_pressed_holo_dark=0x7f020019;
+        public static final int list_pressed_holo_light=0x7f02001a;
+        public static final int list_selector_background_transition_holo_dark=0x7f02001b;
+        public static final int list_selector_background_transition_holo_light=0x7f02001c;
+        public static final int list_selector_disabled_holo_dark=0x7f02001d;
+        public static final int list_selector_disabled_holo_light=0x7f02001e;
+        public static final int np_numberpicker_selection_divider=0x7f02001f;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f070017;

@@ -332,17 +332,17 @@ public class PopPollActivity extends Activity {
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
-		int icon          = R.drawable.ic_launcher;
+		int icon          = R.drawable.ic_stat_notify;
 		CharSequence text = "Schlummerfunktion aktiv!";
 		long time         = System.currentTimeMillis();
 		
 		// Meldung setzen
 		Notification notification = new Notification(icon, text, time);
 		
-		// Meldung schlie�en
+		// Meldung schliessen
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		
-		// Meldungstext, wenn gew�hlt
+		// Meldungstext, wenn gewaehlt
 		Context context = getApplicationContext();
 		CharSequence contentTitle = "Umfrage";
 		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";

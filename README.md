@@ -16,4 +16,3 @@ Nice to Have:
 - Ueberfluessige Abfrage bei rueckgaengig gemachter Wochenaenderung
 - Bei Klingeltonauwahl Home Button druecken bricht das Lied nicht ab
 - App Name?
-- angepasstes mini Bild
