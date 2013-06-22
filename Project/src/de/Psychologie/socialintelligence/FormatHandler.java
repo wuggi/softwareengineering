@@ -2,11 +2,12 @@ package de.Psychologie.socialintelligence;
 
 /**
 * @class FormatHandler
+*  @brief Diese Klasse konvertiert die Uhrzeit in ein ordentliches (HH:MM) Format.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file FormatHandler.java
 *
-* @brief Diese Klasse konvertiert die Uhrzeit in ein ordentliches (HH:MM) Format.
+*
 *
 * 
 *

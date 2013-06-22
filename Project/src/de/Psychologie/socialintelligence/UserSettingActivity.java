@@ -39,13 +39,12 @@ import android.widget.Toast;
 
 /**
 * @class UserSettingActivity
+* @brief Dieses Menue sorgt fuer die Erzeugung des Klingeltonmenues, die Passwortabfrage zur 
+* {@link AdminSettingsActivity}, die Vibrationseinstellung, Ueber-Angaben und Zeiteneinstellung.
+*  Ausserdem speichert es alle getroffenen Einstellungen in den DefaultSharedPreferences.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
-* @date 16/06/2013
+* @date 20/06/2013
 * @file UserSettingActivity.java
-*
-* @brief Diese Menue sorgt fuer die Erzeugung des Klingeltonmenues, die Passwortabfrage zum Adminmenue, die Vibrationseinstellung, Ueber und Zeiteneinstellung.
-*  Ausserdem speichert es alle getroffenen Einstellungen in den DefaultSharedPreferences.*
-* 
 */
 public class UserSettingActivity extends PreferenceActivity {
 
@@ -57,7 +56,9 @@ public class UserSettingActivity extends PreferenceActivity {
 
 	private MediaPlayer mMediaPlayer;
 
-	
+	/**
+	 * @brief //TODO
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -372,6 +373,9 @@ public class UserSettingActivity extends PreferenceActivity {
 				});
 	}
 
+	/**
+	 * @brief TODO Wenn es nicht der knoten ist, soll es geschlossen werden
+	 */
 	@Override
 	public void onBackPressed() {
 		// Wenn es nicht der knoten ist, soll es geschlossen werden
@@ -380,7 +384,9 @@ public class UserSettingActivity extends PreferenceActivity {
 		else
 			super.onBackPressed();
 	}
-
+	/**
+	 * @brief //TODO
+	 */
 	@Override
 	public void onPause() {		
 		try {
@@ -396,7 +402,9 @@ public class UserSettingActivity extends PreferenceActivity {
     	playing = false;
 		super.onPause();
 	}
-	
+	/**
+	 * @brief //TODO
+	 */
 	@Override
 	public void onStop() {
 		try {
@@ -412,7 +420,11 @@ public class UserSettingActivity extends PreferenceActivity {
     	playing = false;
 		super.onStop();
 	}
-	
+	/**
+	 * @brief MD5-Funktion für Passwörter
+	 * @param md5
+	 * @return gibt MD5-Hash zurück
+	 */
 	// MD5 Funktion fuer Passwoerter
 	public static String MD5(String md5) {
 		try {
@@ -430,7 +442,9 @@ public class UserSettingActivity extends PreferenceActivity {
 		}
 		return null;
 	}
-	
+	/**
+	 * @brief Klingeltöne werden importiert
+	 */
 	@SuppressWarnings("deprecation")
 	private void seekAndImportSongs(){
 		CustomRingtonepreference ringtonepref = (CustomRingtonepreference) findPreference("ringtone");
@@ -487,6 +501,9 @@ public class UserSettingActivity extends PreferenceActivity {
 	    ringtonepref.setEntries(mEntries.toArray(new CharSequence[mEntries.size()]));		
 	}
 	
+	/**
+	 * @brief TODO
+	 */
 	@SuppressWarnings("deprecation")
 	private void setSummaries(){
 		// Get the xml/prefx.xml preferences

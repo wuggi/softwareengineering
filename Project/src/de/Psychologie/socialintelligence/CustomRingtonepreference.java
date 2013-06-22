@@ -175,7 +175,12 @@ protected void onRestoreInstanceState(Parcelable state) {
     super.onRestoreInstanceState(myState.getSuperState());
     setValue(myState.value);
 }
-
+/**
+* @class SavedState
+* @brief //TODO
+* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @date 16/06/2013
+*/ 
 private static class SavedState extends BaseSavedState {
     String value;
 

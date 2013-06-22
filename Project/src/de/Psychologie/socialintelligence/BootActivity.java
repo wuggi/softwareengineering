@@ -13,7 +13,9 @@ import android.util.Log;
 
 /**
 * @class BootActivity
-* @brief Diese Activity wird transparent gestartet, sodass der User nichts davon mitbekommt. Sie dient zum setzen des n‰chsten Alarms, sollte ein Alarm durch das ausgeschaltete Handy verpasst worden sein, wird sofort die Umfrage gestartet.
+* @brief Diese Activity wird transparent gestartet, sodass der User nichts davon mitbekommt. 
+* Sie dient zum setzen des n√§chsten Alarms, sollte ein Alarm durch das ausgeschaltete Handy verpasst worden sein, 
+* wird sofort die Umfrage gestartet.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file BootActivity.java
