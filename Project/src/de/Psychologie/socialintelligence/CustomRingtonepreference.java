@@ -17,7 +17,7 @@ import android.util.AttributeSet;
 * @class CustomRingtonepreference
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
-* @file CustomRingtonepreferencer.java
+* @file CustomRingtonepreference.java
 *
 * @brief //TODO Diese Klasse macht.....
 *Klingeltonauswahl
