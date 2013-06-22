@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.Psychologie.socialintelligence"
     android:versionCode="1"
-    android:versionName="0.7" >
+    android:versionName="0.9" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -75,7 +75,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="de.Psychologie.socialintelligence.BootActivity" >
+        <activity android:name="de.Psychologie.socialintelligence.BootActivity" 
+            	  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
         </activity>
     </application>
 

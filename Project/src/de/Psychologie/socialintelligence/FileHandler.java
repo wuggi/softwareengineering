@@ -20,7 +20,7 @@ import android.os.Environment;
 * @date 16/06/2013
 * @file FileHandler.java
 *
-* @brief //TODO Diese Klasse macht.....
+* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio). 
 *
 * 
 *

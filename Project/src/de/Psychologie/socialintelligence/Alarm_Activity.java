@@ -28,14 +28,11 @@ import android.widget.Toast;
 
 /**
 * @class Alarm_Activity
+* @brief Zeigt den Audio/Visuellen Wecker an.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file Alarm_Activity.java
 
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
 */ 
 public class Alarm_Activity extends Activity {
 
@@ -46,10 +43,15 @@ public class Alarm_Activity extends Activity {
 	private MediaPlayer mMediaPlayer;
 	private SharedPreferences prefs;
 	private boolean vibrate = true;
+	private Vibrator vib;
 	private NotificationManager notificationManager = null;
 	// Normal Pause(finish): 0 | Abnormal pause (Home Button):1 | Has been abnormally paused:2 
 	//private byte pauseOK = 0;
 	
+	/**
+	 * @param savedInstanceState
+	 * @brief Erzeugt eine Fullscreen View mit angeschaltetem Bildschirm, Klingelton und Vibration so wie in den Einstellungen hinterlegt.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,7 +75,8 @@ public class Alarm_Activity extends Activity {
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				//pauseOK = 1;
+				if (vib!=null)
+					vib.cancel();
 				if (waitTimer != null) {
 					waitTimer.cancel();
 					waitTimer = null;
@@ -107,7 +110,8 @@ public class Alarm_Activity extends Activity {
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				//pauseOK = 1;
+				if (vib!=null)
+					vib.cancel();
 				if (waitTimer != null) {
 					waitTimer.cancel();
 					waitTimer = null;
@@ -165,9 +169,9 @@ public class Alarm_Activity extends Activity {
 
 			public void onTick(long millisUntilFinished) {
 				if (vibrate){
-				Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-				// Vibrate for 500 milliseconds
-				v.vibrate(500);
+					vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+					// Vibrate for 500 milliseconds
+					vib.vibrate(500);
 				}
 			}
 
@@ -195,6 +199,9 @@ public class Alarm_Activity extends Activity {
 		}.start();
 	}
 	
+	/**
+	 * @brief Snoozezeit wird gesetzt
+	 */
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
@@ -213,21 +220,24 @@ public class Alarm_Activity extends Activity {
 		finish();	
 	}
 	
+	/**
+	 * @brief Notification setzen, wenn Snooze gedrückt wurde
+	 */
 	private void setNotification(){
 		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
-		int icon          = R.drawable.ic_launcher;
+		int icon          = R.drawable.ic_stat_notify;
 		CharSequence text = "Schlummerfunktion aktiv!";
 		long time         = System.currentTimeMillis();
 		
 		// Meldung setzen
 		Notification notification = new Notification(icon, text, time);
 		
-		// Meldung schlie�en
+		// Meldung schliessen
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		
-		// Meldungstext, wenn gew�hlt
+		// Meldungstext, wenn gewaehlt
 		Context context = getApplicationContext();
 		CharSequence contentTitle = "Umfrage";
 		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";
@@ -235,10 +245,10 @@ public class Alarm_Activity extends Activity {
 		Intent notificationIntent = new Intent(this, PopPollActivity.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 1, notificationIntent, 1);
 	
-		// Ton hinzuf�gen
+		// Ton hinzufuegen
 		//notification.defaults |= Notification.DEFAULT_SOUND;
 		
-		// Vibration ben�tigt zus�tzliches Recht
+		// Vibration beoetigt zusaetzliches Recht
 		//notification.defaults |= Notification.DEFAULT_VIBRATE;
 		
 		// Licht
@@ -253,6 +263,9 @@ public class Alarm_Activity extends Activity {
 	}
 	
 	// Forbid closing the view
+	/**
+	 * @brief Schließen der View durch tippen auf den Bildschirm wird verhindert
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
@@ -262,99 +275,32 @@ public class Alarm_Activity extends Activity {
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancel(SNOOZE_ID);	
 	}
-	//TODO: handle Home Button klick
-	/*
 	@Override
-	public void onPause(){
-		if (pauseOK == 0) {
-			
-		
-			pauseOK = 2;
-			if (waitTimer != null) {
-				waitTimer.cancel();
-				waitTimer = null;
-			}
-			try {
-				if (mMediaPlayer != null) {
-					if (mMediaPlayer.isPlaying()) {
-						mMediaPlayer.pause();
-					}
-				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			}
-			try {
-				wl.release();
-			} catch (Throwable th) {
-				// ignoring this exception, probably wakeLock was
-				// already released
-			}
-			//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
-			String time= prefs.getString("Sleeptime", "5");
-			int snoozetime = Integer.parseInt(time);
-
-			Alarm pollAlarm = new Alarm(this);
-			pollAlarm.setSnooze(snoozetime);
-			// Datenbank Verbindung aufbauen
-			SQLHandler db = new SQLHandler(this);
-			db.setSnoozeActiv(true);
-			// Meldung
-			Toast.makeText(Alarm_Activity.this,getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
-			// Notification setzen
-			setNotification();
+	public void onDestroy(){
+		if (vib!=null)
+			vib.cancel();
+		if (waitTimer != null) {
+			waitTimer.cancel();
+			waitTimer = null;
 		}
-		super.onPause();
-	}
-	
-	@Override
-	public void onResume(){
-		if (pauseOK==2) {
-			pauseOK = 0;
-			// Resume the Ringtone
-			try {
-				if (mMediaPlayer != null) {
-					mMediaPlayer.start();
+		try {
+			if (mMediaPlayer != null) {
+				if (mMediaPlayer.isPlaying()) {
+					mMediaPlayer.stop();
 				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
+				mMediaPlayer.release();
+				mMediaPlayer = null;
 			}
-			wl.acquire();
-			waitTimer = new CountDownTimer(60000, 1000) {
-
-				public void onTick(long millisUntilFinished) {
-					if (vibrate) {
-						Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-						// Vibrate for 500 milliseconds
-						v.vibrate(500);
-					}
-				}
-
-				public void onFinish() {
-					// After 60000 milliseconds (1 min) finish current
-					try {
-						if (mMediaPlayer != null) {
-							if (mMediaPlayer.isPlaying()) {
-								mMediaPlayer.stop();
-							}
-							mMediaPlayer.release();
-							mMediaPlayer = null;
-						}
-					} catch (IllegalStateException e) {
-						e.printStackTrace();
-					}
-					try {
-						wl.release();
-					} catch (Throwable th) {
-						// ignoring this exception, probably wakeLock was
-						// already released
-					}
-					setSnooze();
-				}
-			}.start();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
 		}
-		super.onResume();
-		
-	}
-	*/
+		try {
+			wl.release();
+		} catch (Throwable th) {
+			// ignoring this exception, probably wakeLock was
+			// already released
+		}
+		super.onDestroy();
+    }
 
 }

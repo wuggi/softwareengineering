@@ -27,8 +27,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,6 +113,18 @@ public class PopPollActivity extends Activity {
 					int count) {
 			}
 		});
+			
+		// Blendet Tastatur aus, sobald außerhalb des Feldes zur Eingabe geklickt wird.
+		LinearLayout completeView = (LinearLayout) findViewById(R.id.LinearLayout1);
+		completeView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(countContact.getWindowToken(), 0);
+			}
+		});
+
 
 
         TextView txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
@@ -318,17 +332,17 @@ public class PopPollActivity extends Activity {
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
-		int icon          = R.drawable.ic_launcher;
+		int icon          = R.drawable.ic_stat_notify;
 		CharSequence text = "Schlummerfunktion aktiv!";
 		long time         = System.currentTimeMillis();
 		
 		// Meldung setzen
 		Notification notification = new Notification(icon, text, time);
 		
-		// Meldung schlieï¿½en
+		// Meldung schliessen
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		
-		// Meldungstext, wenn gewï¿½hlt
+		// Meldungstext, wenn gewaehlt
 		Context context = getApplicationContext();
 		CharSequence contentTitle = "Umfrage";
 		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";

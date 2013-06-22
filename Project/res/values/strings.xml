@@ -17,7 +17,7 @@
     <string name="cancel">Abbrechen</string>
     <string name="false_password">Falsches Passwort.</string>
     <string name="muteAndnoVibrate">Wenn der Alarmton stumm ist, muss die Vibration angeschaltet bleiben.</string>
-    <string name="message_about">&lt;h3&gt;Entwickler&lt;/h3&gt;Christian Steusloff&lt;br&gt;Franz Kuntke&lt;br&gt;Jens Wiemann&lt;br&gt;Patrick Wuggazer&lt;br&gt;Chia-Mei Chen&lt;br&gt;&lt;br&gt;</string>
+    <string name="message_about">&lt;h2&gt;Entwickler&lt;/h2&gt;Christian Steusloff&lt;br&gt;Franz Kuntke&lt;br&gt;Jens Wiemann&lt;br&gt;Patrick Wuggazer&lt;br&gt;&lt;br&gt;</string>
     <string name="version">Version:</string>
     <string name="next">Weiter</string>
     <string name="OK">OK</string>
@@ -70,7 +70,7 @@
     <string name="settings_email">Email Einstellungen</string>
     <string name="settings_general">Daten Verwaltung</string>
     <string name="std_Email_Adress">StandartAdresse@st-ovgu.de</string>
-    <string name="std_Email_Subject">[Socialintelligence]CSV Export</string>
+    <string name="std_Email_Subject">[Socialintelligence]Export \u0025c</string>
     <string name="settings_deleteDB_success">App zurückgesetzt</string>
     <string name="export_empty">Es sind keine Nutzerdaten vorhanden.</string>
     <string name="txtPopPollOK">Umfrage wurde gespeichert</string>

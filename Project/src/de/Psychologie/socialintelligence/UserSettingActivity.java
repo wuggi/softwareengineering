@@ -43,10 +43,8 @@ import android.widget.Toast;
 * @date 16/06/2013
 * @file UserSettingActivity.java
 *
-* @brief //TODO Diese Klasse macht.....
-*
-* 
-*
+* @brief Diese Menue sorgt fuer die Erzeugung des Klingeltonmenues, die Passwortabfrage zum Adminmenue, die Vibrationseinstellung, Ueber und Zeiteneinstellung.
+*  Ausserdem speichert es alle getroffenen Einstellungen in den DefaultSharedPreferences.*
 * 
 */
 public class UserSettingActivity extends PreferenceActivity {
@@ -82,6 +80,12 @@ public class UserSettingActivity extends PreferenceActivity {
 						return true;
 					}
 				});
+		
+		/*
+		 * NUR ZUM TESTEN
+		 * Dafuer muss auch in der Datei res/xml/preferences.xml der Teil ausauskommentiert werden!
+		*/
+
 		Preference button_poll = findPreference("button_poll");
 		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
@@ -102,6 +106,8 @@ public class UserSettingActivity extends PreferenceActivity {
 				return true;
 			}
 				});
+		
+		
 		
 		Preference button_about = findPreference("button_about");
 		button_about
@@ -407,7 +413,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		super.onStop();
 	}
 	
-	// MD5 Funktion f�r Passw�rter
+	// MD5 Funktion fuer Passwoerter
 	public static String MD5(String md5) {
 		try {
 			java.security.MessageDigest md = java.security.MessageDigest

@@ -11,29 +11,38 @@ import android.util.Log;
 /**
 * @class SQLHandler
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @brief Datenbank Implementation mit SQLite
 * @date 16/06/2013
 * @file SQLHandler.java
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
-*
-* 
 */
 public class SQLHandler extends SQLiteOpenHelper {
  
+	/**
+	 * @brief Name der Datenbank
+	 */
 	private static final String DATABASE_NAME = "socialintelligence.db";
+	/**
+	 * @brief Datenbankversion
+	 */
 	private static final int DATABASE_VERSION = 1;
+	/**
+	 * @brief default Wert für den Abbruch der Umfrage 
+	 */
 	private static final int POLL_ABORT = -77;
 	
 	/////////////////////////////////////////////////////////////
 	//// CREATE TABLES
 	/////////////////////////////////////////////////////////////
 	
+	/**
+	 * @brief Tabelle für die Daten des Users
+	 */
 	private static final String tabCreateUser = "CREATE TABLE IF NOT EXISTS user ( " +
 												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 												"code VARCHAR(5) NOT NULL)";
-	
+	/**
+	 * @breif Tabelle für die Daten der Umfrage
+	 */
 	private static final String tabCreatePoll = "CREATE TABLE IF NOT EXISTS poll ( " +
 												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 												"date TEXT NULL , " +
@@ -43,12 +52,16 @@ public class SQLHandler extends SQLiteOpenHelper {
 												"contact INTEGER NULL , " +
 												"hour INTEGER NULL , " +
 												"minute INTEGER NULL)";
-	
+	/**
+	 * @brief Tabelle für die Zeitdaten
+	 */
 	private static final String tabCreateTime = "CREATE TABLE IF NOT EXISTS time ( " +
 												"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 												"day INTEGER NULL, " +
 												"time TEXT NULL)";
-
+	/**
+	 * @brief Tabelle für den Status der Umfrage
+	 */
 	private static final String tabCreateStatus = "CREATE TABLE IF NOT EXISTS status ( " +
 												  "ID INTEGER PRIMARY KEY NOT NULL, " +
 												  "snoozeActiv INTEGER NULL, " +	
@@ -59,10 +72,17 @@ public class SQLHandler extends SQLiteOpenHelper {
 	//// FIRST PROCESS
 	/////////////////////////////////////////////////////////////
 	
+	/**
+	 * @brief Konstruktor
+	 * @param context
+	 */
 	public SQLHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
-
+	/**
+	 * @param SQLiteDatabase db --> Instanz der Dantenbank
+	 * @brief Datenbank wird erstellt und mit default Werten befüllt
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		if(BuildConfig.DEBUG){
@@ -99,7 +119,13 @@ public class SQLHandler extends SQLiteOpenHelper {
 		}
 	}
 	
-	
+	/**
+	 * @brief ??
+	 * @param SQLiteDatabase db
+	 * @param oldVersion
+	 * @param newVersion
+	 * 
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS user");
@@ -111,6 +137,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// Benutzerdaten vollstaendig loeschen
+	/**
+	 * @brief Benutzerdaten vollstaendig loeschen
+	 */
 	public void deleteDB(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS user");
@@ -128,10 +157,25 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// MAIN Activitiy
 	
 	// Abbruch
+	/**
+	 * @brief Eintrag von Werten in die Datenbank bei Abbruch der Umfrage, ruft {@link setPollEntry} mit default Werten für einen Abbruch auf
+	 * @param date Datum
+	 * @param alarmTime Zeitpunkt des Alarms
+	 */
 	public void setPollEntry(String date,String alarmTime){
 		setPollEntry(date,alarmTime,String.valueOf(POLL_ABORT),true,POLL_ABORT,POLL_ABORT,POLL_ABORT);
 	}
 	
+	/**
+	 * @brief Eintrag der Umfragedaten in die Datenbank
+	 * @param date Datum
+	 * @param alarmTime Zeitpunkt des Alarms
+	 * @param answerTime Zeitpunkt der Antwort
+	 * @param abort Abbruchparameter
+	 * @param contacts Anzahl der Kontakte
+	 * @param hour	Stunde
+	 * @param minute Minute
+	 */
 	// setzt Umfragedaten
 	public void setPollEntry(String date,String alarmTime, String answerTime,boolean abort,int contacts, int hour, int minute){
 		// Wurde Umfrage abgebrochen?
@@ -150,6 +194,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// Holt ein Element f�r CSV-Datei
+	/**
+	 * @brief Holt ein Element für die .csv-Datei
+	 * @return gibt ein Element der Umfrage für die .csv Datei wieder
+	 */
 	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
         return db.rawQuery("SELECT u.code, " +
@@ -165,6 +213,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// holt gesamten Inhalt f�r die CSV-Datei
+	/**
+	 * @brief Holt den gesamten Inhalt der Datenbank für die .csv-Datei
+	 * @return gibt den gesamten Inhalt der Datenbank zurück
+	 */
 	public String getPollCsvContext(){
 		String context = ""; 
 		Cursor c = getPollEntry();
@@ -185,6 +237,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return context;
 	}
 	
+	/**
+	 * @brief Überprüft, ob der Snooze aktiv ist
+	 * @return true, wenn der Snooze aktiv ist, sonst false
+	 */
 	public boolean getSnoozeActiv(){
 		SQLiteDatabase db = this.getReadableDatabase();
 		boolean snoozeActiv = false;
@@ -201,7 +257,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.close();
 		return snoozeActiv;
 	}
-	
+	/**
+	 * @brief Setzt Snooze auf aktiv
+	 * @param activ
+	 */
 	public void setSnoozeActiv(boolean activ){
 		SQLiteDatabase db= this.getWritableDatabase();
 		// bool umwandeln
@@ -215,6 +274,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// letzten Alarm setzen
+	/**
+	 * @brief Setzt den letzten Alarm
+	 * @param lastAlarmTime letzter Alarmzeitpunk
+	 */
 	public void setLastAlarm(String lastAlarmTime){
 		SQLiteDatabase db= this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -224,6 +287,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// letzen Alarm auslesen
+	/**
+	 * @brief Liest den letzen Alarmzeitpunkt aus
+	 * @return ??
+	 */
 	public String getLastAlarm() {
 		SQLiteDatabase db= this.getReadableDatabase();
 		String res = "00:00:00";
@@ -237,6 +304,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// n�chsten Alarm setzen
+	/**
+	 * @brief Setzt den nächsten Alarm
+	 * @param nextAlarmTime
+	 */
 	public void setNextAlarm(String nextAlarmTime){
 		SQLiteDatabase db= this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -245,6 +316,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// n�chsten Alarm auslesen
+	/**
+	 * @brief Liest den nächsten Alarmzeitpunk aus
+	 * @return ??
+	 */
 	public String getNextAlarm() {
 		SQLiteDatabase db= this.getReadableDatabase();
 		String res = "00:00:00";
@@ -258,6 +333,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// add User Code
+	/**
+	 * @brief Fügt den Usercode zu der Datenbank hinzu
+	 * @param code Usercode
+	 */
 	public void addUserCode(String code){
 		SQLiteDatabase db= this.getWritableDatabase();
 		
@@ -271,6 +350,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// get User Codes
+	/**
+	 * @brief Liest den Usercode aus
+	 * @return Usercode
+	 */
 	public String getUserCode() {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT code FROM user where ID=1", null);
@@ -282,6 +365,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 		return code;
 	}
 	
+	/**
+	 * @brief Überprüft, ob bereits ein Usercode existiert
+	 * @return true, wenn ein Usercode existiert, sonst false
+	 */
 	public boolean existUserCode(){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean exist = false;
@@ -298,6 +385,11 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// add Week times
+	/**
+	 * @brief Fügt den Tag und den Zeitpunkt in die Datenbank ein
+	 * @param day Tag
+	 * @param time Zeitpunkt
+	 */
 	public void addDayTime(int day,String time){
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();
@@ -313,6 +405,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// l�scht �bergebenden Tag
+	/**
+	 * @brief Löscht den übergebenen Tag aus der Datenbank
+	 * @param day Tag der gelöscht werden soll
+	 */
 	public void deleteDay(int day){
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();		
@@ -320,13 +416,22 @@ public class SQLHandler extends SQLiteOpenHelper {
 			db.delete("time", "day="+day, null);		
 		}
 	}
-	
+	/**
+	 * @brief Liest die Tageszeit aus der Datenbank aus
+	 * @return gibt die Tageszeit zurück
+	 */
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
         return db.rawQuery("SELECT day,time from time",null);
 	}
 	
 	// Pr�ft, ob Tag mit Uhrzeit existiert
+	/**
+	 * @brief Überprüft, ob ein Tag mit der angegebenen Uhzeit exisitert
+	 * @param day Tag
+	 * @param time Uhrzeit
+	 * @return true, wenn dieser Tag mit der Uhrzeit existiert, sonst false
+	 */
 	public boolean existDayTime(int day,String time){
 		SQLiteDatabase db= this.getReadableDatabase();
 		boolean exist = false;
@@ -342,6 +447,12 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// gibt n�chsten Alarm aus
+	/**
+	 * @brief Gibt den nächsten Alarmzeitpunkt aus
+	 * @param day Tag
+	 * @param time Zeitpunkt
+	 * @return Zeitpunkt des nächsten Alarms
+	 */
 	public String getNextTimeFromDayTime(int day,String time){
 		String res = "00:00:00";
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -363,6 +474,11 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	// Gibt ersten Alarm vom jeweiligen Tag aus
+	/**
+	 * @brief Gibt den ersten Alarm des jeweiligen Tages aus
+	 * @param day Tag
+	 * @return erster Alarm des jeweiligen Tages
+	 */
 	public String getFirstTimeFromDay(int day){
 		String res = "00:00:00";
 		SQLiteDatabase db= this.getReadableDatabase();
@@ -374,7 +490,11 @@ public class SQLHandler extends SQLiteOpenHelper {
 		c.close();
 		return res;
 	}
-	
+	/**
+	 * @brief ??
+	 * @param first
+	 * @return
+	 */
 	public String getBorderDate(boolean first){
 		SQLiteDatabase db= this.getReadableDatabase();
 		Cursor c;
