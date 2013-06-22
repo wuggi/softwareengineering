@@ -16,15 +16,10 @@ import android.os.Environment;
 
 /**
 * @class FileHandler
+* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio).
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file FileHandler.java
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
-*
-* 
 */ 
 public class FileHandler {
 	private String filename;
