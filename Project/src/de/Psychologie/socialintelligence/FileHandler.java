@@ -40,7 +40,7 @@ public class FileHandler {
 				FileOutputStream f = new FileOutputStream(file, false);
 				// True = Append to file, false = Overwrite
 				PrintWriter writer = new PrintWriter(new OutputStreamWriter(f,"UTF-8"));
-				writer.write("Usercode;Datum;Alarmzeit;UAntwortzeit;Abbruch;Kontakte;Stunden;Minuten\n");
+				writer.write("Usercode;Datum;Alarmzeit;Antwortzeit;Abbruch;Kontakte;Stunden;Minuten\n");
 				writer.write(context);
 				writer.close();
 				f.close();

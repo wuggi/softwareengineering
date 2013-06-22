@@ -691,6 +691,11 @@ public class Week extends Activity {
 			this.timeSlotID = 0;
 		}
 
+		/**
+		 * @brief ID der Tage setzen
+		 * @param rID 
+		 * @return ID des Tages
+		 */
 		public static int getWeekIDfromViewID(int rID) {
 			switch (rID) {
 			case R.id.mon:
@@ -713,6 +718,11 @@ public class Week extends Activity {
 			}
 		}
 
+		/**
+		 * @brief //TODO
+		 * @param wID weekID
+		 * @return View ID
+		 */
 		public static int getViewIDfromWeekID(int wID) {
 			switch (wID) {
 			case 0:
@@ -739,6 +749,10 @@ public class Week extends Activity {
 			return this.weekID;
 		}
 
+		/**
+		 * @brief //TODO
+		 * @param time time-Button
+		 */
 		public void setTime1(Button time) {
 			this.timeSlots[0] = time.getText().toString();
 			this.timeSlotsButton[0] = time;
