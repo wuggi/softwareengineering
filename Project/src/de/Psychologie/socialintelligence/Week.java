@@ -55,10 +55,19 @@ public class Week extends Activity {
 	// Tage verwalten
 	private Day week[] = new Day[7];
 	// aktueller Tag
+	/**
+	 * @brief aktueller Tag zur Erkennung der Selektion in der Week
+	 */
 	private Day currentDay;
 	// Ansicht gespeichert
+	/**
+	 * @brief Alle Zeitslots werden gespeichert
+	 */
 	private boolean saveAllTimeSlots = true;
 	// Alarm
+	/**
+	 * @brief Objekt zum setzen des Alarms
+	 */
 	private Alarm alarm;
 
 	/**
@@ -387,7 +396,7 @@ public class Week extends Activity {
 	}
 
 	/**
-	 * @brief welcher Week-Button wurde geklickt
+	 * @brief Markiert innerhalb den Woche den korrekten Wochentag
 	 */
 	private void clickCurrentDay() {
 		switch (alarm.getCurrentWeekDay()) {
@@ -418,7 +427,7 @@ public class Week extends Activity {
 	}
 
 	/**
-	 * @brief Die Woche wird disabled
+	 * @brief Alle Tage innerhalb der Woche werden orange gefärbt
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableWeek() {
@@ -439,7 +448,7 @@ public class Week extends Activity {
 	}
 	
 	/**
-	 * @brief Zeitslots, die in der Vergangenheit liegen werden disabled
+	 * @brief Zeitslots in der ersten Reihe orange färben
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow1() {
@@ -459,7 +468,9 @@ public class Week extends Activity {
 		timeslot4.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.button_red));
 	}
-
+	/**
+	 * @brief Zeitslots in der zweiten Reihe orange färben
+	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow2() {
 		timeslot5.setBackgroundDrawable(getResources().getDrawable(
@@ -470,6 +481,9 @@ public class Week extends Activity {
 				R.drawable.button_red));
 	}
 
+	/**
+	 * @brief Zeitslots in der dritten Reihe orange färben
+	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow3() {
 		timeslot8.setBackgroundDrawable(getResources().getDrawable(
@@ -481,7 +495,9 @@ public class Week extends Activity {
 		timeslot11.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.button_red));
 	}
-
+	/**
+	 * @brief Zeitslots in der vierten Reihe orange färben
+	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow4() {
 		timeslot12.setBackgroundDrawable(getResources().getDrawable(
@@ -494,6 +510,10 @@ public class Week extends Activity {
 				R.drawable.button_red));
 	}
 
+	/**
+	 * @brief Übergebener Button wird grün gefärbt
+	 * @param bnt wird grün gesetzt
+	 */
 	@SuppressWarnings("deprecation")
 	private void setButtonSelect(Button bnt) {
 		if (bnt != null) {
@@ -502,7 +522,7 @@ public class Week extends Activity {
 		}
 	}
 	/**
-	 * @brief Alle Zeitslots werde disabled
+	 * @brief Alle Zeitslots werde zurück gesetzt (Orange)
 	 */
 	private void disableAllTimeSlots() {
 		disableRow1();
@@ -512,7 +532,7 @@ public class Week extends Activity {
 	}
 	/**
 	 * @brief Erstellt den aktuellen Tag und fÃ¼gt ihn der Woche hinzu
-	 * @param rID
+	 * @param rID View ID des Objekts
 	 */
 	private void addDay(int rID) {
 		// aktuellen Tag erstellen
@@ -522,7 +542,7 @@ public class Week extends Activity {
 	}
 	/**
 	 * @brief prueft, ob Tag bereits gesetzt ist
-	 * @param rID Row_ID
+	 * @param rID View ID des Objekts
 	 * @return	true, wenn der Tag gesetzt ist, sonst false
 	 */
 	// prï¿½ft, ob Tag bereits gesetzt ist
@@ -673,7 +693,12 @@ public class Week extends Activity {
 	// //////////////////////////////////////////////////////////////////////
 	/**
 	* @class Day
-	* @brief //TODO
+	* @brief 
+	* rID View ID vom Objekt
+	* weekID ID im week-Array
+	* timeSlots Uhrzeiten der Buttons
+	* timeSlotsButton ButtonObject, welche gewählt wurden
+	* timeSlotID Anzahl der gewählten Buttons  
 	* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 	* @date 20/06/2013
 	* @file Week.java
@@ -685,6 +710,10 @@ public class Week extends Activity {
 		private Button[] timeSlotsButton = new Button[4];
 		private int timeSlotID;
 
+		/**
+		 * @brief Konstruktor, erstellt einen Tag
+		 * @param rID View ID vom Button
+		 */
 		Day(int rID) {
 			this.rID = rID;
 			this.weekID = Day.getWeekIDfromViewID(rID);
@@ -692,9 +721,9 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief ID der Tage setzen
-		 * @param rID 
-		 * @return ID des Tages
+		 * @brief ID gibt die ID innerhalb der Woche zurück, anhand der View ID
+		 * @param rID View ID
+		 * @return ID ID der Woche
 		 */
 		public static int getWeekIDfromViewID(int rID) {
 			switch (rID) {
@@ -719,8 +748,8 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief //TODO
-		 * @param wID weekID
+		 * @brief gibt die View ID zurück, anhand der ID in der Woche
+		 * @param wID ID der Woche
 		 * @return View ID
 		 */
 		public static int getViewIDfromWeekID(int wID) {
@@ -745,43 +774,60 @@ public class Week extends Activity {
 			}
 		}
 
+		/**
+		 * @brief Gibt die ID des Tages innerhalb der Woche zurück
+		 * @return ID der Woche
+		 */
 		public int getWeekID() {
 			return this.weekID;
 		}
 
 		/**
-		 * @brief //TODO
-		 * @param time time-Button
+		 * @brief Holt sich die Uhrzeit vom Buttontext
+		 * @param time Zeitslot Button
 		 */
 		public void setTime1(Button time) {
 			this.timeSlots[0] = time.getText().toString();
 			this.timeSlotsButton[0] = time;
 		}
-
+		/**
+		 * @brief Holt sich die Uhrzeit vom Buttontext
+		 * @param time Zeitslot Button
+		 */
 		public void setTime2(Button time) {
 			this.timeSlots[1] = time.getText().toString();
 			this.timeSlotsButton[1] = time;
 		}
-
+		/**
+		 * @brief Holt sich die Uhrzeit vom Buttontext
+		 * @param time Zeitslot Button
+		 */
 		public void setTime3(Button time) {
 			this.timeSlots[2] = time.getText().toString();
 			this.timeSlotsButton[2] = time;
 		}
-
+		/**
+		 * @brief Holt sich die Uhrzeit vom Buttontext
+		 * @param time Zeitslot Button
+		 */
 		public void setTime4(Button time) {
 			this.timeSlots[3] = time.getText().toString();
 			this.timeSlotsButton[3] = time;
 		}
-/*
-		public boolean existAllTimes() {
-			return timeSlots[0] != null && timeSlots[1] != null
-					&& timeSlots[2] != null && timeSlots[3] != null;
-		}
-*/
+
+		/**
+		 * @brief Gibt die 4 gewählten Zeiten des Tages zurück
+		 * @return String-Array mit allen 4 Zeiten für den Tag
+		 */
 		public String[] getTimeSlots() {
 			return timeSlots;
 		}
 
+		/**
+		 * @brief Setzt die Zeitslots
+		 * @param time Uhrzeit HH:mm:ss
+		 * @param handler Button-Array mit allen Zeitslots
+		 */
 		public void setTimeSlots(String time, Button[] handler) {
 			// Zeit von HH:mm:ss in HH:mm umwandeln
 			time = time.substring(0, 5);
@@ -798,10 +844,18 @@ public class Week extends Activity {
 			}
 		}
 
+		/**
+		 * @brief Gibt die View ID zurück, des Tages innerhalb der Wochenzeile
+		 * @return View ID vom Button innerhalb der Woche
+		 */
 		public int getViewID() {
 			return rID;
 		}
 
+		/**
+		 * @brief Gibt die 4 gewählten Buttons zurück
+		 * @return 4 gesetze Zeitslots-Buttons
+		 */
 		public Button[] getTimeSlotsButton() {
 			return timeSlotsButton;
 		}
