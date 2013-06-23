@@ -82,11 +82,8 @@ public class UserSettingActivity extends PreferenceActivity {
 		
 		/*
 		 * NUR ZUM TESTEN
-<<<<<<< HEAD
 		 */
-=======
-		 * 
->>>>>>> 996fdda3507ae9ca8ab846be27cf10ed434e6009
+
 		Preference button_poll = findPreference("button_poll");
 		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
