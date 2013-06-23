@@ -7,7 +7,7 @@ import android.app.Activity;
 
 /**
 * @class ActivityRegistry
-* @brief //TODO
+* @brief registriert die Activitys in einer ArrayLisr
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file ActivityRegistry.java 

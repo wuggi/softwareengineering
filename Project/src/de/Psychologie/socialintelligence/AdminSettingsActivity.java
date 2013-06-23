@@ -27,23 +27,27 @@ import android.widget.Toast;
 
 /**
 * @class AdminSettingsActivity
-* @brief .csv-Datein Export, Admin-Passwort ändern
+* @brief .csv-Datein Export, Admin-Passwort aendern //TODO
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file AdminSettingsActivity.java 
 */ 
 
+@SuppressWarnings("deprecation")
 public class AdminSettingsActivity extends PreferenceActivity {
 	/**
-	 * @brief //TODO
+	 * @brief Ob der Reset-Button geklickt wurde oder nicht
 	 */
 	private static boolean reset=false;
 	/**
-	 * @brief //TODO
+	 * @brief Wenn die .csv Dateu erstellt wurde, ist diese die URI 
+	 * 
 	 */
 	private static Uri filedir=null;
+	/**
+	 * @brief OnStart ist der Alarm überflüssig
+	 */
 	private Alarm alarm;
-	
 	
 	
 	@Override
@@ -364,6 +368,10 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	}
 	}
 	
+	/**
+	 * @brief Wenn die Activity geschlossen wird und der reset-Button nicht geklickt wurde, 
+	 * wird der nächste Alarm gesetzt
+	 */
 	@Override
 	public void onDestroy(){
 		if (!reset)
@@ -372,12 +380,15 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	}
 	
 	/**
+	 * @brief Überprüft, ob eine File existiert und ob etwas in der Datenbank liegt
 	 * @return
 	 * Codes: 
-	 * 0 - DB Empty + no File
-	 * 1 - DB Empty + File exists
-	 * 2 - DB OK + no File
-	 * 3 - DB OK + File exists
+	 * <ul>
+	 * 	<li>0 - DB Empty + no File </li>
+	 * 	<li>1 - DB Empty + File exists </li>
+	 * 	<li>2 - DB OK + no File </li>
+	 * 	<li>3 - DB OK + File exists </li>
+	 * </ul>
 	 */
 	private byte status(){
 		byte ret=2;

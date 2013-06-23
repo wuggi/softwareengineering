@@ -36,19 +36,14 @@ import android.widget.Toast;
 
 /**
 * @class PopPollActivity
+* @brief Umfrage-Activity
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file PopPollActivity.java
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
-*
-* 
 */ 
 @SuppressLint("SimpleDateFormat")
 public class PopPollActivity extends Activity {
-
+	
 	private static final int SNOOZE_ID = 111;
 	private final int minPerHour = 60; 
 	private Button snooze_button;
@@ -56,6 +51,9 @@ public class PopPollActivity extends Activity {
 	private Button cancel_button;
     private NumberPicker hourPicker;
 	private NumberPicker minutePicker;
+	/**
+	 * @brief Eingabefeld für die Anzahl der Komtakte
+	 */
 	private EditText countContact;
     private Alarm pollAlarm;
 	private Calendar cal;
@@ -67,6 +65,9 @@ public class PopPollActivity extends Activity {
 	private int difHour;
 	private int difMinute;
 	
+	/**
+	 * @brief //TODO
+	 */
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -114,7 +115,7 @@ public class PopPollActivity extends Activity {
 			}
 		});
 			
-		// Blendet Tastatur aus, sobald au�erhalb des Feldes zur Eingabe geklickt wird.
+		// Blendet Tastatur aus, sobald au�erhalb des Feldes zur Eingabe geklickt wird.
 		LinearLayout completeView = (LinearLayout) findViewById(R.id.LinearLayout1);
 		completeView.setOnClickListener(new OnClickListener() {
 			
@@ -235,7 +236,7 @@ public class PopPollActivity extends Activity {
 				//Zeitpunkt der Antwort
 				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				//Datum
-				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+"."+cal.get(Calendar.YEAR);
+				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+1+"."+cal.get(Calendar.YEAR);
 				//Alarmzeit
 				String alarmTime=pollAlarm.getCurrentAlarmTime();
 				//String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
@@ -260,7 +261,7 @@ public class PopPollActivity extends Activity {
                         .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // Umfrage speichern
-                                String date = cal.get(Calendar.DAY_OF_MONTH) + "." + cal.get(Calendar.MONTH) + "." + cal.get(Calendar.YEAR);
+                                String date = cal.get(Calendar.DAY_OF_MONTH) + "." + cal.get(Calendar.MONTH)+1 + "." + cal.get(Calendar.YEAR);
                                 String alarmTime = pollAlarm.getCurrentAlarmTime();
 
                                 pollAlarm.setNextAlarm();
@@ -298,6 +299,10 @@ public class PopPollActivity extends Activity {
 		
 	}
 	@Override
+	
+	/**
+	 * @brief Notification wird gelöscht und Snooze wird auf inaktiv gesetzt
+	 */
 	public void onStart(){
 		//Delete notification
 		cancelNotification();
@@ -305,7 +310,9 @@ public class PopPollActivity extends Activity {
         action_done = false;
 		super.onStart();
 	}
-	
+	/**
+	 * @brief Wenn die Umfrage nicht beantwortet wurde wird Snooze gesetzt und pausiert
+	 */
 	@Override
 	protected void onPause(){
 		if (!action_done)
@@ -314,7 +321,9 @@ public class PopPollActivity extends Activity {
 		
 	}
 	
-	
+	/**
+	 * @brief Snoozezeit wird gesetzt
+	 */
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
@@ -326,23 +335,25 @@ public class PopPollActivity extends Activity {
 		// Notification setzen
 		setNotification();
 	}
-	
+	/**
+	 * @brief Notification wird gesetzt
+	 */
 	@SuppressWarnings("deprecation")
 	private void setNotification(){
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		// Meldung (im Durchlauf) definieren
-		int icon          = R.drawable.ic_launcher;
+		int icon          = R.drawable.ic_stat_notify;
 		CharSequence text = "Schlummerfunktion aktiv!";
 		long time         = System.currentTimeMillis();
 		
 		// Meldung setzen
 		Notification notification = new Notification(icon, text, time);
 		
-		// Meldung schlie�en
+		// Meldung schliessen
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		
-		// Meldungstext, wenn gew�hlt
+		// Meldungstext, wenn gewaehlt
 		Context context = getApplicationContext();
 		CharSequence contentTitle = "Umfrage";
 		CharSequence contentText  = "Bitte beantworten Sie die Umfrage.";
@@ -365,7 +376,9 @@ public class PopPollActivity extends Activity {
 		// NotificationManager bekommt Meldung
 		notificationManager.notify(SNOOZE_ID, notification);
 	}
-	
+	/**
+	 * @brief Notification wird gelöscht
+	 */
 	private void cancelNotification(){
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancelAll();

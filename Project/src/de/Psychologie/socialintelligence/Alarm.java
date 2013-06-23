@@ -12,14 +12,10 @@ import android.util.Log;
 
 /**
 * @class Alarm
+* @brief Alarmzeit und Snoozezeit werden gesetzt
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
-* @file Alarm.java
-
-*
-* @brief 
-*
-* 
+* @file Alarm.java 
 */ 
 // TODO: dies ist keine Activity!! Es benoetigt lediglich 3 Methoden von dieser!
 public class Alarm{
@@ -136,9 +132,7 @@ public class Alarm{
 			// letzen Alarm setzen
 			if(!firstAlarm){
 				db.setLastAlarm(currentAlarmTime);
-			} else {
-				db.setLastAlarm("00:00:00");
-			}
+			} 
 			// naechsten Alarm setzen
 			db.setNextAlarm(alarmDay.getHours()+":"+alarmDay.getMinutes()+":00");
         	cal.setTime(alarmDay);

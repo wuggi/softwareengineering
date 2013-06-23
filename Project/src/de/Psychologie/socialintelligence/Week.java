@@ -20,26 +20,38 @@ import com.markupartist.android.widget.ActionBar.IntentAction;
 
 /**
 * @class Week
+* @brief In dieser Klasse werden die Alarmzeiten gesetzt
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
-* @date 16/06/2013
+* @date 20/06/2013
 * @file Week.java
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
-*
-* 
 */
 public class Week extends Activity {
-
+	/**
+	 * @brief Buttons für Zeislots
+	 */
 	private Button timeslot1, timeslot2, timeslot3, timeslot4, timeslot5,
 			timeslot6, timeslot7, timeslot8;
+	/**
+	 * @brief Buttons für Zeislots
+	 */
 	private Button timeslot9, timeslot10, timeslot11, timeslot12, timeslot13,
 			timeslot14, timeslot15;
+	/**
+	 * @brief Buttons für Wochentage
+	 */
 	private Button mon, tue, wed, thur, fri, sat, sun;
+	/**
+	 * @brief speichern der Zeitslots für die Woche
+	 */
 	private Button saveWeek;
+	/**
+	 * @brief Zeitslots verwalten
+	 */
 	// Zeitslots verwalten
 	private Button[] ButtonHandler = new Button[15];
+	/**
+	 * @brief Tage verwalten
+	 */
 	// Tage verwalten
 	private Day week[] = new Day[7];
 	// aktueller Tag
@@ -49,6 +61,15 @@ public class Week extends Activity {
 	// Alarm
 	private Alarm alarm;
 
+	/**
+	 * @brief
+	 * <ul>
+  			<li>Buttons werden definiert</li>
+  			<li>worher eigegebene Zeitslots werden aus der Datenbank geholt</li>
+  			<li>vergangene Zeitslots können nicht mehr ausgewählt werden</li>
+		</ul>
+	 * @param savedInstanceState
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +219,7 @@ public class Week extends Activity {
 				
 				
 				// TODO: Wann soll er dies immer setzen?
-				// TODO: Hierdurch wird sofort der Alarm ausgel�st! (JW)
+				// TODO: Hierdurch wird sofort der Alarm ausgel�st! (JW)
 				/*
 				SQLHandler db = new SQLHandler(Week.this);
 				if (!db.getSnoozeActiv()) {
@@ -231,6 +252,9 @@ public class Week extends Activity {
 		});
 	}
 
+	/**
+	 * @brief zurück zu {@link UserSettingActivity}
+	 */
 	@Override
 	public void onBackPressed() {
 		// wurde alles gespeichert?
@@ -282,7 +306,12 @@ public class Week extends Activity {
 	// //////////////////////////////////////////////////////////////////////
 	// Private Methoden
 	// //////////////////////////////////////////////////////////////////////
-
+	/**
+	 * @brief aktiviert nur den selektierten Button, alle anderen in der Zeile werden
+	// disabled
+	 * @param bnt selektierter Button
+	 * @param row Zeile
+	 */
 	// aktiviert nur den selektierten Button, alle anderen in der Zeile werden
 	// disabled
 	private void enableButton(final Button bnt, final int row) {
@@ -308,7 +337,7 @@ public class Week extends Activity {
 						}
 						// aktuellen Tag merken
 						currentDay = week[Day.getWeekIDfromViewID(bnt.getId())];
-						// Auswahl beschr�nken
+						// Auswahl beschr�nken
 						deactivateOldTimes();
 					} else {
 						// Tag hinzuf�gen und als aktuellen Tag merken
@@ -347,12 +376,19 @@ public class Week extends Activity {
 
 	}
 
+	/**
+	 * @brief Alle Buttons werden enabled
+	 * @param enable
+	 */
 	private void activateAllTimes(boolean enable) {
 		for (Button aButtonHandler : ButtonHandler) {
 			aButtonHandler.setEnabled(enable);
 		}
 	}
 
+	/**
+	 * @brief welcher Week-Button wurde geklickt
+	 */
 	private void clickCurrentDay() {
 		switch (alarm.getCurrentWeekDay()) {
 		case 0:
@@ -381,6 +417,9 @@ public class Week extends Activity {
 		}
 	}
 
+	/**
+	 * @brief Die Woche wird disabled
+	 */
 	@SuppressWarnings("deprecation")
 	private void disableWeek() {
 		mon.setBackgroundDrawable(getResources().getDrawable(
@@ -398,7 +437,10 @@ public class Week extends Activity {
 		sun.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.button_red));
 	}
-
+	
+	/**
+	 * @brief Zeitslots, die in der Vergangenheit liegen werden disabled
+	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow1() {
 
@@ -459,21 +501,30 @@ public class Week extends Activity {
 					R.drawable.button_green));
 		}
 	}
-
+	/**
+	 * @brief Alle Zeitslots werde disabled
+	 */
 	private void disableAllTimeSlots() {
 		disableRow1();
 		disableRow2();
 		disableRow3();
 		disableRow4();
 	}
-
+	/**
+	 * @brief Erstellt den aktuellen Tag und fügt ihn der Woche hinzu
+	 * @param rID
+	 */
 	private void addDay(int rID) {
 		// aktuellen Tag erstellen
 		currentDay = new Day(rID);
 		// der Woche hinzuf�gen
 		week[currentDay.getWeekID()] = currentDay;
 	}
-
+	/**
+	 * @brief prueft, ob Tag bereits gesetzt ist
+	 * @param rID Row_ID
+	 * @return	true, wenn der Tag gesetzt ist, sonst false
+	 */
 	// pr�ft, ob Tag bereits gesetzt ist
 	private boolean existDay(int rID) {
 		boolean res = false;
@@ -487,6 +538,10 @@ public class Week extends Activity {
 		return res;
 	}
 
+	/**
+	 * @brief Übertragen der Woche in die Datenbank
+	 * @return true, wenn der Import erfolgreich war, sonst false
+	 */
 	private boolean writeWeekToDatabase() {
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
@@ -509,7 +564,10 @@ public class Week extends Activity {
 		// Import ist erfolgreich
 		return true;
 	}
-
+	/**
+	 * @brief Liest die Woche aus der Datenbank aus
+	 * @return true wenn erfolgreich, sonst false
+	 */
 	private boolean getWeekFromDatabase() {
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
@@ -537,10 +595,12 @@ public class Week extends Activity {
 		return check > 3;
 
 	}
-
+	/**
+	 * @brief Deaktiviert alte Zeitslots
+	 */
 	public void deactivateOldTimes() {
 		
-		// aktueller Tag gew�hlt?
+		// aktueller Tag gew�hlt?
 		// deaktiviere alte Zeitslots
 		if (alarm.getCurrentWeekDay() == currentDay.getWeekID()) {
 			Calendar cal = Calendar.getInstance();
@@ -574,6 +634,10 @@ public class Week extends Activity {
 		}
 	}
 
+	/**
+	 * @brief Deaktiviert zeilenweise die Zeitslot Buttons
+	 * @param line jeweilige Zeile
+	 */
 	private void deactivTimeButtonLine(int line) {
 		switch (line) {
 		case 0:
@@ -607,7 +671,13 @@ public class Week extends Activity {
 	// //////////////////////////////////////////////////////////////////////
 	// Private Klassen
 	// //////////////////////////////////////////////////////////////////////
-
+	/**
+	* @class Day
+	* @brief //TODO
+	* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+	* @date 20/06/2013
+	* @file Week.java
+	*/
 	private static class Day {
 		private int rID;
 		private int weekID;
@@ -621,6 +691,11 @@ public class Week extends Activity {
 			this.timeSlotID = 0;
 		}
 
+		/**
+		 * @brief ID der Tage setzen
+		 * @param rID 
+		 * @return ID des Tages
+		 */
 		public static int getWeekIDfromViewID(int rID) {
 			switch (rID) {
 			case R.id.mon:
@@ -643,6 +718,11 @@ public class Week extends Activity {
 			}
 		}
 
+		/**
+		 * @brief //TODO
+		 * @param wID weekID
+		 * @return View ID
+		 */
 		public static int getViewIDfromWeekID(int wID) {
 			switch (wID) {
 			case 0:
@@ -669,6 +749,10 @@ public class Week extends Activity {
 			return this.weekID;
 		}
 
+		/**
+		 * @brief //TODO
+		 * @param time time-Button
+		 */
 		public void setTime1(Button time) {
 			this.timeSlots[0] = time.getText().toString();
 			this.timeSlotsButton[0] = time;

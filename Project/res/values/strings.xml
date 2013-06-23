@@ -69,7 +69,7 @@
     <string name="settings_email_subject">Betreff</string>
     <string name="settings_email">Email Einstellungen</string>
     <string name="settings_general">Daten Verwaltung</string>
-    <string name="std_Email_Adress">StandartAdresse@st-ovgu.de</string>
+    <string name="std_Email_Adress">StandartAdresse@st.ovgu.de</string>
     <string name="std_Email_Subject">[Socialintelligence]Export \u0025c</string>
     <string name="settings_deleteDB_success">App zurückgesetzt</string>
     <string name="export_empty">Es sind keine Nutzerdaten vorhanden.</string>

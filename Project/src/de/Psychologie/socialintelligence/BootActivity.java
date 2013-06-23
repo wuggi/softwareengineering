@@ -13,7 +13,9 @@ import android.util.Log;
 
 /**
 * @class BootActivity
-* @brief Diese Activity wird transparent gestartet, sodass der User nichts davon mitbekommt. Sie dient zum setzen des n�chsten Alarms, sollte ein Alarm durch das ausgeschaltete Handy verpasst worden sein, wird sofort die Umfrage gestartet.
+* @brief Diese Activity wird transparent gestartet, sodass der User nichts davon mitbekommt. 
+* Sie dient zum setzen des nächsten Alarms, sollte ein Alarm durch das ausgeschaltete Handy verpasst worden sein, 
+* wird sofort die Umfrage gestartet.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file BootActivity.java
@@ -21,10 +23,25 @@ import android.util.Log;
 */ 
 @SuppressLint("SimpleDateFormat")
 public class BootActivity extends Activity{
+	/**
+	 * @brief Instanz von {@link Alarm}
+	 */
 	private Alarm alarm;
+	/**
+	 * @brief Instanz von {@link SQLHandler}
+	 */
 	private SQLHandler db; 
+	/**
+	 * @brief Instanz von Calendar
+	 */
 	private Calendar cal;
 	
+	/**
+	 * @brief Es wird überprüft, ob eine Umfrage verpasst wurde: <br>
+	 * {@code if((now.after(nextAlarm) && now.after(lastAlarm)) && nextAlarm.after(lastAlarm))}
+	 * @param savedInstanceState
+	 * 
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -58,7 +75,7 @@ public class BootActivity extends Activity{
 				startActivity(new Intent(this,PopPollActivity.class));
 			} else {
 				// Alarm wieder einstellen
-				alarm.setNextAlarm();
+				alarm.setNextAlarm(true);
 			}
 		}
 		

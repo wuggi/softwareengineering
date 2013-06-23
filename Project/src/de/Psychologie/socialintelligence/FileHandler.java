@@ -16,15 +16,10 @@ import android.os.Environment;
 
 /**
 * @class FileHandler
+* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio).
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file FileHandler.java
-*
-* @brief //TODO Diese Klasse macht.....
-*
-* 
-*
-* 
 */ 
 public class FileHandler {
 	private String filename;
@@ -45,6 +40,7 @@ public class FileHandler {
 				FileOutputStream f = new FileOutputStream(file, false);
 				// True = Append to file, false = Overwrite
 				PrintWriter writer = new PrintWriter(new OutputStreamWriter(f,"UTF-8"));
+				writer.write("Usercode;Datum;Alarmzeit;Antwortzeit;Abbruch;Kontakte;Stunden;Minuten\n");
 				writer.write(context);
 				writer.close();
 				f.close();
