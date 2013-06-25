@@ -11,7 +11,7 @@
     <com.markupartist.android.widget.ActionBar
         android:id="@+id/actionbar"
         style="@style/ActionBar"
-        app:title="@string/title_activity_week" />
+        app:title="@string/title_activity_pop_poll" />
 
     <TextView
         android:id="@+id/txtPopPollInfo"
