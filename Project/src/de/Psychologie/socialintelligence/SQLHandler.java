@@ -421,7 +421,6 @@ public class SQLHandler extends SQLiteOpenHelper {
             	value[entry++] = "SELECT '"+e.getKey().toString()+"', '"+e.getValue()[i]+":00'";
             	Log.v("test",e.getValue()[i]+"\n");
         	}
-        		
         }
         
         // SQL-Query erweitern um alle eingefügten Werte,

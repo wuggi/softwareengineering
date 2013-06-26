@@ -400,23 +400,21 @@ public class PopPollActivity extends Activity {
 		Integer hour = hourPicker.getValue();
 		String toparse = countContact.getText().toString();
 		
-		if ((toparse.length()==0))
+		if (toparse.length()==0){
 			return;
-		else
+		} else {
 			parsi = Integer.parseInt(toparse);
-
-		//Entweder ist Kontakte>0 und Dauer>0 
-		if(((parsi > 0)
-			&& ((hour>0)||(min>0)))
-			||
-			//Oder Kontakte=0 und Dauer = 0
-			((parsi == 0)
-			&& ((hour==0)&&(min==0))
-				)){
-			ok_button.setEnabled(true);
 		}
-		else
-			ok_button.setEnabled(false);
-	}
 
+		//Entweder ist Kontakte>0 und Dauer>0 	//Oder Kontakte=0 und Dauer = 0
+		if((parsi > 0) && ((hour>0)||(min>0))||
+		  ((parsi == 0) && ((hour==0) && (min==0)))){
+			ok_button.setEnabled(true);
+		} else if(parsi == 0){
+			minutePicker.setValue(0);
+			hourPicker.setValue(0);
+		} else {
+			ok_button.setEnabled(false);
+		}
+	}
 }

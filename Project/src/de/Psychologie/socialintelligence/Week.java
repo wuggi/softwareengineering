@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -563,6 +564,7 @@ public class Week extends Activity {
 	 * @brief Übertragen der Woche in die Datenbank
 	 * @return true, wenn der Import erfolgreich war, sonst false
 	 */
+	@SuppressLint("UseSparseArrays")
 	private boolean writeWeekToDatabase(){
 		HashMap<Integer,String[]> DayTime = new HashMap<Integer,String[]>();
 		// Datenbankverbindung aufbauen
