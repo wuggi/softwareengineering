@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 /**
 * @class AdminSettingsActivity
-* @brief .csv-Datein Export, Admin-Passwort aendern //TODO
+* @brief .csv-Datein Export, Admin-Passwort aendern
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file AdminSettingsActivity.java 

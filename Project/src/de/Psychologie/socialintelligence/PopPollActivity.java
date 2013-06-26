@@ -88,6 +88,8 @@ public class PopPollActivity extends Activity {
 	
 		pollAlarm = new Alarm(this);
 
+		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
+		minutePicker = (NumberPicker) findViewById(R.id.minutePicker);
 		snooze_button = (Button) findViewById(R.id.snooze_button);
 		snooze_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red));
 		ok_button=(Button) findViewById(R.id.ok_button);
@@ -99,9 +101,7 @@ public class PopPollActivity extends Activity {
 		countContact.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				if(countContact.getText().toString().length() > 0){
-					ok_button.setEnabled(true);
-				}
+				enableOrDisableButton();
 			}
 
 			@Override
@@ -180,14 +180,11 @@ public class PopPollActivity extends Activity {
 		difMinute = (int) (diffInMin%minPerHour);
 		
 		// Zeitauswahl
-		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
-		//TODO: 12:04:24.130 E/AndroidRuntime(11067): java.lang.RuntimeException: Unable to start activity ComponentInfo{[..]PopPollActivity}: java.lang.IllegalArgumentException: maxValue must be >= 0
 		hourPicker.setMaxValue(difHour);
 		hourPicker.setMinValue(0);
 		hourPicker.setFocusable(true);
 		hourPicker.setFocusableInTouchMode(true);
 		
-		minutePicker = (NumberPicker) findViewById(R.id.minutePicker);
 		if(difHour == 0){
 			minutePicker.setMaxValue(difMinute);
 		} else {
@@ -196,7 +193,15 @@ public class PopPollActivity extends Activity {
 		minutePicker.setMinValue(0);
 		minutePicker.setFocusable(true);
 		minutePicker.setFocusableInTouchMode(true);
-		
+		minutePicker.setOnValueChangedListener(new OnValueChangeListener(){
+
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				enableOrDisableButton();				
+			}
+			
+		});
 		hourPicker.setOnValueChangedListener(new OnValueChangeListener(){
 
 			@Override
@@ -207,7 +212,7 @@ public class PopPollActivity extends Activity {
 				} else {
 					minutePicker.setMaxValue(59);
 				}
-				
+				enableOrDisableButton();				
 			}
 			
 		});
@@ -236,7 +241,7 @@ public class PopPollActivity extends Activity {
 				//Zeitpunkt der Antwort
 				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				//Datum
-				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH)+1+"."+cal.get(Calendar.YEAR);
+				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH+1)+"."+cal.get(Calendar.YEAR);
 				//Alarmzeit
 				String alarmTime=pollAlarm.getCurrentAlarmTime();
 				//String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
@@ -382,6 +387,35 @@ public class PopPollActivity extends Activity {
 	private void cancelNotification(){
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancelAll();
+	}
+	
+	
+	/**
+	 * @brief Der Weiter Knopf wird aktiviert oder deaktiviert
+	 */
+	private void enableOrDisableButton(){
+		Integer parsi = 0;
+		Integer min = minutePicker.getValue();
+		Integer hour = hourPicker.getValue();
+		String toparse = countContact.getText().toString();
+		
+		if ((toparse.length()==0))
+			return;
+		else
+			parsi = Integer.parseInt(toparse);
+
+		//Entweder ist Kontakte>0 und Dauer>0 
+		if(((parsi > 0)
+			&& ((hour>0)||(min>0)))
+			||
+			//Oder Kontakte=0 und Dauer = 0
+			((parsi == 0)
+			&& ((hour==0)&&(min==0))
+				)){
+			ok_button.setEnabled(true);
+		}
+		else
+			ok_button.setEnabled(false);
 	}
 
 }
