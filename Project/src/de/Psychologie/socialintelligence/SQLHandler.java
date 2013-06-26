@@ -1,11 +1,15 @@
 package de.Psychologie.socialintelligence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 
 /**
@@ -24,7 +28,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	/**
 	 * @brief Datenbankversion
 	 */
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 7;
 	/**
 	 * @brief default Wert fÃ¼r den Abbruch der Umfrage 
 	 */
@@ -102,7 +106,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		values.put("snoozeActiv", 0);		 // nicht aktiv
 		values.put("lastAlarm", "00:00:00"); // Default keine Zeit
 		db.insert("status", null, values);
-		
+	
 		// Times Default-Werte
 		ContentValues timeCv = new ContentValues();
 		String dayTimes[] = new String[4];
@@ -402,6 +406,37 @@ public class SQLHandler extends SQLiteOpenHelper {
 			// import
 			db.insert("time", null, cv);
 		}
+	}
+	
+	public void addAllDayTime(HashMap<Integer,String[]> DayTime){
+		// SQLite unterstützt keine Multi-Insert, aber einen Insert mit Select.
+		// Also erstellen wir uns eine Select-Abfrage mit allen Werten, die mit einem Mal importiert werden sollen.
+		
+		String query = "INSERT INTO time (day,time) ";
+		String[] value = new String[(DayTime.size()*4)];
+		int entry = 0;
+        for(Map.Entry<Integer,String[]> e : DayTime.entrySet()){
+        	for(int i=0;i<e.getValue().length;i++){
+        		// Werte einfügen, Tag und Zeit
+            	value[entry++] = "SELECT '"+e.getKey().toString()+"', '"+e.getValue()[i]+":00'";
+            	Log.v("test",e.getValue()[i]+"\n");
+        	}
+        		
+        }
+        
+        // SQL-Query erweitern um alle eingefügten Werte,
+        // diese werden mit UNION miteinander verknüpft.
+        query += FormatHandler.implodeArray(value, " UNION ");
+        
+        // Abfrage ausführen
+        SQLiteDatabase db= this.getWritableDatabase();
+        db.execSQL(query);
+        
+	}
+	
+	public void deleteAllDayTime(){
+		SQLiteDatabase db= this.getWritableDatabase();		
+		db.delete("time", null, null);		
 	}
 	
 	// lï¿½scht ï¿½bergebenden Tag

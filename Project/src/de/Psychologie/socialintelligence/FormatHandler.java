@@ -16,7 +16,7 @@ package de.Psychologie.socialintelligence;
 public class FormatHandler {
 
 	// Verwendet fuer Uhrzeitenanzeige, statt 9:3 -> 09:03
-	static public String withNull(int time){
+	public static String withNull(int time){
 		String res;
 		if(time < 10){
 			res = "0"+String.valueOf(time);
@@ -25,4 +25,23 @@ public class FormatHandler {
 		}
 		return res;
 	}
+	
+	
+	public static String implodeArray(String[] inputArray,String glueString){
+		String res = "";
+		if(inputArray.length > 0){
+			StringBuilder sb = new StringBuilder();
+			// erste Element einfügen
+			sb.append(inputArray[0]);
+			// Verkettung + nächsten Wert
+			for (int i = 1; i < inputArray.length; i++) {
+				sb.append(glueString);
+				sb.append(inputArray[i]);
+			}
+			res = sb.toString();
+		}
+		return res;
+	}
 }
+
+

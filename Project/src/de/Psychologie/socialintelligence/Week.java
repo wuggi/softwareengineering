@@ -1,6 +1,7 @@
 package de.Psychologie.socialintelligence;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -562,23 +563,21 @@ public class Week extends Activity {
 	 * @brief Ãœbertragen der Woche in die Datenbank
 	 * @return true, wenn der Import erfolgreich war, sonst false
 	 */
-	private boolean writeWeekToDatabase() {
+	private boolean writeWeekToDatabase(){
+		HashMap<Integer,String[]> DayTime = new HashMap<Integer,String[]>();
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
+		// alle Tage löschen
+		db.deleteAllDayTime();
 		// jeden Wochentag durchgehen
 		for (Day aWeek : week) {
 			// wurde Wochentag gesetzt?
 			if (aWeek != null) {
-				// alten Tag loeschen
-				db.deleteDay(aWeek.getWeekID());
-				// alle Zeitslots wï¿½hlen
-				int length =  aWeek.getTimeSlots().length;
-				for (int j = 0; j <length; j++) {
-					// Wochentag und Zeitslot in Datenbank schreiben
-					db.addDayTime(aWeek.getWeekID(), aWeek.getTimeSlots()[j]);
-				}
+				// Map füllen
+				DayTime.put(aWeek.getWeekID(), aWeek.getTimeSlots());
 			}
 		}
+		db.addAllDayTime(DayTime);
 		// Datenbankverbindung schlieï¿½en
 		db.close();
 		// Import ist erfolgreich
