@@ -215,7 +215,7 @@ public class Week extends Activity {
 
 		saveWeek = (Button) findViewById(R.id.saveWeek);
 		saveWeek.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_green));
+				R.drawable.button_green_chooser));
 		saveWeek.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

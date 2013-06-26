@@ -29,7 +29,7 @@ public final class R {
 		public static final int actionbar_btn = 0x7f020002;
 		public static final int actionbar_btn_normal = 0x7f020003;
 		public static final int actionbar_btn_pressed = 0x7f020004;
-		public static final int icon = 0x7f020014;
+		public static final int icon = 0x7f020016;
 	}
 	public static final class id {
 		public static final int actionbar_actions = 0x7f070009;

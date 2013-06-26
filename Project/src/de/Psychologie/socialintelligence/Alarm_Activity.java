@@ -70,8 +70,7 @@ public class Alarm_Activity extends Activity {
 		
 		
 		Button btn_action = (Button) findViewById(R.id.btn_action_front);
-		btn_action.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.alarm_button_green));
+		btn_action.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green_chooser));
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -106,7 +105,7 @@ public class Alarm_Activity extends Activity {
 
 		Button btn_sleep = (Button) findViewById(R.id.btn_snooze_front);
 		btn_sleep.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.alarm_button_red));
+				R.drawable.button_red_chooser));
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
