@@ -212,27 +212,16 @@ public class SQLHandler extends SQLiteOpenHelper {
                               "poll p",null);
 	}
 	
-	/**
-	 * @brief Gesamter Inhalt der Datenbank als .csv-Datei ohne Überschrift
-	 * @return gesamter Inhalt der Datenbank
-	 */
-	public String getPollCsvContext(){
-		return getPollCsvContext(false);
-	}
 	// holt gesamten Inhalt fï¿½r die CSV-Datei
 	/**
 	 * @brief Holt den gesamten Inhalt der Datenbank fÃ¼r die .csv-Datei
-	 * @param header boolean, Überschrift gewünscht
 	 * @return gibt den gesamten Inhalt der Datenbank zurÃ¼ck
 	 */
-	public String getPollCsvContext(boolean header){
+	public String getPollCsvContext(){
 		String context = ""; 
 		Cursor c = getPollEntry();
 		if(c != null){
 			if(c.moveToFirst()){
-				if(header){
-					context += "Code;Datum;Alarmzeit;Antwortzeit;Abbruch;Kontakte;Stunden;Minuten\n";
-				}
 				do{
 					context += c.getString(0) + ";" + c.getString(1) + ";" + c.getString(2) + ";";
 					context += c.getString(3) + ";" + String.valueOf(c.getInt(4)) + ";";

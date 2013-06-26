@@ -128,7 +128,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						}
 						else{						
 							FileHandler handler = new FileHandler(db.getUserCode() + ".csv");
-							File file = handler.createExternalFile(db.getPollCsvContext(true));
+							File file = handler.createExternalFile(db.getPollCsvContext());
 							uri= Uri.fromFile(file);
 						}
 						
@@ -185,7 +185,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 							FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
-							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext(true)));
+							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
 
 							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 							
@@ -216,7 +216,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 												SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 												FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
-												filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext(true)));
+												filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
 
 												Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 												
@@ -241,7 +241,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 											SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 											FileHandler file = new FileHandler(db.getUserCode()	+"("+ db.getBorderDate(false)+").csv");
-											filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext(true)));
+											filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
 
 											Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 											

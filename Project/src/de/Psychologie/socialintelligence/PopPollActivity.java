@@ -241,7 +241,8 @@ public class PopPollActivity extends Activity {
 				//Zeitpunkt der Antwort
 				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
 				//Datum
-				String date = cal.get(Calendar.DAY_OF_MONTH)+"."+cal.get(Calendar.MONTH+1)+"."+cal.get(Calendar.YEAR);
+				String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1))+"."+cal.get(Calendar.YEAR);
+				
 				//Alarmzeit
 				String alarmTime=pollAlarm.getCurrentAlarmTime();
 				//String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
@@ -266,7 +267,7 @@ public class PopPollActivity extends Activity {
                         .setPositiveButton(getResources().getString(R.string.txtYes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // Umfrage speichern
-                                String date = cal.get(Calendar.DAY_OF_MONTH) + "." + cal.get(Calendar.MONTH)+1 + "." + cal.get(Calendar.YEAR);
+                                String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1)) + "." + cal.get(Calendar.YEAR);
                                 String alarmTime = pollAlarm.getCurrentAlarmTime();
 
                                 pollAlarm.setNextAlarm();
