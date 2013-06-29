@@ -419,7 +419,6 @@ public class SQLHandler extends SQLiteOpenHelper {
         	for(int i=0;i<e.getValue().length;i++){
         		// Werte einfügen, Tag und Zeit
             	value[entry++] = "SELECT '"+e.getKey().toString()+"', '"+e.getValue()[i]+":00'";
-            	Log.v("test",e.getValue()[i]+"\n");
         	}
         }
         
