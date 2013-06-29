@@ -4,10 +4,16 @@
     <color name="uncheckedButton">#8B0000</color>
     <color name="greenstart">#01ef7f</color>
     <color name="greenend">#01bc64</color>
+    <color name="greenstroke_pressed">#01954f</color>
     <color name="greenstroke">#01bc64</color>
+    <color name="greenstart_pressed">#01c86a</color>
+    <color name="greenend_pressed">#01954f</color>
+    <color name="redstart_pressed">#c86a01</color>
+    <color name="redend_pressed">#af5d01</color>
     <color name="redstart">#ef7f01</color>
     <color name="redend">#d67201</color>
     <color name="redstroke">#d67201</color>
+    <color name="redstroke_pressed">#af5d01</color>
     <color name="orange">#f07d00</color>
 	<color name="actionbar_separator">#B36000</color>
     <color name="actionbar_title">#FFFFFF</color>

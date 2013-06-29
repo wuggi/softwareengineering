@@ -153,7 +153,7 @@ public class MainActivity extends Activity {
 			// Weiter Button geklickt?
 			btnWeiter = (Button) findViewById(R.id.btnWeiter);
 
-			btnWeiter.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+			btnWeiter.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green_chooser));
 			
 			btnWeiter.setOnClickListener(new OnClickListener() {
 				@Override

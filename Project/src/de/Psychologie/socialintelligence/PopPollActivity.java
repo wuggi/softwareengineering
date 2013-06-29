@@ -64,7 +64,15 @@ public class PopPollActivity extends Activity {
 	private boolean action_done = false;
 	private int difHour;
 	private int difMinute;
-	
+	/**
+	 * @brief formats the time to "09:00"
+	 */
+	private static final NumberPicker.Formatter NUMBER_FORMATTER = new NumberPicker.Formatter() {
+		@Override
+		public String format(int value) {
+			return String.format("%02d", value);
+		}
+	};
 	/**
 	 * @brief //TODO
 	 */
@@ -85,17 +93,24 @@ public class PopPollActivity extends Activity {
 		
 		// App startet -> hinterlegten Klingelton abspielen
 		// Meldung etc. Wenn Handy gesperrt �ffnet sich zwar die App, aber User bekommt nix von mit :-)
-	
+		
+		
+		
+		
+		
 		pollAlarm = new Alarm(this);
-
 		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
+		hourPicker.setFormatter(NUMBER_FORMATTER);
 		minutePicker = (NumberPicker) findViewById(R.id.minutePicker);
+		
+		
+		minutePicker.setFormatter(NUMBER_FORMATTER);
 		snooze_button = (Button) findViewById(R.id.snooze_button);
-		snooze_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red));
+		snooze_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red_chooser));
 		ok_button=(Button) findViewById(R.id.ok_button);
-		ok_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green));
+		ok_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_green_chooser));
 		cancel_button = (Button) findViewById(R.id.cancel_button);
-        cancel_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red));
+        cancel_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_red_chooser));
 		// Eingabefeld Kontaktpersonen
 		countContact=(EditText) findViewById(R.id.countContact);
 		countContact.addTextChangedListener(new TextWatcher() {
@@ -155,26 +170,24 @@ public class PopPollActivity extends Activity {
 		// Zeitdifferenz
 		int lastHour = Integer.valueOf(lastAlarm.substring(0,2));
 		int lastMinute = Integer.valueOf(lastAlarm.substring(3,5));
-		Log.v("oldHour",String.valueOf(lastHour));
-		Log.v("oldMin",String.valueOf(lastMinute));
-		int currentHour = cal.get(Calendar.HOUR_OF_DAY);
-		int currentMinute = cal.get(Calendar.MINUTE);
-		Log.v("newHour",String.valueOf(currentHour));
-		Log.v("newMin",String.valueOf(currentMinute));
+		//Log.v("oldHour",String.valueOf(lastHour));
+		//Log.v("oldMin",String.valueOf(lastMinute));
+		//Log.v("newHour",String.valueOf(cal.get(Calendar.HOUR_OF_DAY)));
+		//Log.v("newMin",String.valueOf(cal.get(Calendar.MINUTE)));
 	
 		Calendar oldAlarm = Calendar.getInstance();
 		oldAlarm.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), lastHour, lastMinute);
 		
-		long diffInMs = Math.abs(cal.getTimeInMillis() - oldAlarm.getTimeInMillis());
-		
-		long diffInMS = cal.getTimeInMillis() - oldAlarm.getTimeInMillis();
+		long diffInMS;
+		if (cal.getTimeInMillis() < oldAlarm.getTimeInMillis())
+			diffInMS = cal.getTimeInMillis() +(86400000-oldAlarm.getTimeInMillis());
+		else
+			diffInMS = cal.getTimeInMillis() - oldAlarm.getTimeInMillis();
 		// If oldAlarm was the day before e.g. old= 23:59 new= 1:00 diff=1:01 and NOT diff=22:59
 		// must add 24h (86400000ms)
-		if (diffInMS<0) 
-			diffInMS+= 86400000;
 		
-		long diffInMin = (long) (diffInMs/60000);
-		Log.v("DiffInMin","="+String.valueOf(diffInMin));
+		long diffInMin = (long) (diffInMS/60000);
+		//Log.v("DiffInMin","="+String.valueOf(diffInMin));
 		
 		difHour = (int) (diffInMin/minPerHour);
 		difMinute = (int) (diffInMin%minPerHour);
@@ -182,8 +195,8 @@ public class PopPollActivity extends Activity {
 		// Zeitauswahl
 		hourPicker.setMaxValue(difHour);
 		hourPicker.setMinValue(0);
-		hourPicker.setFocusable(true);
-		hourPicker.setFocusableInTouchMode(true);
+		//hourPicker.setFocusable(true);
+		//hourPicker.setFocusableInTouchMode(true);
 		
 		if(difHour == 0){
 			minutePicker.setMaxValue(difMinute);
@@ -191,8 +204,8 @@ public class PopPollActivity extends Activity {
 			minutePicker.setMaxValue(59);
 		}
 		minutePicker.setMinValue(0);
-		minutePicker.setFocusable(true);
-		minutePicker.setFocusableInTouchMode(true);
+		//minutePicker.setFocusable(true);
+		//minutePicker.setFocusableInTouchMode(true);
 		minutePicker.setOnValueChangedListener(new OnValueChangeListener(){
 
 			@Override
