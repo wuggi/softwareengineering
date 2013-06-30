@@ -226,18 +226,13 @@ public class Week extends Activity {
 				Log.e("Duration",System.currentTimeMillis()-t0+"ms");
 				// Alle Einstellungen erfolgreich gespeichert
 				saveAllTimeSlots = true;
-				// Alarm setzen
-				
-				
-				// TODO: Wann soll er dies immer setzen?
-				// TODO: Hierdurch wird sofort der Alarm ausgel�st! (JW)
-				/*
+				// Alarm setzen				
 				SQLHandler db = new SQLHandler(Week.this);
 				if (!db.getSnoozeActiv()) {
 					alarm.setNextAlarm(true);
 				}
 				db.close();
-				*/
+				
 				
 				// Meldung ausgeben
 				Toast.makeText(
