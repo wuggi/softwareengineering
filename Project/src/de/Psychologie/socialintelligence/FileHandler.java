@@ -55,6 +55,12 @@ public class FileHandler {
 			return null;
 	}
 
+	/**
+	 * @brief TODO
+	 * @param resSoundId
+	 * @param context
+	 * @return Ob Speichern erfolgreich verlief
+	 */
 	public boolean saveAudio(int resSoundId, Context context) {
 		byte[] buffer;
 		InputStream fIn = context.getResources().openRawResource(resSoundId);

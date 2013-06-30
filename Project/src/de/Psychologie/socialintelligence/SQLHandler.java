@@ -28,7 +28,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	/**
 	 * @brief Datenbankversion
 	 */
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 1;
 	/**
 	 * @brief default Wert fÃ¼r den Abbruch der Umfrage 
 	 */
@@ -104,6 +104,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("ID", 1);
 		values.put("snoozeActiv", 0);		 // nicht aktiv
+		//values.put("alarmActiv", 0);		 // nicht aktiv
 		values.put("lastAlarm", "00:00:00"); // Default keine Zeit
 		db.insert("status", null, values);
 	
@@ -124,7 +125,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * @brief ??
+	 * @brief Beim Erhöhen der DATABASE_VERSION Version, alles wird gelöscht
 	 * @param SQLiteDatabase db
 	 * @param oldVersion
 	 * @param newVersion
@@ -240,6 +241,44 @@ public class SQLHandler extends SQLiteOpenHelper {
 		c.close();
 		return context;
 	}
+	
+	
+//	/**
+//	 * @brief Alarm aktiv
+//	 * @return true, wenn der Alarm noch nicht beantwortet wurde
+//	 */
+//	public boolean getActivAlarm(){
+//		SQLiteDatabase db = this.getReadableDatabase();
+//		boolean alarmActiv = false;
+//		Cursor c = db.rawQuery("SELECT alarmActiv FROM status WHERE ID=1",null);
+//		
+//		if(c != null){
+//			c.moveToFirst();
+//			// prÃ¼fen, ob Snooze gesetzt
+//		    if(c.getInt(0) == 1){
+//		    	alarmActiv = true;
+//		    }
+//		}
+//		c.close();
+//		db.close();
+//		return alarmActiv;
+//	}
+//	/**
+//	 * @brief Setzt Snooze auf aktiv
+//	 * @param activ
+//	 */
+//	public void setActivAlarm(boolean activ){
+//		SQLiteDatabase db= this.getWritableDatabase();
+//		// bool umwandeln
+//		int value = activ?1:0;
+//		// values als cv
+//		ContentValues cv = new ContentValues();
+//		cv.put("alarmActiv", value);
+//		// Datenbankupdate
+//		db.update("status", cv, "ID = 1", null);
+//		db.close();
+//	}
+	
 	
 	/**
 	 * @brief ÃœberprÃ¼ft, ob der Snooze aktiv ist
@@ -408,6 +447,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 		}
 	}
 	
+	/**
+	 * @brief Zur Optimierung können alle Zeitslots mit einem Datenbankzugriff gespeicher werden
+	 * @param DayTime HashMap<Day als Integer,Zeiten als String-Array>
+	 */
 	public void addAllDayTime(HashMap<Integer,String[]> DayTime){
 		// SQLite unterstützt keine Multi-Insert, aber einen Insert mit Select.
 		// Also erstellen wir uns eine Select-Abfrage mit allen Werten, die mit einem Mal importiert werden sollen.
@@ -432,6 +475,9 @@ public class SQLHandler extends SQLiteOpenHelper {
         
 	}
 	
+	/**
+	 * @brief Alle Zeitslots aus der Datenbank löschen
+	 */
 	public void deleteAllDayTime(){
 		SQLiteDatabase db= this.getWritableDatabase();		
 		db.delete("time", null, null);		
@@ -502,7 +548,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = getFirstTimeFromDay((1+day)%7);
 		}
 		c.close();
-		Log.v("getNextTimeFromDayTime",String.valueOf(res));
+		//Log.v("getNextTimeFromDayTime",String.valueOf(res));
 		return res;
 	}
 	

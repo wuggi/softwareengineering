@@ -2,25 +2,28 @@ package de.Psychologie.socialintelligence;
 
 /**
 * @class FormatHandler
-*  @brief Diese Klasse konvertiert die Uhrzeit in ein ordentliches (HH:MM) Format.
+* @brief Diese Klasse konvertiert mehrere Typen in ein Wunsch Format als String.
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file FormatHandler.java
-*
-*
-*
-* 
-*
-* 
 */ 
 public class FormatHandler {
 
-	// Verwendet fuer Uhrzeitenanzeige, statt 9:3 -> 09:03
-	public static String withNull(int time){
-		return String.format("%02d", time);
+	/**
+	 * @brief Ersetzt Integer zu zweistelligen String: 9 -> 09
+	 * @param time Zahl
+	 * @return String mit führender Null bei einstelligen Zahlen
+	 */
+	public static String withNull(int number){
+		return String.format("%02d", number);
 	}
 	
-	
+	/**
+	 * @brief Erstellt aus einem Array einen String
+	 * @param inputArray String-Array
+	 * @param glueString String zum Verbinden der Elemente
+	 * @return String mit allen Array-Elementen inkl. Verbindungselement
+	 */
 	public static String implodeArray(String[] inputArray,String glueString){
 		String res = "";
 		if(inputArray.length > 0){

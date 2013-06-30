@@ -70,11 +70,11 @@ public class PopPollActivity extends Activity {
 	private static final NumberPicker.Formatter NUMBER_FORMATTER = new NumberPicker.Formatter() {
 		@Override
 		public String format(int value) {
-			return String.format("%02d", value);
+			return FormatHandler.withNull(value);
 		}
 	};
 	/**
-	 * @brief //TODO
+	 * @brief Erstellt Umfrage
 	 */
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +93,6 @@ public class PopPollActivity extends Activity {
 		
 		// App startet -> hinterlegten Klingelton abspielen
 		// Meldung etc. Wenn Handy gesperrt ï¿½ffnet sich zwar die App, aber User bekommt nix von mit :-)
-		
-		
-		
-		
 		
 		pollAlarm = new Alarm(this);
 		hourPicker = (NumberPicker) findViewById(R.id.hourPicker);
@@ -341,18 +337,36 @@ public class PopPollActivity extends Activity {
 	}
 	
 	/**
-	 * @brief Snoozezeit wird gesetzt
+	 * @brief Snoozezeit wird gesetzt TODO: Auslagern, da es in Alarm_Activity.java enthalten
+	 * 
 	 */
 	private void setSnooze(){
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
 		int snoozetime = Integer.parseInt(time);
-		pollAlarm.setSnooze(snoozetime);
-		db.setSnoozeActiv(true);
-		// Meldung
-		Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
-		// Notification setzen
-		setNotification();
+		// prüfen, ob Snoozetime nicht größer ist als die Zeit bis zum nächsten Alarm
+		int checkDifference = pollAlarm.getDifferenceToNextAlarm();
+		if(checkDifference > 0 && snoozetime > checkDifference){
+			// Umfrage speichern
+            String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1)) + "." + cal.get(Calendar.YEAR);
+            String alarmTime = pollAlarm.getCurrentAlarmTime();
+
+            pollAlarm.setNextAlarm();
+            db.setSnoozeActiv(false);
+			action_done=true;
+            //Werte in die DB eintragen
+            db.setPollEntry(date, alarmTime);
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
+            // Alle Activitys beenden
+            ActivityRegistry.finishAll();
+		} else {
+			pollAlarm.setSnooze(snoozetime);
+			db.setSnoozeActiv(true);
+			// Meldung
+			Toast.makeText(getApplicationContext(),getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
+			// Notification setzen
+			setNotification();
+		}
 	}
 	/**
 	 * @brief Notification wird gesetzt
