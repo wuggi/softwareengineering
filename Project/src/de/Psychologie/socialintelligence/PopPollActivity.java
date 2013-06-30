@@ -440,6 +440,7 @@ public class PopPollActivity extends Activity {
 		} else if(parsi == 0){
 			minutePicker.setValue(0);
 			hourPicker.setValue(0);
+			ok_button.setEnabled(true);
 		} else {
 			ok_button.setEnabled(false);
 		}
