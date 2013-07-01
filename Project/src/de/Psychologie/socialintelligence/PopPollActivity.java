@@ -23,7 +23,6 @@ import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -258,6 +257,8 @@ public class PopPollActivity extends Activity {
 				//nächsten Alarm setzen
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
+				// letzen Alarm anpassen
+				db.setLastAlarm(answerTime);
 				action_done=true;
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
 				// Meldung

@@ -18,6 +18,7 @@ import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -210,6 +211,8 @@ public class Alarm_Activity extends Activity {
 		Alarm pollAlarm = new Alarm(this);
 		// prüfen, ob Snoozetime nicht größer ist als die Zeit bis zum nächsten Alarm
 		int checkDifference = pollAlarm.getDifferenceToNextAlarm();
+		Log.v("test",String.valueOf(checkDifference));
+		Log.v("test",String.valueOf(snoozetime));
 		if(checkDifference > 0 && snoozetime > checkDifference){
 			// Umfrage speichern
 			Calendar cal = Calendar.getInstance();

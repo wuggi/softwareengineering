@@ -2,16 +2,13 @@ package de.Psychologie.socialintelligence;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /**
 * @class Alarm
@@ -88,8 +85,15 @@ public class Alarm{
 		int currentMinute = cal.get(Calendar.MINUTE);
 
 
-		// Zeit setzen, mit Aufbau 00:00:00
-		currentAlarmTime = FormatHandler.withNull(currentHour)+":"+FormatHandler.withNull(currentMinute)+":00";	
+		SQLHandler db = new SQLHandler(source);
+		if(!db.getSnoozeActiv()){
+			// Zeit setzen, mit Aufbau 00:00:00
+			currentAlarmTime = FormatHandler.withNull(currentHour)+":"+FormatHandler.withNull(currentMinute)+":00";	
+			db.setCurrentAlarm(currentAlarmTime);
+		} else {
+			currentAlarmTime = db.getCurrentAlarm();
+		}
+		
 	}
 
 	
@@ -147,7 +151,7 @@ public class Alarm{
 				db.setLastAlarm(currentAlarmTime);
 			} 
 			// naechsten Alarm setzen
-			db.setNextAlarm(alarmDay.getHours()+":"+alarmDay.getMinutes()+":00");
+			db.setNextAlarm(FormatHandler.withNull(alarmDay.getHours())+":"+FormatHandler.withNull(alarmDay.getMinutes())+":00");
         	cal.setTime(alarmDay);
         	startAlarm();
         	

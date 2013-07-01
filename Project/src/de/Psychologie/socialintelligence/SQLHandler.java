@@ -70,6 +70,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 												  "ID INTEGER PRIMARY KEY NOT NULL, " +
 												  "snoozeActiv INTEGER NULL, " +	
 												  "lastAlarm Text NULL, " +
+												  "currentAlarm Text NULL, " +
 												  "nextAlarm Text NULL)";
 			
 	/////////////////////////////////////////////////////////////
@@ -104,8 +105,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("ID", 1);
 		values.put("snoozeActiv", 0);		 // nicht aktiv
-		//values.put("alarmActiv", 0);		 // nicht aktiv
 		values.put("lastAlarm", "00:00:00"); // Default keine Zeit
+		values.put("currentAlarm", "00:00:00"); // Default keine Zeit
+		values.put("nextAlarm", "00:00:00"); // Default keine Zeit
 		db.insert("status", null, values);
 	
 		// Times Default-Werte
@@ -113,8 +115,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 		String dayTimes[] = new String[4];
 		dayTimes[0] = "09:00:00";
 		dayTimes[1] = "13:00:00";
-		dayTimes[2] = "18:00:00";
-		dayTimes[3] = "20:00:00";
+		dayTimes[2] = "19:00:00";
+		dayTimes[3] = "22:00:00";
 		for(int i=0;i<7;i++){
 			for(int j=0;j<4;j++){
 				timeCv.put("day", i);
@@ -316,6 +318,37 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	// aktuellen Alarm setzen
+	/**
+	 * @brief Setzt den aktuellen Alarm
+	 * @param aktuellen Alarmzeitpunk
+	 */
+	public void setCurrentAlarm(String currentAlarmTime){
+		SQLiteDatabase db= this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put("currentAlarm", currentAlarmTime);
+		db.update("status", cv, "ID = 1", null);
+		db.close();
+	}
+	
+	// letzen Alarm auslesen
+	/**
+	 * @brief Liest den aktuellen Alarmzeitpunkt aus
+	 * @return aktuellen Alarmzeitpunkt HH:mm:ss
+	 */
+	public String getCurrentAlarm() {
+		SQLiteDatabase db= this.getReadableDatabase();
+		String res = "00:00:00";
+		Cursor c = db.rawQuery("SELECT currentAlarm FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		c.close();
+		return res;
+	}
+	
+	
 	// letzten Alarm setzen
 	/**
 	 * @brief Setzt den letzten Alarm
@@ -332,7 +365,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// letzen Alarm auslesen
 	/**
 	 * @brief Liest den letzen Alarmzeitpunkt aus
-	 * @return ??
+	 * @return letzen Alarmzeitpunkt HH:mm:ss
 	 */
 	public String getLastAlarm() {
 		SQLiteDatabase db= this.getReadableDatabase();
