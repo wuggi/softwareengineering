@@ -531,11 +531,15 @@ public class UserSettingActivity extends PreferenceActivity {
 
 		Ringtone ringtone = RingtoneManager.getRingtone(
 				UserSettingActivity.this, ringtoneUri);
-		String name = ringtone.getTitle(UserSettingActivity.this);
+		
+		if (ringtone != null) {
+			String name = ringtone.getTitle(UserSettingActivity.this);
+		
 		// release Ringtone
 		ringtone.stop();
 
 		// Set summary of Alarm
 		ringtonepref.setSummary(name);
+		}
 	}
 }
