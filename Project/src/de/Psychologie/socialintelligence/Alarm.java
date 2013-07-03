@@ -2,6 +2,7 @@ package de.Psychologie.socialintelligence;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import android.app.Activity;
@@ -9,6 +10,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.text.format.Time;
 import android.util.Log;
 
 /**
@@ -94,7 +96,7 @@ public class Alarm{
 		} else {
 			currentAlarmTime = db.getCurrentAlarm();
 		}
-		Log.v("currentAlarmTime",currentAlarmTime);
+		//Log.v("currentAlarmTime",currentAlarmTime);
 	}
 
 	
@@ -201,23 +203,44 @@ public class Alarm{
 	 * @return Differenz in Minuten
 	 */
 	public int getDifferenceToNextAlarm(){
-		DateFormat df = DateFormat.getInstance();
-		Date currentTime = Calendar.getInstance().getTime();
+		// Parser für Uhrzeit, setzt Datum auf 01.01.1970
+		DateFormat df = new SimpleDateFormat("hh:mm:ss");
+		
+		// Zeiten erstellen mit aktuellen Tag, Uhrzeit
+		Date currentTime = new Date();
 		Date nextTime = new Date();
 		
+		// aktuelles Datum auf 01.01.1970 setzen
+		// TODO: magic 70 -> 1970 Sollte mit Calendar sauber gemacht werden!
+		// es existiert nur die Uhrzeit, daher ein Standarddatum nehmen.
+		currentTime.setYear(70);
+		currentTime.setMonth(0);
+		currentTime.setDate(1);
+
+		// nächsten Alarm auslesen
 		try {
 			nextTime = df.parse(getNextAlarm());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+
+		//Log.v("cur",currentTime.toGMTString());
+		//Log.v("nex",nextTime.toGMTString());
+		
+		// nächster AlarmUhrzeit kleiner als aktuelle Uhrzeit, ist es der morgige Tag
+		if(nextTime.getHours() < currentTime.getHours()){
+			nextTime.setDate(2);
+		}
+		//Log.v("nex",nextTime.toGMTString());
+		
+		// Uhrzeit in Millisekunden
 		long cT = currentTime.getTime();
+		
+		// Uhrzeit in Millisekunden
 		long nT = nextTime.getTime();
 		
-		if(cT < nT){
-			// return difference in minutes
-			return (int) (nT - cT)/60000;
-		} 
-		return -1;
+		// return difference in minutes
+		return (int) (nT - cT)/60000;
 	}
 	/**
 	 * 

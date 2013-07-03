@@ -116,7 +116,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		dayTimes[0] = "10:00:00";
 		dayTimes[1] = "13:00:00";
 		dayTimes[2] = "19:00:00";
-		dayTimes[3] = "21:00:00";
+		dayTimes[3] = "23:00:00";
 		for(int i=0;i<7;i++){
 			for(int j=0;j<4;j++){
 				timeCv.put("day", i);
@@ -571,6 +571,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 * @return Zeitpunkt des nächsten Alarms
 	 */
 	public String getNextTimeFromDayTime(int day,String time){
+		Log.v("tag",String.valueOf(day));
+		Log.v("time",time);
 		String res = "00:00:00";
 		SQLiteDatabase db = this.getReadableDatabase();
 		// Suche heute nach m�glicher Alarmzeit
