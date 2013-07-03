@@ -526,20 +526,23 @@ public class UserSettingActivity extends PreferenceActivity {
 			editor.commit();
 			// Sets the default Alarm to the chosen Value
 			ringtonepref.setValue(ringtoneUri.toString());
+			ringtonename = ringtoneUri.toString();
 		} else
 			ringtoneUri = Uri.parse(ringtonename);
 
 		Ringtone ringtone = RingtoneManager.getRingtone(
-				UserSettingActivity.this, ringtoneUri);
+				UserSettingActivity.this, ringtoneUri);		
 		
-		if (ringtone != null) {
+		if (ringtone != null){ 
 			String name = ringtone.getTitle(UserSettingActivity.this);
-		
-		// release Ringtone
-		ringtone.stop();
 
-		// Set summary of Alarm
-		ringtonepref.setSummary(name);
-		}
+			if (name.equals("cygnus.ogg"))
+				name = "cygnus";
+			// Set summary of Alarm
+			ringtonepref.setSummary(name);
+
+			// release Ringtone
+			ringtone.stop();
+		}		
 	}
 }
