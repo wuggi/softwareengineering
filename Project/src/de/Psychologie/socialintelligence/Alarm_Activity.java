@@ -46,7 +46,7 @@ public class Alarm_Activity extends Activity {
 	private boolean vibrate = true;
 	private Vibrator vib;
 	private NotificationManager notificationManager = null;
-	private boolean pauseOK=false;
+	private boolean pauseOK=true;
 	
 	/**
 	 * @param savedInstanceState
@@ -166,8 +166,6 @@ public class Alarm_Activity extends Activity {
             //Werte in die DB eintragen
             db.setPollEntry(date, alarmTime);
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
-            // Alle Activitys beenden
-            ActivityRegistry.finishAll();
 		} else {
 			pollAlarm.setSnooze(snoozetime);
 			db.setSnoozeActiv(true);
@@ -238,16 +236,23 @@ public class Alarm_Activity extends Activity {
 		closeAll();
 		super.onDestroy();
     }
+
+	@Override
+	public void onStart(){
+		pauseOK=false;
+		super.onStart();
+    }
+	
 	/*
 	@Override
 	public void onStop(){
 		if (!pauseOK){
-			Log.v("Alarm Stop","Snooze gesetzt");
+			Log.e("Alarm Stop","Snooze gesetzt");
 			pauseOK = true;
 			setSnooze();
-		}
 		closeAll();
 		finish();
+		}
 		super.onStop();
 	}
 	*/
