@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -141,6 +142,7 @@ public class PopPollActivity extends Activity {
         TextView txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
 		
 		String lastAlarm = db.getLastAlarm();
+		Log.v("lastAlarm",lastAlarm);
 		if(lastAlarm.compareTo("00:00:00") == 0){
 			txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo0)));
 		} else {

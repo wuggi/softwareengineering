@@ -9,6 +9,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 /**
 * @class Alarm
@@ -93,7 +94,7 @@ public class Alarm{
 		} else {
 			currentAlarmTime = db.getCurrentAlarm();
 		}
-		
+		Log.v("currentAlarmTime",currentAlarmTime);
 	}
 
 	

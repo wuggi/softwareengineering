@@ -345,6 +345,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	
@@ -376,6 +377,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	
@@ -405,6 +407,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	
@@ -438,6 +441,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			if (c.moveToFirst()) code = c.getString(0);	
 		}
 		c.close();
+		db.close();
 		return code;
 	}
 	
@@ -555,6 +559,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			}
 		}
 		c.close();
+		db.close();
 		return exist;
 	}
 	
@@ -581,6 +586,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = getFirstTimeFromDay((1+day)%7);
 		}
 		c.close();
+		db.close();
 		//Log.v("getNextTimeFromDayTime",String.valueOf(res));
 		return res;
 	}
