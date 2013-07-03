@@ -46,8 +46,7 @@ public class Alarm_Activity extends Activity {
 	private boolean vibrate = true;
 	private Vibrator vib;
 	private NotificationManager notificationManager = null;
-	// Normal Pause(finish): 0 | Abnormal pause (Home Button):1 | Has been abnormally paused:2 
-	//private byte pauseOK = 0;
+	private boolean pauseOK=false;
 	
 	/**
 	 * @param savedInstanceState
@@ -75,29 +74,8 @@ public class Alarm_Activity extends Activity {
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				if (vib!=null)
-					vib.cancel();
-				if (waitTimer != null) {
-					waitTimer.cancel();
-					waitTimer = null;
-				}
-				try {
-					if (mMediaPlayer != null) {
-						if (mMediaPlayer.isPlaying()) {
-							mMediaPlayer.stop();
-						}
-						mMediaPlayer.release();
-						mMediaPlayer = null;
-					}
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				}		
-				try {
-					wl.release();
-				} catch (Throwable th) {
-					// ignoring this exception, probably wakeLock was
-					// already released
-				}
+				pauseOK=true;
+				closeAll();
 				startActivity(new Intent(Alarm_Activity.this,PopPollActivity.class));
          		overridePendingTransition(0, 0);
 				finish();
@@ -110,30 +88,10 @@ public class Alarm_Activity extends Activity {
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				if (vib!=null)
-					vib.cancel();
-				if (waitTimer != null) {
-					waitTimer.cancel();
-					waitTimer = null;
-				}
-				try {
-					if (mMediaPlayer != null) {
-						if (mMediaPlayer.isPlaying()) {
-							mMediaPlayer.stop();
-						}
-						mMediaPlayer.release();
-						mMediaPlayer = null;
-					}
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				}
-				try {
-					wl.release();
-				} catch (Throwable th) {
-					// ignoring this exception, probably wakeLock was
-					// already released
-				}
+				pauseOK=true;
+				closeAll();
 				setSnooze();
+				finish();
 			}
 		});
 		// Play selected Ringtone
@@ -176,25 +134,10 @@ public class Alarm_Activity extends Activity {
 			}
 
 			public void onFinish() {
-				// After 60000 milliseconds (1 min) finish current
-				try {
-					if (mMediaPlayer != null) {
-						if (mMediaPlayer.isPlaying()) {
-							mMediaPlayer.stop();
-						}
-						mMediaPlayer.release();
-						mMediaPlayer = null;
-					}
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				}
-				try {
-					wl.release();
-				} catch (Throwable th) {
-					// ignoring this exception, probably wakeLock was
-					// already released
-				}
+				pauseOK=true;
+				closeAll();
 				setSnooze();
+				finish();
 			}
 		}.start();
 	}
@@ -203,6 +146,7 @@ public class Alarm_Activity extends Activity {
 	 * @brief Snoozezeit wird gesetzt
 	 */
 	private void setSnooze(){
+		pauseOK=true;
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
 		int snoozetime = Integer.parseInt(time);
@@ -211,8 +155,6 @@ public class Alarm_Activity extends Activity {
 		Alarm pollAlarm = new Alarm(this);
 		// prüfen, ob Snoozetime nicht größer ist als die Zeit bis zum nächsten Alarm
 		int checkDifference = pollAlarm.getDifferenceToNextAlarm();
-		Log.v("test",String.valueOf(checkDifference));
-		Log.v("test",String.valueOf(snoozetime));
 		if(checkDifference > 0 && snoozetime > checkDifference){
 			// Umfrage speichern
 			Calendar cal = Calendar.getInstance();
@@ -233,8 +175,6 @@ public class Alarm_Activity extends Activity {
 			Toast.makeText(Alarm_Activity.this,getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
 			// Notification setzen
 			setNotification();
-			// App beenden
-			finish();	
 		}
 	}
 	
@@ -295,6 +235,24 @@ public class Alarm_Activity extends Activity {
 	}
 	@Override
 	public void onDestroy(){
+		closeAll();
+		super.onDestroy();
+    }
+	/*
+	@Override
+	public void onStop(){
+		if (!pauseOK){
+			Log.v("Alarm Stop","Snooze gesetzt");
+			pauseOK = true;
+			setSnooze();
+		}
+		closeAll();
+		finish();
+		super.onStop();
+	}
+	*/
+	
+	private void closeAll(){
 		if (vib!=null)
 			vib.cancel();
 		if (waitTimer != null) {
@@ -318,7 +276,6 @@ public class Alarm_Activity extends Activity {
 			// ignoring this exception, probably wakeLock was
 			// already released
 		}
-		super.onDestroy();
-    }
+	}
 
 }

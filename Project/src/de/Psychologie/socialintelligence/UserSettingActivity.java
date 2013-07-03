@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -115,8 +116,7 @@ public class UserSettingActivity extends PreferenceActivity {
 				
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
-						AlertDialog ad = new AlertDialog.Builder(
-								UserSettingActivity.this).create();
+						AlertDialog ad = new AlertDialog.Builder(UserSettingActivity.this).create();
 						ad.setTitle(getResources().getString(
 								R.string.title_about));
 						
@@ -526,16 +526,23 @@ public class UserSettingActivity extends PreferenceActivity {
 			editor.commit();
 			// Sets the default Alarm to the chosen Value
 			ringtonepref.setValue(ringtoneUri.toString());
+			ringtonename = ringtoneUri.toString();
 		} else
 			ringtoneUri = Uri.parse(ringtonename);
 
 		Ringtone ringtone = RingtoneManager.getRingtone(
-				UserSettingActivity.this, ringtoneUri);
-		String name = ringtone.getTitle(UserSettingActivity.this);
-		// release Ringtone
-		ringtone.stop();
+				UserSettingActivity.this, ringtoneUri);		
+		
+		if (ringtone != null){ 
+			String name = ringtone.getTitle(UserSettingActivity.this);
 
-		// Set summary of Alarm
-		ringtonepref.setSummary(name);
+			if (name.equals("cygnus.ogg"))
+				name = "cygnus";
+			// Set summary of Alarm
+			ringtonepref.setSummary(name);
+
+			// release Ringtone
+			ringtone.stop();
+		}		
 	}
 }
