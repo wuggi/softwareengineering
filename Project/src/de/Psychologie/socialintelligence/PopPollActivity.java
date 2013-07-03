@@ -249,7 +249,7 @@ public class PopPollActivity extends Activity {
 				int contacts = Integer.parseInt(countContact.getText().toString());
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
-				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
+				String answerTime = FormatHandler.withNull(cal.get(Calendar.HOUR_OF_DAY))+":"+FormatHandler.withNull(cal.get(Calendar.MINUTE))+":00";
 				//Datum
 				String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1))+"."+cal.get(Calendar.YEAR);
 				
