@@ -113,10 +113,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 		// Times Default-Werte
 		ContentValues timeCv = new ContentValues();
 		String dayTimes[] = new String[4];
-		dayTimes[0] = "09:00:00";
+		dayTimes[0] = "10:00:00";
 		dayTimes[1] = "13:00:00";
 		dayTimes[2] = "19:00:00";
-		dayTimes[3] = "22:00:00";
+		dayTimes[3] = "21:00:00";
 		for(int i=0;i<7;i++){
 			for(int j=0;j<4;j++){
 				timeCv.put("day", i);
