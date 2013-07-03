@@ -412,6 +412,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f08000a;
+        /**  Any customizations for your app running on 3.0+ devices here 
+         */
         public static final int AppTheme_noTitle=0x7f08000b;
         public static final int ButtonBar=0x7f08000d;
         public static final int ButtonBarButton=0x7f08000e;

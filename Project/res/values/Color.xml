@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="checkButton">#00FF7F</color>
     <color name="uncheckedButton">#8B0000</color>
     <color name="greenstart">#01ef7f</color>
@@ -15,10 +16,11 @@
     <color name="redstroke">#d67201</color>
     <color name="redstroke_pressed">#af5d01</color>
     <color name="orange">#f07d00</color>
-	<color name="actionbar_separator">#B36000</color>
+    <color name="actionbar_separator">#B36000</color>
     <color name="actionbar_title">#FFFFFF</color>
     <color name="actionbar_background_start">#ef7f01</color>
     <color name="actionbar_background_end">#ef7f01</color>
     <color name="actionbar_background_item_pressed_start">#DA7400</color>
     <color name="actionbar_background_item_pressed_end">#DA7400</color>
+
 </resources>

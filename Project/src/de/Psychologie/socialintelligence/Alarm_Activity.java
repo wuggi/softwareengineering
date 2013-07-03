@@ -46,7 +46,7 @@ public class Alarm_Activity extends Activity {
 	private boolean vibrate = true;
 	private Vibrator vib;
 	private NotificationManager notificationManager = null;
-	private boolean pauseOK;
+	private boolean pauseOK=false;
 	
 	/**
 	 * @param savedInstanceState
@@ -63,7 +63,6 @@ public class Alarm_Activity extends Activity {
 
 		// aktive Nachricht l�schen
 		cancelNotification();
-		pauseOK = false;
 		
 		TextView text = (TextView) findViewById(R.id.textview_alarm);
 		Calendar c = Calendar.getInstance();		
@@ -239,7 +238,7 @@ public class Alarm_Activity extends Activity {
 		closeAll();
 		super.onDestroy();
     }
-	
+	/*
 	@Override
 	public void onStop(){
 		if (!pauseOK){
@@ -251,6 +250,7 @@ public class Alarm_Activity extends Activity {
 		finish();
 		super.onStop();
 	}
+	*/
 	
 	private void closeAll(){
 		if (vib!=null)

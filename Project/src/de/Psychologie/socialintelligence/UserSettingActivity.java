@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -115,8 +116,7 @@ public class UserSettingActivity extends PreferenceActivity {
 				
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
-						AlertDialog ad = new AlertDialog.Builder(
-								UserSettingActivity.this).create();
+						AlertDialog ad = new AlertDialog.Builder(UserSettingActivity.this).create();
 						ad.setTitle(getResources().getString(
 								R.string.title_about));
 						
