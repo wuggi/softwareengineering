@@ -140,6 +140,8 @@ public class Alarm{
 			alarmDay = currentDate;
 		}
 		
+		Log.v("neue Alarmzeit",nextAlarmTime);
+		
 		// neue Alarmzeit geholt
 		if(nextAlarmTime.compareTo("00:00:00") != 0){
 			// Alarm-Tag (heute oder morgen) mit Uhrzeit versehen
@@ -235,10 +237,10 @@ public class Alarm{
 		
 		// Uhrzeit in Millisekunden
 		long cT = currentTime.getTime();
-		
+		Log.v("aktuelleZeit",String.valueOf(cT));
 		// Uhrzeit in Millisekunden
 		long nT = nextTime.getTime();
-		
+		Log.v("nächste Zeit",String.valueOf(nT));
 		// return difference in minutes
 		return (int) (nT - cT)/60000;
 	}

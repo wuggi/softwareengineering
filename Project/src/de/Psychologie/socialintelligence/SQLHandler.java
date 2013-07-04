@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 
 /**
@@ -198,6 +197,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("minute", minute);
 		// Daten speichern
 		db.insert("poll", null, cv);
+		db.close();
 	}
 	
 	// Holt ein Element fï¿½r CSV-Datei
@@ -207,7 +207,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 */
 	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
-        return db.rawQuery("SELECT u.code, " +
+		return db.rawQuery("SELECT u.code, " +
                                       "p.date, " +
                                       "p.alarm, " +
                                       "p.answer, " +
@@ -391,6 +391,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put("nextAlarm", nextAlarmTime);
 		db.update("status", cv, "ID = 1", null);
+		db.close();
 	}
 	
 	// nï¿½chsten Alarm auslesen
@@ -481,6 +482,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			cv.put("time", time);			
 			// import
 			db.insert("time", null, cv);
+			db.close();
 		}
 	}
 	
@@ -509,7 +511,7 @@ public class SQLHandler extends SQLiteOpenHelper {
         // Abfrage ausführen
         SQLiteDatabase db= this.getWritableDatabase();
         db.execSQL(query);
-        
+        db.close();
 	}
 	
 	/**
@@ -518,6 +520,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	public void deleteAllDayTime(){
 		SQLiteDatabase db= this.getWritableDatabase();		
 		db.delete("time", null, null);		
+		db.close();
 	}
 	
 	// lï¿½scht ï¿½bergebenden Tag
@@ -529,7 +532,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();		
 			// Tag lï¿½schen
-			db.delete("time", "day="+day, null);		
+			db.delete("time", "day="+day, null);	
+			db.close();
 		}
 	}
 	/**
@@ -538,7 +542,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 */
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
-        return db.rawQuery("SELECT day,time from time",null);
+		return db.rawQuery("SELECT day,time from time",null);
 	}
 	
 	// Prï¿½ft, ob Tag mit Uhrzeit existiert
@@ -608,6 +612,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	/**

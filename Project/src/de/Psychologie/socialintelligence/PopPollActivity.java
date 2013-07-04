@@ -351,12 +351,13 @@ public class PopPollActivity extends Activity {
 		int checkDifference = pollAlarm.getDifferenceToNextAlarm();
 		if(checkDifference > 0 && snoozetime > checkDifference){
 			// Umfrage speichern
-            String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1)) + "." + cal.get(Calendar.YEAR);
+			Calendar calNow = Calendar.getInstance();
+            String date = FormatHandler.withNull(calNow.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((calNow.get(Calendar.MONTH)+1)) + "." + calNow.get(Calendar.YEAR);
             String alarmTime = pollAlarm.getCurrentAlarmTime();
 
             pollAlarm.setNextAlarm();
             db.setSnoozeActiv(false);
-			action_done=true;
+			//action_done=true;
             //Werte in die DB eintragen
             db.setPollEntry(date, alarmTime);
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();

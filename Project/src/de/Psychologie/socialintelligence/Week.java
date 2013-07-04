@@ -180,9 +180,6 @@ public class Week extends Activity {
 		// Alle deaktivieren
 		disableWeek();
 		disableAllTimeSlots();
-		// TODO: kann weg oder? Disable all
-		//
-
 		// Zeitdaten aus der Datenbank holen
 		if (getWeekFromDatabase()) {
 			// Zeiten wï¿½hlbar
@@ -219,11 +216,8 @@ public class Week extends Activity {
 		saveWeek.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Daten in Datenbank ï¿½berfï¿½hren
-				// TODO: Make faster Duration on S3:~500ms
-				final long t0 = System.currentTimeMillis();
+				// Daten in Datenbank schreiben
 				writeWeekToDatabase();
-				Log.e("Duration",System.currentTimeMillis()-t0+"ms");
 				// Alle Einstellungen erfolgreich gespeichert
 				saveAllTimeSlots = true;
 				// Alarm setzen				
@@ -429,19 +423,19 @@ public class Week extends Activity {
 	@SuppressWarnings("deprecation")
 	private void disableWeek() {
 		mon.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		tue.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		wed.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		thur.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		fri.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		sat.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		sun.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 	
 	/**
@@ -457,13 +451,13 @@ public class Week extends Activity {
 		// es nutzen
 
 		timeslot1.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot2.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot3.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot4.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 	/**
 	 * @brief Zeitslots in der zweiten Reihe orange färben
@@ -471,11 +465,11 @@ public class Week extends Activity {
 	@SuppressWarnings("deprecation")
 	private void disableRow2() {
 		timeslot5.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot6.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot7.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 
 	/**
@@ -484,13 +478,13 @@ public class Week extends Activity {
 	@SuppressWarnings("deprecation")
 	private void disableRow3() {
 		timeslot8.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot9.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot10.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot11.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 	/**
 	 * @brief Zeitslots in der vierten Reihe orange färben
@@ -498,13 +492,13 @@ public class Week extends Activity {
 	@SuppressWarnings("deprecation")
 	private void disableRow4() {
 		timeslot12.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot13.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot14.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot15.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 
 	/**
