@@ -157,17 +157,21 @@ public class UserSettingActivity extends PreferenceActivity {
 						
 						//Log.d("OnprefChange", "newValue="+newValue.toString());
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						String name = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri).getTitle(UserSettingActivity.this);
-						if (name.equals("cygnus.ogg"))
-							name = "cygnus";
-						preference.setSummary( name);
-						// Save Ringtone to preferences
-						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-						SharedPreferences.Editor editor = prefs.edit();
-						editor.putString("ringtone", ringtoneUri.toString());
-						editor.commit();
-
-						return true;
+						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+						if( ringtone != null )
+						{
+							String name = ringtone.getTitle(UserSettingActivity.this);
+							if (name.equals("cygnus.ogg"))
+								name = "cygnus";
+							preference.setSummary( name );
+							// Save Ringtone to preferences
+							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+							SharedPreferences.Editor editor = prefs.edit();
+							editor.putString("ringtone", ringtoneUri.toString());
+							editor.commit();
+							return true;
+						}
+						return false;
 					}
 				});
 		
