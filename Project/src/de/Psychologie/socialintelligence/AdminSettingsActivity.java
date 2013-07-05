@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +24,7 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -281,6 +283,15 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						final EditText input1 = (EditText) textEntryView.findViewById(R.id.editText1);
 						final EditText input2 = (EditText) textEntryView.findViewById(R.id.editText2);
 
+						//Change color if text if API<3
+						if (android.os.Build.VERSION.SDK_INT<11){
+							final TextView caption1 = (TextView) textEntryView.findViewById(R.id.pw_textView1);
+							final TextView caption2 = (TextView) textEntryView.findViewById(R.id.pw_textView2);
+							caption1.setTextColor(Color.parseColor("#FFFFFF"));
+							caption2.setTextColor(Color.parseColor("#FFFFFF"));
+						}
+						
+						
 
 						final AlertDialog.Builder alert = new AlertDialog.Builder(AdminSettingsActivity.this);
 						
@@ -354,7 +365,8 @@ public class AdminSettingsActivity extends PreferenceActivity {
     String subject = prefs.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
 	Preference subjectpref = findPreference("emailsubject");
 	((EditTextPreference) subjectpref).setText(subject);
-	subjectpref.setSummary(subject);	    
+	subjectpref.setSummary(subject);
+	
 	
 	Boolean export = prefs.getBoolean("export", false);
 	
