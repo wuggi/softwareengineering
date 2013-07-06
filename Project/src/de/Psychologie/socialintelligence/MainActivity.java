@@ -35,7 +35,9 @@ import android.widget.EditText;
  * Der Zweck dieser App ist es, die Häufigkeit von Sozialen Kontakten zu erfassen.
  * @subsection subsec1 Anforderungen
  * Systemanforderungen: Android 2.1 oder höher<br>
- * @subsection subsec2 Entwickler
+ * @subsection subsec2 Passwort
+ * Default-Passwort für die Admin-Settings: Sommer
+ * @subsection subsec3 Entwickler
  * <b>Kontaktmöglichkeit:</b><br>
  * <table border="0" width="450">
  * 	<tr>
@@ -56,7 +58,7 @@ import android.widget.EditText;
  * 	</tr>
  * </table>
  * 
- * @subsection subsec3 Screenshots
+ * @subsection subsec4 Screenshots
  * <table border="1">
   <tr>
     <th>MainActivity</th>
@@ -174,7 +176,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * @brief Das dr�cken der Men�taste unterbricht das Blinken des Cursors in der Texteingabe, desshalb wird es hier abgefangen.
+	 * @brief Das dr�cken der Men�taste unterbricht das Blinken des Cursors in der Texteingabe, desshalb wird es hier abgefangen.
 	 * @param int keycode
 	 */
 	@Override
