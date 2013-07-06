@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 
 /**
@@ -70,6 +69,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 												  "ID INTEGER PRIMARY KEY NOT NULL, " +
 												  "snoozeActiv INTEGER NULL, " +	
 												  "lastAlarm Text NULL, " +
+												  "currentAlarm Text NULL, " +
 												  "nextAlarm Text NULL)";
 			
 	/////////////////////////////////////////////////////////////
@@ -104,8 +104,9 @@ public class SQLHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("ID", 1);
 		values.put("snoozeActiv", 0);		 // nicht aktiv
-		//values.put("alarmActiv", 0);		 // nicht aktiv
 		values.put("lastAlarm", "00:00:00"); // Default keine Zeit
+		values.put("currentAlarm", "00:00:00"); // Default keine Zeit
+		values.put("nextAlarm", "00:00:00"); // Default keine Zeit
 		db.insert("status", null, values);
 	
 		// Times Default-Werte
@@ -113,7 +114,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		String dayTimes[] = new String[4];
 		dayTimes[0] = "09:00:00";
 		dayTimes[1] = "13:00:00";
-		dayTimes[2] = "18:00:00";
+		dayTimes[2] = "16:00:00";
 		dayTimes[3] = "20:00:00";
 		for(int i=0;i<7;i++){
 			for(int j=0;j<4;j++){
@@ -125,7 +126,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * @brief Beim Erhöhen der DATABASE_VERSION Version, alles wird gelöscht
+	 * @brief Beim Erhï¿½hen der DATABASE_VERSION Version, alles wird gelï¿½scht
 	 * @param SQLiteDatabase db
 	 * @param oldVersion
 	 * @param newVersion
@@ -196,6 +197,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		cv.put("minute", minute);
 		// Daten speichern
 		db.insert("poll", null, cv);
+		db.close();
 	}
 	
 	// Holt ein Element fï¿½r CSV-Datei
@@ -205,7 +207,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 */
 	public Cursor getPollEntry(){
 		SQLiteDatabase db=this.getReadableDatabase();
-        return db.rawQuery("SELECT u.code, " +
+		return db.rawQuery("SELECT u.code, " +
                                       "p.date, " +
                                       "p.alarm, " +
                                       "p.answer, " +
@@ -241,45 +243,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 		c.close();
 		return context;
 	}
-	
-	
-//	/**
-//	 * @brief Alarm aktiv
-//	 * @return true, wenn der Alarm noch nicht beantwortet wurde
-//	 */
-//	public boolean getActivAlarm(){
-//		SQLiteDatabase db = this.getReadableDatabase();
-//		boolean alarmActiv = false;
-//		Cursor c = db.rawQuery("SELECT alarmActiv FROM status WHERE ID=1",null);
-//		
-//		if(c != null){
-//			c.moveToFirst();
-//			// prÃ¼fen, ob Snooze gesetzt
-//		    if(c.getInt(0) == 1){
-//		    	alarmActiv = true;
-//		    }
-//		}
-//		c.close();
-//		db.close();
-//		return alarmActiv;
-//	}
-//	/**
-//	 * @brief Setzt Snooze auf aktiv
-//	 * @param activ
-//	 */
-//	public void setActivAlarm(boolean activ){
-//		SQLiteDatabase db= this.getWritableDatabase();
-//		// bool umwandeln
-//		int value = activ?1:0;
-//		// values als cv
-//		ContentValues cv = new ContentValues();
-//		cv.put("alarmActiv", value);
-//		// Datenbankupdate
-//		db.update("status", cv, "ID = 1", null);
-//		db.close();
-//	}
-	
-	
+		
 	/**
 	 * @brief ÃœberprÃ¼ft, ob der Snooze aktiv ist
 	 * @return true, wenn der Snooze aktiv ist, sonst false
@@ -302,7 +266,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	}
 	/**
 	 * @brief Setzt Snooze auf aktiv
-	 * @param activ
+	 * @param activ zum (de-)aktivieren des Snooze
 	 */
 	public void setSnoozeActiv(boolean activ){
 		SQLiteDatabase db= this.getWritableDatabase();
@@ -315,6 +279,38 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.update("status", cv, "ID = 1", null);
 		db.close();
 	}
+	
+	// aktuellen Alarm setzen
+	/**
+	 * @brief Setzt den aktuellen Alarm
+	 * @param aktuellen Alarmzeitpunk
+	 */
+	public void setCurrentAlarm(String currentAlarmTime){
+		SQLiteDatabase db= this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put("currentAlarm", currentAlarmTime);
+		db.update("status", cv, "ID = 1", null);
+		db.close();
+	}
+	
+	// letzen Alarm auslesen
+	/**
+	 * @brief Liest den aktuellen Alarmzeitpunkt aus
+	 * @return aktuellen Alarmzeitpunkt HH:mm:ss
+	 */
+	public String getCurrentAlarm() {
+		SQLiteDatabase db= this.getReadableDatabase();
+		String res = "00:00:00";
+		Cursor c = db.rawQuery("SELECT currentAlarm FROM status WHERE ID=1",null);
+		if(c != null){
+			c.moveToFirst();
+			res = c.getString(0);
+		}
+		c.close();
+		db.close();
+		return res;
+	}
+	
 	
 	// letzten Alarm setzen
 	/**
@@ -332,7 +328,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	// letzen Alarm auslesen
 	/**
 	 * @brief Liest den letzen Alarmzeitpunkt aus
-	 * @return ??
+	 * @return letzen Alarmzeitpunkt HH:mm:ss
 	 */
 	public String getLastAlarm() {
 		SQLiteDatabase db= this.getReadableDatabase();
@@ -343,25 +339,27 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	
 	// nï¿½chsten Alarm setzen
 	/**
 	 * @brief Setzt den nÃ¤chsten Alarm
-	 * @param nextAlarmTime
+	 * @param nextAlarmTime nÃ¤chste Alarmzeit hh:mm:ss
 	 */
 	public void setNextAlarm(String nextAlarmTime){
 		SQLiteDatabase db= this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put("nextAlarm", nextAlarmTime);
 		db.update("status", cv, "ID = 1", null);
+		db.close();
 	}
 	
 	// nï¿½chsten Alarm auslesen
 	/**
 	 * @brief Liest den nÃ¤chsten Alarmzeitpunk aus
-	 * @return ??
+	 * @return Alarmzeit hh:mm:ss
 	 */
 	public String getNextAlarm() {
 		SQLiteDatabase db= this.getReadableDatabase();
@@ -372,6 +370,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	
@@ -405,6 +404,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			if (c.moveToFirst()) code = c.getString(0);	
 		}
 		c.close();
+		db.close();
 		return code;
 	}
 	
@@ -444,15 +444,16 @@ public class SQLHandler extends SQLiteOpenHelper {
 			cv.put("time", time);			
 			// import
 			db.insert("time", null, cv);
+			db.close();
 		}
 	}
 	
 	/**
-	 * @brief Zur Optimierung können alle Zeitslots mit einem Datenbankzugriff gespeicher werden
+	 * @brief Zur Optimierung kÃ¶nnen alle Zeitslots mit einem Datenbankzugriff gespeicher werden
 	 * @param DayTime HashMap<Day als Integer,Zeiten als String-Array>
 	 */
 	public void addAllDayTime(HashMap<Integer,String[]> DayTime){
-		// SQLite unterstützt keine Multi-Insert, aber einen Insert mit Select.
+		// SQLite unterstï¿½tzt keine Multi-Insert, aber einen Insert mit Select.
 		// Also erstellen wir uns eine Select-Abfrage mit allen Werten, die mit einem Mal importiert werden sollen.
 		
 		String query = "INSERT INTO time (day,time) ";
@@ -460,27 +461,28 @@ public class SQLHandler extends SQLiteOpenHelper {
 		int entry = 0;
         for(Map.Entry<Integer,String[]> e : DayTime.entrySet()){
         	for(int i=0;i<e.getValue().length;i++){
-        		// Werte einfügen, Tag und Zeit
+        		// Werte einfï¿½gen, Tag und Zeit
             	value[entry++] = "SELECT '"+e.getKey().toString()+"', '"+e.getValue()[i]+":00'";
         	}
         }
         
-        // SQL-Query erweitern um alle eingefügten Werte,
-        // diese werden mit UNION miteinander verknüpft.
+        // SQL-Query erweitern um alle eingefï¿½gten Werte,
+        // diese werden mit UNION miteinander verknï¿½pft.
         query += FormatHandler.implodeArray(value, " UNION ");
         
-        // Abfrage ausführen
+        // Abfrage ausfï¿½hren
         SQLiteDatabase db= this.getWritableDatabase();
         db.execSQL(query);
-        
+        db.close();
 	}
 	
 	/**
-	 * @brief Alle Zeitslots aus der Datenbank löschen
+	 * @brief Alle Zeitslots aus der Datenbank lÃ¶schen
 	 */
 	public void deleteAllDayTime(){
 		SQLiteDatabase db= this.getWritableDatabase();		
 		db.delete("time", null, null);		
+		db.close();
 	}
 	
 	// lï¿½scht ï¿½bergebenden Tag
@@ -492,7 +494,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 		if(day<7 && day>=0){
 			SQLiteDatabase db= this.getWritableDatabase();		
 			// Tag lï¿½schen
-			db.delete("time", "day="+day, null);		
+			db.delete("time", "day="+day, null);	
+			db.close();
 		}
 	}
 	/**
@@ -501,7 +504,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 */
 	public Cursor getDayTime(){
 		SQLiteDatabase db=this.getReadableDatabase();
-        return db.rawQuery("SELECT day,time from time",null);
+		return db.rawQuery("SELECT day,time from time",null);
 	}
 	
 	// Prï¿½ft, ob Tag mit Uhrzeit existiert
@@ -522,6 +525,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			}
 		}
 		c.close();
+		db.close();
 		return exist;
 	}
 	
@@ -533,6 +537,8 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 * @return Zeitpunkt des nÃ¤chsten Alarms
 	 */
 	public String getNextTimeFromDayTime(int day,String time){
+		Log.v("tag",String.valueOf(day));
+		Log.v("time",time);
 		String res = "00:00:00";
 		SQLiteDatabase db = this.getReadableDatabase();
 		// Suche heute nach mï¿½glicher Alarmzeit
@@ -548,6 +554,7 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = getFirstTimeFromDay((1+day)%7);
 		}
 		c.close();
+		db.close();
 		//Log.v("getNextTimeFromDayTime",String.valueOf(res));
 		return res;
 	}
@@ -567,12 +574,13 @@ public class SQLHandler extends SQLiteOpenHelper {
 			res = c.getString(0);
 		}
 		c.close();
+		db.close();
 		return res;
 	}
 	/**
-	 * @brief ??
-	 * @param first
-	 * @return
+	 * @brief Gibt ersten oder letzten Tag von allen Tagen an
+	 * @param first true => erste Eintrag, false => letzter Eintrag
+	 * @return dd.mm.yyyy
 	 */
 	public String getBorderDate(boolean first){
 		SQLiteDatabase db= this.getReadableDatabase();
@@ -591,22 +599,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 		db.close();
 		return res;
 	}
-	
-	
-	/*
-	// Get starting Date
-	public String getFirstDate(){
-		String res;
-		SQLiteDatabase db= this.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT day FROM poll",null);
-		if(c != null && c.getCount() > 0){
-			c.moveToFirst();
-			res = c.getString(0);
-		}
-		c.close();		
-		return res;		
-	}
-	*/
 }
 	
 

@@ -142,6 +142,7 @@ public class PopPollActivity extends Activity {
         TextView txtPopPollInfo = (TextView) findViewById(R.id.txtPopPollInfo);
 		
 		String lastAlarm = db.getLastAlarm();
+		Log.v("lastAlarm",lastAlarm);
 		if(lastAlarm.compareTo("00:00:00") == 0){
 			txtPopPollInfo.setText(Html.fromHtml(getResources().getString(R.string.txtPopPollInfo0)));
 		} else {
@@ -248,7 +249,7 @@ public class PopPollActivity extends Activity {
 				int contacts = Integer.parseInt(countContact.getText().toString());
 				Calendar cal = Calendar.getInstance();
 				//Zeitpunkt der Antwort
-				String answerTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
+				String answerTime = FormatHandler.withNull(cal.get(Calendar.HOUR_OF_DAY))+":"+FormatHandler.withNull(cal.get(Calendar.MINUTE))+":00";
 				//Datum
 				String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1))+"."+cal.get(Calendar.YEAR);
 				
@@ -258,6 +259,8 @@ public class PopPollActivity extends Activity {
 				//nÃ¤chsten Alarm setzen
 				pollAlarm.setNextAlarm();
 				db.setSnoozeActiv(false);
+				// letzen Alarm anpassen
+				db.setLastAlarm(answerTime);
 				action_done=true;
 				db.setPollEntry(date, alarmTime, answerTime, false, contacts, hour, minute);
 				// Meldung
@@ -298,20 +301,7 @@ public class PopPollActivity extends Activity {
                 alert.show();
             }
         });
-		
-		
-		
-		// Wenn OK gedrï¿½ckt
-		// letzten Alarm (ist dieser momentane Alarm) setzen
-		// Calendar cal = Calendar.getInstance();
-		// String lastAlarmTime = cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":00";
-		// db.setLastAlarm(lastAlarmTime);
-		//db.setPollEntry(date, alarmTime, answerTime, abort, contacts, hour, minute)
-		
-		// Wenn Abbrechen gedrï¿½ckt
-		//db.setPollEntry(date, alarmTime)
-
-		
+				
 	}
 	@Override
 	
@@ -344,16 +334,17 @@ public class PopPollActivity extends Activity {
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
 		int snoozetime = Integer.parseInt(time);
-		// prüfen, ob Snoozetime nicht größer ist als die Zeit bis zum nächsten Alarm
+		// prï¿½fen, ob Snoozetime nicht grï¿½ï¿½er ist als die Zeit bis zum nï¿½chsten Alarm
 		int checkDifference = pollAlarm.getDifferenceToNextAlarm();
 		if(checkDifference > 0 && snoozetime > checkDifference){
 			// Umfrage speichern
-            String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1)) + "." + cal.get(Calendar.YEAR);
+			Calendar calNow = Calendar.getInstance();
+            String date = FormatHandler.withNull(calNow.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((calNow.get(Calendar.MONTH)+1)) + "." + calNow.get(Calendar.YEAR);
             String alarmTime = pollAlarm.getCurrentAlarmTime();
 
             pollAlarm.setNextAlarm();
             db.setSnoozeActiv(false);
-			action_done=true;
+			//action_done=true;
             //Werte in die DB eintragen
             db.setPollEntry(date, alarmTime);
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();

@@ -45,13 +45,13 @@ public class Alarm_Activity extends Activity {
 	private boolean vibrate = true;
 	private Vibrator vib;
 	private NotificationManager notificationManager = null;
-	// Normal Pause(finish): 0 | Abnormal pause (Home Button):1 | Has been abnormally paused:2 
-	//private byte pauseOK = 0;
+	//private boolean pauseOK=true;
 	
 	/**
 	 * @param savedInstanceState
 	 * @brief Erzeugt eine Fullscreen View mit angeschaltetem Bildschirm, Klingelton und Vibration so wie in den Einstellungen hinterlegt.
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,29 +74,8 @@ public class Alarm_Activity extends Activity {
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				if (vib!=null)
-					vib.cancel();
-				if (waitTimer != null) {
-					waitTimer.cancel();
-					waitTimer = null;
-				}
-				try {
-					if (mMediaPlayer != null) {
-						if (mMediaPlayer.isPlaying()) {
-							mMediaPlayer.stop();
-						}
-						mMediaPlayer.release();
-						mMediaPlayer = null;
-					}
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				}		
-				try {
-					wl.release();
-				} catch (Throwable th) {
-					// ignoring this exception, probably wakeLock was
-					// already released
-				}
+				//pauseOK=true;
+				closeAll();
 				startActivity(new Intent(Alarm_Activity.this,PopPollActivity.class));
          		overridePendingTransition(0, 0);
 				finish();
@@ -109,30 +88,10 @@ public class Alarm_Activity extends Activity {
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				if (vib!=null)
-					vib.cancel();
-				if (waitTimer != null) {
-					waitTimer.cancel();
-					waitTimer = null;
-				}
-				try {
-					if (mMediaPlayer != null) {
-						if (mMediaPlayer.isPlaying()) {
-							mMediaPlayer.stop();
-						}
-						mMediaPlayer.release();
-						mMediaPlayer = null;
-					}
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				}
-				try {
-					wl.release();
-				} catch (Throwable th) {
-					// ignoring this exception, probably wakeLock was
-					// already released
-				}
+				//pauseOK=true;
+				closeAll();
 				setSnooze();
+				finish();
 			}
 		});
 		// Play selected Ringtone
@@ -175,25 +134,10 @@ public class Alarm_Activity extends Activity {
 			}
 
 			public void onFinish() {
-				// After 60000 milliseconds (1 min) finish current
-				try {
-					if (mMediaPlayer != null) {
-						if (mMediaPlayer.isPlaying()) {
-							mMediaPlayer.stop();
-						}
-						mMediaPlayer.release();
-						mMediaPlayer = null;
-					}
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				}
-				try {
-					wl.release();
-				} catch (Throwable th) {
-					// ignoring this exception, probably wakeLock was
-					// already released
-				}
+				//pauseOK=true;
+				closeAll();
 				setSnooze();
+				finish();
 			}
 		}.start();
 	}
@@ -202,6 +146,7 @@ public class Alarm_Activity extends Activity {
 	 * @brief Snoozezeit wird gesetzt
 	 */
 	private void setSnooze(){
+		//pauseOK=true;
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
 		int snoozetime = Integer.parseInt(time);
@@ -215,14 +160,11 @@ public class Alarm_Activity extends Activity {
 			Calendar cal = Calendar.getInstance();
             String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1)) + "." + cal.get(Calendar.YEAR);
             String alarmTime = pollAlarm.getCurrentAlarmTime();
-
             pollAlarm.setNextAlarm();
             db.setSnoozeActiv(false);
             //Werte in die DB eintragen
             db.setPollEntry(date, alarmTime);
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.txtPopPollBreak), Toast.LENGTH_LONG).show();
-            // Alle Activitys beenden
-            ActivityRegistry.finishAll();
 		} else {
 			pollAlarm.setSnooze(snoozetime);
 			db.setSnoozeActiv(true);
@@ -230,14 +172,13 @@ public class Alarm_Activity extends Activity {
 			Toast.makeText(Alarm_Activity.this,getResources().getString(R.string.txtPopPollSnooze), Toast.LENGTH_LONG).show();
 			// Notification setzen
 			setNotification();
-			// App beenden
-			finish();	
 		}
 	}
 	
 	/**
 	 * @brief Notification setzen, wenn Snooze gedrückt wurde
 	 */
+	@SuppressWarnings("deprecation")
 	private void setNotification(){
 		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
@@ -292,6 +233,33 @@ public class Alarm_Activity extends Activity {
 	}
 	@Override
 	public void onDestroy(){
+		closeAll();
+		super.onDestroy();
+    }
+	
+	//TODO: Snooze onStop
+	// Problem: seltsames Startverhalten: ?..onStop->onCreate->onStart->..?
+	/*
+	@Override
+	public void onStart(){
+		pauseOK=false;
+		super.onStart();
+    }	
+	
+	@Override
+	public void onStop(){
+		if (!pauseOK){
+			Log.e("Alarm Stop","Snooze gesetzt");
+			pauseOK = true;
+			setSnooze();
+		closeAll();
+		finish();
+		}
+		super.onStop();
+	}
+	*/
+	
+	private void closeAll(){
 		if (vib!=null)
 			vib.cancel();
 		if (waitTimer != null) {
@@ -315,7 +283,6 @@ public class Alarm_Activity extends Activity {
 			// ignoring this exception, probably wakeLock was
 			// already released
 		}
-		super.onDestroy();
-    }
+	}
 
 }

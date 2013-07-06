@@ -1,6 +1,7 @@
 package de.Psychologie.socialintelligence;
 
 import java.io.File;
+import java.util.Calendar;
 
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
@@ -8,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,13 +18,13 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -96,6 +98,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						preference
 								.setSummary((String) newValue);
 						return true;
+					}
+				});
+		
+		
+		final Preference button_backup = findPreference("button_backup");
+		button_backup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {
+							backupDatabase();							
+				        return true;
 					}
 				});
 		
@@ -185,7 +197,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 							FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
-							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+							File tmpFile = file.createExternalFile(db.getPollCsvContext());
+							if (tmpFile!=null)
+								filedir = Uri.fromFile(tmpFile);
+							else
+								backupDatabase();
 
 							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 							
@@ -199,6 +215,17 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SharedPreferences.Editor editor = prefs.edit();
 							editor.putBoolean("export", true);
 							editor.commit();
+							try {
+								// Updates the fileindex so the
+								// files are visible on a PC
+								sendBroadcast(new Intent(
+										Intent.ACTION_MEDIA_MOUNTED,
+										Uri.parse("file://"
+												+ Environment
+														.getExternalStorageDirectory())));
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 							break;
 						case 3:
 							AlertDialog ad = new AlertDialog.Builder(AdminSettingsActivity.this).create();
@@ -216,7 +243,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 												SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 												FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
-												filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+												File tmpFile = file.createExternalFile(db.getPollCsvContext());
+												if (tmpFile!=null)
+													filedir = Uri.fromFile(tmpFile);
+												else
+													backupDatabase();
 
 												Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 												
@@ -230,6 +261,17 @@ public class AdminSettingsActivity extends PreferenceActivity {
 												SharedPreferences.Editor editor = prefs.edit();
 												editor.putBoolean("export", true);
 												editor.commit();
+												try {
+													// Updates the fileindex so the
+													// files are visible on a PC
+													sendBroadcast(new Intent(
+															Intent.ACTION_MEDIA_MOUNTED,
+															Uri.parse("file://"
+																	+ Environment
+																			.getExternalStorageDirectory())));
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
 											dialog.dismiss();
 										}
 									});
@@ -241,7 +283,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 											SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 											FileHandler file = new FileHandler(db.getUserCode()	+"("+ db.getBorderDate(false)+").csv");
-											filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+											File tmpFile = file.createExternalFile(db.getPollCsvContext());
+											if (tmpFile!=null)
+												filedir = Uri.fromFile(tmpFile);
+											else
+												backupDatabase();
 
 											Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 											
@@ -256,12 +302,21 @@ public class AdminSettingsActivity extends PreferenceActivity {
 											editor.putBoolean("export", true);
 											editor.commit();
 											dialog.dismiss();
+											try {
+												// Updates the fileindex so the
+												// files are visible on a PC
+												sendBroadcast(new Intent(
+														Intent.ACTION_MEDIA_MOUNTED,
+														Uri.parse("file://"
+																+ Environment
+																		.getExternalStorageDirectory())));
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
 										}
 									});
 							ad.show();
 							break;
-						default:
-							Log.v("DBandFileStatus","ERROR - Status="+status);
 						}
 				        return true;
 					}
@@ -281,6 +336,15 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						final EditText input1 = (EditText) textEntryView.findViewById(R.id.editText1);
 						final EditText input2 = (EditText) textEntryView.findViewById(R.id.editText2);
 
+						//Change color if text if API<3
+						if (android.os.Build.VERSION.SDK_INT<11){
+							final TextView caption1 = (TextView) textEntryView.findViewById(R.id.pw_textView1);
+							final TextView caption2 = (TextView) textEntryView.findViewById(R.id.pw_textView2);
+							caption1.setTextColor(Color.parseColor("#FFFFFF"));
+							caption2.setTextColor(Color.parseColor("#FFFFFF"));
+						}
+						
+						
 
 						final AlertDialog.Builder alert = new AlertDialog.Builder(AdminSettingsActivity.this);
 						
@@ -354,7 +418,8 @@ public class AdminSettingsActivity extends PreferenceActivity {
     String subject = prefs.getString("emailsubject", getResources().getString(R.string.std_Email_Subject));
 	Preference subjectpref = findPreference("emailsubject");
 	((EditTextPreference) subjectpref).setText(subject);
-	subjectpref.setSummary(subject);	    
+	subjectpref.setSummary(subject);
+	
 	
 	Boolean export = prefs.getBoolean("export", false);
 	
@@ -399,15 +464,36 @@ public class AdminSettingsActivity extends PreferenceActivity {
 			ret|=(1<<1);
 		
 		File file = new File(new File(Environment.getExternalStorageDirectory(),"Socialintelligence"), db.getUserCode()+".csv");
-		Log.i("file", file.getAbsolutePath());
 		if (file.exists())
 			ret|= 1;
 		else
 			ret&=~1;
-		Log.i("status", Byte.toString(ret));
 			
 		
 		return ret;
+	}
+	/**
+	 * @brief Sollte es zu problemen beim Export kommen, kann die Datenbank f�r manuellen export kopiert werden.
+	 */
+	//Save Database to public storage
+	private void backupDatabase(){
+		SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+    	Calendar cal = Calendar.getInstance();
+    	cal.getTime();
+		FileHandler file = new FileHandler("datenbank_"+Long.toHexString(cal.getTimeInMillis())+ ".db");
+		if (file.saveDatabase(db))
+			Toast.makeText(getApplicationContext(),getResources().getString(R.string.db_success), Toast.LENGTH_LONG).show();	
+		else
+			if (file.saveDatabase(db))
+				Toast.makeText(getApplicationContext(),getResources().getString(R.string.db_success), Toast.LENGTH_LONG).show();
+		try{
+		//Updates the fileindex so the files are visible on a PC
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"
+                + Environment.getExternalStorageDirectory()))); 	
+		} catch (Exception e) {
+			e.printStackTrace();
+	    }
+		
 	}
 
 	@Override

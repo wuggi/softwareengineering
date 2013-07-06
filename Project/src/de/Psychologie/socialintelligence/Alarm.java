@@ -5,13 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /**
 * @class Alarm
@@ -32,7 +30,7 @@ public class Alarm{
 	 */
 	private int currentWeekDay;
 	/**
-	 * @brief nächster Wochentag 0 = Montag
+	 * @brief nï¿½chster Wochentag 0 = Montag
 	 */
 	private int nextWeekDay;
 	/**
@@ -40,7 +38,7 @@ public class Alarm{
 	 */
 	private Date currentDate;
 	/**
-	 * @brief Nächster Tag
+	 * @brief Nï¿½chster Tag
 	 */
 	private Date nextDate;
 	/** 
@@ -52,13 +50,13 @@ public class Alarm{
 	 */
 	private String currentAlarmTime;
 	/**
-	 * @brief nächster Alarm aus der Datenbank
+	 * @brief nï¿½chster Alarm aus der Datenbank
 	 */
 	private String nextAlarmTime;
 	/**
 	 * @brief Activity welche den Alarm nutzen moechte
 	 */
-	// TODO: sehr unschoen...
+
 	private Activity source;
 	
 	// speichern letzter Alarm
@@ -88,8 +86,15 @@ public class Alarm{
 		int currentMinute = cal.get(Calendar.MINUTE);
 
 
-		// Zeit setzen, mit Aufbau 00:00:00
-		currentAlarmTime = FormatHandler.withNull(currentHour)+":"+FormatHandler.withNull(currentMinute)+":00";	
+		SQLHandler db = new SQLHandler(source);
+		if(!db.getSnoozeActiv()){
+			// Zeit setzen, mit Aufbau 00:00:00
+			currentAlarmTime = FormatHandler.withNull(currentHour)+":"+FormatHandler.withNull(currentMinute)+":00";	
+			db.setCurrentAlarm(currentAlarmTime);
+		} else {
+			currentAlarmTime = db.getCurrentAlarm();
+		}
+		//Log.v("currentAlarmTime",currentAlarmTime);
 	}
 
 	
@@ -133,6 +138,8 @@ public class Alarm{
 			alarmDay = currentDate;
 		}
 		
+		//Log.v("neue Alarmzeit",nextAlarmTime);
+		
 		// neue Alarmzeit geholt
 		if(nextAlarmTime.compareTo("00:00:00") != 0){
 			// Alarm-Tag (heute oder morgen) mit Uhrzeit versehen
@@ -147,7 +154,7 @@ public class Alarm{
 				db.setLastAlarm(currentAlarmTime);
 			} 
 			// naechsten Alarm setzen
-			db.setNextAlarm(alarmDay.getHours()+":"+alarmDay.getMinutes()+":00");
+			db.setNextAlarm(FormatHandler.withNull(alarmDay.getHours())+":"+FormatHandler.withNull(alarmDay.getMinutes())+":00");
         	cal.setTime(alarmDay);
         	startAlarm();
         	
@@ -175,7 +182,7 @@ public class Alarm{
 	}
 	
 	/**
-	 * @brief holt nächste Alarmzeit aus der Datenbank
+	 * @brief holt nï¿½chste Alarmzeit aus der Datenbank
 	 * @return Alarmzeit hh:mm:ss
 	 */
 	public String getNextAlarm(){
@@ -192,27 +199,48 @@ public class Alarm{
 	}
 	
 	/**
-	 * @brief Differenz in Minuten zwischen aktueller Zeit und nächstem Alarm
+	 * @brief Differenz in Minuten zwischen aktueller Zeit und nï¿½chstem Alarm
 	 * @return Differenz in Minuten
 	 */
 	public int getDifferenceToNextAlarm(){
-		DateFormat df = DateFormat.getInstance();
-		Date currentTime = Calendar.getInstance().getTime();
+		// Parser fï¿½r Uhrzeit, setzt Datum auf 01.01.1970
+		DateFormat df = new SimpleDateFormat("hh:mm:ss");
+		
+		// Zeiten erstellen mit aktuellen Tag, Uhrzeit
+		Date currentTime = new Date();
 		Date nextTime = new Date();
 		
+		// aktuelles Datum auf 01.01.1970 setzen
+		// magic 70 -> 1970 Sollte mit Calendar sauber gemacht werden!
+		// es existiert nur die Uhrzeit, daher ein Standarddatum nehmen.
+		currentTime.setYear(70);
+		currentTime.setMonth(0);
+		currentTime.setDate(1);
+
+		// nï¿½chsten Alarm auslesen
 		try {
 			nextTime = df.parse(getNextAlarm());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		long cT = currentTime.getTime();
-		long nT = nextTime.getTime();
+
+		//Log.v("cur",currentTime.toGMTString());
+		//Log.v("nex",nextTime.toGMTString());
 		
-		if(cT < nT){
-			// return difference in minutes
-			return (int) (nT - cT)/60000;
-		} 
-		return -1;
+		// nï¿½chster AlarmUhrzeit kleiner als aktuelle Uhrzeit, ist es der morgige Tag
+		if(nextTime.getHours() < currentTime.getHours()){
+			nextTime.setDate(2);
+		}
+		//Log.v("nex",nextTime.toGMTString());
+		
+		// Uhrzeit in Millisekunden
+		long cT = currentTime.getTime();
+		//Log.v("aktuelleZeit",String.valueOf(cT));
+		// Uhrzeit in Millisekunden
+		long nT = nextTime.getTime();
+		//Log.v("nï¿½chste Zeit",String.valueOf(nT));
+		// return difference in minutes
+		return (int) (nT - cT)/60000;
 	}
 	/**
 	 * 
@@ -241,7 +269,6 @@ public class Alarm{
 	/**
 	 * @brief startet AlarmManager
 	 */
-	//TODO: if alarm_activity was already started, resume it
 	private void startAlarm(){
 		stopSnooze();
     	// bei Alarmstart die Umfrage aufrufen
@@ -261,47 +288,7 @@ public class Alarm{
 	public String getCurrentAlarmTime() {
 		return currentAlarmTime;
 	}
-	
-	// TODO: kann weg
-//	public boolean appStartByAlarm(){
-//		boolean res = false;
-//		// Datenbank Verbindung aufbauen
-//		SQLHandler db = new SQLHandler(source);
-//		
-//		// existiert aktuelle Zeit in der Datenbank, dann wurde es durch den 
-//		// Alarm gestartet
-//		Log.v("test",String.valueOf(currentWeekDay));
-//		Log.v("test",currentAlarmTime);
-//		if(db.existDayTime(currentWeekDay, currentAlarmTime)){
-//			res = true;
-//		}
-//		
-//		db.close();
-//		return res;
-//	}
-	
-	
-	/*
-	private void alarm (boolean activate) {
-        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-        if(activate == true) {
-            int type = AlarmManager.ELAPSED_REALTIME_WAKEUP;
-            long interval = 3000;
-            long triggerTime = SystemClock.elapsedRealtime();       
-            am.setRepeating(type, triggerTime, interval, pi);       
-        } else {
-            am.cancel(pi);
-        }
-    }
-
-    private boolean alarmIsSet() {
-        return PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_NO_CREATE) != null;
-    }
-    */
-	
-
+		
 }
 
 

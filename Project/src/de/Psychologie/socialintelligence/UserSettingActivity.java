@@ -28,7 +28,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -51,13 +50,11 @@ public class UserSettingActivity extends PreferenceActivity {
 	private boolean altUri= false;
 	private boolean tested= false;
 	private boolean playing=false;
-	
-	//TODO: why is this always created?
 
 	private MediaPlayer mMediaPlayer;
 
 	/**
-	 * @brief //TODO
+	 * @brief Erzeugt die Men�ansicht mit all ihren Funktionalit�ten.
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
@@ -115,8 +112,7 @@ public class UserSettingActivity extends PreferenceActivity {
 				
 					@Override
 					public boolean onPreferenceClick(Preference arg0) {
-						AlertDialog ad = new AlertDialog.Builder(
-								UserSettingActivity.this).create();
+						AlertDialog ad = new AlertDialog.Builder(UserSettingActivity.this).create();
 						ad.setTitle(getResources().getString(
 								R.string.title_about));
 						
@@ -157,17 +153,21 @@ public class UserSettingActivity extends PreferenceActivity {
 						
 						//Log.d("OnprefChange", "newValue="+newValue.toString());
 						Uri ringtoneUri = Uri.parse((String) newValue);
-						String name = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri).getTitle(UserSettingActivity.this);
-						if (name.equals("cygnus.ogg"))
-							name = "cygnus";
-						preference.setSummary( name);
-						// Save Ringtone to preferences
-						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-						SharedPreferences.Editor editor = prefs.edit();
-						editor.putString("ringtone", ringtoneUri.toString());
-						editor.commit();
-
-						return true;
+						Ringtone ringtone = RingtoneManager.getRingtone(UserSettingActivity.this, ringtoneUri);
+						if( ringtone != null )
+						{
+							String name = ringtone.getTitle(UserSettingActivity.this);
+							if (name.equals("cygnus.ogg"))
+								name = "cygnus";
+							preference.setSummary( name );
+							// Save Ringtone to preferences
+							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+							SharedPreferences.Editor editor = prefs.edit();
+							editor.putString("ringtone", ringtoneUri.toString());
+							editor.commit();
+							return true;
+						}
+						return false;
 					}
 				});
 		
@@ -373,7 +373,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	}
 
 	/**
-	 * @brief TODO Wenn es nicht der knoten ist, soll es geschlossen werden
+	 * @brief Wenn es nicht die einzig offene Activity ist, soll es geschlossen werden
 	 */
 	@Override
 	public void onBackPressed() {
@@ -384,7 +384,7 @@ public class UserSettingActivity extends PreferenceActivity {
 			super.onBackPressed();
 	}
 	/**
-	 * @brief //TODO
+	 * @brief Beendet alle Medienwiedergaben falls APP in den Hintergrund kommt.
 	 */
 	@Override
 	public void onPause() {		
@@ -402,7 +402,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		super.onPause();
 	}
 	/**
-	 * @brief //TODO
+	 * @brief Beendet alle Medienwiedergaben falls APP in den Hintergrund kommt.
 	 */
 	@Override
 	public void onStop() {
@@ -481,7 +481,6 @@ public class UserSettingActivity extends PreferenceActivity {
 	    //Save file to directory if device has no ringtone
 	    if (i==0){
 		    //Import cygnus.ogg for devices without ringtones
-	    	Log.e("Import","You had no Ringtones");
 		    int MySongName = R.raw.cygnus;
 	    	FileHandler h = new FileHandler("cygnus.ogg");
 	    	h.saveAudio(MySongName, UserSettingActivity.this);
@@ -501,7 +500,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	}
 	
 	/**
-	 * @brief TODO
+	 * @brief Setzt die Summaries der Felder auf die vorher getroffene Auwahl oder den Standart.
 	 */
 	@SuppressWarnings("deprecation")
 	private void setSummaries(){
@@ -526,16 +525,23 @@ public class UserSettingActivity extends PreferenceActivity {
 			editor.commit();
 			// Sets the default Alarm to the chosen Value
 			ringtonepref.setValue(ringtoneUri.toString());
+			ringtonename = ringtoneUri.toString();
 		} else
 			ringtoneUri = Uri.parse(ringtonename);
 
 		Ringtone ringtone = RingtoneManager.getRingtone(
-				UserSettingActivity.this, ringtoneUri);
-		String name = ringtone.getTitle(UserSettingActivity.this);
-		// release Ringtone
-		ringtone.stop();
+				UserSettingActivity.this, ringtoneUri);		
+		
+		if (ringtone != null){ 
+			String name = ringtone.getTitle(UserSettingActivity.this);
 
-		// Set summary of Alarm
-		ringtonepref.setSummary(name);
+			if (name.equals("cygnus.ogg"))
+				name = "cygnus";
+			// Set summary of Alarm
+			ringtonepref.setSummary(name);
+
+			// release Ringtone
+			ringtone.stop();
+		}		
 	}
 }

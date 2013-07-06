@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -180,9 +179,6 @@ public class Week extends Activity {
 		// Alle deaktivieren
 		disableWeek();
 		disableAllTimeSlots();
-		// TODO: kann weg oder? Disable all
-		//
-
 		// Zeitdaten aus der Datenbank holen
 		if (getWeekFromDatabase()) {
 			// Zeiten wï¿½hlbar
@@ -219,11 +215,8 @@ public class Week extends Activity {
 		saveWeek.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Daten in Datenbank ï¿½berfï¿½hren
-				// TODO: Make faster Duration on S3:~500ms
-				final long t0 = System.currentTimeMillis();
+				// Daten in Datenbank schreiben
 				writeWeekToDatabase();
-				Log.e("Duration",System.currentTimeMillis()-t0+"ms");
 				// Alle Einstellungen erfolgreich gespeichert
 				saveAllTimeSlots = true;
 				// Alarm setzen				
@@ -259,7 +252,7 @@ public class Week extends Activity {
 	}
 
 	/**
-	 * @brief zurÃ¼ck zu {@link UserSettingActivity}
+	 * @brief zurÃ¼ck zu {@link UserSettingActivity} mit Abfrage, falls die Auswahl nicht gespeichert wurde
 	 */
 	@Override
 	public void onBackPressed() {
@@ -383,8 +376,8 @@ public class Week extends Activity {
 	}
 
 	/**
-	 * @brief Alle Buttons werden enabled
-	 * @param enable
+	 * @brief Alle Buttons werden enabled(grÃ¼n)
+	 * @param enable true-> wenn der Button enabled werden soll, sonst false
 	 */
 	private void activateAllTimes(boolean enable) {
 		for (Button aButtonHandler : ButtonHandler) {
@@ -393,7 +386,7 @@ public class Week extends Activity {
 	}
 
 	/**
-	 * @brief Markiert innerhalb den Woche den korrekten Wochentag
+	 * @brief Markiert innerhalb der Woche den korrekten Wochentag
 	 */
 	private void clickCurrentDay() {
 		switch (alarm.getCurrentWeekDay()) {
@@ -424,28 +417,28 @@ public class Week extends Activity {
 	}
 
 	/**
-	 * @brief Alle Tage innerhalb der Woche werden orange gefärbt
+	 * @brief Alle Tage innerhalb der Woche werden orange gefï¿½rbt
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableWeek() {
 		mon.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		tue.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		wed.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		thur.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		fri.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		sat.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		sun.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 	
 	/**
-	 * @brief Zeitslots in der ersten Reihe orange färben
+	 * @brief Zeitslots in der ersten Reihe orange fï¿½rben
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow1() {
@@ -457,59 +450,59 @@ public class Week extends Activity {
 		// es nutzen
 
 		timeslot1.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot2.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot3.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot4.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 	/**
-	 * @brief Zeitslots in der zweiten Reihe orange färben
+	 * @brief Zeitslots in der zweiten Reihe orange fï¿½rben
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow2() {
 		timeslot5.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot6.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot7.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 
 	/**
-	 * @brief Zeitslots in der dritten Reihe orange färben
+	 * @brief Zeitslots in der dritten Reihe orange fï¿½rben
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow3() {
 		timeslot8.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot9.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot10.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot11.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 	/**
-	 * @brief Zeitslots in der vierten Reihe orange färben
+	 * @brief Zeitslots in der vierten Reihe orange fï¿½rben
 	 */
 	@SuppressWarnings("deprecation")
 	private void disableRow4() {
 		timeslot12.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot13.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot14.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 		timeslot15.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.button_red));
+				R.drawable.button_red_chooser));
 	}
 
 	/**
-	 * @brief Übergebener Button wird grün gefärbt
-	 * @param bnt wird grün gesetzt
+	 * @brief ï¿½bergebener Button wird grï¿½n gefï¿½rbt
+	 * @param bnt wird grï¿½n gesetzt
 	 */
 	@SuppressWarnings("deprecation")
 	private void setButtonSelect(Button bnt) {
@@ -519,7 +512,7 @@ public class Week extends Activity {
 		}
 	}
 	/**
-	 * @brief Alle Zeitslots werde zurück gesetzt (Orange)
+	 * @brief Alle Zeitslots werde zurï¿½ck gesetzt (Orange)
 	 */
 	private void disableAllTimeSlots() {
 		disableRow1();
@@ -564,13 +557,13 @@ public class Week extends Activity {
 		HashMap<Integer,String[]> DayTime = new HashMap<Integer,String[]>();
 		// Datenbankverbindung aufbauen
 		SQLHandler db = new SQLHandler(Week.this);
-		// alle Tage löschen
+		// alle Tage lï¿½schen
 		db.deleteAllDayTime();
 		// jeden Wochentag durchgehen
 		for (Day aWeek : week) {
 			// wurde Wochentag gesetzt?
 			if (aWeek != null) {
-				// Map füllen
+				// Map fï¿½llen
 				DayTime.put(aWeek.getWeekID(), aWeek.getTimeSlots());
 			}
 		}
@@ -693,8 +686,8 @@ public class Week extends Activity {
 	* rID View ID vom Objekt
 	* weekID ID im week-Array
 	* timeSlots Uhrzeiten der Buttons
-	* timeSlotsButton ButtonObject, welche gewählt wurden
-	* timeSlotID Anzahl der gewählten Buttons  
+	* timeSlotsButton ButtonObject, welche gewï¿½hlt wurden
+	* timeSlotID Anzahl der gewï¿½hlten Buttons  
 	* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 	* @date 20/06/2013
 	* @file Week.java
@@ -717,7 +710,7 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief ID gibt die ID innerhalb der Woche zurück, anhand der View ID
+		 * @brief ID gibt die ID innerhalb der Woche zurï¿½ck, anhand der View ID
 		 * @param rID View ID
 		 * @return ID ID der Woche
 		 */
@@ -744,7 +737,7 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief gibt die View ID zurück, anhand der ID in der Woche
+		 * @brief gibt die View ID zurï¿½ck, anhand der ID in der Woche
 		 * @param wID ID der Woche
 		 * @return View ID
 		 */
@@ -771,7 +764,7 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief Gibt die ID des Tages innerhalb der Woche zurück
+		 * @brief Gibt die ID des Tages innerhalb der Woche zurï¿½ck
 		 * @return ID der Woche
 		 */
 		public int getWeekID() {
@@ -812,8 +805,8 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief Gibt die 4 gewählten Zeiten des Tages zurück
-		 * @return String-Array mit allen 4 Zeiten für den Tag
+		 * @brief Gibt die 4 gewï¿½hlten Zeiten des Tages zurï¿½ck
+		 * @return String-Array mit allen 4 Zeiten fï¿½r den Tag
 		 */
 		public String[] getTimeSlots() {
 			return timeSlots;
@@ -834,14 +827,13 @@ public class Week extends Activity {
 					this.timeSlots[this.timeSlotID] = time;
 					// zugehï¿½rigen Button speichern
 					this.timeSlotsButton[this.timeSlotID] = aHandler;
-					// this.timeSlotID = (this.timeSlotID+1)%4;
 					this.timeSlotID++;
 				}
 			}
 		}
 
 		/**
-		 * @brief Gibt die View ID zurück, des Tages innerhalb der Wochenzeile
+		 * @brief Gibt die View ID zurï¿½ck, des Tages innerhalb der Wochenzeile
 		 * @return View ID vom Button innerhalb der Woche
 		 */
 		public int getViewID() {
@@ -849,7 +841,7 @@ public class Week extends Activity {
 		}
 
 		/**
-		 * @brief Gibt die 4 gewählten Buttons zurück
+		 * @brief Gibt die 4 gewï¿½hlten Buttons zurï¿½ck
 		 * @return 4 gesetze Zeitslots-Buttons
 		 */
 		public Button[] getTimeSlotsButton() {

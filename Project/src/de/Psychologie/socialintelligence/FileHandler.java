@@ -1,12 +1,14 @@
 package de.Psychologie.socialintelligence;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.channels.FileChannel;
 
 import android.content.Context;
 import android.os.Environment;
@@ -16,7 +18,7 @@ import android.os.Environment;
 
 /**
 * @class FileHandler
-* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio).
+* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio). //TODO
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file FileHandler.java
@@ -56,7 +58,7 @@ public class FileHandler {
 	}
 
 	/**
-	 * @brief TODO
+	 * @brief Speichert die mitgebrachte Audiodatei auf dem Ger�t
 	 * @param resSoundId
 	 * @param context
 	 * @return Ob Speichern erfolgreich verlief
@@ -97,5 +99,35 @@ public class FileHandler {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * @brief Speichert die Datenbank in den �ffentlich zug�nglichen Ordner
+	 * @param SQLHandler
+	 * @return Ob Speichern erfolgreich verlief
+	 */
+	@SuppressWarnings("resource")
+	public boolean saveDatabase(SQLHandler db){
+		 try {
+		        File sd = new File(Environment.getExternalStorageDirectory(),"Socialintelligence");
+		        File data = Environment.getDataDirectory();
+
+		        if (sd.canWrite()) {
+		            String currentDBPath = "//data//de.Psychologie.socialintelligence//databases//socialintelligence.db";
+		            File currentDB = new File(data, currentDBPath);	
+		            File backupDB = new File(sd, this.filename);
+		            if (currentDB.exists()) {
+		                FileChannel src = new FileInputStream(currentDB).getChannel();
+		                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+		                dst.transferFrom(src, 0, src.size());
+		                src.close();
+		                dst.close();
+				    	return true;
+		            }
+		        }
+		    } catch (Exception e) {
+				e.printStackTrace();
+		    	return false;
+		    }
+		return false;		
 	}
 }

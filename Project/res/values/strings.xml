@@ -21,6 +21,7 @@
     <string name="version">Version:</string>
     <string name="next">Weiter</string>
     <string name="OK">OK</string>
+    <string name="db_success">Datenbank wurde gerettet. Bitte kontaktieren Sie die Entwickler.</string>
     <string name="override">Überschreiben</string>
     <string name="keepboth">Datei umbenennen</string>
     <string name="password_changed">Passwort geändert.</string>
@@ -68,6 +69,8 @@
     <string name="settings_email_to">Empfängeradresse</string>
     <string name="settings_email_subject">Betreff</string>
     <string name="settings_email">Email Einstellungen</string>
+    <string name="settings_backup">Datenrettung</string>
+    <string name="settings_Database_backup">Datenbank exportieren</string>
     <string name="settings_general">Daten Verwaltung</string>
     <string name="std_Email_Adress">StandartAdresse@st.ovgu.de</string>
     <string name="std_Email_Subject">[Socialintelligence]Export \u0025c</string>

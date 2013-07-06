@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 
 /**
@@ -45,7 +44,7 @@ public class BootActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Log.v("test","BootActivity");
+//		Log.v("test","BootActivity");
 		
 		// Alarm holen
 		alarm = new Alarm(this);
