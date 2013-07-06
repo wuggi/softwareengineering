@@ -18,7 +18,7 @@ import android.os.Environment;
 
 /**
 * @class FileHandler
-* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio). //TODO
+* @brief Diese Klasse erleichtert das erstellen von Dateien wie CSV (Text) oder MP3 (Audio).
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 * @file FileHandler.java
@@ -30,6 +30,11 @@ public class FileHandler {
 		this.filename = filename;
 	}
 
+	/**
+	 * @brief Speichert Text in eine UTF-8 formatierte Datei in dem Ordner Sociallintelligence.
+	 * @param context Standart Kontext
+	 * @return Uri der erzeugten Datei oder null
+	 */
 	public File createExternalFile(String context) {
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 			File Dir = new File(Environment.getExternalStorageDirectory(),"Socialintelligence");
@@ -59,8 +64,8 @@ public class FileHandler {
 
 	/**
 	 * @brief Speichert die mitgebrachte Audiodatei auf dem Ger�t
-	 * @param resSoundId
-	 * @param context
+	 * @param resSoundId AudioDatei
+	 * @param context Standart Kontext
 	 * @return Ob Speichern erfolgreich verlief
 	 */
 	public boolean saveAudio(int resSoundId, Context context) {
@@ -102,11 +107,10 @@ public class FileHandler {
 	}
 	/**
 	 * @brief Speichert die Datenbank in den �ffentlich zug�nglichen Ordner
-	 * @param SQLHandler
 	 * @return Ob Speichern erfolgreich verlief
 	 */
 	@SuppressWarnings("resource")
-	public boolean saveDatabase(SQLHandler db){
+	public boolean saveDatabase(){
 		 try {
 		        File sd = new File(Environment.getExternalStorageDirectory(),"Socialintelligence");
 		        File data = Environment.getDataDirectory();

@@ -3,20 +3,21 @@
     android:title="@string/settings_admin" >
 
     <PreferenceCategory android:title="@string/settings_general" >
-    <Preference
-        android:key="password"
-        android:title="@string/settings_password_change" >
-    </Preference>
-    <Preference
-        android:key="button_export"
-        android:title="@string/settings_export" >
-    </Preference>
-    <Preference
-        android:enabled="false"
-        android:key="button_export_email"
-        android:title="@string/settings_export_email" >
-    </Preference>
+        <Preference
+            android:key="password"
+            android:title="@string/settings_password_change" >
+        </Preference>
+        <Preference
+            android:key="button_export"
+            android:title="@string/settings_export" >
+        </Preference>
+        <Preference
+            android:enabled="false"
+            android:key="button_export_email"
+            android:title="@string/settings_export_email" >
+        </Preference>
     </PreferenceCategory>
+
     <Preference
         android:enabled="false"
         android:key="button_reset"
@@ -29,17 +30,16 @@
             android:persistent="true"
             android:title="@string/settings_email_to" />
         <EditTextPreference
+            android:dialogMessage="@string/subjectHelp"
             android:key="emailsubject"
             android:persistent="true"
-            android:title="@string/settings_email_subject"              
-            android:dialogMessage="@string/subjectHelp"/>
+            android:title="@string/settings_email_subject" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/settings_backup">
-    <Preference
-        android:key="button_backup"
-        android:title="@string/settings_Database_backup" >
-    </Preference>
-    
+    <PreferenceCategory android:title="@string/settings_backup" >
+        <Preference
+            android:key="button_backup"
+            android:title="@string/settings_Database_backup" >
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>

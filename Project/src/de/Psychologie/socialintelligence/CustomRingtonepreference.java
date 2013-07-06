@@ -15,12 +15,11 @@ import android.util.AttributeSet;
 
 /**
 * @class CustomRingtonepreference
-* @brief Klingeltonauswahl
-* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @brief Diese Klasse ahmt die Funktion des Ringtonedialogs nach, da dieser optisch nicht manipulierbar ist. 
+* Der hier erzeugte ist in jeder Form anpassbar.
+* @author Jens Wiemann
 * @date 16/06/2013
 * @file CustomRingtonepreference.java
-*
-* @brief Diese Klasse ahmt die Funktion des Ringtonedialogs nach, da dieser optisch nicht manipulierbar ist. Der hier erzeugte ist in jeder Form anpassbar.
 * 
 */ 
 public class CustomRingtonepreference extends ListPreference{
@@ -49,10 +48,10 @@ public CustomRingtonepreference(Context context) {
     super(context);
 }
 /**
- * Sets the value of the key. This should be one of the entries in
- * {@link #getEntryValues()}.
+ * Setzt die Werte zu den Einträgen. Diese sollten aus
+ * {@link #getEntryValues()} sein.
  * 
- * @param value The value to set for the key.
+ * @param value Der Wert der hinter den Einträgen Steht.
  */
 public void setValue(String value) {
     mValue = value;
@@ -60,9 +59,9 @@ public void setValue(String value) {
     persistString(value);
 }
 /**
- * @brief Sets the value to the given index from the entry values.
+ * @brief Ordnet einem Wert einer Position in der Liste zu.
  * 
- * @param index The index of the value to set.
+ * @param index Der gewünschte Index in der Liste.
  */
 public void setValueIndex(int index) {
     if (mEntryValues != null) {
@@ -71,19 +70,19 @@ public void setValueIndex(int index) {
 }
 
 /**
- *@brief Returns the value of the key. This should be one of the entries in
- * {@link getEntryValues()}.
+ *@brief Gibt den Wert des Eintrags zurück und sollte aus
+ * {@link getEntryValues()} sein.
  * 
- * @return The value of the key.
+ * @return Wert des Eintrags(URI)
  */
 public String getValue() {
     return mValue; 
 }
 
 /**
- * Returns the entry corresponding to the current value.
  * 
- * @return The entry corresponding to the current value, or null.
+ * 
+ * @return Gibt den Wert des anktuellen Eintrags zurück oder null.
  */
 public CharSequence getEntry() {
     int index = getValueIndex();
@@ -104,12 +103,15 @@ public CharSequence getEntry() {
     }
     return -1;
 }
-
+ 
 private int  getValueIndex() {
 
     return findIndexOfValue(mValue);
 }
-
+/**
+ *@brief Bereitet den Dialog zur wiedergabe vor.
+ * 
+ */
 @Override
 protected void onPrepareDialogBuilder(Builder builder) {
     super.onPrepareDialogBuilder(builder);
@@ -149,6 +151,10 @@ protected void onPrepareDialogBuilder(Builder builder) {
     builder.setNegativeButton("Abbrechen", this);
 }
 
+/**
+ *@brief Spielt das gewählte lied ab.
+ * 
+ */
 private void playSong(String path) throws IllegalArgumentException,
     IllegalStateException, IOException {
 
@@ -160,6 +166,10 @@ private void playSong(String path) throws IllegalArgumentException,
     mMediaPlayer.start();
 }
 
+/**
+ *@brief Stellt den letzten Zustand wieder her.
+ * 
+ */
 @Override
 protected void onRestoreInstanceState(Parcelable state) {
     if (state == null || !state.getClass().equals(SavedState.class)) {
@@ -174,8 +184,8 @@ protected void onRestoreInstanceState(Parcelable state) {
 }
 /**
 * @class SavedState
-* @brief Standart Status speicherung
-* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @brief Standart Status speicherung nach Android Objekten
+* @author Jens Wiemann
 * @date 16/06/2013
 */ 
 private static class SavedState extends BaseSavedState {
@@ -208,7 +218,9 @@ private static class SavedState extends BaseSavedState {
         }
     };
 }
-
+/**
+* @brief Speichert das Resultat und beendet den MediaPlayer
+*/ 
  @Override
 	protected void onDialogClosed(boolean positiveResult) {
 		super.onDialogClosed(positiveResult);
@@ -233,16 +245,25 @@ private static class SavedState extends BaseSavedState {
 		}
 	}
 
+/**
+* @brief Gibt den Default Wert zurück.
+*/ 
 @Override
 protected Object onGetDefaultValue(TypedArray a, int index) {
     return a.getString(index);
 }
 
+/**
+* @brief Speichert den Initialen Wert
+*/ 
 @Override
 protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
     setValue(restoreValue ? getPersistedString(mValue) : (String) defaultValue);
 }
 
+/**
+* @brief Da Status persistent sein soll muss dieser hier gespeichert werden.
+*/ 
 @Override
 protected Parcelable onSaveInstanceState() {
     final Parcelable superState = super.onSaveInstanceState();

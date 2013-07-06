@@ -13,7 +13,7 @@ import android.util.Log;
 
 /**
 * @class SQLHandler
-* @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
+* @author Christian Steusloff
 * @brief Datenbank Implementation mit SQLite
 * @date 16/06/2013
 * @file SQLHandler.java
@@ -237,9 +237,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 				}while(c.moveToNext());
 			}
 		}
-		else {
-			Log.i("cursor", "=null");
-		}
 		c.close();
 		return context;
 	}
@@ -382,7 +379,6 @@ public class SQLHandler extends SQLiteOpenHelper {
 	public void addUserCode(String code){
 		SQLiteDatabase db= this.getWritableDatabase();
 		
-		Log.v("code",code);
 		//content Typ, to import String code as table value
 		ContentValues cv = new ContentValues();
 		cv.put("code", code);
@@ -537,8 +533,10 @@ public class SQLHandler extends SQLiteOpenHelper {
 	 * @return Zeitpunkt des nächsten Alarms
 	 */
 	public String getNextTimeFromDayTime(int day,String time){
-		Log.v("tag",String.valueOf(day));
-		Log.v("time",time);
+		if(BuildConfig.DEBUG){
+			Log.v("tag",String.valueOf(day));
+			Log.v("time",time);
+		}
 		String res = "00:00:00";
 		SQLiteDatabase db = this.getReadableDatabase();
 		// Suche heute nach m�glicher Alarmzeit

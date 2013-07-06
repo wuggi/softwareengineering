@@ -21,7 +21,7 @@
     <string name="version">Version:</string>
     <string name="next">Weiter</string>
     <string name="OK">OK</string>
-    <string name="db_success">Datenbank wurde gerettet. Bitte kontaktieren Sie die Entwickler.</string>
+    <string name="db_success">Datenbank wurde gespeichert. Bitte kontaktieren Sie einen Entwickler.</string>
     <string name="override">Überschreiben</string>
     <string name="keepboth">Datei umbenennen</string>
     <string name="password_changed">Passwort geändert.</string>
@@ -84,7 +84,6 @@
     <string name="txtPopPollInfo0">Mit wie vielen Interaktionspartnern hatten Sie &lt;b&gt;heute&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
     <string name="txtPopPollInfo1">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten Signal um &lt;b&gt;%s Uhr&lt;/b&gt; Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
     <string name="txtPopPollInfo2">Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten &lt;b&gt;gestriegen&lt;/b&gt; Signal um &lt;b&gt;%s Uhr&lt;/b&gt; schon Kontakt? Schätzen Sie bitte zusätzlich die Gesamtdauer der Kontakte ein.</string>
-    <string name="title_activity_numpicker">Numpicker</string>
     <string name="Warning">Warnung!</string>
     <string name="overrideFile">Die Datei mit dem Nutzercode existiert bereits.</string>
     <string name="subjectHelp">Sie können folgende Codes in Ihrem Betreff verwenden:\n\u0025c\t\tBenutzercode\n\u0025s\t\tStart Datum\n\u0025e\t\tEnd Datum</string>

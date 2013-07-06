@@ -10,6 +10,7 @@ import android.app.Activity;
  *
  */
 
+@SuppressWarnings("unused")
 public class AlarmHandler extends Activity{
 	private Alarm pollAlarm;
 	
@@ -17,7 +18,7 @@ public class AlarmHandler extends Activity{
 		this.pollAlarm = pollAlarm;
 	}
 	
-	// TODO: setSnooze, damit nicht an zwei Stellen �hnlicher Code steht
+// TODO: setSnooze, damit nicht an zwei Stellen �hnlicher Code steht
 	
 //	protected void setSnooze(int snoozetime){
 //		// pr�fen, ob Snoozetime nicht gr��er ist als die Zeit bis zum n�chsten Alarm

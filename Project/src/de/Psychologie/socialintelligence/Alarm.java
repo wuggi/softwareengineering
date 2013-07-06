@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -114,6 +115,7 @@ public class Alarm{
 	 * @return res
 	 * @brief Setzen des naechsten oder ersten Alarm
 	 */
+	@SuppressWarnings("deprecation")
 	public boolean setNextAlarm(boolean firstAlarm){
 		int lastHour = firstAlarm?23:19;
 		//Log.v("test","lastHour " + String.valueOf(lastHour));
@@ -202,6 +204,8 @@ public class Alarm{
 	 * @brief Differenz in Minuten zwischen aktueller Zeit und n�chstem Alarm
 	 * @return Differenz in Minuten
 	 */
+	@SuppressLint("SimpleDateFormat")
+	@SuppressWarnings("deprecation")
 	public int getDifferenceToNextAlarm(){
 		// Parser f�r Uhrzeit, setzt Datum auf 01.01.1970
 		DateFormat df = new SimpleDateFormat("hh:mm:ss");

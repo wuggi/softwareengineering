@@ -50,23 +50,6 @@
             android:key="button_about"
             android:title="@string/settings_about" >
         </Preference>
-        <!--
-         * Nur zum Testen        
-		 * Dafuer muss auch in der Datei src/de.Psycho[..]/UserSettingsActivity.java der Teil ausauskommentiert werden!
-        -->
-        
-        <Preference
-            android:icon="@drawable/ic_menu_info_details"
-            android:key="button_test"
-            android:title="(WECKER)" >
-        </Preference>
-        <Preference
-            android:icon="@drawable/ic_menu_info_details"
-            android:key="button_poll"
-            android:title="(UMFRAGE)" >
-        </Preference>
-        
-
     </PreferenceCategory>
 
 </PreferenceScreen>

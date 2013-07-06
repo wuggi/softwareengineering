@@ -79,33 +79,6 @@ public class UserSettingActivity extends PreferenceActivity {
 					}
 				});
 		
-		/*
-		 * Dafuer muss auch in der Datei res/xml/preferences.xml der Teil ausauskommentiert werden!
-		*/
-
-		Preference button_poll = findPreference("button_poll");
-		button_poll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-					@Override
-					public boolean onPreferenceClick(Preference arg0) {
-						startActivity(new Intent(UserSettingActivity.this,
-								PopPollActivity.class));
-						return true;
-					}
-				});		
-		
-
-		Preference button_test = findPreference("button_test");
-		button_test
-		.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick(Preference arg0) {
-				startActivity(new Intent(UserSettingActivity.this,	Alarm_Activity.class));
-				return true;
-			}
-				});
-		
-		
-		
 		Preference button_about = findPreference("button_about");
 		button_about
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

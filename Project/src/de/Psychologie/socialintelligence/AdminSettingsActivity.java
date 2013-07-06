@@ -46,12 +46,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	 * 
 	 */
 	private static Uri filedir=null;
-	/**
-	 * @brief OnStart ist der Alarm Ã¼berflÃ¼ssig
-	 */
 	private Alarm alarm;
-	
-	
+
+	/**
+	 * @brief Erzeugung des Adminmenüs inclusive der Funktionalitäten
+	 */	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		/**
@@ -153,7 +152,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						return true;
 					}
 				});			
-		
+		//Reset Knopf
 		final Preference button_reset = findPreference("button_reset");
 		button_reset
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -178,7 +177,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				        return true;
 					}
 				});
-		
+		//Export Knopf
 		final Preference button_export = findPreference("button_export");
 		button_export
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -321,7 +320,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 				        return true;
 					}
 				});	
-		
+		//Passwort ändern Knopf
 		Preference button_password_change2 = findPreference("password");
 		button_password_change2
 				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -395,7 +394,7 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	}
 	
 	/**
-	 * @brief Email 
+	 * @brief Aktuallisiert die Summaries der Knöpfe
 	 */
 	@Override
 	protected void onStart() {
@@ -477,14 +476,13 @@ public class AdminSettingsActivity extends PreferenceActivity {
 	 */
 	//Save Database to public storage
 	private void backupDatabase(){
-		SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
     	Calendar cal = Calendar.getInstance();
     	cal.getTime();
 		FileHandler file = new FileHandler("datenbank_"+Long.toHexString(cal.getTimeInMillis())+ ".db");
-		if (file.saveDatabase(db))
+		if (file.saveDatabase())
 			Toast.makeText(getApplicationContext(),getResources().getString(R.string.db_success), Toast.LENGTH_LONG).show();	
 		else
-			if (file.saveDatabase(db))
+			if (file.saveDatabase())
 				Toast.makeText(getApplicationContext(),getResources().getString(R.string.db_success), Toast.LENGTH_LONG).show();
 		try{
 		//Updates the fileindex so the files are visible on a PC
