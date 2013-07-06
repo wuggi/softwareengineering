@@ -106,6 +106,7 @@ public class MainActivity extends Activity {
   		    <li>sonst, Eingabe des Usercodes</li>
 		</ul>
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -172,9 +173,8 @@ public class MainActivity extends Activity {
 		}
 	}
 
-    //menue taste deaktiviert ansonsten das Blinken der texteingabe
 	/**
-	 * @brief //TODO
+	 * @brief Das drücken der Menütaste unterbricht das Blinken des Cursors in der Texteingabe, desshalb wird es hier abgefangen.
 	 * @param int keycode
 	 */
 	@Override

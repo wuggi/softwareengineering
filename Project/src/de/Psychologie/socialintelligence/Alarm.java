@@ -10,8 +10,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.text.format.Time;
-import android.util.Log;
 
 /**
 * @class Alarm
@@ -140,7 +138,7 @@ public class Alarm{
 			alarmDay = currentDate;
 		}
 		
-		Log.v("neue Alarmzeit",nextAlarmTime);
+		//Log.v("neue Alarmzeit",nextAlarmTime);
 		
 		// neue Alarmzeit geholt
 		if(nextAlarmTime.compareTo("00:00:00") != 0){
@@ -237,10 +235,10 @@ public class Alarm{
 		
 		// Uhrzeit in Millisekunden
 		long cT = currentTime.getTime();
-		Log.v("aktuelleZeit",String.valueOf(cT));
+		//Log.v("aktuelleZeit",String.valueOf(cT));
 		// Uhrzeit in Millisekunden
 		long nT = nextTime.getTime();
-		Log.v("nächste Zeit",String.valueOf(nT));
+		//Log.v("nächste Zeit",String.valueOf(nT));
 		// return difference in minutes
 		return (int) (nT - cT)/60000;
 	}
@@ -271,7 +269,6 @@ public class Alarm{
 	/**
 	 * @brief startet AlarmManager
 	 */
-	//TODO: if alarm_activity was already started, resume it
 	private void startAlarm(){
 		stopSnooze();
     	// bei Alarmstart die Umfrage aufrufen

@@ -68,6 +68,8 @@
     <string name="settings_email_to">Empfängeradresse</string>
     <string name="settings_email_subject">Betreff</string>
     <string name="settings_email">Email Einstellungen</string>
+    <string name="settings_backup">Datenrettung</string>
+    <string name="settings_Database_backup">Datenbank exportieren</string>
     <string name="settings_general">Daten Verwaltung</string>
     <string name="std_Email_Adress">StandartAdresse@st.ovgu.de</string>
     <string name="std_Email_Subject">[Socialintelligence]Export \u0025c</string>

@@ -28,8 +28,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -52,13 +50,11 @@ public class UserSettingActivity extends PreferenceActivity {
 	private boolean altUri= false;
 	private boolean tested= false;
 	private boolean playing=false;
-	
-	//TODO: why is this always created?
 
 	private MediaPlayer mMediaPlayer;
 
 	/**
-	 * @brief //TODO
+	 * @brief Erzeugt die Menüansicht mit all ihren Funktionalitäten.
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
@@ -377,7 +373,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	}
 
 	/**
-	 * @brief TODO Wenn es nicht der knoten ist, soll es geschlossen werden
+	 * @brief Wenn es nicht der knoten ist, soll es geschlossen werden
 	 */
 	@Override
 	public void onBackPressed() {
@@ -388,7 +384,7 @@ public class UserSettingActivity extends PreferenceActivity {
 			super.onBackPressed();
 	}
 	/**
-	 * @brief //TODO
+	 * @brief Beendet alle Medienwiedergaben falls APP in den Hintergrund kommt.
 	 */
 	@Override
 	public void onPause() {		
@@ -406,7 +402,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		super.onPause();
 	}
 	/**
-	 * @brief //TODO
+	 * @brief Beendet alle Medienwiedergaben falls APP in den Hintergrund kommt.
 	 */
 	@Override
 	public void onStop() {
@@ -485,7 +481,6 @@ public class UserSettingActivity extends PreferenceActivity {
 	    //Save file to directory if device has no ringtone
 	    if (i==0){
 		    //Import cygnus.ogg for devices without ringtones
-	    	Log.e("Import","You had no Ringtones");
 		    int MySongName = R.raw.cygnus;
 	    	FileHandler h = new FileHandler("cygnus.ogg");
 	    	h.saveAudio(MySongName, UserSettingActivity.this);
@@ -505,7 +500,7 @@ public class UserSettingActivity extends PreferenceActivity {
 	}
 	
 	/**
-	 * @brief TODO
+	 * @brief Setzt die Summaries der Felder auf die vorher getroffene Auwahl oder den Standart.
 	 */
 	@SuppressWarnings("deprecation")
 	private void setSummaries(){

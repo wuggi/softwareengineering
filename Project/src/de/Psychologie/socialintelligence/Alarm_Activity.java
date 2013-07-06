@@ -18,7 +18,6 @@ import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,12 +45,13 @@ public class Alarm_Activity extends Activity {
 	private boolean vibrate = true;
 	private Vibrator vib;
 	private NotificationManager notificationManager = null;
-	private boolean pauseOK=true;
+	//private boolean pauseOK=true;
 	
 	/**
 	 * @param savedInstanceState
 	 * @brief Erzeugt eine Fullscreen View mit angeschaltetem Bildschirm, Klingelton und Vibration so wie in den Einstellungen hinterlegt.
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public class Alarm_Activity extends Activity {
 		btn_action.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				pauseOK=true;
+				//pauseOK=true;
 				closeAll();
 				startActivity(new Intent(Alarm_Activity.this,PopPollActivity.class));
          		overridePendingTransition(0, 0);
@@ -88,7 +88,7 @@ public class Alarm_Activity extends Activity {
 		btn_sleep.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				pauseOK=true;
+				//pauseOK=true;
 				closeAll();
 				setSnooze();
 				finish();
@@ -134,7 +134,7 @@ public class Alarm_Activity extends Activity {
 			}
 
 			public void onFinish() {
-				pauseOK=true;
+				//pauseOK=true;
 				closeAll();
 				setSnooze();
 				finish();
@@ -146,7 +146,7 @@ public class Alarm_Activity extends Activity {
 	 * @brief Snoozezeit wird gesetzt
 	 */
 	private void setSnooze(){
-		pauseOK=true;
+		//pauseOK=true;
 		//Snoozezeit aus den Settings auslesen, sonst 5 Minuten
 		String time= prefs.getString("Sleeptime", "5");
 		int snoozetime = Integer.parseInt(time);
@@ -155,15 +155,11 @@ public class Alarm_Activity extends Activity {
 		Alarm pollAlarm = new Alarm(this);
 		// prüfen, ob Snoozetime nicht größer ist als die Zeit bis zum nächsten Alarm
 		int checkDifference = pollAlarm.getDifferenceToNextAlarm();
-		Log.v("Dif zum nächsten Alarm",String.valueOf(checkDifference));
-		Log.v("Snooze",String.valueOf(snoozetime));
 		if(checkDifference > 0 && snoozetime > checkDifference){
 			// Umfrage speichern
 			Calendar cal = Calendar.getInstance();
             String date = FormatHandler.withNull(cal.get(Calendar.DAY_OF_MONTH)) + "." + FormatHandler.withNull((cal.get(Calendar.MONTH)+1)) + "." + cal.get(Calendar.YEAR);
             String alarmTime = pollAlarm.getCurrentAlarmTime();
-
-            Log.v("hier","HUHU");
             pollAlarm.setNextAlarm();
             db.setSnoozeActiv(false);
             //Werte in die DB eintragen
@@ -182,6 +178,7 @@ public class Alarm_Activity extends Activity {
 	/**
 	 * @brief Notification setzen, wenn Snooze gedrÃ¼ckt wurde
 	 */
+	@SuppressWarnings("deprecation")
 	private void setNotification(){
 		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
@@ -239,14 +236,16 @@ public class Alarm_Activity extends Activity {
 		closeAll();
 		super.onDestroy();
     }
-
+	
+	//TODO: Snooze onStop
+	// Problem: seltsames Startverhalten: ?..onStop->onCreate->onStart->..?
+	/*
 	@Override
 	public void onStart(){
 		pauseOK=false;
 		super.onStart();
-    }
+    }	
 	
-	/*
 	@Override
 	public void onStop(){
 		if (!pauseOK){

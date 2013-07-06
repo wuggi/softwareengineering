@@ -1,6 +1,7 @@
 package de.Psychologie.socialintelligence;
 
 import java.io.File;
+import java.util.Calendar;
 
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
@@ -17,7 +18,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -98,6 +98,16 @@ public class AdminSettingsActivity extends PreferenceActivity {
 						preference
 								.setSummary((String) newValue);
 						return true;
+					}
+				});
+		
+		
+		final Preference button_backup = findPreference("button_backup");
+		button_backup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference arg0) {
+							backupDatabase();							
+				        return true;
 					}
 				});
 		
@@ -187,7 +197,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 							FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
-							filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+							File tmpFile = file.createExternalFile(db.getPollCsvContext());
+							if (tmpFile!=null)
+								filedir = Uri.fromFile(tmpFile);
+							else
+								backupDatabase();
 
 							Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 							
@@ -201,6 +215,17 @@ public class AdminSettingsActivity extends PreferenceActivity {
 							SharedPreferences.Editor editor = prefs.edit();
 							editor.putBoolean("export", true);
 							editor.commit();
+							try {
+								// Updates the fileindex so the
+								// files are visible on a PC
+								sendBroadcast(new Intent(
+										Intent.ACTION_MEDIA_MOUNTED,
+										Uri.parse("file://"
+												+ Environment
+														.getExternalStorageDirectory())));
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 							break;
 						case 3:
 							AlertDialog ad = new AlertDialog.Builder(AdminSettingsActivity.this).create();
@@ -218,7 +243,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 												SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 												FileHandler file = new FileHandler(db.getUserCode()	+ ".csv");
-												filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+												File tmpFile = file.createExternalFile(db.getPollCsvContext());
+												if (tmpFile!=null)
+													filedir = Uri.fromFile(tmpFile);
+												else
+													backupDatabase();
 
 												Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 												
@@ -232,6 +261,17 @@ public class AdminSettingsActivity extends PreferenceActivity {
 												SharedPreferences.Editor editor = prefs.edit();
 												editor.putBoolean("export", true);
 												editor.commit();
+												try {
+													// Updates the fileindex so the
+													// files are visible on a PC
+													sendBroadcast(new Intent(
+															Intent.ACTION_MEDIA_MOUNTED,
+															Uri.parse("file://"
+																	+ Environment
+																			.getExternalStorageDirectory())));
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
 											dialog.dismiss();
 										}
 									});
@@ -243,7 +283,11 @@ public class AdminSettingsActivity extends PreferenceActivity {
 											SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
 
 											FileHandler file = new FileHandler(db.getUserCode()	+"("+ db.getBorderDate(false)+").csv");
-											filedir = Uri.fromFile(file.createExternalFile(db.getPollCsvContext()));
+											File tmpFile = file.createExternalFile(db.getPollCsvContext());
+											if (tmpFile!=null)
+												filedir = Uri.fromFile(tmpFile);
+											else
+												backupDatabase();
 
 											Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_export_success),Toast.LENGTH_LONG).show();
 											
@@ -258,12 +302,21 @@ public class AdminSettingsActivity extends PreferenceActivity {
 											editor.putBoolean("export", true);
 											editor.commit();
 											dialog.dismiss();
+											try {
+												// Updates the fileindex so the
+												// files are visible on a PC
+												sendBroadcast(new Intent(
+														Intent.ACTION_MEDIA_MOUNTED,
+														Uri.parse("file://"
+																+ Environment
+																		.getExternalStorageDirectory())));
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
 										}
 									});
 							ad.show();
 							break;
-						default:
-							Log.v("DBandFileStatus","ERROR - Status="+status);
 						}
 				        return true;
 					}
@@ -411,15 +464,38 @@ public class AdminSettingsActivity extends PreferenceActivity {
 			ret|=(1<<1);
 		
 		File file = new File(new File(Environment.getExternalStorageDirectory(),"Socialintelligence"), db.getUserCode()+".csv");
-		Log.i("file", file.getAbsolutePath());
 		if (file.exists())
 			ret|= 1;
 		else
 			ret&=~1;
-		Log.i("status", Byte.toString(ret));
 			
 		
 		return ret;
+	}
+	/**
+	 * @brief Sollte es zu problemen beim Export kommen, kann die Datenbank für manuellen export kopiert werden.
+	 */
+	//Save Database to public storage
+	private void backupDatabase(){
+		SQLHandler db = new SQLHandler(AdminSettingsActivity.this);
+    	Calendar cal = Calendar.getInstance();
+    	cal.getTime();
+		FileHandler file = new FileHandler("datenbank_"+Long.toHexString(cal.getTimeInMillis())+ ".db");
+		if (file.saveDatabase(db))
+			Toast.makeText(getApplicationContext(),"erfolg", Toast.LENGTH_SHORT).show();	
+		else
+			if (file.saveDatabase(db))
+				Toast.makeText(getApplicationContext(),"erfolg", Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(getApplicationContext(),"misserfolg", Toast.LENGTH_SHORT).show();	
+		try{
+		//Updates the fileindex so the files are visible on a PC
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"
+                + Environment.getExternalStorageDirectory()))); 	
+		} catch (Exception e) {
+			e.printStackTrace();
+	    }
+		
 	}
 
 	@Override

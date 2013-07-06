@@ -18,17 +18,10 @@ import android.util.AttributeSet;
 * @brief Klingeltonauswahl
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
-<<<<<<< HEAD
 * @file CustomRingtonepreference.java
 *
-* @brief //TODO Diese Klasse macht.....
-*Klingeltonauswahl
+* @brief Diese Klasse ahmt die Funktion des Ringtonedialogs nach, da dieser optisch nicht manipulierbar ist. Der hier erzeugte ist in jeder Form anpassbar.
 * 
-*
-* 
-=======
-* @file CustomRingtonepreferencer.java
->>>>>>> 9b05d11c273bfbe09b6a9a8c362ef290cbd72e0d
 */ 
 public class CustomRingtonepreference extends ListPreference{
 
@@ -177,7 +170,7 @@ protected void onRestoreInstanceState(Parcelable state) {
 }
 /**
 * @class SavedState
-* @brief //TODO
+* @brief Standart Status speicherung
 * @author Christian Steusloff, Jens Wiemann, Franz Kuntke und Patrick Wuggazer
 * @date 16/06/2013
 */ 
